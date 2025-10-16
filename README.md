@@ -42,6 +42,14 @@ pip install -r requirements.txt
 
 ## 🚀 Uso
 
+### Demo Rápido (Recomendado para empezar)
+
+```bash
+python demo.py
+```
+
+Este script demuestra todas las funcionalidades clave sin cálculos SAT costosos (~5 segundos).
+
 ### Verificación Básica
 
 ```python
@@ -83,6 +91,14 @@ conexiones, frecuencias = red_neuronal_ramsey(
     target_clique_size=4
 )
 ```
+
+### Ejecutar Tests
+
+```bash
+python run_tests.py
+```
+
+Ejecuta 16 tests unitarios que verifican todas las funcionalidades básicas.
 
 ## 📊 Resultados Certificados
 
@@ -186,8 +202,19 @@ Los vértices no son entidades pasivas, sino "nodos de consciencia" que vibran y
 ```
 Ramsey/
 ├── ramsey_vibracional.py    # Módulo principal con toda la implementación
+├── demo.py                   # Demo rápido de funcionalidades (⭐ EMPEZAR AQUÍ)
+├── run_tests.py             # Ejecutor de tests unitarios
 ├── requirements.txt          # Dependencias del proyecto
-└── README.md                # Esta documentación
+├── README.md                # Esta documentación
+├── examples/                # Ejemplos de uso
+│   ├── README.md
+│   ├── ejemplo_1_calculos_exactos.py
+│   ├── ejemplo_2_monte_carlo.py
+│   ├── ejemplo_3_redes_neuronales.py
+│   ├── ejemplo_4_exploracion_resonancia.py
+│   └── ejemplo_5_visualizacion.py
+└── tests/                   # Tests unitarios
+    └── test_ramsey_vibracional.py
 ```
 
 ## 🔗 Funciones Principales
