@@ -11,11 +11,17 @@ try:
     MATPLOTLIB_AVAILABLE = True
 except ImportError:
     MATPLOTLIB_AVAILABLE = False
-    print("Advertencia: matplotlib no disponible. Instalando...")
-    print("Ejecuta: pip install matplotlib")
+    # Installation message will be shown in functions that need it
 
 import numpy as np
 from ramsey_vibracional import generar_coloracion_vibracional
+
+
+# Constant for matplotlib installation message
+MATPLOTLIB_INSTALL_MSG = """
+matplotlib no está instalado. Para usar visualizaciones:
+  pip install matplotlib
+"""
 
 
 def visualizar_grafo_vibracional(frecuencias, eps=0.001, f0=141.7001, 
@@ -31,7 +37,7 @@ def visualizar_grafo_vibracional(frecuencias, eps=0.001, f0=141.7001,
         show: Si mostrar el gráfico
     """
     if not MATPLOTLIB_AVAILABLE:
-        print("matplotlib no está disponible para visualización")
+        print(MATPLOTLIB_INSTALL_MSG)
         return
     
     n = len(frecuencias)
@@ -80,7 +86,7 @@ def visualizar_grafo_vibracional(frecuencias, eps=0.001, f0=141.7001,
     # Título
     azules = sum(1 for c in grafo.values() if c == 'azul')
     rojas = len(grafo) - azules
-    ax.set_title(f'Grafo Vibracional K_{n}\nf₀={f0} Hz, ε={eps} Hz\n'
+    ax.set_title(f'Grafo Vibracional K_{n}\nf0={f0} Hz, eps={eps} Hz\n'
                 f'Azules: {azules}, Rojas: {rojas}', 
                 fontsize=14, fontweight='bold')
     
@@ -112,7 +118,7 @@ def visualizar_espectro_frecuencias(frecuencias, f0=141.7001, filename=None, sho
         show: Si mostrar el gráfico
     """
     if not MATPLOTLIB_AVAILABLE:
-        print("matplotlib no está disponible para visualización")
+        print(MATPLOTLIB_INSTALL_MSG)
         return
     
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
@@ -120,7 +126,7 @@ def visualizar_espectro_frecuencias(frecuencias, f0=141.7001, filename=None, sho
     # Gráfico 1: Distribución de frecuencias
     ax1.scatter(range(len(frecuencias)), frecuencias, s=100, alpha=0.7)
     ax1.axhline(y=f0, color='r', linestyle='--', linewidth=2, 
-               label=f'f₀ = {f0} Hz')
+               label=f'f0 = {f0} Hz')
     ax1.set_xlabel('Índice de Vértice', fontsize=12)
     ax1.set_ylabel('Frecuencia (Hz)', fontsize=12)
     ax1.set_title('Distribución de Frecuencias Vibracionales', fontsize=14, fontweight='bold')
@@ -132,8 +138,8 @@ def visualizar_espectro_frecuencias(frecuencias, f0=141.7001, filename=None, sho
     ax2.scatter(range(len(modulos)), modulos, s=100, alpha=0.7, c='green')
     ax2.axhline(y=0, color='r', linestyle='--', linewidth=2, label='Resonancia perfecta')
     ax2.set_xlabel('Índice de Vértice', fontsize=12)
-    ax2.set_ylabel('Frecuencia mod f₀ (Hz)', fontsize=12)
-    ax2.set_title('Distancia a Resonancia (mod f₀)', fontsize=14, fontweight='bold')
+    ax2.set_ylabel('Frecuencia mod f0 (Hz)', fontsize=12)
+    ax2.set_title('Distancia a Resonancia (mod f0)', fontsize=14, fontweight='bold')
     ax2.legend(fontsize=12)
     ax2.grid(True, alpha=0.3)
     ax2.set_ylim(-5, f0 + 5)
@@ -157,8 +163,7 @@ def ejemplo_visualizacion():
     print("="*70)
     
     if not MATPLOTLIB_AVAILABLE:
-        print("\nPor favor instala matplotlib para usar visualizaciones:")
-        print("  pip install matplotlib")
+        print(MATPLOTLIB_INSTALL_MSG)
         return
     
     # Crear frecuencias de ejemplo
