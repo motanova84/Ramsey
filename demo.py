@@ -84,10 +84,17 @@ def main():
     print("\n\n" + "="*70)
     print("✨ RESULTADOS CLAVE")
     print("="*70)
+    
+    # Valores calculados dinámicamente
+    valores_clasicos = {(3,3): 6, (4,4): 18, (5,5): 43}
+    
     print("\n📊 Comparación con Ramsey Clásico:")
-    print("  • R(3,3) clásico = 6   →  R_ψ(3,3) ≈ 5   (reducción ~17%)")
-    print("  • R(4,4) clásico = 18  →  R_ψ(4,4) ≈ 8   (reducción ~56%)")
-    print("  • R(5,5) clásico ≥ 43  →  R_ψ(5,5) ≈ 13  (reducción ~70%)")
+    for (r, s), R_clasico in valores_clasicos.items():
+        R_psi = estimar_conjetura(r, s)
+        reduccion = ((R_clasico - R_psi) / R_clasico) * 100
+        simbolo = "≥" if r == 5 and s == 5 else "="
+        print(f"  • R({r},{s}) clásico {simbolo} {R_clasico}   →  R_ψ({r},{s}) ≈ {R_psi}   (reducción ~{reduccion:.0f}%)")
+    
     
     print("\n🔍 Principios Fundamentales:")
     print("  1. Resonancia vibracional basada en f₀ = 141.7001 Hz")
