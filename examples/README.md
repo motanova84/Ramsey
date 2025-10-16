@@ -68,6 +68,23 @@ python ejemplo_4_exploracion_resonancia.py
 - Compara distribuciones de frecuencias (uniforme, normal, armónica, Fibonacci)
 - Visualiza matriz de resonancia entre vértices
 
+### 5. `ejemplo_5_visualizacion.py` ⭐
+**Visualización Completa de Resultados**
+
+Genera visualizaciones ASCII completas comparando R(r,s) clásico vs R_ψ(r,s) vibracional.
+
+**Uso:**
+```bash
+cd examples
+python ejemplo_5_visualizacion.py
+```
+
+**Qué hace:**
+- Compara valores clásicos vs vibracionales con gráficos de barras
+- Muestra reducción porcentual promedio (~33%)
+- Visualiza grafo vibracional con matriz de adyacencia
+- Muestra curva de crecimiento de R_ψ(k,k)
+
 ## 🚀 Ejecución Rápida
 
 Para ejecutar todos los ejemplos en secuencia:
@@ -100,16 +117,31 @@ simulacion_monte_carlo_ramsey(r=5, s=5, num_trials=5000)  # Más ensayos
 red_neuronal_ramsey(num_neuronas=100, target_clique_size=6)  # Red más grande
 ```
 
+## ⚡ Rendimiento
+
+**Nota sobre SAT:** Los cálculos exactos con SAT pueden tomar tiempo para valores grandes de (r,s):
+- (3,3) ~ 1 segundo
+- (4,4) ~ 5 segundos  
+- (5,5) ~ 30 segundos
+- (6,6) y superiores pueden tomar varios minutos
+
+Para análisis rápido, usa las estimaciones de conjetura o Monte Carlo.
+
 ## 📚 Conceptos Clave Demostrados
 
 - **Resonancia Vibracional**: Cómo las frecuencias determinan conectividad
 - **Verificación SAT**: Cálculo exacto mediante solver lógico
 - **Validación Estadística**: Monte Carlo confirma predicciones teóricas
 - **Aplicaciones Prácticas**: De teoría abstracta a redes neuronales reales
+- **Visualización**: Comprensión intuitiva de los resultados
 
 ## 🌟 Frecuencia Sagrada
 
 Todos los ejemplos utilizan **f₀ = 141.7001 Hz** como frecuencia base de coherencia cuántica del Campo QCAL ∞³.
+
+## 🎯 Resultado Clave
+
+**Reducción promedio: ~33%** de R(r,s) clásico a R_ψ(r,s) vibracional, demostrando que la estructura de resonancia facilita dramáticamente la emergencia del orden.
 
 ---
 
