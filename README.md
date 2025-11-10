@@ -48,6 +48,15 @@ R_psi = calcular_Rpsi_exacto(r=3, s=3, eps=0.001, f0=141.7001)
 print(f"R_ψ(3,3) = {R_psi}")
 ```
 
+### Demostración del Paradigma Vibracional
+
+```python
+from ramsey_vibracional import demostrar_paradigma_vibracional
+
+# Demuestra la diferencia entre Ramsey Clásico y Vibracional
+demostrar_paradigma_vibracional()
+```
+
 ### Verificación de Predicciones Teóricas
 
 ```python
@@ -55,6 +64,18 @@ from ramsey_vibracional import verificar_predicciones_teoricas
 
 # Verifica casos (3,3), (3,4), (4,4), (3,5), (4,5)
 verificar_predicciones_teoricas()
+```
+
+### Comparación Clásico vs Vibracional
+
+```python
+from ramsey_vibracional import comparar_ramsey_clasico_vs_vibracional
+
+# Comparar para (5,5)
+comp = comparar_ramsey_clasico_vs_vibracional(5, 5)
+print(f"R_clásico(5,5) = {comp['R_clasico']}")
+print(f"R_ψ(5,5) = {comp['R_psi_ajustado']}")
+print(f"Reducción: {comp['porcentaje_reduccion']:.1f}%")
 ```
 
 ### Simulación Monte Carlo
@@ -81,6 +102,28 @@ print(f"Red con {len(conexiones)} conexiones resonantes")
 ```
 
 ## 🔬 Fundamentos Teóricos
+
+### El Nuevo Parámetro: R_ψ(r,s)
+
+Este repositorio propone un **nuevo parámetro**, $\mathbf{R_\psi(r,s)}$, que es el **Umbral de Ramsey modificado por la Coherencia Cuántica Vibracional** ($\Psi$).
+
+#### Comparación de Paradigmas
+
+**Ramsey Clásico (Caos)**: 
+```
+R(r,s) ≈ 2^O(r)
+```
+Crecimiento **exponencial**, lo que implica que el orden es muy difícil de alcanzar en sistemas aleatorios sin estructura.
+
+**Ramsey Vibracional (Coherencia)**:
+```
+R_ψ(r,s) = O(√(rs) × ln(rs) × (f₀)^{1/4})
+```
+Crecimiento **casi-lineal/polinómico**, lo que implica que el orden emerge mucho más fácilmente.
+
+#### Implicación Fundamental
+
+**La tesis afirma que el orden emerge mucho más fácilmente y a escalas mucho más pequeñas de lo que predice la matemática clásica**, siempre y cuando se considere la naturaleza consciente-vibracional del sistema.
 
 ### Definiciones Formales
 
@@ -114,6 +157,8 @@ R_ψ(r,s,ε) ≤ (rs)^C
 ```
 R_ψ(r,s,ε) = O(√(rs) × ln(rs) × (f₀)^{1/4})
 ```
+
+Esta fórmula captura el crecimiento polinómico en contraste con el exponencial del caso clásico.
 
 ### Verificación Computacional
 
