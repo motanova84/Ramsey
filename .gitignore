@@ -19,6 +19,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual environments
 venv/
@@ -32,6 +33,7 @@ env/
 *.swp
 *.swo
 *~
+.DS_Store
 
 # OS
 .DS_Store
@@ -41,3 +43,7 @@ Thumbs.db
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Temporary files
+*.tmp
+*.log
