@@ -25,6 +25,7 @@ MANIFEST
 venv/
 ENV/
 env/
+.venv
 
 # IDEs
 .vscode/
@@ -33,6 +34,10 @@ env/
 *.swo
 *~
 .DS_Store
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Testing
 .pytest_cache/
