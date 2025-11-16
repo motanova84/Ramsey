@@ -74,3 +74,12 @@ paper/*.toc
 paper/*.bbl
 paper/*.blg
 paper/*.synctex.gz
+
+# Generated demo scripts
+r1010_demo.py
+ramsey_infinite.py
+
+# Test-generated files
+Rpsi_*_certification.json
+Rpsi_*_explanation.md
+Rpsi_*_le_*.lean
