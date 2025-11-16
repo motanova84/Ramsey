@@ -295,11 +295,13 @@ Dependencias:
 
 ## 🔐 SAT-Based Proof System
 
-**NEW**: Direct SAT-based proof of R_ψ(5,5) ≤ 16 using DIMACS CNF encoding!
+**NEW**: Direct SAT-based implementation for vibrational Ramsey bounds using DIMACS CNF encoding!
 
 ### Overview
 
-This implementation proves that there is **no** frequency assignment ω: [16] → [0, f₀) that avoids both blue K₅ and red K₅ under resonant coloring.
+This implementation provides a SAT-based approach to determine vibrational Ramsey bounds by testing whether frequency assignments exist that avoid monochromatic cliques.
+
+**Note**: Initial testing shows parameter sensitivity. With (f₀=141.7001, ε=0.037, grid=128), we find R_ψ(5,5) > 16. See `FINDINGS.md` for analysis.
 
 ### Key Features
 

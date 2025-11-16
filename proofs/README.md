@@ -6,7 +6,9 @@ This directory contains Lean 4 formal proofs for vibrational Ramsey bounds.
 
 ### `Rpsi_5_5_le_16.lean`
 
-Formal proof that R_ψ(5,5) ≤ 16.
+Formal proof template for R_ψ(5,5) bound.
+
+**Note**: Initial SAT testing shows R_ψ(5,5) > 16 with parameters (f₀=141.7001, ε=0.037, grid=128). See `FINDINGS.md` for details.
 
 **Theorem Statement**:
 ```lean

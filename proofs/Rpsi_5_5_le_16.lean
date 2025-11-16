@@ -1,13 +1,17 @@
 /-
-  Formal Proof: R_ψ(5,5) ≤ 16
+  Formal Proof Template: R_ψ(5,5) bound investigation
   
-  Theorem: For the vibrational Ramsey number with resonant coloring,
-  R_ψ(5,5) ≤ 16, meaning any assignment of frequencies ω: [16] → [0, f₀)
-  with f₀ = 141.7001 Hz and resonance threshold ε = 0.037 must contain
-  either a blue (resonant) K₅ or a red (non-resonant) K₅.
+  NOTE: Initial SAT solver results with parameters (f₀=141.7001, ε=0.037, grid=128)
+  show SAT for n=16, meaning R_ψ(5,5) > 16 with these parameters.
   
-  This proof is certified by SAT solver verification of the CNF formula
-  generated with 128-point discretization of the frequency space.
+  This file serves as a template for the formal proof once the correct bound
+  is determined. The theorem statement and proof structure are provided for
+  reference.
+  
+  Current finding: The bound is parameter-sensitive and may require adjustment
+  of ε (resonance threshold) or grid size to achieve tighter bounds.
+  
+  See FINDINGS.md for detailed analysis.
 -/
 
 import Mathlib.Combinatorics.SimpleGraph.Basic
