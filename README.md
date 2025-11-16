@@ -44,10 +44,10 @@ Este proyecto incluye certificados formales verificables para los valores de R_�
 
 | (r,s) | λ | Bound | Certificate |
 |-------|---|-------|-------------|
-| (4,4) | 0.062 | 10 | [lean](./certificates/Rpsi_4_4_le_10.lean) · [smt2](./certificates/Rpsi_4_4_le_10.smt2) |
-| (3,3) | 0.100 | 5 | [lean](./certificates/Rpsi_3_3_le_5.lean) · [smt2](./certificates/Rpsi_3_3_le_5.smt2) |
+| (4,4) | 0.062 | 10 | [lean](./certificates/Rpsi_4_4_le_10.lean) · [smt2](./certificates/Rpsi_4_4_le_10.smt2) · [pdf](./certificates/Rpsi_4_4_certificate.pdf) |
+| (3,3) | 0.100 | 5 | [lean](./certificates/Rpsi_3_3_le_5.lean) · [smt2](./certificates/Rpsi_3_3_le_5.smt2) · [pdf](./certificates/Rpsi_3_3_certificate.pdf) |
 
-**Nota:** Los certificados se pueden generar automáticamente usando el CLI tool `ai-ramsey-formal`.
+**Nota:** Los certificados se pueden generar automáticamente usando el CLI tool `ai-ramsey-formal` o el script `generate_pdf_certificate.py` para PDF.
 
 ### Badges
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
