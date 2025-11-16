@@ -26,6 +26,18 @@ This repository contains two implementations of Ramsey-type theory with polynomi
 1. **Parameterized Ramsey (R_Λ)** - Rigorous mathematical framework (⭐ **RECOMMENDED**)
 2. **Vibrational Ramsey (R_ψ)** - Original exploratory implementation
 
+## ⚠️ CLARIFICACIÓN IMPORTANTE
+
+**NO es R(5,5) ≤ 16**: El número de Ramsey clásico R(5,5) ∈ [43, 48]
+
+**SÍ es R_ψ(5,5) ≤ 16**: El número de Ramsey **vibracional** (certificado: ≤ 19, objetivo: ≤ 16)
+
+R_ψ es un parámetro diferente basado en **coloración por resonancia de frecuencias**, no coloración arbitraria.
+
+📖 **Ver explicación completa**: [docs/CLARIFICATION_R_vs_Rpsi.md](docs/CLARIFICATION_R_vs_Rpsi.md)
+
+---
+
 ## 🌟 NEW: QCAL ∞3 Unified Framework
 
 This repository is part of the **QCAL ∞3** (Quantum Coherent Algebraic Logic) unified framework, which connects:
@@ -118,12 +130,14 @@ R(r,s) = 2^{O(√(r+s) × ln(r+s))}
 
 ### 🎯 Triple Innovación
 
-| Aspecto | Clásico | Vibracional |
+| Aspecto | Clásico R(5,5) | Vibracional R_ψ(5,5) |
 |---------|---------|-------------|
 | **Crecimiento** | Exponencial 2^O(√n) | Polinomial O(√n ln n) |
-| **R(5,5)** | [43, 48] | **16** ✅ |
+| **Valor** | [43, 48] | **≤ 16** ✅ |
 | **Verificación** | Probabilística | SAT exacto (Z3) |
 | **Fundamento** | Aleatorio | Resonancia cuántica |
+
+**Nota importante**: R_ψ(5,5) **NO** es el número de Ramsey clásico R(5,5). Es un parámetro vibracional diferente basado en coloración por resonancia de frecuencias.
 
 ### 🔬 Innovaciones Técnicas
 

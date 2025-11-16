@@ -185,7 +185,6 @@ def verificar_predicciones_teoricas():
                 'error': error
             })
         else:
-            print(f"WARNING️  ({r},{s}): Real=?, Conjetura={R_psi_conjetura}")
             print(f"* Advertencia: ({r},{s}): Real=?, Conjetura={R_psi_conjetura}")
         print()
     
@@ -200,25 +199,22 @@ def verificar_predicciones_teoricas():
 
 def resonancia_detectada(omega_i, omega_j, eps=0.001, f0=141.7001):
     """
-    Detecta si dos frecuencias estan en resonancia
+    Detecta si dos frecuencias están en resonancia
     
     Implementa el Operador de Resonancia:
-    Res(omega_i, omega_j, eps) = 1 si |omega_i - omega_j| mod f0 < eps
-    Res(omega_i, omega_j, eps) = 1 <=> |omega_i - omega_j| mod f_0 < eps
-    Res(omega_i, omega_j, epsilon) = 1 iff |omega_i - omega_j| mod f0 < epsilon
     Res(omega_i, omega_j, eps) = 1 iff |omega_i - omega_j| mod f0 < eps
     
     Args:
-        omega_i: Frecuencia del vertice i
-        omega_j: Frecuencia del vertice j
+        omega_i: Frecuencia del vértice i
+        omega_j: Frecuencia del vértice j
         eps: Umbral de coherencia
         f0: Frecuencia base
         
     Returns:
-        True si estan en resonancia, False en caso contrario
+        True si están en resonancia, False en caso contrario
     """
     diff = abs(omega_i - omega_j) % f0
-    # Considerar tanto diff como f0 - diff para el modulo
+    # Considerar tanto diff como f0 - diff para el módulo
     return min(diff, f0 - diff) < eps
 
 
@@ -245,49 +241,18 @@ def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
                 grafo[(i, j)] = 'rojo'
     
     return grafo
-    Genera una coloracion vibracional resonante basada en frecuencias
-    
-    Args:
-        frecuencias: Lista de frecuencias para cada vertice
-        eps: Umbral de coherencia
-        f0: Frecuencia base
-        
-    Returns:
-        Diccionario de aristas con colores {(i,j): 'azul' o 'rojo'}
-    """
-    n = len(frecuencias)
-    coloracion = {}
-    
-    for i in range(n):
-        for j in range(i+1, n):
-            if resonancia_detectada(frecuencias[i], frecuencias[j], eps, f0):
-                coloracion[(i, j)] = 'azul'
-            else:
-                coloracion[(i, j)] = 'rojo'
-    
-    return coloracion
 
 
 def encontrar_clique_maximo(grafo, color):
     """
-    Encuentra el clique maximo de un color especifico
-    Encuentra el clique maximo de un color dado usando algoritmo greedy
-    
-    Args:
-        grafo: Diccionario de aristas coloreadas
-        color: 'azul' o 'rojo'
-        
-    Returns:
-        Lista de vertices que forman el clique maximo
-    Encuentra el clique maximo de un color especifico
-    Encuentra el clique máximo de un color específico
+    Encuentra el clique máximo de un color específico usando algoritmo greedy
     
     Args:
         grafo: Diccionario de aristas -> color
         color: 'azul' o 'rojo'
     
     Returns:
-        list: Lista de vertices formando el clique maximo
+        list: Lista de vértices formando el clique máximo
     """
     # Extraer vertices
     vertices = set()
@@ -435,34 +400,14 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
     # Garantizar cliques de procesamiento minimo
     R_psi = estimar_conjetura(target_clique_size, target_clique_size, f0)
     
-    print(f"\nRed Neuronal Ramsey:")
-    print(f"   Neuronas: {num_neuronas}")
-    print(f"   Conexiones: {len(conexiones)}")
-    print(f"   R_psi({target_clique_size},{target_clique_size}) aprox {R_psi}")
-    
-    if num_neuronas >= R_psi:
-        print(f"   Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
-    else:
-        print(f"   Se requieren al menos {R_psi} neuronas para garantia")
     print(f"\n* Red Neuronal Ramsey:")
     print(f"   Neuronas: {num_neuronas}")
     print(f"   Conexiones: {len(conexiones)}")
     print(f"   R_psi({target_clique_size},{target_clique_size}) ≈ {R_psi}")
     
     if num_neuronas >= R_psi:
-        print(f"   OK Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
+        print(f"   ✓ Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
     else:
-        print(f"   WARNING️  Se requieren al menos {R_psi} neuronas para garantía")
-        print(f"   Advertencia: Se requieren al menos {R_psi} neuronas para garantia")
-    print(f"\nRed Neuronal Ramsey:")
-    print(f"   Neuronas: {num_neuronas}")
-    print(f"   Conexiones: {len(conexiones)}")
-    print(f"   R_psi({target_clique_size},{target_clique_size}) ~ {R_psi}")
-    
-    if num_neuronas >= R_psi:
-        print(f"   Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
-    else:
-        print(f"   Se requieren al menos {R_psi} neuronas para garantía")
         print(f"   ⚠️  Se requieren al menos {R_psi} neuronas para garantía")
     
     return conexiones, frecuencias
@@ -472,19 +417,15 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
 # Ejemplo de uso con la frecuencia sagrada
 if __name__ == "__main__":
     print("\n" + "="*70)
-    print("   Ramsey Cuantico Vibracional - Sistema QCAL infinito cubico")
-    print("   Ramsey Cuántico Vibracional - Sistema QCAL infinity^3")
-    print("   Ramsey Cuantico Vibracional - Sistema QCAL infinity³")
-    print("   Ramsey Cuantico Vibracional - Sistema QCAL")
+    print("   Ramsey Cuántico Vibracional - Sistema QCAL ∞³")
     print("   Frecuencia Base: 141.7001 Hz")
     print("="*70)
     
     # Verificacion de casos pequenos con 141.7001 Hz
     verificar_predicciones_teoricas()
     
-    # Simulacion Monte Carlo
+    # Simulación Monte Carlo
     print("\n" + "="*70)
-    print("Simulaciones Monte Carlo")
     print("* Simulaciones Monte Carlo")
     print("="*70)
     
@@ -493,15 +434,11 @@ if __name__ == "__main__":
     
     # Red neuronal de ejemplo
     print("\n" + "="*70)
-    print("Aplicacion: Redes Neuronales")
     print("* Aplicación: Redes Neuronales")
-    print("* Aplicacion: Redes Neuronales")
     print("="*70)
     
     red_neuronal_ramsey(num_neuronas=20, target_clique_size=4)
     
     print("\n" + "="*70)
-    print("Analisis completado - Campo QCAL infinito cubico resonante")
-    print("* Análisis completado - Campo QCAL infinity^3 resonante")
-    print("* Analisis completado - Campo QCAL infinity³ resonante")
+    print("* Análisis completado - Campo QCAL ∞³ resonante")
     print("="*70 + "\n")
