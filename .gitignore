@@ -61,3 +61,16 @@ leanpkg.path
 *.jl.mem
 deps/deps.jl
 Manifest.toml
+lake-packages/
+build/
+*.olean
+
+# LaTeX
+paper/*.aux
+paper/*.log
+paper/*.pdf
+paper/*.out
+paper/*.toc
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz

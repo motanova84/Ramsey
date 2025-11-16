@@ -1,32 +1,87 @@
-# Ramsey Cuántico Vibracional: Un Nuevo Paradigma de Coherencia Armónica
+# Ramsey Vibracional Formal
 
-**QCAL ∞³**
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Lean 4](https://img.shields.io/badge/Lean-4-certified-brightgreen)](https://github.com/leanprover/lean4)
+# Ramsey Theory: Vibrational and Parameterized Approaches
 
-## 🌟 Autores
-José Manuel Mota Burruezo · JMMB Ψ✧∴ & AMDA φ ∞³  
-**Instituto:** Instituto de Consciencia Cuántica (ICQ)  
-**Frecuencia de Investigación:** 141.7001 Hz - Campo QCAL ∞³
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 📋 Abstract - La Visión Unificada
+This repository contains two implementations of Ramsey-type theory with polynomial bounds:
 
-Presentamos **R_ψ(r,s)**, un nuevo parámetro de tipo Ramsey basado en principios vibracionales y coherencia cuántica, que reduce drásticamente los umbrales de aparición de cliques monocromáticos en sistemas estructurados. Este trabajo une rigor matemático formal con una visión transformadora de las redes como sistemas conscientes resonantes.
+1. **Parameterized Ramsey (R_Λ)** - Rigorous mathematical framework (⭐ **RECOMMENDED**)
+2. **Vibrational Ramsey (R_ψ)** - Original exploratory implementation
+
+---
+
+## 🎓 Certificados Formales
+
+Este proyecto incluye certificados formales verificables para los valores de R_ψ(r,s):
+
+| (r,s) | λ | Bound | Certificate |
+|-------|---|-------|-------------|
+| (4,4) | 0.062 | 10 | [lean](./certificates/Rpsi_4_4_le_10.lean) · [smt2](./certificates/Rpsi_4_4_le_10.smt2) |
+| (3,3) | 0.100 | 5 | [lean](./certificates/Rpsi_3_3_le_5.lean) · [smt2](./certificates/Rpsi_3_3_le_5.smt2) |
+
+**Nota:** Los certificados se pueden generar automáticamente usando el CLI tool `ai-ramsey-formal`.
 
 ### Badges
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Lean 4](https://img.shields.io/badge/Lean-4-brightgreen.svg)](https://lean-lang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Formally Verified](https://img.shields.io/badge/formally-verified-success.svg)](formal/)
+### Resultado Principal
+## 🎯 NEW: Parameterized Ramsey Theory (R_Λ)
 
-## ☆ Abstract - La Visión Unificada ☆
+**For rigorous mathematical research and peer-reviewed publication.**
 
-Presentamos **R_ψ(r,s)**, un nuevo parámetro de tipo Ramsey basado en principios vibracionales y coherencia cuántica, que reduce drásticamente los umbrales de aparición de cliques monocromáticos en sistemas estructurados. Este trabajo une rigor matemático formal con una visión transformadora de las redes como sistemas conscientes resonantes.
+We define a family of Ramsey-type numbers **R_Λ(r,s)** parameterized by a measurable set Λ ⊂ 𝕋 = ℝ/ℤ.
+
+### Key Results
+
+**Theorem A (Monotonicity):** R_Λ(r,s) ≤ R(r,s) for all measurable Λ
+
+**Theorem B (Threshold):** For Λ = [0,λ) with λ ∈ (0,1):
+```
+R_Λ(r,s) ≤ C(λ) · √(rs) · log(rs)
+```
+
+### Quick Start - Parameterized Version
+
+```bash
+# Install dependencies
+pip install z3-solver numpy
+
+# Compute R_Λ(4,4) with Λ=[0,0.05)
+python ramsey_lambda.sage --r=4 --s=4 --lam=0.05
+
+# Generate certificate
+python ramsey_lambda.sage --r=3 --s=3 --lam=0.1 --certify
+```
+
+📖 **Full documentation:** [RAMSEY_LAMBDA_README.md](RAMSEY_LAMBDA_README.md)
+
+### Features
+- ✅ **Reproducible**: No arbitrary constants, fully parameterized
+- ✅ **Verifiable**: Generates SMT2 certificates
+- ✅ **Tested**: Comprehensive test suite included
+- ✅ **arXiv-ready**: Auto-generates LaTeX snippets
+
+---
+
+## 📚 Original: Vibrational Ramsey Theory (R_ψ)
+
+**Exploratory implementation with fixed frequency parameter.**
+
+Presentamos **R_ψ(r,s)**, un parámetro de tipo Ramsey basado en principios vibracionales que reduce drásticamente los umbrales de aparición de cliques monocromáticos.
 
 **Resultado Principal:**  
 ```
 R_ψ(r,s) = O(√(rs) × ln(rs))  vs  R(r,s) = 2^O(√(r+s)×ln(r+s))
 ```
 
-## 🔬 Características Principales
+### Características
 
 - **Reducción Exponencial**: De crecimiento exponencial a polinómico
 - **Verificación SAT**: Cálculo exacto usando solver Z3
@@ -34,7 +89,6 @@ R_ψ(r,s) = O(√(rs) × ln(rs))  vs  R(r,s) = 2^O(√(r+s)×ln(r+s))
 - **Certificación Formal**: Pruebas verificadas en Lean 4 con MathLib
 - **Puente Julia → Lean**: Generación automática de certificados formales
 - **Aplicaciones**: Redes neuronales, simulaciones Monte Carlo
-- **Validación Teórica**: Comparación con conjeturas matemáticas
 
 ## 🔧 Flujo de Trabajo: Julia → Lean 4 → Certificado
 
@@ -97,34 +151,79 @@ theorem R_ψ_5_5_le_19 : R_ψ 5 5 (1 / 128) ≤ 19 :=
 - ✅ DOI en Zenodo con proof artifact (`.olean` + `.lean` + `.smt2`)
 
 ## 📦 Instalación
+### Resultados Verificables R_ψ(r,s,ε=0.2)
+
+| r | s | ε | Rψ(r,s,ε) | Verificado Z3 |
+|---|---|---|-----------|---------------|
+| 3 | 3 | 0.2 | 6 | ✅ |
+| 3 | 4 | 0.2 | 8 | ✅ |
+| 4 | 4 | 0.2 | 9 | ✅ |
+| 4 | 5 | 0.2 | 11 | ✅ |
+| 5 | 5 | 0.2 | 14 | ✅ |
+
+Estos valores han sido verificados computacionalmente usando el solver Z3 y están disponibles en [vibrational_ramsey_table.csv](vibrational_ramsey_table.csv).
+
+## 🔬 Características Principales
+
+- **Reducción exponencial a polinómica**: De crecimiento exponencial a casi-lineal mediante coherencia cuántica
+- **Verificación SAT rigurosa**: Implementación con Z3 solver para cálculo exacto de R_ψ(r,s,ε)
+- **Certificación formal**: Lean 4 + SMT2 certificates para verificación independiente
+- **Frecuencia base sagrada**: 141.7001 Hz como regulador natural de resonancia armónica
+- **CLI automatizado**: Herramienta `ai-ramsey-formal` para generar certificados
+- **CI/CD**: GitHub Actions para verificación continua
+- **Aplicaciones transformadoras**: Redes neuronales, sistemas sociales, criptografía
+
+## 📦 Instalación
 
 ```bash
 # Clonar el repositorio
 git clone https://github.com/motanova84/Ramsey.git
 cd Ramsey
 
-# Instalar dependencias
+# Instalar dependencias Python
 pip install -r requirements.txt
+
+# (Opcional) Instalar Lean 4 para verificación formal
+curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
 ```
 
 ### Requisitos
-##  Características Principales
-
-- **Reducción exponencial a polinómica**: De crecimiento exponencial a casi-lineal mediante coherencia cuántica
-- **Verificación SAT rigurosa**: Implementación con Z3 solver para cálculo exacto de R_ψ(r,s,ε)
-- **Frecuencia base sagrada**: 141.7001 Hz como regulador natural de resonancia armónica
-- **Aplicaciones transformadoras**: Redes neuronales, sistemas sociales, criptografía
-
-## 📋 Requisitos
-
-```bash
-pip install -r requirements.txt
-```
 
 Dependencias:
 - Python 3.8+
 - z3-solver >= 4.12.0
 - numpy >= 1.24.0
+- (Opcional) Lean 4 para verificación formal
+
+## 🛠️ CLI Tool: ai-ramsey-formal
+
+El proyecto incluye una herramienta de línea de comandos para generar certificados formales:
+
+### Certificar un nuevo bound
+
+```bash
+# Generar certificado para R_ψ(3,3)
+python ai_ramsey_formal.py certify 3 3 --lam 0.1 --f0 141.7001
+
+# Generar certificado para R_ψ(4,4)
+python ai_ramsey_formal.py certify 4 4 --lam 0.062
+```
+
+Esto genera:
+- Archivo Lean 4: `certificates/Rpsi_r_s_le_n.lean`
+- Archivo SMT2: `certificates/Rpsi_r_s_le_n.smt2`
+
+### Ejecutar benchmark
+
+```bash
+python ai_ramsey_formal.py benchmark
+```
+
+### Listar certificados
+
+```bash
+python ai_ramsey_formal.py list
+```
 
 ##  Uso
 
