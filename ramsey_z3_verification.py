@@ -15,7 +15,7 @@ Author: José Manuel Mota Burruezo
 
 from z3 import *
 from itertools import combinations
-import numpy as np
+
 import csv
 from datetime import datetime
 

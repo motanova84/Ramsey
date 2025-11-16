@@ -18,9 +18,8 @@ def example_1_basic_check():
     print("\nChecking if (3,3) holds for different n values with epsilon=0.2:\n")
     
     for n in [4, 5, 6, 7]:
-        # Adjust the function to test for specific n
-        # For demonstration, we use the default which tests n = r + s - 1
-        result = vibrational_ramsey(3, 3, eps=0.2)
+        # Test for specific n by passing it to vibrational_ramsey
+        result = vibrational_ramsey(3, 3, n=n, eps=0.2)
         status = "SAT (counterexample exists)" if result else "UNSAT (no valid assignment)"
         print(f"  n={n}: {status}")
     

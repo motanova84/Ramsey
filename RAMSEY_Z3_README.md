@@ -63,12 +63,12 @@ Verify if a specific parameter combination satisfies the Ramsey property:
 from ramsey_z3_verification import vibrational_ramsey
 
 # Check if (3,3) holds for n=5 with epsilon=0.2
-result = vibrational_ramsey(3, 3, M=1000, eps=0.2)
+result = vibrational_ramsey(3, 3, n=5, M=1000, eps=0.2)
 print(f"n=5: {result}")  # True if R_psi > 5
 
 # Check for n=6
-result = vibrational_ramsey(3, 3, M=1000, eps=0.2)
-print(f"n=6: {not result}")  # True if R_psi = 6
+result = vibrational_ramsey(3, 3, n=6, M=1000, eps=0.2)
+print(f"n=6: {result}")  # True if R_psi > 6
 ```
 
 ### 2. Calculate Exact Values
@@ -248,10 +248,9 @@ from ramsey_z3_verification import vibrational_ramsey
 Process multiple parameter sets:
 
 ```bash
-# Create a script to run overnight
+# Example: You can create your own batch_exploration.py script to automate parameter sweeps.
+# (This file is not included; see below for a minimal template.)
 python batch_exploration.py --r-range 3-7 --s-range 3-7 --eps 0.2
-```
-
 ### Integration with Other Tools
 
 Export results for use with:

@@ -36,7 +36,7 @@ def load_results_from_csv(filename='ramsey_results.csv'):
                     's': int(row['s']),
                     'epsilon': float(row['epsilon']),
                     'M': int(row['M']),
-                    'R_psi': int(row['R_psi']) if row['R_psi'] != 'None' else None,
+                    'R_psi': int(row['R_psi']) if row['R_psi'] and row['R_psi'] != 'None' else None,
                     'duration_seconds': float(row['duration_seconds']),
                     'timestamp': row['timestamp']
                 }
@@ -96,7 +96,7 @@ def plot_heatmap(results, output_file='ramsey_heatmap.png'):
     for i in range(len(r_values)):
         for j in range(len(s_values)):
             if matrix[i, j] > 0:
-                text = ax.text(j, i, int(matrix[i, j]),
+                ax.text(j, i, int(matrix[i, j]),
                              ha="center", va="center", color="w", fontsize=12)
     
     ax.set_xlabel('s (blue clique size)', fontsize=12)
@@ -169,10 +169,10 @@ def plot_computation_time(results, output_file='computation_time.png'):
     # Prepare data
     labels = [f"({r['r']},{r['s']},{r['epsilon']:.2f})" for r in results]
     times = [r['duration_seconds'] for r in results]
-    R_psis = [r['R_psi'] if r['R_psi'] is not None else 0 for r in results]
+
     
     # Create plot
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+    ax1, ax2 = plt.subplots(1, 2, figsize=(16, 6))[1]
     
     # Bar chart of computation times
     x_pos = np.arange(len(labels))
