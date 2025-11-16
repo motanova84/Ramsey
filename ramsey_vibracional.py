@@ -132,6 +132,18 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     
     for n in range(max(r, s), nmax + 1):
         print(f"  Probando n={n}...", end=" ")
+        f0: Frecuencia base (141.7001 Hz)
+        nmax: Límite superior de búsqueda
+        grid: Resolución de discretización
+        
+    Returns:
+        R_ψ(r,s,ε) exacto, o None si no se encuentra en el rango
+    """
+    print(f"🌟 Calculando R_ψ({r},{s},{eps}) con f₀={f0} Hz...")
+    print(f"   Grid de resonancia: {grid} puntos")
+    
+    for n in range(max(r, s), nmax + 1):
+        print(f"   Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
             print(f"UNSAT -> R_psi({r},{s}) = {n}")
             return n
@@ -139,6 +151,7 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
             print("SAT (contraejemplo existe)")
     
     print(f"No encontrado en rango [1,{nmax}]")
+    print(f"⚠️  No encontrado en rango [1,{nmax}]")
     return None
 
 
@@ -147,6 +160,7 @@ def estimar_conjetura(r, s, f0=141.7001):
     Estimación según Conjetura 3.4
     
     R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^(1/4))
+    R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^{1/4})
     
     Args:
         r: Tamaño del clique azul
@@ -164,7 +178,7 @@ def estimar_conjetura(r, s, f0=141.7001):
     base_estimate = phi * np.sqrt(r * s) * np.log(max(r * s, 2))
     # Factor de corrección para frecuencia 141.7001 Hz
     freq_factor = (f0 / 100.0) ** (1/4)
-    return int(base_estimate / freq_factor)
+    return max(int(base_estimate / freq_factor), max(r, s))
 
 
 def verificar_predicciones_teoricas():
@@ -257,14 +271,6 @@ def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
 
 def encontrar_clique_maximo(grafo, color):
     """
-    Encuentra el clique máximo de un color dado usando algoritmo greedy
-    
-    Args:
-        grafo: Diccionario de aristas coloreadas
-        color: 'azul' o 'rojo'
-        
-    Returns:
-        Lista de vértices que forman el clique máximo
     Encuentra el clique máximo de un color específico
     
     Args:
@@ -280,27 +286,6 @@ def encontrar_clique_maximo(grafo, color):
         vertices.add(i)
         vertices.add(j)
     vertices = sorted(list(vertices))
-    
-    mejor_clique = []
-    
-    # Buscar cliques empezando desde cada vértice
-    for v_inicio in vertices:
-        clique = [v_inicio]
-        candidatos = [v for v in vertices if v > v_inicio]
-        
-        for v in candidatos:
-            # Verificar si v está conectado con todos en clique
-            conectado_todos = all(
-                grafo.get((min(v, u), max(v, u))) == color 
-                for u in clique
-            )
-            if conectado_todos:
-                clique.append(v)
-        
-        if len(clique) > len(mejor_clique):
-            mejor_clique = clique
-    
-    vertices = sorted(vertices)
     n = len(vertices)
     
     # Búsqueda de clique máximo (fuerza bruta para grafos pequeños)
@@ -420,6 +405,7 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
         print(f"   Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
     else:
         print(f"   Se requieren al menos {R_psi} neuronas para garantía")
+        print(f"   ⚠️  Se requieren al menos {R_psi} neuronas para garantía")
     
     return conexiones, frecuencias
 
