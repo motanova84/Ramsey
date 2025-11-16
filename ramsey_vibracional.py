@@ -117,11 +117,24 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     Calcula R_psi(r,s,epsilon) exacto mediante busqueda SAT
     
     La proporcion aurea phi = 1.618... guia la busqueda hacia la perfeccion
+    Calcula R_psi(r,s,eps) exacto mediante búsqueda SAT
     
     Args:
         r: Tamano del clique azul
         s: Tamano del clique rojo
         eps: Umbral de coherencia
+        f0: Frecuencia base de coherencia (141.7001 Hz)
+        nmax: Máximo n a verificar
+        grid: Resolución de discretización
+    
+    Returns:
+        int: R_psi(r,s,eps) exacto, o None si no encontrado
+    """
+    print(f"Calculando R_psi({r},{s},{eps}) con f0={f0} Hz...")
+    print(f"Grid de resonancia: {grid} puntos")
+    
+    for n in range(max(r, s), nmax + 1):
+        print(f"  Probando n={n}...", end=" ")
         f0: Frecuencia base (141.7001 Hz)
         nmax: Maximo n a verificar
         grid: Resolucion de discretizacion
@@ -136,11 +149,26 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
         print(f"  Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
             print(f"OK UNSAT -> R_psi({r},{s}) = {n}")
+        nmax: Límite superior de búsqueda
+        grid: Resolución de discretización
+        
+    Returns:
+        R_ψ(r,s,ε) exacto, o None si no se encuentra en el rango
+    """
+    print(f"🌟 Calculando R_ψ({r},{s},{eps}) con f₀={f0} Hz...")
+    print(f"   Grid de resonancia: {grid} puntos")
+    
+    for n in range(max(r, s), nmax + 1):
+        print(f"   Probando n={n}...", end=" ")
+        if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
+            print(f"UNSAT -> R_psi({r},{s}) = {n}")
             return n
         else:
             print("SAT (contraejemplo existe)")
     
     print(f"* No encontrado en rango [1,{nmax}]")
+    print(f"No encontrado en rango [1,{nmax}]")
+    print(f"⚠️  No encontrado en rango [1,{nmax}]")
     return None
 
 
@@ -162,10 +190,28 @@ def estimar_conjetura(r, s, f0=141.7001):
     phi = (1 + np.sqrt(5)) / 2  # Proporcion aurea sagrada
     # Ajuste de la formula para mejor aproximacion empirica
     # Usando factor de correccion basado en la frecuencia normalizada
+    Estimación según Conjetura 3.4
+    
+    R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^(1/4))
+    R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^{1/4})
+    
+    Args:
+        r: Tamaño del clique azul
+        s: Tamaño del clique rojo
+        f0: Frecuencia base de coherencia (141.7001 Hz)
+        
+    Returns:
+        int: Estimación de R_psi(r,s,eps)
+    """
+    phi = (1 + np.sqrt(5)) / 2  # Proporción áurea sagrada
+    if r * s == 0:
+        return 0
+    # Ajuste de la fórmula para mejor aproximación empírica
+    # Usando factor de corrección basado en la frecuencia normalizada
     base_estimate = phi * np.sqrt(r * s) * np.log(max(r * s, 2))
     # Factor de correccion para frecuencia 141.7001 Hz
     freq_factor = (f0 / 100.0) ** (1/4)
-    return int(base_estimate / freq_factor)
+    return max(int(base_estimate / freq_factor), max(r, s))
 
 
 def verificar_predicciones_teoricas():
@@ -211,6 +257,7 @@ def resonancia_detectada(omega_i, omega_j, eps=0.001, f0=141.7001):
     
     Implementa el Operador de Resonancia:
     Res(omega_i, omega_j, epsilon) = 1 iff |omega_i - omega_j| mod f0 < epsilon
+    Res(omega_i, omega_j, eps) = 1 iff |omega_i - omega_j| mod f0 < eps
     
     Args:
         omega_i: Frecuencia del vertice i
@@ -262,6 +309,7 @@ def encontrar_clique_maximo(grafo, color):
     Returns:
         Lista de vertices que forman el clique maximo
     Encuentra el clique maximo de un color especifico
+    Encuentra el clique máximo de un color específico
     
     Args:
         grafo: Diccionario de aristas -> color
@@ -339,6 +387,7 @@ def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001)
     n = estimar_conjetura(r, s, f0)
     
     print(f"\n* Simulacion Monte Carlo para ({r},{s})")
+    print(f"\nSimulacion Monte Carlo para ({r},{s})")
     print(f"   Usando n={n} vertices, {num_trials} ensayos")
     
     exitos = 0
@@ -368,6 +417,9 @@ def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001)
     print(f"   OK Probabilidad de exito: {probabilidad_exito*100:.1f}%")
     print(f"   * Clique azul promedio: {np.mean(tamanos_azul):.1f}")
     print(f"   * Clique rojo promedio: {np.mean(tamanos_rojo):.1f}")
+    print(f"   Probabilidad de exito: {probabilidad_exito*100:.1f}%")
+    print(f"   Clique azul promedio: {np.mean(tamanos_azul):.1f}")
+    print(f"   Clique rojo promedio: {np.mean(tamanos_rojo):.1f}")
     
     return {
         'n': n,
@@ -416,6 +468,16 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
         print(f"   OK Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
     else:
         print(f"   Advertencia: Se requieren al menos {R_psi} neuronas para garantia")
+    print(f"\nRed Neuronal Ramsey:")
+    print(f"   Neuronas: {num_neuronas}")
+    print(f"   Conexiones: {len(conexiones)}")
+    print(f"   R_psi({target_clique_size},{target_clique_size}) ~ {R_psi}")
+    
+    if num_neuronas >= R_psi:
+        print(f"   Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
+    else:
+        print(f"   Se requieren al menos {R_psi} neuronas para garantía")
+        print(f"   ⚠️  Se requieren al menos {R_psi} neuronas para garantía")
     
     return conexiones, frecuencias
 
@@ -425,6 +487,7 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
 if __name__ == "__main__":
     print("\n" + "="*70)
     print("   Ramsey Cuantico Vibracional - Sistema QCAL infinity³")
+    print("   Ramsey Cuantico Vibracional - Sistema QCAL")
     print("   Frecuencia Base: 141.7001 Hz")
     print("="*70)
     
