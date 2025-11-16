@@ -168,42 +168,6 @@ def estimar_conjetura(r, s, f0=141.7001):
     Returns:
         int: Estimacion de R_psi(r,s,eps)
     """
-    phi = (1 + np.sqrt(5)) / 2  # Proporcion aurea sagrada
-    # Ajuste de la formula para mejor aproximacion empirica
-    # Usando factor de correccion basado en la frecuencia normalizada
-    Estimación según Conjetura 3.4: R_psi(r,s,eps) = O(sqrt(rs) * ln(rs))
-    
-    Calibrado empíricamente con constante ajustada para mejor precisión.
-    Estimacion segun Conjetura 3.4: R_psi(r,s,epsilon) = O(sqrt(rs) * ln(rs))
-    
-    Calibrado empiricamente con constante ajustada para mejor precision.
-    R_psi(r,s,epsilon) = O(sqrt(rs) * ln(rs) * (f0)^{1/4})
-    
-    Args:
-        r: Tamano del clique azul
-        s: Tamano del clique rojo
-        f0: Frecuencia base (141.7001 Hz)
-        
-    Returns:
-        int: Estimacion de R_psi(r,s,epsilon)
-    """
-    phi = (1 + np.sqrt(5)) / 2  # Proporcion aurea sagrada
-    # Ajuste de la formula para mejor aproximacion empirica
-    # Usando factor de correccion basado en la frecuencia normalizada
-    Estimación según Conjetura 3.4
-    
-    R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^(1/4))
-    R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^{1/4})
-    
-    Args:
-        r: Tamaño del clique azul
-        s: Tamaño del clique rojo
-        f0: Frecuencia base de coherencia (141.7001 Hz)
-        
-    Returns:
-        Estimación del valor R_psi(r,s)
-        int: Estimación de R_psi(r,s,eps)
-    """
     phi = (1 + np.sqrt(5)) / 2  # Proporción áurea sagrada
     if r * s == 0:
         return 0
