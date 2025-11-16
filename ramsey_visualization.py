@@ -171,7 +171,7 @@ def plot_computation_time(results, output_file='computation_time.png'):
 
     
     # Create plot
-    ax1, ax2 = plt.subplots(1, 2, figsize=(16, 6))[1]
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
     
     # Bar chart of computation times
     x_pos = np.arange(len(labels))
