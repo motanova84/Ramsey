@@ -47,3 +47,19 @@ htmlcov/
 # Temporary files
 *.tmp
 *.log
+
+# Lean 4
+.lake/
+lake-packages/
+build/
+*.olean
+
+# LaTeX
+paper/*.aux
+paper/*.log
+paper/*.pdf
+paper/*.out
+paper/*.toc
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
