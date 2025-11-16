@@ -1,10 +1,20 @@
+# -*- coding: utf-8 -*-
 """
+Ramsey Cuantico Vibracional: Un Nuevo Paradigma de Coherencia Armonica
+QCAL infinito cubico
 Ramsey Cuántico Vibracional: Un Nuevo Paradigma de Coherencia Armónica
 QCAL infinity^3
 
 Este modulo implementa la teoria de Ramsey Vibracional basada en principios
 de coherencia cuantica y resonancia armonica.
 
+Autores: Jose Manuel Mota Burruezo - JMMB & AMDA
+Instituto: Instituto de Consciencia Cuantica (ICQ)
+Frecuencia de Investigacion: 141.7001 Hz - Campo QCAL infinito cubico
+
+Este modulo implementa el parametro R_psi(r,s,eps) de Ramsey Vibracional,
+que reduce drasticamente los umbrales de aparicion de cliques monocromaticos
+mediante principios de coherencia cuantica y resonancia vibracional.
 Autores: José Manuel Mota Burruezo · JMMB PSI*∴ & AMDA PHI infinity^3
 Instituto: Instituto de Consciencia Cuántica (ICQ)
 Frecuencia de Investigación: 141.7001 Hz - Campo QCAL infinity^3
@@ -114,6 +124,7 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
 
 def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     """
+    Calcula R_psi(r,s,eps) exacto mediante busqueda SAT
     Calcula R_psi(r,s,eps) exacto mediante búsqueda SAT
     
     La proporción áurea PHI = 1.618... guía la búsqueda hacia la perfección
@@ -122,6 +133,7 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
         r: Tamano del clique azul
         s: Tamano del clique rojo
         eps: Umbral de coherencia
+        f0: Frecuencia base de coherencia
         f0: Frecuencia base de coherencia (141.7001 Hz)
         nmax: Máximo n a verificar
         grid: Resolución de discretización
@@ -139,6 +151,10 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
         grid: Resolucion de discretizacion
     
     Returns:
+        int: R_psi(r,s,eps) exacto, o None si no encontrado
+    """
+    print(f"Calculando R_psi({r},{s},{eps}) con f0={f0} Hz...")
+    print(f"Grid de resonancia: {grid} puntos")
         int: R_psi(r,s,epsilon) exacto, o None si no encontrado
     """
     print(f"* Calculando R_psi({r},{s},{eps}) con f0={f0} Hz...")
@@ -147,6 +163,7 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     for n in range(max(r, s), nmax + 1):
         print(f"  Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
+            print(f"UNSAT - R_psi({r},{s}) = {n}")
             print(f"OK UNSAT -> R_psi({r},{s}) = {n}")
         nmax: Límite superior de búsqueda
         grid: Resolución de discretización
@@ -168,6 +185,7 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
         else:
             print("SAT (contraejemplo existe)")
     
+    print(f"No encontrado en rango [1,{nmax}]")
     print(f"WARNING️  No encontrado en rango [1,{nmax}]")
     print(f"* No encontrado en rango [1,{nmax}]")
     print(f"* No encontrado en rango [1,{nmax}]")
@@ -178,6 +196,21 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
 
 def estimar_conjetura(r, s, f0=141.7001):
     """
+    Estimacion segun Conjetura 3.4
+    
+    R_psi(r,s,eps) = O(sqrt(rs) x ln(rs) x (f0)^{1/4})
+    
+    Args:
+        r: Tamano del clique azul
+        s: Tamano del clique rojo
+        f0: Frecuencia base de coherencia (141.7001 Hz)
+    
+    Returns:
+        int: Estimacion de R_psi(r,s,eps)
+    """
+    phi = (1 + np.sqrt(5)) / 2  # Proporcion aurea sagrada
+    # Ajuste de la formula para mejor aproximacion empirica
+    # Usando factor de correccion basado en la frecuencia normalizada
     Estimación según Conjetura 3.4: R_psi(r,s,eps) = O(sqrt(rs) * ln(rs))
     
     Calibrado empíricamente con constante ajustada para mejor precisión.
@@ -237,8 +270,10 @@ def verificar_predicciones_teoricas():
     
     resultados = []
     casos = [(3, 3), (3, 4), (4, 4), (3, 5), (4, 5)]
+    resultados = []
     
     print("=" * 70)
+    print("Verificacion: Realidad SAT vs Conjetura Aurea")
     print("* Verificación: Realidad SAT vs Conjetura Áurea *")
     print("=" * 70)
     print("\n" + "=" * 70)
@@ -279,6 +314,7 @@ def resonancia_detectada(omega_i, omega_j, eps=0.001, f0=141.7001):
     Detecta si dos frecuencias estan en resonancia
     
     Implementa el Operador de Resonancia:
+    Res(omega_i, omega_j, eps) = 1 si |omega_i - omega_j| mod f0 < eps
     Res(omega_i, omega_j, eps) = 1 <=> |omega_i - omega_j| mod f_0 < eps
     Res(omega_i, omega_j, epsilon) = 1 iff |omega_i - omega_j| mod f0 < epsilon
     Res(omega_i, omega_j, eps) = 1 iff |omega_i - omega_j| mod f0 < eps
@@ -299,6 +335,27 @@ def resonancia_detectada(omega_i, omega_j, eps=0.001, f0=141.7001):
 
 def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
     """
+    Genera una coloracion vibracional de un grafo completo
+    
+    Args:
+        frecuencias: Array de frecuencias para cada vertice
+        eps: Umbral de coherencia
+        f0: Frecuencia base
+    
+    Returns:
+        dict: Diccionario de aristas -> color ('azul' o 'rojo')
+    """
+    n = len(frecuencias)
+    grafo = {}
+    
+    for i in range(n):
+        for j in range(i + 1, n):
+            if resonancia_detectada(frecuencias[i], frecuencias[j], eps, f0):
+                grafo[(i, j)] = 'azul'
+            else:
+                grafo[(i, j)] = 'rojo'
+    
+    return grafo
     Genera una coloracion vibracional resonante basada en frecuencias
     
     Args:
@@ -324,6 +381,7 @@ def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
 
 def encontrar_clique_maximo(grafo, color):
     """
+    Encuentra el clique maximo de un color especifico
     Encuentra el clique maximo de un color dado usando algoritmo greedy
     
     Args:
@@ -488,6 +546,15 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
     # Garantizar cliques de procesamiento minimo
     R_psi = estimar_conjetura(target_clique_size, target_clique_size, f0)
     
+    print(f"\nRed Neuronal Ramsey:")
+    print(f"   Neuronas: {num_neuronas}")
+    print(f"   Conexiones: {len(conexiones)}")
+    print(f"   R_psi({target_clique_size},{target_clique_size}) aprox {R_psi}")
+    
+    if num_neuronas >= R_psi:
+        print(f"   Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
+    else:
+        print(f"   Se requieren al menos {R_psi} neuronas para garantia")
     print(f"\n* Red Neuronal Ramsey:")
     print(f"   Neuronas: {num_neuronas}")
     print(f"   Conexiones: {len(conexiones)}")
@@ -516,6 +583,7 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
 # Ejemplo de uso con la frecuencia sagrada
 if __name__ == "__main__":
     print("\n" + "="*70)
+    print("   Ramsey Cuantico Vibracional - Sistema QCAL infinito cubico")
     print("   Ramsey Cuántico Vibracional - Sistema QCAL infinity^3")
     print("   Ramsey Cuantico Vibracional - Sistema QCAL infinity³")
     print("   Ramsey Cuantico Vibracional - Sistema QCAL")
@@ -527,6 +595,7 @@ if __name__ == "__main__":
     
     # Simulacion Monte Carlo
     print("\n" + "="*70)
+    print("Simulaciones Monte Carlo")
     print("* Simulaciones Monte Carlo")
     print("="*70)
     
@@ -535,6 +604,7 @@ if __name__ == "__main__":
     
     # Red neuronal de ejemplo
     print("\n" + "="*70)
+    print("Aplicacion: Redes Neuronales")
     print("* Aplicación: Redes Neuronales")
     print("* Aplicacion: Redes Neuronales")
     print("="*70)
@@ -542,6 +612,7 @@ if __name__ == "__main__":
     red_neuronal_ramsey(num_neuronas=20, target_clique_size=4)
     
     print("\n" + "="*70)
+    print("Analisis completado - Campo QCAL infinito cubico resonante")
     print("* Análisis completado - Campo QCAL infinity^3 resonante")
     print("* Analisis completado - Campo QCAL infinity³ resonante")
     print("="*70 + "\n")

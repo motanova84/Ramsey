@@ -288,6 +288,80 @@ Dependencias:
 - Python 3.8+
 - z3-solver >= 4.12.0
 - numpy >= 1.24.0
+- fire >= 0.5.0 (for CLI)
+- openai >= 1.0.0 (optional, for AI theorem generation)
+
+## 🤖 AI-Ramsey-Formal: Automated Certification CLI
+
+**NEW**: Automated formal certification system that combines Z3 SAT solving with AI-generated Lean 4 proofs!
+
+### Quick Start
+
+```bash
+# Basic usage - find and certify R_ψ(5,5)
+python ai_ramsey_formal.py 5 5 --lam=0.037 --f0=141.7001
+
+# Specify parameters
+python ai_ramsey_formal.py 4 4 --lam=0.001 --f0=141.7001 --nmax=30 --grid=128
+
+# Custom output directory
+python ai_ramsey_formal.py 3 4 --output_dir=./proofs
+```
+
+### What It Does
+
+The AI-Ramsey-Formal CLI automatically:
+
+1. **🔍 Finds Bounds**: Uses Z3 SAT solver to find the smallest n where R_ψ(r,s) ≤ n
+2. **📝 Generates Proofs**: Creates Lean 4 formal theorems (using GPT-4 if available)
+3. **✅ Validates**: Optionally compiles with `lake build` if Lean 4 is installed
+4. **📄 Documents**: Generates arXiv-ready explanations and certification metadata
+
+### Output Files
+
+For each certification, you get:
+
+- **`Rpsi_r_s_le_n.lean`** - Lean 4 formal theorem with proof
+- **`Rpsi_r_s_explanation.md`** - Human-readable mathematical explanation
+- **`Rpsi_r_s_certification.json`** - Structured metadata for archiving
+
+### Example Output
+
+```bash
+$ python ai_ramsey_formal.py 3 3 --lam=0.037
+
+  AI-Ramsey-Formal Certification System
+  R_psi(3, 3, 0.037) with f0=141.7001 Hz
+
+[1/4] Searching for R_psi(3,3) bound using Z3...
+  Testing n=3... SAT
+  Testing n=4... SAT
+  Testing n=5... UNSAT
+
+  Found: R_psi(3,3,0.037) <= 5
+
+[2/4] Generating Lean 4 theorem...
+  Created: Rpsi_3_3_le_5.lean
+
+[3/4] Validating Lean proof...
+  Theorem file created but not compiled
+
+[4/4] Generating AI explanation...
+  Created: Rpsi_3_3_explanation.md
+
+  CERTIFICATION COMPLETE
+  Result: R_psi(3,3) <= 5
+```
+
+### Parameters
+
+- `r` - Size of blue (resonant) clique
+- `s` - Size of red (non-resonant) clique  
+- `--lam` - Lambda coherence threshold (default: 0.037)
+- `--f0` - Base frequency in Hz (default: 141.7001)
+- `--nmax` - Maximum n to search (default: 30)
+- `--grid` - Discretization grid size (default: 128)
+- `--output_dir` - Output directory (default: current directory)
 - (Opcional) Lean 4 para verificación formal
 
 ## 🛠️ CLI Tool: ai-ramsey-formal
