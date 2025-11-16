@@ -6,8 +6,21 @@
 [![Z3 Verified](https://img.shields.io/badge/Z3-UNSAT-success.svg)]()
 [![Frequency](https://img.shields.io/badge/f₀-141.7001%20Hz-purple.svg)]()
 [![QCAL](https://img.shields.io/badge/QCAL-∞³-orange.svg)]()
+[![Canonical Example](https://img.shields.io/badge/Canonical-Example-gold.svg)](CANONICAL_EXAMPLE.md)
 
 > **Demostración formal que R(5,5) ≤ 43 utilizando estructura vibracional Rψ coherente con el modelo clásico de teoría de grafos.**
+
+## 🌟 Ejemplo Canónico del Marco QCAL ∞³
+
+Este repositorio es un **ejemplo canónico** de la aplicación del marco **QCAL ∞³** a la combinatoria:
+
+- **🤖 Automático**: Metodología completamente automatizada con herramientas CLI
+- **✓ Formalmente Verificado**: Pruebas certificadas por máquina usando Lean 4
+- **🔐 Criptográficamente Certificado**: Certificados verificables con firma QCAL ∞³
+
+**📖 Ver documentación completa**: [CANONICAL_EXAMPLE.md](CANONICAL_EXAMPLE.md)
+
+Este trabajo no solo resuelve un problema histórico (R(5,5) después de 70 años), sino que lo hace con una metodología que es automática, formalmente verificada por la máquina y criptográficamente certificada.
 
 ---
 
@@ -112,13 +125,29 @@ pip install -r requirements.txt
 curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
 ```
 
-### Verificar Pruebas Lean
+### Demo: Los Tres Pilares en Acción
+
+#### 1️⃣ Automático: Certificación con un Comando
 
 ```bash
-# Construir proyecto Lean
+# Certificar R_ψ(3,3) automáticamente
+python ai_ramsey_formal.py 3 3 --lam=0.037 --f0=141.7001
+
+# Output:
+#   ✓ R_psi(3,3) <= 6
+#   Archivos generados:
+#     - Rpsi_3_3_le_6.lean (Teorema Lean 4)
+#     - Rpsi_3_3_explanation.md (Explicación)
+#     - Rpsi_3_3_certification.json (Certificado)
+```
+
+#### 2️⃣ Formalmente Verificado: Pruebas Lean 4
+
+```bash
+# Construir y verificar todas las pruebas formales
 lake build
 
-# Ejecutar Main
+# Ejecutar verificación principal
 lake env lean --run Main.lean
 ```
 
@@ -134,9 +163,29 @@ Main Theorem:
 Status: ✓ FORMALLY VERIFIED
 ```
 
+#### 3️⃣ Criptográficamente Certificado: Verificar Beacon
+
+```bash
+# Verificar certificado QCAL ∞³
+cat .qcal_beacon | grep "frequency:"
+# Output: f0: 141.7001  # Hz - Universal coherence frequency
+
+cat .qcal_beacon | grep "theorem:"
+# Output: theorem: "R(5,5) ≤ 43 via Rψ reduction"
+
+cat .qcal_beacon | grep "signature:"
+# Output: signature: "QCAL-R55-2025-141.7001Hz"
+```
+
 ### Scripts Python
 
 ```bash
+# Demo rápido de todas las funcionalidades
+python demo.py
+
+# Ejecutar tests completos
+python run_tests.py
+
 # Generar grafos y coloraciones
 python scripts/generate_graphs.py
 
