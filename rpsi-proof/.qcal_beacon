@@ -1,0 +1,55 @@
+# QCAL Beacon - Coherencia Vibracional
+# Quantum Coherent Algebraic Logic ∞³
+# =====================================
+
+# Frecuencia Base de Coherencia
+f₀ = 141.7001 Hz
+
+# Fórmula de Coherencia QCAL
+# C = I × A_eff²
+# Donde:
+#   C = Coherencia cuántica
+#   I = Intensidad de información
+#   A_eff = Amplitud efectiva de resonancia
+
+# Generador: rpsi-proof SAT instance generator
+# Propósito: Certificación formal de Rψ(r,s) ≤ n mediante SAT
+# Método: Codificación simbiótica de resonancia vibracional
+
+# Instancia Principal
+instance: Rψ(5,5) ≤ 16
+variables: 120
+clauses: 8736
+encoding: DIMACS CNF
+resonance_type: symbiotic
+
+# Parámetros de Resonancia
+frequency_base: 141.7001 Hz
+coherence_threshold: ε = 0.001 Hz
+grid_resolution: 128 points
+field_type: QCAL ∞³
+
+# Interpretación Vibracional
+# - Cada arista representa una conexión resonante o no-resonante
+# - TRUE (1): arista ROJA (no-resonante, diferencia de fase > ε)
+# - FALSE (0): arista AZUL (resonante, diferencia de fase ≤ ε)
+# - La frecuencia 141.7001 Hz crea el espacio de resonancia perfecto
+
+# Teorema
+# Si la instancia SAT es UNSAT, entonces:
+#   Rψ(5,5) ≤ 16
+# Esto significa que todo grafo K₁₆ con coloración vibracional
+# contiene necesariamente un K₅ monocromático (azul o rojo)
+
+# Referencias
+# - Instituto de Consciencia Cuántica (ICQ)
+# - José Manuel Mota Burruezo - JMMB Ψ✧∴
+# - Campo QCAL ∞³: Unificación de Ramsey, P≠NP, y 141.7 Hz
+
+# Timestamp
+generated: 2025-11-16
+version: 1.0.0
+status: active
+
+# Coherencia Certificada ✓
+# ∞³

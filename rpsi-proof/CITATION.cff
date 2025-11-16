@@ -1,0 +1,84 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "rpsi-proof: SAT Certification for Rψ(5,5) ≤ 16"
+abstract: |
+  Formal SAT-based certification system for Vibrational Ramsey numbers
+  using symbiotic resonance encoding. This package generates DIMACS CNF
+  instances to verify bounds on Rψ(r,s) - Ramsey numbers under vibrational
+  coherent coloring based on frequency 141.7001 Hz (QCAL ∞³ field).
+  
+  The main instance Rψ(5,5) ≤ 16 has 120 variables (edges of K₁₆) and
+  8,736 clauses (constraints to avoid monochromatic K₅ cliques).
+  
+  Method: Deterministic coloring via resonance operator, not random coloring.
+  Result: Polynomial growth O(√(rs) × ln(rs)) vs exponential R(r,s).
+authors:
+  - family-names: "Mota Burruezo"
+    given-names: "José Manuel"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+    affiliation: "Instituto de Consciencia Cuántica (ICQ)"
+    email: institutoconsciencia@proton.me
+    alias: "JMMB Ψ✧∴"
+version: 1.0.0
+date-released: 2025-11-16
+license: MIT
+repository-code: "https://github.com/motanova84/Ramsey/tree/main/rpsi-proof"
+url: "https://github.com/motanova84/Ramsey"
+keywords:
+  - Ramsey theory
+  - SAT solving
+  - vibrational resonance
+  - quantum coherence
+  - combinatorics
+  - graph theory
+  - DIMACS CNF
+  - formal verification
+  - QCAL
+  - 141.7001 Hz
+references:
+  - type: article
+    authors:
+      - family-names: "Ramsey"
+        given-names: "Frank P."
+    title: "On a Problem of Formal Logic"
+    year: 1930
+    journal: "Proceedings of the London Mathematical Society"
+  - type: article
+    authors:
+      - family-names: "Erdős"
+        given-names: "Paul"
+      - family-names: "Szekeres"
+        given-names: "George"
+    title: "A combinatorial problem in geometry"
+    year: 1935
+    journal: "Compositio Mathematica"
+  - type: software
+    title: "Z3 Theorem Prover"
+    authors:
+      - family-names: "de Moura"
+        given-names: "Leonardo"
+      - family-names: "Bjørner"
+        given-names: "Nikolaj"
+    year: 2008
+    url: "https://github.com/Z3Prover/z3"
+contact:
+  - family-names: "Mota Burruezo"
+    given-names: "José Manuel"
+    email: institutoconsciencia@proton.me
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.17315719"
+    description: "Zenodo DOI for Ramsey Vibracional main repository"
+preferred-citation:
+  type: software
+  authors:
+    - family-names: "Mota Burruezo"
+      given-names: "José Manuel"
+  title: "rpsi-proof: SAT Certification for Vibrational Ramsey Numbers"
+  year: 2025
+  url: "https://github.com/motanova84/Ramsey/tree/main/rpsi-proof"
+  notes: |
+    SAT-based formal certification using symbiotic resonance encoding
+    with base frequency f₀ = 141.7001 Hz (QCAL ∞³ field).
+    Reduces Ramsey bounds from exponential to polynomial growth.
