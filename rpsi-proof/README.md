@@ -7,6 +7,18 @@
 
 > **Certificado formal de Rψ(5,5) ≤ 16 mediante SAT + LRAT + Lean 4**
 
+## ❗ Nota Importante
+
+**Este certificado es para Rψ(5,5) (Ramsey vibracional), NO para R(5,5) (Ramsey clásico).**
+
+- **Rψ(5,5)** mide la menor dimensión donde es imposible evitar cliques vibracionales bajo restricciones de coherencia y resonancia
+- **R(5,5)** mide el mínimo n tal que toda 2-coloración de K_n contiene un K₅ monocromático
+- Estos son objetos matemáticos diferentes: **Rψ ≠ R**
+
+El hecho de que Rψ(5,5) ≤ 16 NO contradice que R(5,5) ≥ 43, porque miden propiedades en espacios diferentes.
+
+Para más detalles sobre esta distinción, ver [../FAQ.md](../FAQ.md).
+
 ## 📋 Contenido
 
 Este repositorio contiene la prueba formal completa de que el número de Ramsey vibracional Rψ(5,5) es menor o igual a 16, verificada mediante:
