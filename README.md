@@ -419,7 +419,7 @@ Este trabajo se basa en:
 
 MIT License - Ver archivo LICENSE para detalles
 
-## 🙏 Contribuciones
+## Contribuciones
 
 Las contribuciones son bienvenidas. Por favor, abre un issue o pull request para sugerencias.
 
