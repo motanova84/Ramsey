@@ -1,0 +1,54 @@
+{
+  "model": "vibrational_ramsey",
+  "parameters": {
+    "r": 5,
+    "s": 5,
+    "epsilon": 0.05,
+    "f0": 141.7001,
+    "grid": 128
+  },
+  "bound": {
+    "computed": 16,
+    "classical_lower": 43,
+    "classical_upper": 48,
+    "improvement_factor": 2.6875
+  },
+  "frequency_assignment": {
+    "n": 15,
+    "frequencies": [
+      0.0,
+      7.1625,
+      14.325,
+      21.4875,
+      28.65,
+      35.8125,
+      42.975,
+      50.1375,
+      57.3,
+      64.4625,
+      71.625,
+      78.7875,
+      85.95,
+      93.1125,
+      100.275
+    ],
+    "unit": "Hz"
+  },
+  "verification": {
+    "method": "SAT_solver",
+    "solver": "z3",
+    "status": "UNSAT",
+    "timestamp": "2024-01-15T12:00:00Z"
+  },
+  "properties": {
+    "no_red_k5": true,
+    "no_blue_k5": true,
+    "vibrational_unsat": true
+  },
+  "metadata": {
+    "generator": "ramsey_vibracional.py",
+    "version": "1.0.0",
+    "qcal_beacon": "∞³",
+    "author": "José Manuel Mota Burruezo"
+  }
+}
