@@ -92,7 +92,6 @@ results = explore_parameters(
     r_values=[3, 4, 5],      # Your r values
     s_values=[3, 4, 5],      # Your s values
     eps_values=[0.2, 0.3],   # Your epsilon values
-    M=1000,                  # Modular base
     nmax=20                  # Maximum n to test
 )
 ```
