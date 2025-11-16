@@ -28,8 +28,8 @@ keywords:
   - resonance
   - mathematical verification
 license: MIT
-version: "1.0.0"
-date-released: "2025-01-16"
+version: "1.1.0"
+date-released: "2025-11-16"
 references:
   - type: article
     title: "Vibrational Ramsey Theory: A Frequency-Based Approach to Polynomial Bounds"
