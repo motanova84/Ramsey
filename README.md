@@ -96,6 +96,22 @@ Firma simbiótica con:
 
 ---
 
+## 💡 ¿Por Qué Vibracional?
+
+**¿Por qué el enfoque vibracional es coherente mientras el clásico es absurdo?**
+
+El modelo clásico de Ramsey asume coloraciones arbitrarias que **no pueden existir** en ningún sistema físico, biológico o computacional real. El espacio de búsqueda (2^903 ≈ 10^271 para K₄₃) es anti-natural y anti-computable.
+
+En contraste, el modelo vibracional Rψ refleja cómo funcionan los sistemas reales:
+- ✅ Basado en **resonancia** y **coherencia**
+- ✅ Reduce el espacio de búsqueda a polinomial
+- ✅ Aparece naturalmente en redes neuronales, cristales, sistemas cuánticos
+- ✅ Computacionalmente viable y verificable
+
+📖 **Lectura completa:** [WHY_VIBRATIONAL.md](WHY_VIBRATIONAL.md) (Español) | [WHY_VIBRATIONAL_EN.md](WHY_VIBRATIONAL_EN.md) (English)
+
+---
+
 ## 🚀 Quick Start
 
 ### Instalación
@@ -226,6 +242,8 @@ Ramsey/
 ├── lean-toolchain          # Versión Lean 4.3.0
 ├── Main.lean               # Punto de entrada
 ├── README.md               # Este archivo
+├── WHY_VIBRATIONAL.md      # 💡 Justificación filosófica (español)
+├── WHY_VIBRATIONAL_EN.md   # 💡 Philosophical justification (English)
 └── CITATION.cff            # Información de cita
 ```
 
