@@ -48,6 +48,9 @@ htmlcov/
 *.tmp
 *.log
 
+# Test data
+data/test/
+
 # Lean 4
 .lake/
 build/
