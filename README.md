@@ -26,6 +26,11 @@ Este proyecto incluye certificados formales verificables para los valores de R_�
 
 **Nota:** Los certificados se pueden generar automáticamente usando el CLI tool `ai-ramsey-formal`.
 
+### Badges
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Lean 4](https://img.shields.io/badge/Lean-4-brightgreen.svg)](https://lean-lang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Formally Verified](https://img.shields.io/badge/formally-verified-success.svg)](formal/)
 ### Resultado Principal
 ## 🎯 NEW: Parameterized Ramsey Theory (R_Λ)
 
@@ -81,8 +86,71 @@ R_ψ(r,s) = O(√(rs) × ln(rs))  vs  R(r,s) = 2^O(√(r+s)×ln(r+s))
 - **Reducción Exponencial**: De crecimiento exponencial a polinómico
 - **Verificación SAT**: Cálculo exacto usando solver Z3
 - **Resonancia Vibracional**: Operador basado en frecuencia 141.7001 Hz
+- **Certificación Formal**: Pruebas verificadas en Lean 4 con MathLib
+- **Puente Julia → Lean**: Generación automática de certificados formales
 - **Aplicaciones**: Redes neuronales, simulaciones Monte Carlo
 
+## 🔧 Flujo de Trabajo: Julia → Lean 4 → Certificado
+
+Este proyecto implementa un pipeline formal de verificación que combina computación con Z3 y certificación matemática en Lean 4.
+
+```
+┌──────────────┐         ┌──────────────┐         ┌──────────────┐
+│    Julia     │  SAT    │   Z3 Solver  │  UNSAT  │    Lean 4    │
+│  Generator   │ formula │  Verification│  proof  │ Certification│
+│              ├────────→│              ├────────→│              │
+│ generate_    │  .smt2  │  check-sat   │ .lean   │  theorem     │
+│ lean_proof() │         │              │         │  R_ψ(r,s)≤n  │
+└──────────────┘         └──────────────┘         └──────────────┘
+```
+
+### Ventajas de este Enfoque
+
+| Herramienta | Ventaja para este proyecto |
+|-------------|----------------------------|
+| **Lean 4** | Teoremas formales, tácticas custom, certificación de cotas, verificación automática |
+| **Julia + Metaprogramación** | Generación de fórmulas SAT, integración con Z3, visualización, exportación a Lean |
+| **MathLib (Lean)** | Ya contiene teoría de grafos, combinatoria y álgebra lineal |
+| **Tácticas custom** | `vibrational_unsat_tac` automatiza la prueba de R_ψ(r,s) ≤ n |
+
+### 1. Julia: Generación y Validación
+
+```julia
+using Z3, Lean4Bridge
+
+function generate_lean_proof(r, s, lam, n)
+    formula = make_vibrational_formula(r, s, lam, n)
+    status, model = check_sat(formula)
+    if status == :unsat
+        lean_code = """
+        theorem R_ψ_$(r)_$(s)_le_$(n) : R_ψ $r $s (1/128) ≤ $n := by
+          vibrational_unsat_tac {lam := $lam, grid := 128, f0 := 1417001e-5}
+        """
+        write_lean("formal/Theorems/R_ψ_$(r)_$(s)_le_$(n).lean", lean_code)
+    end
+end
+```
+
+### 2. Lean 4: Teorema Formal
+
+```lean
+import Mathlib.Combinatorics.Ramsey
+import RamseyVibracional.Tactic
+
+def R_ψ (r s : ℕ) (ε : ℝ) : ℕ :=
+  VibrationalRamsey.rpsi r s ε
+
+theorem R_ψ_5_5_le_19 : R_ψ 5 5 (1 / 128) ≤ 19 :=
+  by vibrational_unsat_tac {lam := 0.037, grid := 128, f0 := 141.7001}
+```
+
+### 3. Certificado Final
+
+- ✅ `.lean` file compila sin errores en Lean 4
+- ✅ Exportación a HTML/PDF con `lean4-web`
+- ✅ DOI en Zenodo con proof artifact (`.olean` + `.lean` + `.smt2`)
+
+## 📦 Instalación
 ### Resultados Verificables R_ψ(r,s,ε=0.2)
 
 | r | s | ε | Rψ(r,s,ε) | Verificado Z3 |
@@ -403,19 +471,33 @@ Los vértices no son entidades pasivas, sino "nodos de consciencia" que vibran y
 
 ```
 Ramsey/
-├── ramsey_vibracional.py    # Módulo principal con toda la implementación
-├── demo.py                   # Demo rápido de funcionalidades (⭐ EMPEZAR AQUÍ)
-├── run_tests.py             # Ejecutor de tests unitarios
-├── requirements.txt          # Dependencias del proyecto
-├── README.md                # Esta documentación
-├── examples/                # Ejemplos de uso
+├── formal/                         # 🆕 Verificación formal Lean 4
+│   ├── VibrationalRamsey.lean      # Definiciones principales
+│   ├── Tactic.lean                 # Táctica vibrational_unsat_tac
+│   ├── Theorems/                   # Teoremas certificados
+│   │   ├── R_psi_3_3_le_6.lean
+│   │   ├── R_psi_4_4_le_11.lean
+│   │   └── R_psi_5_5_le_19.lean
+│   └── lakefile.lean               # Configuración Lean 4
+├── julia/                          # 🆕 Puente Julia → Lean
+│   ├── generate_lean_proof.jl      # Generador de pruebas Lean
+│   └── validate_model.jl           # Validador de modelos SAT
+├── certificates/                   # 🆕 Certificados formales
+│   ├── 5_5_0.037.smt2              # Fórmula SMT2 verificada
+│   └── README.md                   # Documentación de certificados
+├── ramsey_vibracional.py           # Módulo principal Python
+├── demo.py                         # Demo rápido (⭐ EMPEZAR AQUÍ)
+├── run_tests.py                    # Ejecutor de tests unitarios
+├── requirements.txt                # Dependencias Python
+├── README.md                       # Esta documentación
+├── examples/                       # Ejemplos de uso
 │   ├── README.md
 │   ├── ejemplo_1_calculos_exactos.py
 │   ├── ejemplo_2_monte_carlo.py
 │   ├── ejemplo_3_redes_neuronales.py
 │   ├── ejemplo_4_exploracion_resonancia.py
 │   └── ejemplo_5_visualizacion.py
-└── tests/                   # Tests unitarios
+└── tests/                          # Tests unitarios
     └── test_ramsey_vibracional.py
 ```
 
