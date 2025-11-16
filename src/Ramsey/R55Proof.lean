@@ -1,5 +1,17 @@
 -- R55Proof.lean
 -- Formal proof that R(5,5) ≤ 43
+--
+-- ⚠️ WARNING: This file contains incomplete proofs with 'sorry' placeholders
+-- and axioms based on external SAT solver results. The definitions are correct,
+-- but the proofs are NOT fully verified by Lean 4's kernel.
+--
+-- STATUS:
+-- • Definitions: ✓ Complete and type-checked
+-- • SAT verification: ✓ Computationally verified (see rpsi-proof/)
+-- • Lean proofs: ⚠️ Incomplete - uses axioms and depends on Reduction.lean
+-- • Reduction theorem: ⚠️ Incomplete - uses 'sorry' (see Reduction.lean)
+--
+-- For complete verification status, see: VERIFICATION_STATUS.md
 
 import Mathlib.Data.Real.Basic
 import Mathlib.Tactic

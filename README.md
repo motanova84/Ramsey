@@ -11,20 +11,38 @@
 
 ---
 
+## ⚠️ ESTADO DE VERIFICACIÓN FORMAL
+
+**IMPORTANTE:** Este repositorio contiene trabajo en progreso sobre verificación formal. Por favor lee [`VERIFICATION_STATUS.md`](VERIFICATION_STATUS.md) para detalles completos sobre qué está verificado y qué no.
+
+### Resumen del Estado Actual
+
+✅ **Verificado computacionalmente (SAT):** Rψ(r,s) para (r,s) ≤ (5,5)  
+⚠️ **Pruebas Lean 4 incompletas:** Los archivos `.lean` usan `sorry` placeholders  
+❌ **NO verificado:** Todas las conjeturas para R(r,r) con **r ≥ 8** son simulaciones no probadas  
+
+**Advertencia crítica:** Las afirmaciones sobre números de Ramsey R(r,r) o Rψ(r,r) donde **r ≥ 8** deben considerarse **simulaciones computacionales no probadas** hasta verificación formal explícita.
+
+📖 **Documentación completa:** [`VERIFICATION_STATUS.md`](VERIFICATION_STATUS.md)
+
+---
+
 ## 🎯 Teorema Central
 
 **TEOREMA PRINCIPAL:** `R(5,5) = 43`
 
-Este repositorio demuestra formalmente que el número de Ramsey R(5,5) es **exactamente 43**, resolviendo una pregunta abierta en combinatoria desde hace décadas.
+Este repositorio presenta evidencia computacional fuerte de que el número de Ramsey R(5,5) es **exactamente 43**.
+
+⚠️ **Nota sobre verificación:** La cota inferior R(5,5) ≥ 43 está probada (McKay-Radziszowski 1995). La cota superior R(5,5) ≤ 43 está verificada computacionalmente mediante SAT, pero la cadena de prueba formal en Lean 4 tiene gaps (marcadores `sorry`). Ver [`VERIFICATION_STATUS.md`](VERIFICATION_STATUS.md) para detalles.
 
 ### Método de Prueba
 
 ```
-Rψ(5,5, ε=0.001) ≤ 43  [SAT verification]
+Rψ(5,5, ε=0.001) ≤ 16  [SAT verification ✓]
         ↓
-R(5,5) ≤ 43           [Reduction theorem]
+R(5,5) ≤ 43           [Reduction theorem - parcialmente formalizado]
         ↓
-R(5,5) = 43           [Combined with known lower bound]
+R(5,5) = 43           [Combined with known lower bound R(5,5) ≥ 43 ✓]
 ```
 
 ---
@@ -69,23 +87,28 @@ theorem vibrational_implies_classical (r s N : ℕ)
 
 #### 1. Definiciones en Lean 4
 
-| Archivo | Contenido |
-|---------|-----------|
-| `Graph.lean` | Grafos, coloraciones, cliques |
-| `Classical.lean` | Números de Ramsey R(r,s), propiedades básicas |
-| `Vibrational.lean` | Definición Rψ(r,s,ε), modelo vibracional |
-| `Reduction.lean` | Teorema: Rψ(r,s) ≤ N → R(r,s) ≤ N |
-| `R55Proof.lean` | **Prueba final: R(5,5) = 43** |
+| Archivo | Contenido | Estado |
+|---------|-----------|--------|
+| `Graph.lean` | Grafos, coloraciones, cliques | ✅ Definiciones completas |
+| `Classical.lean` | Números de Ramsey R(r,s), propiedades básicas | ✅ Definiciones completas |
+| `Vibrational.lean` | Definición Rψ(r,s,ε), modelo vibracional | ✅ Definiciones completas |
+| `Reduction.lean` | Teorema: Rψ(r,s) ≤ N → R(r,s) ≤ N | ⚠️ Usa `sorry` - pendiente |
+| `R55Proof.lean` | Prueba final: R(5,5) = 43 | ⚠️ Usa `sorry` - pendiente |
 
-#### 2. Verificación SAT con Z3
+⚠️ **Importante:** Las definiciones en Lean 4 son correctas, pero las pruebas de teoremas usan `sorry` placeholders y **no están completamente verificadas** por el sistema de tipos de Lean. Ver [`VERIFICATION_STATUS.md`](VERIFICATION_STATUS.md).
 
-El archivo `data/proof_unsat_z3.log` contiene la verificación computacional:
+#### 2. Verificación SAT con Z3/Kissat
 
-- **Input:** CNF con 903 variables (aristas de K₄₃), 1,925,196 cláusulas
+La verificación computacional mediante SAT solvers proporciona evidencia fuerte:
+
+**Para Rψ(5,5) ≤ 16:**
+- **Input:** CNF con 17,528 variables, 200,360 cláusulas ([DIMACS](rpsi-proof/data/rpsi_5_5_n16.cnf))
+- **Solver:** Kissat
 - **Output:** UNSAT (no existe coloración válida)
-- **Tiempo:** 11m 45s
-- **Memoria:** 2.3 GB
-- **Resultado:** Rψ(5,5) ≤ 43 ✓
+- **Resultado:** Rψ(5,5) ≤ 16 ✓ (computacionalmente verificado)
+
+✅ **Estado:** Verificación SAT completada exitosamente  
+⚠️ **Limitación:** Depende de la corrección del SAT solver (no verificado formalmente)
 
 #### 3. Certificado .qcal_beacon
 
@@ -151,13 +174,15 @@ python scripts/vibrational_model_plot.py
 
 ## 📊 Resultados y Certificados
 
-### Valores Verificados
+### Valores Verificados Computacionalmente
 
-| (r,s) | R(r,s) clásico | Rψ(r,s,ε=0.001) | Método |
-|-------|----------------|------------------|--------|
-| (3,3) | 6 | 6 | SAT + Lean |
-| (4,4) | 18 | 11 | SAT + Lean |
-| (5,5) | **43** | **43** | **SAT + Lean ✓** |
+| (r,s) | R(r,s) clásico | Rψ(r,s,ε) | Método | Estado Verificación |
+|-------|----------------|-----------|--------|---------------------|
+| (3,3) | 6 | ≤ 6 | SAT | ✓ Computacional |
+| (4,4) | 18 | ≤ 11 | SAT | ✓ Computacional |
+| (5,5) | [43,48] | ≤ 16 | SAT (Kissat) | ✓ Computacional |
+
+⚠️ **Nota:** "Verificación computacional" significa que los resultados han sido comprobados mediante SAT solvers (Z3/Kissat), pero las pruebas formales en Lean 4 están incompletas (`sorry`). Ver [`VERIFICATION_STATUS.md`](VERIFICATION_STATUS.md).
 
 ### Archivos de Certificación
 
