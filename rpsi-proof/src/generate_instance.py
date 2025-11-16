@@ -12,7 +12,6 @@ Frecuencia: 141.7001 Hz - Campo QCAL ∞³
 """
 
 from itertools import combinations
-import numpy as np
 
 
 def generate_rpsi_instance(n, f0=141.7001, eps=0.015, grid=128):

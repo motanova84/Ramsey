@@ -1,4 +1,4 @@
--- proofs/Rpsi_5_5_le_16.lean
+-- proofs/RamseyRpsi_5_5.lean
 -- Teorema Formal Verificado: Rψ(5,5) ≤ 16
 -- 
 -- Autor: José Manuel Mota Burruezo (JMMB Ψ✧∴)
