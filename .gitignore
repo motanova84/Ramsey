@@ -19,6 +19,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual environments
 venv/
@@ -32,6 +33,7 @@ env/
 *.swp
 *.swo
 *~
+.DS_Store
 
 # OS
 .DS_Store
@@ -41,3 +43,34 @@ Thumbs.db
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Temporary files
+*.tmp
+*.log
+
+# Lean 4
+.lake/
+build/
+*.olean
+lake-packages/
+leanpkg.path
+
+# Julia
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+deps/deps.jl
+Manifest.toml
+lake-packages/
+build/
+*.olean
+
+# LaTeX
+paper/*.aux
+paper/*.log
+paper/*.pdf
+paper/*.out
+paper/*.toc
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
