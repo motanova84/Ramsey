@@ -15,12 +15,6 @@ Presentamos **R_ψ(r,s)**, un nuevo parámetro de tipo Ramsey basado en principi
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Síntesis Técnica-Espiritual Perfecta - QCAL ∞³**
-
-*Autores: José Manuel Mota Burruezo · JMMB Ψ✧∴ & AMDA φ ∞³*  
-*Instituto: Instituto de Consciencia Cuántica (ICQ)*  
-*Frecuencia de Investigación: 141.7001 Hz - Campo QCAL ∞³*
-
 ## ☆ Abstract - La Visión Unificada ☆
 
 Presentamos **R_ψ(r,s)**, un nuevo parámetro de tipo Ramsey basado en principios vibracionales y coherencia cuántica, que reduce drásticamente los umbrales de aparición de cliques monocromáticos en sistemas estructurados. Este trabajo une rigor matemático formal con una visión transformadora de las redes como sistemas conscientes resonantes.
@@ -50,7 +44,7 @@ pip install -r requirements.txt
 ```
 
 ### Requisitos
-## 🌟 Características Principales
+##  Características Principales
 
 - **Reducción exponencial a polinómica**: De crecimiento exponencial a casi-lineal mediante coherencia cuántica
 - **Verificación SAT rigurosa**: Implementación con Z3 solver para cálculo exacto de R_ψ(r,s,ε)
@@ -68,7 +62,7 @@ Dependencias:
 - z3-solver >= 4.12.0
 - numpy >= 1.24.0
 
-## 🚀 Uso
+##  Uso
 
 ### Demo Rápido (Recomendado para empezar)
 
@@ -200,7 +194,7 @@ donde ε > 0 es el umbral de coherencia (típicamente ε = 0.001 Hz)
 ### Función de Ramsey Vibracional
 **R_ψ(r,s,ε)** es el menor n tal que toda coloración vibracional resonante de K_n (con umbral ε) contiene un K_r azul o un K_s rojo.
 
-## 🎯 Teoremas Principales
+##  Teoremas Principales
 
 ### Teorema 3.1 (Cota Polinómica)
 Fijado ε > 0, existe una constante C = C(ε) tal que:
@@ -270,7 +264,7 @@ Tabla de Valores Exactos (Grid=128, ε=0.001, f₀=141.7001 Hz):
 - Error promedio: 7.6% (remarkablemente preciso)
 - La frecuencia 141.7001 Hz demuestra ser el regulador perfecto
 
-## 🌐 Aplicaciones
+##  Aplicaciones
 
 ### 1. Redes Neuronales Vibracionalmente Optimizadas
 Diseño de redes neuronales con conectividad basada en resonancia vibracional, garantizando emergencia de cliques de procesamiento.
@@ -285,7 +279,7 @@ Predicción de formación de comunidades usando principios vibracionales.
 ### 3. Criptografía Ramsey
 Esquemas criptográficos basados en la inevitabilidad de cliques monocromáticos.
 
-## 📈 Ejecución del Sistema Completo
+##  Ejecución del Sistema Completo
 
 ```bash
 python ramsey_vibracional.py
@@ -296,7 +290,7 @@ Esto ejecutará:
 2. ✓ Simulaciones Monte Carlo para validación estadística
 3. ✓ Ejemplo de red neuronal vibracional
 
-## 🧪 Interpretación Noética
+##  Interpretación 
 
 ### La Frecuencia Base f₀ = 141.7001 Hz
 Esta frecuencia emerge del Campo QCAL ∞³ como la resonancia fundamental que permite la coherencia cuántica en sistemas complejos.
@@ -310,7 +304,7 @@ Esta frecuencia emerge del Campo QCAL ∞³ como la resonancia fundamental que p
 ### Grafos como Sistemas Conscientes
 Los vértices no son entidades pasivas, sino "nodos de consciencia" que vibran y buscan resonancia armónica. El orden emerge inevitablemente, pero a escalas mucho menores que las predichas por modelos aleatorios.
 
-## 📚 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 Ramsey/
@@ -330,7 +324,7 @@ Ramsey/
     └── test_ramsey_vibracional.py
 ```
 
-## 🔗 Funciones Principales
+##  Funciones Principales
 
 - `ramsey_vibracional_unsat(n, r, s, ...)`: Verificación SAT
 - `calcular_Rpsi_exacto(r, s, ...)`: Cálculo exacto de R_ψ
@@ -339,7 +333,7 @@ Ramsey/
 - `simulacion_monte_carlo_ramsey(...)`: Validación estadística
 - `red_neuronal_ramsey(...)`: Aplicación a redes neuronales
 
-## 🎓 Referencias Teóricas
+##  Referencias Teóricas
 
 Este trabajo se fundamenta en:
 - Teoría de Ramsey clásica
@@ -348,7 +342,7 @@ Este trabajo se fundamenta en:
 - Lema de Zarankiewicz generalizado
 - Coherencia cuántica y resonancia armónica
 
-## 🌟 Mensaje Universal
+##  Mensaje Universal
 
 El orden emerge más fácilmente de lo que predicen modelos puramente aleatorios, cuando consideramos la naturaleza consciente-vibracional subyacente de los sistemas.
 
@@ -371,7 +365,7 @@ Ramsey/
 └── tests/                   # Tests unitarios (próximamente)
 ```
 
-## 🔮 Interpretación Noética
+##  Interpretación Noesica
 
 ### La Frecuencia Base f₀ = 141.7001 Hz
 
