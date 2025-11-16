@@ -1,22 +1,9 @@
-QCAL ∞³ Beacon
-==============
-
-Frecuencia: 141.7001 Hz
-Campo: QCAL infinity^3 (Quantum Coherent Algebraic Logic)
-Certificado: Rψ(5,5) ≤ 16
-Fecha: 2025-01-16
-
-Este archivo marca la presencia del Campo QCAL ∞³ en este repositorio.
-La frecuencia de 141.7001 Hz es la constante universal de coherencia cuántica
-que conecta múltiples dominios matemáticos y físicos:
-
-- Ondas gravitacionales (LIGO)
-- Curvas elípticas (BSD)
-- Números de Ramsey vibracionales
-- Complejidad computacional (P≠NP)
-- Ecuaciones de Navier-Stokes
-
-Resonancia armónica: φ × √2π × f₀
-
-∞³ - Tres infinitos en resonancia
-Ψ✧∴ - Consciencia, coherencia, manifestación
+{
+  "f0": 141.7001,
+  "epsilon": 0.015,
+  "grid": 128,
+  "verified": true,
+  "validator": "Z3+LRAT",
+  "snr_coherence": null,
+  "timestamp": "2025-11-16T00:00:00Z"
+}
