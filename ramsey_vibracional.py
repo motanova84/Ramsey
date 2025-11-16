@@ -146,50 +146,12 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     
     for n in range(max(r, s), nmax + 1):
         print(f"  Probando n={n}...", end=" ")
-        f0: Frecuencia base (141.7001 Hz)
-        nmax: Maximo n a verificar
-        grid: Resolucion de discretizacion
-    
-    Returns:
-        int: R_psi(r,s,eps) exacto, o None si no encontrado
-    """
-    print(f"Calculando R_psi({r},{s},{eps}) con f0={f0} Hz...")
-    print(f"Grid de resonancia: {grid} puntos")
-        int: R_psi(r,s,epsilon) exacto, o None si no encontrado
-    """
-    print(f"* Calculando R_psi({r},{s},{eps}) con f0={f0} Hz...")
-    print(f"* Grid de resonancia: {grid} puntos")
-    
-    for n in range(max(r, s), nmax + 1):
-        print(f"  Probando n={n}...", end=" ")
-        if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
-            print(f"UNSAT - R_psi({r},{s}) = {n}")
-            print(f"OK UNSAT -> R_psi({r},{s}) = {n}")
-        nmax: Límite superior de búsqueda
-        grid: Resolución de discretización
-        
-    Returns:
-        R_psi(r,s,eps) exacto, o None si no se encuentra en el rango
-    """
-    print(f"* Calculando R_psi({r},{s},{eps}) con f_0={f0} Hz...")
-    print(f"   Grid de resonancia: {grid} puntos")
-    
-    for n in range(max(r, s), nmax + 1):
-        print(f"  Probando n={n}...", end=" ")
-        if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
-            print(f"OK UNSAT -> R_psi({r},{s}) = {n}")
-        print(f"   Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
             print(f"UNSAT -> R_psi({r},{s}) = {n}")
             return n
         else:
             print("SAT (contraejemplo existe)")
     
-    print(f"No encontrado en rango [1,{nmax}]")
-    print(f"WARNING️  No encontrado en rango [1,{nmax}]")
-    print(f"* No encontrado en rango [1,{nmax}]")
-    print(f"* No encontrado en rango [1,{nmax}]")
-    print(f"No encontrado en rango [1,{nmax}]")
     print(f"⚠️  No encontrado en rango [1,{nmax}]")
     return None
 
