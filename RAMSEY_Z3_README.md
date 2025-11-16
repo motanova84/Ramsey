@@ -1,6 +1,6 @@
 # Ramsey Vibrational Numbers Verification (Z3 Version)
 
-Complete Z3-based SAT verification system for vibrational Ramsey numbers **R_ψ(r,s,ε)** with modular coloring.
+Complete Z3-based SAT verification system for vibrational Ramsey numbers **R_ψ(r,s,ε)** using continuous frequency assignments.
 
 ## Overview
 
@@ -33,7 +33,6 @@ Otherwise, the edge is **blue** (non-resonant).
 - **r**: Size of red clique to avoid
 - **s**: Size of blue clique to avoid  
 - **ε (epsilon)**: Resonance threshold (typically 0.1 - 0.3)
-- **M**: Modular base for discretization (typically 1000)
 
 ## Installation
 
@@ -62,13 +61,9 @@ Verify if a specific parameter combination satisfies the Ramsey property:
 ```python
 from ramsey_z3_verification import vibrational_ramsey
 
-# Check if (3,3) holds for n=5 with epsilon=0.2
-result = vibrational_ramsey(3, 3, n=5, M=1000, eps=0.2)
-print(f"n=5: {result}")  # True if R_psi > 5
-
-# Check for n=6
-result = vibrational_ramsey(3, 3, n=6, M=1000, eps=0.2)
-print(f"n=6: {result}")  # True if R_psi > 6
+# Check if (3,3) holds for default n with epsilon=0.2
+result = vibrational_ramsey(3, 3, eps=0.2)
+print(f"Result: {result}")  # True if SAT (counterexample exists)
 ```
 
 ### 2. Calculate Exact Values
@@ -95,7 +90,6 @@ results = explore_parameters(
     r_values=[3, 4, 5],
     s_values=[3, 4, 5],
     eps_values=[0.15, 0.2, 0.25],
-    M=1000,
     nmax=20
 )
 
@@ -180,7 +174,6 @@ Results are saved in CSV format with the following fields:
 | r | Red clique size |
 | s | Blue clique size |
 | epsilon | Resonance threshold |
-| M | Modular base |
 | R_psi | Computed Ramsey number |
 | duration_seconds | Computation time |
 | timestamp | ISO 8601 timestamp |

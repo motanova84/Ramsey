@@ -11,21 +11,21 @@ from ramsey_z3_verification import vibrational_ramsey, calculate_ramsey_vibratio
 
 
 def example_1_basic_check():
-    """Example 1: Check if specific n satisfies Ramsey property"""
+    """Example 1: Basic verification check"""
     print("=" * 70)
     print("EXAMPLE 1: Basic Verification")
     print("=" * 70)
-    print("\nChecking if (3,3) holds for different n values with epsilon=0.2:\n")
+    print("\nBasic check for (3,3) with epsilon=0.2:\n")
     
-    for n in [4, 5, 6, 7]:
-        # Test for specific n by passing it to vibrational_ramsey
-        result = vibrational_ramsey(3, 3, n=n, eps=0.2)
-        status = "SAT (counterexample exists)" if result else "UNSAT (no valid assignment)"
-        print(f"  n={n}: {status}")
+    # The function tests n = r + s - 1 = 5 by default
+    result = vibrational_ramsey(3, 3, eps=0.2)
+    status = "SAT (counterexample exists)" if result else "UNSAT (no valid assignment)"
+    print(f"  Result for (3,3): {status}")
     
     print("\nInterpretation:")
     print("  - SAT means a valid frequency assignment exists (n < R_psi)")
     print("  - UNSAT means no valid assignment exists (n >= R_psi)")
+    print("  - The function tests n = r + s - 1 by default")
 
 
 def example_2_calculate_exact():

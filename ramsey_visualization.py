@@ -35,7 +35,6 @@ def load_results_from_csv(filename='ramsey_results.csv'):
                     'r': int(row['r']),
                     's': int(row['s']),
                     'epsilon': float(row['epsilon']),
-                    'M': int(row['M']),
                     'R_psi': int(row['R_psi']) if row['R_psi'] and row['R_psi'] != 'None' else None,
                     'duration_seconds': float(row['duration_seconds']),
                     'timestamp': row['timestamp']

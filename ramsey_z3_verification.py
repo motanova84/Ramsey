@@ -20,7 +20,7 @@ import csv
 from datetime import datetime
 
 
-def vibrational_ramsey(r, s, M=1000, eps=0.2):
+def vibrational_ramsey(r, s, eps=0.2):
     """
     Verify if vibrational Ramsey number R_psi(r,s,eps) holds for n vertices.
     
@@ -32,7 +32,6 @@ def vibrational_ramsey(r, s, M=1000, eps=0.2):
     Args:
         r: Size of red clique to avoid
         s: Size of blue clique to avoid
-        M: Modular base for coloring (default 1000)
         eps: Threshold for resonance (default 0.2)
     
     Returns:
@@ -62,7 +61,7 @@ def vibrational_ramsey(r, s, M=1000, eps=0.2):
     return solver.check() == sat
 
 
-def calculate_ramsey_vibrational(r, s, M=1000, eps=0.2, nmax=20):
+def calculate_ramsey_vibrational(r, s, eps=0.2, nmax=20):
     """
     Calculate the exact vibrational Ramsey number R_psi(r,s,eps).
     
@@ -72,14 +71,13 @@ def calculate_ramsey_vibrational(r, s, M=1000, eps=0.2, nmax=20):
     Args:
         r: Red clique size
         s: Blue clique size
-        M: Modular base
         eps: Resonance threshold
         nmax: Maximum n to test
     
     Returns:
         The Ramsey number, or None if not found in range
     """
-    print(f"Calculating R_psi({r},{s}) with eps={eps}, M={M}...")
+    print(f"Calculating R_psi({r},{s}) with eps={eps}...")
     
     for n in range(max(r, s), nmax + 1):
         print(f"  Testing n={n}...", end=" ")
@@ -114,7 +112,7 @@ def calculate_ramsey_vibrational(r, s, M=1000, eps=0.2, nmax=20):
     return None
 
 
-def explore_parameters(r_values, s_values, eps_values, M=1000, nmax=20):
+def explore_parameters(r_values, s_values, eps_values, nmax=20):
     """
     Automatic explorer: scans multiple (r,s,epsilon) values.
     
@@ -122,7 +120,6 @@ def explore_parameters(r_values, s_values, eps_values, M=1000, nmax=20):
         r_values: List of r values to test
         s_values: List of s values to test
         eps_values: List of epsilon values to test
-        M: Modular base
         nmax: Maximum n to test for each case
     
     Returns:
@@ -146,7 +143,7 @@ def explore_parameters(r_values, s_values, eps_values, M=1000, nmax=20):
                 print("-" * 50)
                 
                 start_time = datetime.now()
-                R_psi = calculate_ramsey_vibrational(r, s, M, eps, nmax)
+                R_psi = calculate_ramsey_vibrational(r, s, eps, nmax)
                 end_time = datetime.now()
                 duration = (end_time - start_time).total_seconds()
                 
@@ -154,7 +151,6 @@ def explore_parameters(r_values, s_values, eps_values, M=1000, nmax=20):
                     'r': r,
                     's': s,
                     'epsilon': eps,
-                    'M': M,
                     'R_psi': R_psi,
                     'duration_seconds': duration,
                     'timestamp': start_time.isoformat()
@@ -182,7 +178,7 @@ def save_results_to_csv(results, filename='ramsey_results.csv'):
         return
     
     with open(filename, 'w', newline='') as csvfile:
-        fieldnames = ['r', 's', 'epsilon', 'M', 'R_psi', 'duration_seconds', 'timestamp']
+        fieldnames = ['r', 's', 'epsilon', 'R_psi', 'duration_seconds', 'timestamp']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         
         writer.writeheader()
@@ -208,16 +204,15 @@ def generate_results_table(results):
     print("\n" + "=" * 70)
     print("RESULTS TABLE")
     print("=" * 70)
-    print(f"{'(r,s)':<10} {'epsilon':<10} {'M':<10} {'R_psi':<10} {'Time(s)':<10}")
+    print(f"{'(r,s)':<10} {'epsilon':<10} {'R_psi':<10} {'Time(s)':<10}")
     print("-" * 70)
     
     for result in results:
         r_s = f"({result['r']},{result['s']})"
         eps = f"{result['epsilon']:.2f}"
-        M = str(result['M'])
         R_psi = str(result['R_psi']) if result['R_psi'] else "N/A"
         time = f"{result['duration_seconds']:.2f}"
-        print(f"{r_s:<10} {eps:<10} {M:<10} {R_psi:<10} {time:<10}")
+        print(f"{r_s:<10} {eps:<10} {R_psi:<10} {time:<10}")
     
     print("=" * 70)
 
@@ -262,8 +257,8 @@ if __name__ == "__main__":
     print("\n" + "=" * 70)
     print("RAMSEY VIBRATIONAL NUMBERS VERIFICATION (Z3 VERSION)")
     print("=" * 70)
-    print("\nModular verification via Z3 for R_psi(r,s,epsilon)")
-    print(f"Using M=1000 and modular coloring\n")
+    print("\nZ3 verification for R_psi(r,s,epsilon)")
+    print("Using continuous frequency assignments\n")
     
     # Example 1: Basic verification
     print("\n--- Example 1: Basic Verification ---")
@@ -281,7 +276,6 @@ if __name__ == "__main__":
         r_values=[3, 4],
         s_values=[3, 4],
         eps_values=[0.2, 0.3],
-        M=1000,
         nmax=15
     )
     

@@ -26,7 +26,6 @@ def example_1_small_exploration():
         r_values=[3, 4],
         s_values=[3, 4],
         eps_values=[0.2],
-        M=1000,
         nmax=12
     )
     
@@ -50,7 +49,6 @@ def example_2_epsilon_range():
         r_values=[3],
         s_values=[3],
         eps_values=[0.15, 0.2, 0.25, 0.3],
-        M=1000,
         nmax=12
     )
     
@@ -74,7 +72,6 @@ def example_3_systematic_scan():
         r_values=[3, 4, 5],
         s_values=[3, 4, 5],
         eps_values=[0.2, 0.25],
-        M=1000,
         nmax=15
     )
     
