@@ -1,8 +1,14 @@
 # Ramsey Formal: AI-Assisted Formal Verification System
 
+## ⚠️ Verification Status
+
+**IMPORTANT:** This repository contains work in progress. The Lean 4 proofs use `sorry` placeholders and are **NOT completely formally verified**. SAT solver results are computationally verified.
+
+📖 **Complete status:** See [VERIFICATION_STATUS.md](VERIFICATION_STATUS.md)
+
 ## 🎯 Overview
 
-This repository implements **Phase II - Formal Autonomous Deployment** of the Ramsey Vibrational Theory with formal verification using Lean 4 and SMT solvers.
+This repository implements **Phase II - Formal Autonomous Deployment** of the Ramsey Vibrational Theory with computational verification using SAT solvers and partial formalization in Lean 4.
 
 ## 📂 Repository Structure
 

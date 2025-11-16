@@ -1,6 +1,8 @@
 # Ramsey Vibracional Formal - Sistema de Certificación Formal
 
-Este documento describe el sistema de certificación formal implementado para Ramsey Vibracional.
+⚠️ **ESTADO ACTUAL:** Las pruebas en este sistema usan `sorry` placeholders y NO están completamente verificadas. Ver [VERIFICATION_STATUS.md](VERIFICATION_STATUS.md) para detalles completos.
+
+Este documento describe el sistema de certificación formal implementado para Ramsey Vibracional (trabajo en progreso).
 
 ## 🎯 Objetivo
 

@@ -1,24 +1,35 @@
-# Rψ(5,5) ≤ 16: Certificado Formal
+# Rψ(5,5) ≤ 16: Certificado Computacional
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXX)
 [![Lean 4](https://img.shields.io/badge/Lean-4-brightgreen.svg)](https://lean-lang.org/)
 [![SAT](https://img.shields.io/badge/SAT-Kissat-blue.svg)](https://github.com/arminbiere/kissat)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../LICENSE)
 
-> **Certificado formal de Rψ(5,5) ≤ 16 mediante SAT + LRAT + Lean 4**
+> **Certificado computacional de Rψ(5,5) ≤ 16 mediante SAT (Kissat) con pruebas Lean 4 en progreso**
+
+## ⚠️ Estado de Verificación
+
+**IMPORTANTE:** Este directorio contiene:
+- ✅ **Verificación SAT completada** - UNSAT verificado computacionalmente
+- ⚠️ **Pruebas Lean 4 incompletas** - Usan `sorry` placeholders
+- ⚠️ **Certificado LRAT pendiente** - No verificado independientemente aún
+
+Ver [../VERIFICATION_STATUS.md](../VERIFICATION_STATUS.md) para detalles completos.
 
 ## 📋 Contenido
 
-Este repositorio contiene la prueba formal completa de que el número de Ramsey vibracional Rψ(5,5) es menor o igual a 16, verificada mediante:
+Este repositorio contiene la verificación computacional de que el número de Ramsey vibracional Rψ(5,5) es menor o igual a 16:
 
 - ✅ **Instancia SAT** con codificación Tseytin (200,360 cláusulas)
 - ✅ **Verificación UNSAT** con Kissat SAT solver
-- ✅ **Certificado LRAT** para verificación independiente
-- ✅ **Teorema Lean 4** formalizado con Mathlib
+- ⚠️ **Certificado LRAT** pendiente de generar y verificar
+- ⚠️ **Teorema Lean 4** definido pero con `sorry` (incompleto)
 
 ## 📊 Resultado Principal
 
-**TEOREMA**: Rψ(5,5) ≤ 16
+**RESULTADO COMPUTACIONAL**: Rψ(5,5) ≤ 16
+
+⚠️ **Verificado computacionalmente mediante SAT solver, pero no completamente formalizado en Lean 4**
 
 | Métrica | Valor |
 |---------|-------|
