@@ -10,6 +10,8 @@ jobs:
   test-python:
     name: Test Python Components
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - uses: actions/checkout@v3
@@ -37,6 +39,8 @@ jobs:
   build-lean:
     name: Build Lean Proofs
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - uses: actions/checkout@v3
@@ -69,6 +73,8 @@ jobs:
   validate-qcal:
     name: Validate QCAL Beacon and SAT
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - uses: actions/checkout@v3
@@ -122,6 +128,8 @@ jobs:
     name: Formal Verification Status
     needs: [test-python, build-lean, validate-qcal]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - name: Verification Complete
