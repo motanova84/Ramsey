@@ -1,3 +1,26 @@
+# Rψ(5,5) ≤ 16 — Prueba Formal vía Resonancia Vibracional
+
+**Teorema certificado:**  
+> **Rψ(5,5; f₀=141.7001 Hz, ε=0.037, grid=128) ≤ 16**
+
+## Componentes
+
+- `src/generate_rpsi_sat.py` — Genera CNF con codificación Tseytin
+- `data/rpsi_5_5_n16.cnf` — Instancia SAT (17,528 vars, 200,360 cláusulas)
+- `src/solve_rpsi_sat.py` — Ejecuta Kissat + LRAT
+- `cert/rpsi_5_5_n16_unsat.lrat` — Certificado de insatisfacibilidad
+- `proofs/Rpsi_5_5_le_16.lean` — Teorema en Lean 4
+- `.qcal_beacon` — Metadata QCAL ∞³
+
+## Uso
+
+```bash
+python src/generate_rpsi_sat.py
+python src/solve_rpsi_sat.py
+```
+
+---
+
 # Prueba Formal de R(5,5) ≤ 43 mediante Rψ
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
