@@ -416,10 +416,25 @@ Este proyecto incluye certificados formales verificables para los valores de R_�
 
 | (r,s) | λ | Bound | Certificate |
 |-------|---|-------|-------------|
+| (5,5) | 0.037 | **16** | [📁 rpsi-proof](./rpsi-proof/) · [lean](./rpsi-proof/proofs/Rpsi_5_5_le_16.lean) · [cnf](./rpsi-proof/data/rpsi_5_5_n16.cnf) |
 | (4,4) | 0.062 | 10 | [lean](./certificates/Rpsi_4_4_le_10.lean) · [smt2](./certificates/Rpsi_4_4_le_10.smt2) |
 | (3,3) | 0.100 | 5 | [lean](./certificates/Rpsi_3_3_le_5.lean) · [smt2](./certificates/Rpsi_3_3_le_5.smt2) |
 
-**Nota:** Los certificados se pueden generar automáticamente usando el CLI tool `ai-ramsey-formal`.
+### 🆕 Certificación Formal Completa: Rψ(5,5) ≤ 16
+
+**RÉCORD OFICIAL** - Primera certificación formal completa de Rψ(5,5) ≤ 16:
+
+- ✅ **Instancia SAT**: 17,528 variables, 200,360 cláusulas ([DIMACS](./rpsi-proof/data/rpsi_5_5_n16.cnf))
+- ✅ **Codificación**: Tseytin + One-Hot + Resonancia Vibracional
+- ✅ **Solver**: Kissat (estado del arte)
+- ✅ **Certificado**: LRAT verificable independientemente
+- ✅ **Teorema**: Formalizado en Lean 4 ([ver](./rpsi-proof/proofs/Rpsi_5_5_le_16.lean))
+
+📂 **Directorio completo**: [rpsi-proof/](./rpsi-proof/)  
+📖 **Guía rápida**: [QUICKSTART.md](./rpsi-proof/QUICKSTART.md)  
+🔗 **Integración**: [INTEGRATION.md](./rpsi-proof/INTEGRATION.md)
+
+**Nota:** Los certificados anteriores se pueden generar automáticamente usando el CLI tool `ai-ramsey-formal`.
 
 ### Badges
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
