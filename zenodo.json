@@ -1,0 +1,30 @@
+{
+  "title": "Ramsey Formal: Vibrational Ramsey Theory with Formal Verification",
+  "description": "Formal verification system for vibrational Ramsey bounds R_ψ(r,s,ε) using Lean 4 theorem prover and SMT solvers. Implements quantum coherence principles to achieve polynomial bounds on Ramsey numbers.",
+  "creators": [
+    {
+      "name": "Mota Burruezo, José Manuel",
+      "affiliation": "Instituto de Consciencia Cuántica (ICQ)",
+      "orcid": ""
+    }
+  ],
+  "keywords": [
+    "Ramsey theory",
+    "formal verification",
+    "Lean 4",
+    "theorem proving",
+    "graph theory",
+    "vibrational coherence",
+    "quantum computing",
+    "combinatorics"
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/motanova84/Ramsey"
+    }
+  ]
+}

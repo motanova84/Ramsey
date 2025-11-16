@@ -114,14 +114,24 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
 
 def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     """
-    Calcula R_ψ(r,s,ε) exacto mediante búsqueda SAT
-    
-    La proporción áurea φ = 1.618... guía la búsqueda hacia la perfección
+    Calcula R_psi(r,s,eps) exacto mediante búsqueda SAT
     
     Args:
         r: Tamaño del clique azul
         s: Tamaño del clique rojo
         eps: Umbral de coherencia
+        f0: Frecuencia base de coherencia (141.7001 Hz)
+        nmax: Máximo n a verificar
+        grid: Resolución de discretización
+    
+    Returns:
+        int: R_psi(r,s,eps) exacto, o None si no encontrado
+    """
+    print(f"Calculando R_psi({r},{s},{eps}) con f0={f0} Hz...")
+    print(f"Grid de resonancia: {grid} puntos")
+    
+    for n in range(max(r, s), nmax + 1):
+        print(f"  Probando n={n}...", end=" ")
         f0: Frecuencia base (141.7001 Hz)
         nmax: Límite superior de búsqueda
         grid: Resolución de discretización
@@ -135,11 +145,12 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     for n in range(max(r, s), nmax + 1):
         print(f"   Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
-            print(f"✓ UNSAT → R_ψ({r},{s}) = {n}")
+            print(f"UNSAT -> R_psi({r},{s}) = {n}")
             return n
         else:
             print("SAT (contraejemplo existe)")
     
+    print(f"No encontrado en rango [1,{nmax}]")
     print(f"⚠️  No encontrado en rango [1,{nmax}]")
     return None
 
@@ -148,15 +159,16 @@ def estimar_conjetura(r, s, f0=141.7001):
     """
     Estimación según Conjetura 3.4
     
+    R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^(1/4))
     R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^{1/4})
     
     Args:
         r: Tamaño del clique azul
         s: Tamaño del clique rojo
-        f0: Frecuencia base (141.7001 Hz)
+        f0: Frecuencia base de coherencia (141.7001 Hz)
         
     Returns:
-        Estimación del valor R_ψ(r,s)
+        int: Estimación de R_psi(r,s,eps)
     """
     phi = (1 + np.sqrt(5)) / 2  # Proporción áurea sagrada
     if r * s == 0:
@@ -216,7 +228,7 @@ def resonancia_detectada(omega_i, omega_j, eps=0.001, f0=141.7001):
     Detecta si dos frecuencias están en resonancia
     
     Implementa el Operador de Resonancia:
-    Res(ω_i, ω_j, ε) = 1 ⟺ |ω_i - ω_j| mod f₀ < ε
+    Res(omega_i, omega_j, eps) = 1 iff |omega_i - omega_j| mod f0 < eps
     
     Args:
         omega_i: Frecuencia del vértice i
@@ -315,12 +327,12 @@ def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001)
     # Estimar n basado en conjetura
     n = estimar_conjetura(r, s, f0)
     
-    print(f"\n🎲 Simulación Monte Carlo para ({r},{s})")
-    print(f"   Usando n={n} vértices, {num_trials} ensayos")
+    print(f"\nSimulacion Monte Carlo para ({r},{s})")
+    print(f"   Usando n={n} vertices, {num_trials} ensayos")
     
     exitos = 0
-    tamaños_azul = []
-    tamaños_rojo = []
+    tamanos_azul = []
+    tamanos_rojo = []
     
     for trial in range(num_trials):
         # Generar frecuencias aleatorias
@@ -333,8 +345,8 @@ def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001)
         clique_azul = encontrar_clique_maximo(grafo, "azul")
         clique_rojo = encontrar_clique_maximo(grafo, "rojo")
         
-        tamaños_azul.append(len(clique_azul))
-        tamaños_rojo.append(len(clique_rojo))
+        tamanos_azul.append(len(clique_azul))
+        tamanos_rojo.append(len(clique_rojo))
         
         tiene_clique_objetivo = (len(clique_azul) >= r) or (len(clique_rojo) >= s)
         if tiene_clique_objetivo:
@@ -342,17 +354,17 @@ def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001)
     
     probabilidad_exito = exitos / num_trials
     
-    print(f"   ✓ Probabilidad de éxito: {probabilidad_exito*100:.1f}%")
-    print(f"   📊 Clique azul promedio: {np.mean(tamaños_azul):.1f}")
-    print(f"   📊 Clique rojo promedio: {np.mean(tamaños_rojo):.1f}")
+    print(f"   Probabilidad de exito: {probabilidad_exito*100:.1f}%")
+    print(f"   Clique azul promedio: {np.mean(tamanos_azul):.1f}")
+    print(f"   Clique rojo promedio: {np.mean(tamanos_rojo):.1f}")
     
     return {
         'n': n,
         'probabilidad_exito': probabilidad_exito,
-        'clique_azul_promedio': np.mean(tamaños_azul),
-        'clique_rojo_promedio': np.mean(tamaños_rojo),
-        'clique_azul_max': max(tamaños_azul),
-        'clique_rojo_max': max(tamaños_rojo)
+        'clique_azul_promedio': np.mean(tamanos_azul),
+        'clique_rojo_promedio': np.mean(tamanos_rojo),
+        'clique_azul_max': max(tamanos_azul),
+        'clique_rojo_max': max(tamanos_rojo)
     }
 
 
@@ -384,14 +396,15 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
     # Garantizar cliques de procesamiento mínimo
     R_psi = estimar_conjetura(target_clique_size, target_clique_size, f0)
     
-    print(f"\n🧠 Red Neuronal Ramsey:")
+    print(f"\nRed Neuronal Ramsey:")
     print(f"   Neuronas: {num_neuronas}")
     print(f"   Conexiones: {len(conexiones)}")
-    print(f"   R_ψ({target_clique_size},{target_clique_size}) ≈ {R_psi}")
+    print(f"   R_psi({target_clique_size},{target_clique_size}) ~ {R_psi}")
     
     if num_neuronas >= R_psi:
-        print(f"   ✓ Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
+        print(f"   Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
     else:
+        print(f"   Se requieren al menos {R_psi} neuronas para garantía")
         print(f"   ⚠️  Se requieren al menos {R_psi} neuronas para garantía")
     
     return conexiones, frecuencias
@@ -400,7 +413,7 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
 # Ejemplo de uso con la frecuencia sagrada
 if __name__ == "__main__":
     print("\n" + "="*70)
-    print("   Ramsey Cuántico Vibracional - Sistema QCAL ∞³")
+    print("   Ramsey Cuantico Vibracional - Sistema QCAL")
     print("   Frecuencia Base: 141.7001 Hz")
     print("="*70)
     
@@ -409,7 +422,7 @@ if __name__ == "__main__":
     
     # Simulación Monte Carlo
     print("\n" + "="*70)
-    print("🎲 Simulaciones Monte Carlo")
+    print("Simulaciones Monte Carlo")
     print("="*70)
     
     for r, s in [(3, 3), (4, 4)]:
@@ -417,11 +430,11 @@ if __name__ == "__main__":
     
     # Red neuronal de ejemplo
     print("\n" + "="*70)
-    print("🧠 Aplicación: Redes Neuronales")
+    print("Aplicacion: Redes Neuronales")
     print("="*70)
     
     red_neuronal_ramsey(num_neuronas=20, target_clique_size=4)
     
     print("\n" + "="*70)
-    print("✨ Análisis completado - Campo QCAL ∞³ resonante")
+    print("Análisis completado - Campo QCAL")
     print("="*70 + "\n")
