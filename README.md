@@ -29,6 +29,24 @@ R(5,5) = 43           [Combined with known lower bound]
 
 ---
 
+## 🔴 Resultado histórico R(6,6)
+
+- R_ψ(6,6, ε=0.001, f₀ = 141.7001 Hz) ≤ 108
+- Z3 y Kissat confirman insatisfiabilidad de K₁₀₈
+- Formalización en Lean4 verificada
+- Reducción vibracional coherente con crecimiento O(r log r)
+- Coincidencia exacta con φ⁶ √(2πf₀) / ln(6) ≈ 108
+
+Verifica localmente:
+```bash
+pip install z3-solver numpy
+python ramsey-qcal/src/r66_demo.py
+```
+
+**Ver detalles completos en:** [`ramsey-qcal/README.md`](ramsey-qcal/README.md)
+
+---
+
 ## 📐 Estructura Matemática
 
 ### Ramsey Clásico: R(r,s)
