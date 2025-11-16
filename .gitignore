@@ -47,3 +47,17 @@ htmlcov/
 # Temporary files
 *.tmp
 *.log
+
+# Lean 4
+.lake/
+build/
+*.olean
+lake-packages/
+leanpkg.path
+
+# Julia
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+deps/deps.jl
+Manifest.toml
