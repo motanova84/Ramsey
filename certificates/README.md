@@ -6,15 +6,16 @@ Este directorio contiene certificados formales de las cotas superiores de R_ψ(r
 
 - **`*.smt2`**: Fórmulas SMT2 que codifican el problema de verificación
 - **`*.lean`**: Certificados Lean 4 generados automáticamente
+- **`*.pdf`**: Certificados formales en formato PDF con documentación completa
 - **`*.olean`**: Archivos compilados de Lean (no versionados)
 
 ## Certificados Disponibles
 
-| Par (r,s) | Cota | ε | Grid | λ | Archivo SMT2 | Archivo Lean | Estado |
-|-----------|------|---|------|---|--------------|--------------|--------|
-| (3,3) | ≤ 6 | 0.001 | 128 | 0.037 | - | formal/Theorems/R_psi_3_3_le_6.lean | ✓ |
-| (4,4) | ≤ 11 | 0.001 | 128 | 0.037 | - | formal/Theorems/R_psi_4_4_le_11.lean | ✓ |
-| (5,5) | ≤ 19 | 1/128 | 128 | 0.037 | 5_5_0.037.smt2 | formal/Theorems/R_psi_5_5_le_19.lean | ✓ |
+| Par (r,s) | Cota | ε | Grid | λ | Archivo SMT2 | Archivo Lean | Archivo PDF | Estado |
+|-----------|------|---|------|---|--------------|--------------|-------------|--------|
+| (3,3) | ≤ 5 | 0.001 | 128 | 0.1 | Rpsi_3_3_le_5.smt2 | Rpsi_3_3_le_5.lean | Rpsi_3_3_certificate.pdf | ✓ |
+| (4,4) | ≤ 10 | 0.001 | 128 | 0.062 | Rpsi_4_4_le_10.smt2 | Rpsi_4_4_le_10.lean | Rpsi_4_4_certificate.pdf | ✓ |
+| (5,5) | ≤ 19 | 1/128 | 128 | 0.037 | 5_5_0.037.smt2 | formal/Theorems/R_psi_5_5_le_19.lean | - | ✓ |
 
 ## Flujo de Certificación
 
@@ -71,12 +72,29 @@ lake build Theorems.R_psi_5_5_le_19
 
 ## Generación Automática
 
+### Certificados Lean y SMT2
+
 Los certificados se generan automáticamente desde Julia:
 
 ```julia
 include("julia/generate_lean_proof.jl")
 generate_lean_proof(5, 5, 0.037, 19; grid=128)
 ```
+
+### Certificados PDF
+
+Los certificados PDF se generan con el script Python:
+
+```bash
+python generate_pdf_certificate.py
+```
+
+Este script genera certificados PDF formales que incluyen:
+- Parámetros del bound (λ, f₀, ε)
+- Enunciado del teorema
+- Fragmento de código Lean4
+- Método de verificación
+- Referencias al repositorio
 
 ## Referencias
 
