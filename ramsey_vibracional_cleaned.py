@@ -145,21 +145,6 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     for n in range(max(r, s), nmax + 1):
         print(f"  Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
-            print(f"UNSAT -> R_psi({r},{s}) = {n}")
-            return n
-        else:
-            print("SAT (contraejemplo existe)")
-    
-    print(f"⚠️  No encontrado en rango [1,{nmax}]")
-    return None
-
-
-def estimar_conjetura(r, s, f0=141.7001):
-    """
-    Estimacion segun Conjetura 3.4
-    
-    R_psi(r,s,eps) = O(sqrt(rs) x ln(rs) x (f0)^{1/4})
-    
     Args:
         r: Tamano del clique azul
         s: Tamano del clique rojo

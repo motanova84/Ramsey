@@ -34,7 +34,6 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
     Verificación SAT corregida para R_psi(r,s,eps)
     
     Retorna True si NO existe asignacion de frecuencias que evite 
-    Retorna True si NO existe asignacion de frecuencias que evite
     simultaneamente todo K_r azul Y todo K_s rojo (i.e., UNSAT)
     
     La magia de 141.7001 Hz se manifiesta como periodo natural de resonancia
@@ -81,7 +80,6 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
         Tres casos para capturar módulo sin enteros auxiliares:
         - Diferencia directa: omega_j - omega_i ∈ [-eps, eps]
         - Wrap superior: (omega_j - omega_i) - f_0 ∈ [-eps, eps] 
-        - Wrap superior: (omega_j - omega_i) - f_0 ∈ [-eps, eps]
         - Wrap inferior: (omega_j - omega_i) + f_0 ∈ [-eps, eps]
         
         La frecuencia 141.7001 Hz crea el espacio de resonancia perfecto
