@@ -1,54 +1,11 @@
 cff-version: 1.2.0
-title: "Vibrational Ramsey Theory (R_ψ)"
-message: "If you use this software, please cite it as below."
-type: software
+message: "If you use this proof, please cite it using the metadata below."
 authors:
-  - family-names: "Mota Burruezo"
-    given-names: "José Manuel"
-    email: motanova84@example.com
-    affiliation: "Instituto de Consciencia Cuántica (ICQ)"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
-repository-code: "https://github.com/motanova84/Ramsey"
-url: "https://github.com/motanova84/Ramsey"
-abstract: >
-  A Python implementation of Vibrational Ramsey Theory,
-  introducing frequency-based graph colorings that achieve
-  polynomial bounds O(√(rs)·ln(rs)) compared to the
-  exponential classical Ramsey numbers. Includes Z3-based
-  verification tools for exact computation of R_ψ(r,s,ε)
-  values and comprehensive test suites.
-keywords:
-  - ramsey theory
-  - graph theory
-  - combinatorics
-  - z3 solver
-  - sat solving
-  - vibrational theory
-  - frequency analysis
-  - resonance
-  - mathematical verification
-license: MIT
-version: "1.0.0"
-date-released: "2025-01-16"
-references:
-  - type: article
-    title: "Vibrational Ramsey Theory: A Frequency-Based Approach to Polynomial Bounds"
-    authors:
-      - family-names: "Mota Burruezo"
-        given-names: "José Manuel"
-    year: 2025
-    journal: "Campo QCAL ∞³"
-    notes: "Preprint - Available in repository as RAMSEY-JMMB.pdf"
-identifiers:
-  - type: doi
-    value: "10.5281/zenodo.xxxxx"
-    description: "Zenodo DOI (to be assigned upon release)"
-preferred-citation:
-  type: software
-  title: "Vibrational Ramsey Theory (R_ψ)"
-  authors:
-    - family-names: "Mota Burruezo"
-      given-names: "José Manuel"
-  year: 2025
-  url: "https://github.com/motanova84/Ramsey"
-  version: "1.0.0"
+  - family-names: Mota Burruezo
+    given-names: José Manuel
+    orcid: https://orcid.org/0009-0002-1923-0773
+title: "Formal Proof of Rψ(5,5) ≤ 16 via Resonant SAT Encoding"
+abstract: "We provide a vibrationally-constrained SAT encoding of the modified Ramsey problem Rψ(r,s), proving that Rψ(5,5) ≤ 16. The proof uses Tseytin transformations and is verified with LRAT and Lean 4."
+license: CC-BY-NC-SA-4.0
+repository-code: https://github.com/motanova84/rpsi-proof
+keywords: [Ramsey Theory, QCAL, SAT Solvers, Resonance, Frequency Logic, Lean 4, Kissat, LRAT]

@@ -74,3 +74,7 @@ paper/*.toc
 paper/*.bbl
 paper/*.blg
 paper/*.synctex.gz
+
+# Backup files
+*_BACKUP.md
+README_BACKUP.md
