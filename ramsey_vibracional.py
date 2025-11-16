@@ -133,19 +133,6 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     print(f"   Grid de resonancia: {grid} puntos")
     
     for n in range(max(r, s), nmax + 1):
-        print(f"   Probando n={n}...", end=" ")
-        
-        f0: Frecuencia base de coherencia
-        nmax: Máximo n a verificar
-        grid: Resolución de discretización
-    
-    Returns:
-        int: R_psi(r,s,eps) exacto, o None si no encontrado
-    """
-    print(f"* Calculando R_psi({r},{s},{eps}) con f_0={f0} Hz...")
-    print(f"* Grid de resonancia: {grid} puntos")
-    
-    for n in range(max(r, s), nmax + 1):
         print(f"  Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
             print(f"OK UNSAT -> R_psi({r},{s}) = {n}")
@@ -242,9 +229,6 @@ def resonancia_detectada(omega_i, omega_j, eps=0.001, f0=141.7001):
     diff = abs(omega_i - omega_j) % f0
     # Considerar tanto diff como f0 - diff para el módulo
     return min(diff, f0 - diff) < eps
-            print(f"({r},{s}): Real={R_psi_real}, Conjetura={R_psi_conjetura}, Error={error:.1f}%")
-        else:
-            print(f"({r},{s}): Real=?, Conjetura={R_psi_conjetura}")
 
 
 def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
@@ -270,29 +254,6 @@ def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
                 coloracion[(i, j)] = 'rojo'
     
     return coloracion
-    Genera una coloración vibracional de un grafo completo
-    
-    Args:
-        frecuencias: Array de frecuencias para cada vértice
-        eps: Umbral de coherencia
-        f0: Frecuencia base
-    
-    Returns:
-        dict: Diccionario de aristas -> color ('azul' o 'rojo')
-    """
-    n = len(frecuencias)
-    grafo = {}
-    
-    for i in range(n):
-        for j in range(i + 1, n):
-            diff = abs(frecuencias[i] - frecuencias[j]) % f0
-            # Resonancia si la diferencia módulo f0 está dentro del umbral
-            if diff < eps or diff > (f0 - eps):
-                grafo[(i, j)] = 'azul'
-            else:
-                grafo[(i, j)] = 'rojo'
-    
-    return grafo
 
 
 def encontrar_clique_maximo(grafo, color):
@@ -460,69 +421,6 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
         print(f"   OK Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
     else:
         print(f"   WARNING️  Se requieren al menos {R_psi} neuronas para garantía")
-def simulacion_monte_carlo_ramsey(r, s, num_trials=10000):
-    """
-    Simulación extensiva para validar fórmulas teóricas
-    
-    Args:
-        r: Tamaño del clique azul
-        s: Tamaño del clique rojo
-        num_trials: Número de simulaciones
-    
-    Returns:
-        float: Probabilidad de éxito
-    """
-    resultados = []
-    
-    for trial in range(num_trials):
-        # Generar grafo aleatorio con frecuencias
-        n = estimar_conjetura(r, s)
-        frecuencias = np.random.uniform(0, 141.7001, n)
-        
-        # Aplicar coloración vibracional
-        grafo = generar_coloracion_vibracional(frecuencias)
-        
-        # Detectar cliques monocromáticos
-        clique_azul = encontrar_clique_maximo(grafo, 'azul')
-        clique_rojo = encontrar_clique_maximo(grafo, 'rojo')
-        
-        tiene_clique_objetivo = (len(clique_azul) >= r) or (len(clique_rojo) >= s)
-        resultados.append(tiene_clique_objetivo)
-    
-    probabilidad_exito = sum(resultados) / num_trials
-    return probabilidad_exito
-
-
-def red_neuronal_ramsey(num_neuronas, target_clique_size):
-    """
-    Diseña red neuronal con conectividad basada en Ramsey vibracional
-    
-    Args:
-        num_neuronas: Número de neuronas en la red
-        target_clique_size: Tamaño mínimo de cliques de procesamiento
-    
-    Returns:
-        tuple: (conexiones, frecuencias)
-    """
-    # Asignar frecuencias a neuronas basadas en función
-    frecuencias = [141.7001 * np.exp(i / num_neuronas) for i in range(num_neuronas)]
-    
-    # Conectar neuronas en resonancia
-    conexiones = []
-    eps = 0.001
-    f0 = 141.7001
-    
-    for i in range(num_neuronas):
-        for j in range(i + 1, num_neuronas):
-            diff = abs(frecuencias[i] - frecuencias[j]) % f0
-            if diff < eps or diff > (f0 - eps):
-                conexiones.append((i, j))
-    
-    # Garantizar cliques de procesamiento mínimo
-    R_psi = estimar_conjetura(target_clique_size, target_clique_size)
-    
-    if num_neuronas >= R_psi:
-        print(f"OK Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
     
     return conexiones, frecuencias
 
