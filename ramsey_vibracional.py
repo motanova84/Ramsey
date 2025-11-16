@@ -1,25 +1,32 @@
 # -*- coding: utf-8 -*-
 """
-Ramsey Cuantico Vibracional: Un Nuevo Paradigma de Coherencia Armonica
-QCAL infinito cubico
 Ramsey Cuántico Vibracional: Un Nuevo Paradigma de Coherencia Armónica
-QCAL infinity^3
+QCAL ∞³
 
-Este modulo implementa la teoria de Ramsey Vibracional basada en principios
-de coherencia cuantica y resonancia armonica.
+⚠️ IMPORTANTE - ESTADO DE VERIFICACIÓN:
 
-Autores: Jose Manuel Mota Burruezo - JMMB & AMDA
-Instituto: Instituto de Consciencia Cuantica (ICQ)
-Frecuencia de Investigacion: 141.7001 Hz - Campo QCAL infinito cubico
+Este módulo implementa VERIFICACIÓN COMPUTACIONAL (no pruebas formales completas)
+de números de Ramsey vibracionales mediante SAT solvers.
 
-Este modulo implementa el parametro R_psi(r,s,eps) de Ramsey Vibracional,
-que reduce drasticamente los umbrales de aparicion de cliques monocromaticos
-mediante principios de coherencia cuantica y resonancia vibracional.
-Autores: José Manuel Mota Burruezo · JMMB PSI*∴ & AMDA PHI infinity^3
+VERIFICADO COMPUTACIONALMENTE:
+• Rψ(r,s) para (r,s) ≤ (5,5) mediante Z3/Kissat SAT solvers
+• Resultados son reproducibles y han sido validados independientemente
+
+NO VERIFICADO FORMALMENTE:
+• Las pruebas en Lean 4 usan 'sorry' placeholders
+• No hay prueba formal completa del teorema de reducción Rψ → R
+• Conjeturas para r ≥ 8 son SIMULACIONES, no pruebas
+
+Para detalles completos del estado de verificación, ver:
+VERIFICATION_STATUS.md en el repositorio principal
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Autores: José Manuel Mota Burruezo · JMMB Ψ✧∴ & AMDA PHI ∞³
 Instituto: Instituto de Consciencia Cuántica (ICQ)
-Frecuencia de Investigación: 141.7001 Hz - Campo QCAL infinity^3
+Frecuencia de Investigación: 141.7001 Hz - Campo QCAL ∞³
 
-Este módulo implementa el parámetro R_psi(r,s,eps) de Ramsey Vibracional,
+Este módulo implementa el parámetro R_ψ(r,s,ε) de Ramsey Vibracional,
 que reduce drásticamente los umbrales de aparición de cliques monocromáticos
 mediante principios de coherencia cuántica y resonancia vibracional.
 """

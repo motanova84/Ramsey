@@ -1,6 +1,22 @@
 -- Reduction.lean
 -- Proof that Rψ(r,s) ≤ N → R(r,s) ≤ N
 -- Shows vibrational bound implies classical bound
+--
+-- ⚠️ WARNING: This file contains incomplete proofs with 'sorry' placeholders.
+-- The reduction theorem is correct in principle but NOT fully verified.
+--
+-- STATUS:
+-- • Theorem statement: ✓ Correctly formulated
+-- • Proof: ❌ Uses 'sorry' - NOT verified by Lean 4
+-- • Mathematical soundness: ✓ Argument is valid (see proof sketch)
+-- • Formal verification: ❌ Incomplete
+--
+-- The key insight is correct: every classical coloring can be represented
+-- as a vibrational coloring, so if all vibrational colorings contain cliques,
+-- then all classical colorings contain cliques. However, the formal proof
+-- of this statement in Lean is not yet complete.
+--
+-- For complete verification status, see: VERIFICATION_STATUS.md
 
 import Mathlib.Data.Real.Basic
 import Mathlib.Data.Finset.Basic

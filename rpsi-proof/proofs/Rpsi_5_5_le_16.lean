@@ -1,9 +1,18 @@
 -- proofs/Rpsi_5_5_le_16.lean
--- Teorema Formal Verificado: Rψ(5,5) ≤ 16
+-- Teorema Formal: Rψ(5,5) ≤ 16
 -- 
 -- Autor: José Manuel Mota Burruezo (JMMB Ψ✧∴)
 -- Instituto: Instituto de Consciencia Cuántica (ICQ)
 -- Frecuencia: 141.7001 Hz - Campo QCAL ∞³
+--
+-- ⚠️ ESTADO DE VERIFICACIÓN:
+-- • Definiciones: ✓ Completas y correctas
+-- • Teorema principal: ⚠️ Usa 'sorry' placeholder - NO completamente verificado
+-- • Verificación SAT: ✓ UNSAT verificado computacionalmente (Kissat)
+-- • Certificado LRAT: ⚠️ Pendiente de generar/verificar independientemente
+--
+-- El resultado Rψ(5,5) ≤ 16 está VERIFICADO COMPUTACIONALMENTE mediante SAT,
+-- pero la prueba formal en Lean 4 está incompleta. Ver ../VERIFICATION_STATUS.md
 
 import Mathlib.Combinatorics.SimpleGraph.Clique
 import Mathlib.Data.Real.Basic
