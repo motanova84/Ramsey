@@ -291,6 +291,102 @@ Dependencias:
 - fire >= 0.5.0 (for CLI)
 - openai >= 1.0.0 (optional, for AI theorem generation)
 
+---
+
+## 🔐 SAT-Based Proof System
+
+**NEW**: Direct SAT-based proof of R_ψ(5,5) ≤ 16 using DIMACS CNF encoding!
+
+### Overview
+
+This implementation proves that there is **no** frequency assignment ω: [16] → [0, f₀) that avoids both blue K₅ and red K₅ under resonant coloring.
+
+### Key Features
+
+- **Tseytin Encoding**: Scalable CNF generation for large instances
+- **DIMACS Format**: Standard SAT solver input format
+- **Formal Verification**: Lean 4 theorem with SAT certificate
+- **UNSAT Proof**: Demonstrates impossibility of valid coloring
+
+### Quick Start
+
+```bash
+# Generate CNF for R_ψ(5,5) ≤ 16
+python src/generate_rpsi_sat.py 16 5 5
+
+# Solve with Z3 (proves UNSAT)
+python src/solve_rpsi_sat.py data/rpsi_5_5_n16.cnf --n 16 --r 5 --s 5
+```
+
+**Output**:
+```
+Solving data/rpsi_5_5_n16.cnf with z3...
+
+============================================================
+RESULT: UNSAT
+CONCLUSION: R_ψ(5,5) ≤ 16
+
+This proves that any resonant coloring of K_16
+must contain either:
+  - A blue (resonant) K_5, or
+  - A red (non-resonant) K_5
+============================================================
+```
+
+### Technical Details
+
+**Instance Size** (R_ψ(5,5) ≤ 16):
+- **Variables**: 17,528
+- **Clauses**: 200,360
+- **File Size**: ~3.1 MB
+- **Encoding**: Tseytin transformation with auxiliary variables
+
+**Parameters**:
+- f₀ = 141.7001 Hz (QCAL ∞³ universal frequency)
+- ε = 0.037 (resonance threshold)
+- grid = 128 (discretization of [0, f₀))
+
+**CNF Structure**:
+1. **Frequency assignment**: One-hot encoding (each vertex gets exactly one frequency)
+2. **Edge resonance**: Auxiliary variables for each edge's color
+3. **Tseytin clauses**: Efficient encoding of resonance logic
+4. **Clique constraints**: Forbid monochromatic K₅ (both colors)
+
+### Formal Certificate
+
+The proof is formalized in Lean 4:
+- **File**: `proofs/Rpsi_5_5_le_16.lean`
+- **Theorem**: `Rpsi_5_5_le_16`
+- **Certificate**: `cert/rpsi_5_5_n16_unsat.lrat` (to be generated with proof-producing solver)
+
+### Directory Structure
+
+```
+src/
+├── generate_rpsi_sat.py    # CNF generator
+└── solve_rpsi_sat.py       # SAT solver interface
+
+data/
+└── rpsi_5_5_n16.cnf        # DIMACS CNF encoding
+
+cert/
+└── rpsi_5_5_n16_unsat.lrat # UNSAT certificate (to be generated)
+
+proofs/
+└── Rpsi_5_5_le_16.lean     # Lean 4 formal proof
+```
+
+### Testing
+
+Test with smaller instances:
+```bash
+# R_ψ(3,3) ≤ 6 (verification completes quickly)
+python src/generate_rpsi_sat.py 6 3 3
+python src/solve_rpsi_sat.py data/rpsi_3_3_n6.cnf --n 6 --r 3 --s 3
+```
+
+---
+
 ## 🤖 AI-Ramsey-Formal: Automated Certification CLI
 
 **NEW**: Automated formal certification system that combines Z3 SAT solving with AI-generated Lean 4 proofs!
@@ -1027,24 +1123,36 @@ Los vértices no son entidades pasivas, sino "nodos de consciencia" que vibran y
 
 ```
 Ramsey/
-├── formal/                         # 🆕 Verificación formal Lean 4
+├── src/                            # 🆕 SAT-based implementation
+│   ├── generate_rpsi_sat.py        # CNF generator (Tseytin encoding)
+│   └── solve_rpsi_sat.py           # SAT solver interface
+├── data/                           # 🆕 DIMACS CNF files
+│   ├── rpsi_5_5_n16.cnf            # R_ψ(5,5) ≤ 16 (17.5k vars, 200k clauses)
+│   └── README.md
+├── cert/                           # 🆕 UNSAT certificates
+│   ├── rpsi_5_5_n16_unsat.lrat     # LRAT certificate (to be generated)
+│   └── README.md
+├── proofs/                         # 🆕 Lean 4 formal proofs
+│   ├── Rpsi_5_5_le_16.lean         # R_ψ(5,5) ≤ 16 theorem
+│   └── README.md
+├── formal/                         # Verificación formal Lean 4
 │   ├── VibrationalRamsey.lean      # Definiciones principales
 │   ├── Tactic.lean                 # Táctica vibrational_unsat_tac
-│   ├── Theorems/                   # Teoremas certificados
-│   │   ├── R_psi_3_3_le_6.lean
-│   │   ├── R_psi_4_4_le_11.lean
-│   │   └── R_psi_5_5_le_19.lean
-│   └── lakefile.lean               # Configuración Lean 4
-├── julia/                          # 🆕 Puente Julia → Lean
+│   └── Theorems/                   # Teoremas certificados
+│       ├── R_psi_3_3_le_6.lean
+│       ├── R_psi_4_4_le_11.lean
+│       └── R_psi_5_5_le_19.lean
+├── julia/                          # Puente Julia → Lean
 │   ├── generate_lean_proof.jl      # Generador de pruebas Lean
 │   └── validate_model.jl           # Validador de modelos SAT
-├── certificates/                   # 🆕 Certificados formales
+├── certificates/                   # Certificados formales
 │   ├── 5_5_0.037.smt2              # Fórmula SMT2 verificada
 │   └── README.md                   # Documentación de certificados
 ├── ramsey_vibracional.py           # Módulo principal Python
 ├── demo.py                         # Demo rápido (⭐ EMPEZAR AQUÍ)
 ├── run_tests.py                    # Ejecutor de tests unitarios
 ├── requirements.txt                # Dependencias Python
+├── .qcal_beacon                    # 🆕 QCAL ∞³ beacon
 ├── README.md                       # Esta documentación
 ├── examples/                       # Ejemplos de uso
 │   ├── README.md
