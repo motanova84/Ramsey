@@ -20,6 +20,7 @@ Este repositorio es un **ejemplo canónico** de la aplicación del marco **QCAL 
 
 ### 📚 Documentación del Ejemplo Canónico
 
+- **⭐ [EJEMPLO_CANONICO_RESUMEN.md](EJEMPLO_CANONICO_RESUMEN.md)** - Resumen ejecutivo (ESPAÑOL) - EMPEZAR AQUÍ
 - **📖 [CANONICAL_EXAMPLE.md](CANONICAL_EXAMPLE.md)** - Documento principal con explicación exhaustiva
 - **🔧 [INTEGRATION_GUIDE.md](INTEGRATION_GUIDE.md)** - Guía técnica de integración de los tres pilares
 - **📊 [QCAL_FRAMEWORK_DIAGRAM.md](QCAL_FRAMEWORK_DIAGRAM.md)** - Diagramas visuales del framework
