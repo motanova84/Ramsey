@@ -1,0 +1,12 @@
+{
+  "model": "vibrational_ramsey",
+  "frequency": 141.7001,
+  "epsilon": 0.001,
+  "parameters": {
+    "r": 5,
+    "s": 5,
+    "bound": 16,
+    "lambda": 16
+  },
+  "description": "Vibrational Ramsey model for R_ψ(5,5) ≤ 16 proof"
+}

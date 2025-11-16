@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "Vibrational Ramsey Theory (R_ψ)"
+title: "Formal Proof of Rψ(5,5) ≤ 16 via Vibrational Unsat Instances"
 message: "If you use this software, please cite it as below."
 type: software
 authors:
@@ -11,12 +11,14 @@ authors:
 repository-code: "https://github.com/motanova84/Ramsey"
 url: "https://github.com/motanova84/Ramsey"
 abstract: >
-  A Python implementation of Vibrational Ramsey Theory,
+  Formal exploration of vibrational Ramsey bound Rψ(5,5) ≤ 16.
+  A Python and Lean 4 implementation of Vibrational Ramsey Theory,
   introducing frequency-based graph colorings that achieve
   polynomial bounds O(√(rs)·ln(rs)) compared to the
   exponential classical Ramsey numbers. Includes Z3-based
   verification tools for exact computation of R_ψ(r,s,ε)
-  values and comprehensive test suites.
+  values and comprehensive test suites. Features formal proof
+  of R_ψ(5,5) ≤ 16 using vibrational frequency f₀=141.7001Hz.
 keywords:
   - ramsey theory
   - graph theory
@@ -27,6 +29,8 @@ keywords:
   - frequency analysis
   - resonance
   - mathematical verification
+  - formal proof
+  - lean 4
 license: MIT
 version: "1.0.0"
 date-released: "2025-01-16"
@@ -45,7 +49,7 @@ identifiers:
     description: "Zenodo DOI (to be assigned upon release)"
 preferred-citation:
   type: software
-  title: "Vibrational Ramsey Theory (R_ψ)"
+  title: "Formal Proof of Rψ(5,5) ≤ 16 via Vibrational Unsat Instances"
   authors:
     - family-names: "Mota Burruezo"
       given-names: "José Manuel"

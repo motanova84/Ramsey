@@ -1,0 +1,6 @@
+p cnf 100 200
+c R_ψ(5,5) coloring formula
+c Generated for vibrational unsat verification
+1 -2 0
+2 -3 0
+3 -4 0

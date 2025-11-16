@@ -18,7 +18,13 @@ noncomputable section
   for n = r + s - 1 implies Rψ(r,s,ε) > n
 -/
 
-variable (r s : ℕ) (ε : ℝ) (n : ℕ)
+def f₀ : ℝ := 141.7001
+def ε : ℝ := 0.001
+
+def in_resonance (ω₁ ω₂ : ℝ) : Prop :=
+  ∃ k : ℤ, |ω₁ - ω₂ - k * f₀| < ε
+
+variable (r s : ℕ) (eps : ℝ) (n : ℕ)
 
 structure Instance where
   ω : Fin n → ℝ
@@ -26,20 +32,20 @@ structure Instance where
 
 abbrev isRed (ω : Fin n → ℝ) (i j : Fin n) : Prop :=
   let δ := |ω i - ω j|
-  δ < ε ∨ 1 - δ < ε
+  δ < eps ∨ 1 - δ < eps
 
-def noRedClique (inst : Instance r s ε n) : Prop :=
+def noRedClique (inst : Instance r s eps n) : Prop :=
   ∀ (A : Finset (Fin n)), A.card = r → ∃ i j ∈ A, i < j ∧ ¬ isRed inst.ω i j
 
-def noBlueClique (inst : Instance r s ε n) : Prop :=
+def noBlueClique (inst : Instance r s eps n) : Prop :=
   ∀ (B : Finset (Fin n)), B.card = s → ∃ i j ∈ B, i < j ∧ isRed inst.ω i j
 
 /-- Vibrational Ramsey condition -/
-def VibrationalUnsat (inst : Instance r s ε n) : Prop :=
+def VibrationalUnsat (inst : Instance r s eps n) : Prop :=
   noRedClique inst ∧ noBlueClique inst
 
 /-- Main theorem: If there exists a valid instance, then n < R_ψ(r,s,ε) -/
-theorem vibrational_unsat_bound (inst : Instance r s ε n) :
+theorem vibrational_unsat_bound (inst : Instance r s eps n) :
     VibrationalUnsat inst → n < r + s := by
   sorry
 

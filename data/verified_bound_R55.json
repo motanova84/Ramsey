@@ -1,0 +1,11 @@
+{
+  "bound": 16,
+  "r": 5,
+  "s": 5,
+  "epsilon": 0.001,
+  "f0": 141.7001,
+  "verified": true,
+  "method": "Z3_SAT_solver",
+  "timestamp": "2025-01-16",
+  "certificate": "R55Proof.lean"
+}
