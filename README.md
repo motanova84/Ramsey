@@ -18,7 +18,12 @@ Este repositorio es un **ejemplo canónico** de la aplicación del marco **QCAL 
 - **✓ Formalmente Verificado**: Pruebas certificadas por máquina usando Lean 4
 - **🔐 Criptográficamente Certificado**: Certificados verificables con firma QCAL ∞³
 
-**📖 Ver documentación completa**: [CANONICAL_EXAMPLE.md](CANONICAL_EXAMPLE.md)
+### 📚 Documentación del Ejemplo Canónico
+
+- **📖 [CANONICAL_EXAMPLE.md](CANONICAL_EXAMPLE.md)** - Documento principal con explicación exhaustiva
+- **🔧 [INTEGRATION_GUIDE.md](INTEGRATION_GUIDE.md)** - Guía técnica de integración de los tres pilares
+- **📊 [QCAL_FRAMEWORK_DIAGRAM.md](QCAL_FRAMEWORK_DIAGRAM.md)** - Diagramas visuales del framework
+- **📑 [CANONICAL_INDEX.md](CANONICAL_INDEX.md)** - Índice completo de toda la documentación
 
 Este trabajo no solo resuelve un problema histórico (R(5,5) después de 70 años), sino que lo hace con una metodología que es automática, formalmente verificada por la máquina y criptográficamente certificada.
 
