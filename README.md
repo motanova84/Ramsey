@@ -1027,7 +1027,18 @@ Los vértices no son entidades pasivas, sino "nodos de consciencia" que vibran y
 
 ```
 Ramsey/
-├── formal/                         # 🆕 Verificación formal Lean 4
+├── rpsi-proof/                     # 🆕 Certificación SAT Rψ(5,5) ≤ 16
+│   ├── src/
+│   │   ├── generate_rpsi_sat.py    # Generador de instancias DIMACS CNF
+│   │   └── solve_rpsi_sat.py       # Wrapper para SAT solvers
+│   ├── data/
+│   │   └── rpsi_5_5_n16.cnf        # Instancia SAT (120 vars, 8736 cláusulas)
+│   ├── cert/                       # Certificados de prueba
+│   ├── demo.py                     # Demo interactivo
+│   ├── README.md                   # Documentación completa
+│   ├── CITATION.cff                # Metadata de citación
+│   └── .qcal_beacon                # Marcador de coherencia QCAL
+├── formal/                         # Verificación formal Lean 4
 │   ├── VibrationalRamsey.lean      # Definiciones principales
 │   ├── Tactic.lean                 # Táctica vibrational_unsat_tac
 │   ├── Theorems/                   # Teoremas certificados
@@ -1035,10 +1046,10 @@ Ramsey/
 │   │   ├── R_psi_4_4_le_11.lean
 │   │   └── R_psi_5_5_le_19.lean
 │   └── lakefile.lean               # Configuración Lean 4
-├── julia/                          # 🆕 Puente Julia → Lean
+├── julia/                          # Puente Julia → Lean
 │   ├── generate_lean_proof.jl      # Generador de pruebas Lean
 │   └── validate_model.jl           # Validador de modelos SAT
-├── certificates/                   # 🆕 Certificados formales
+├── certificates/                   # Certificados formales
 │   ├── 5_5_0.037.smt2              # Fórmula SMT2 verificada
 │   └── README.md                   # Documentación de certificados
 ├── ramsey_vibracional.py           # Módulo principal Python
