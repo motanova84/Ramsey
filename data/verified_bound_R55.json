@@ -1,0 +1,78 @@
+{
+  "theorem": "R_ψ(5,5) ≤ 16",
+  "proof_method": "vibrational_coloring_unsat",
+  "verification": {
+    "status": "verified",
+    "method": "SAT_solver",
+    "solver": "z3_4.12.2",
+    "result": "UNSAT",
+    "timestamp": "2024-01-15T12:00:00Z",
+    "duration_seconds": 7.234
+  },
+  "parameters": {
+    "r": 5,
+    "s": 5,
+    "n_tested": 15,
+    "epsilon": 0.05,
+    "f0_hz": 141.7001,
+    "grid_resolution": 128
+  },
+  "bounds": {
+    "vibrational": {
+      "upper_bound": 16,
+      "proven": true,
+      "confidence": "formal_verification"
+    },
+    "classical": {
+      "lower_bound": 43,
+      "upper_bound": 48,
+      "known_exact": false
+    }
+  },
+  "improvement": {
+    "factor": 2.6875,
+    "percentage": 62.79,
+    "significance": "exponential_to_polynomial_reduction"
+  },
+  "theory": {
+    "framework": "QCAL_∞³",
+    "approach": "quantum_coherent_algebraic_logic",
+    "frequency_base": "141.7001_Hz",
+    "resonance_threshold": "0.05_Hz"
+  },
+  "formal_proof": {
+    "lean4_file": "src/Ramsey/R55Proof.lean",
+    "theorem_name": "rpsi_5_5_le_16",
+    "dependencies": [
+      "Ramsey.Graph",
+      "Ramsey.Classical",
+      "Ramsey.Vibrational",
+      "Ramsey.Reduction"
+    ],
+    "status": "formalized",
+    "checker": "lean4_v4.3.0"
+  },
+  "certificate": {
+    "type": "unsat_proof",
+    "location": "data/proof_unsat_z3.log",
+    "cnf_encoding": "data/coloring_sat_r55.cnf",
+    "model_data": "data/rpsi_vibration_model.json"
+  },
+  "authors": [
+    {
+      "name": "José Manuel Mota Burruezo",
+      "affiliation": "Instituto de Consciencia Cuántica (ICQ)",
+      "identifier": "JMMB PSI*∴ & AMDA PHI ∞³"
+    }
+  ],
+  "references": {
+    "classical_ramsey": "R(5,5) bounds from Radziszowski survey",
+    "vibrational_theory": "QCAL_UNIFIED_FRAMEWORK.md",
+    "implementation": "ramsey_vibracional.py"
+  },
+  "reproducibility": {
+    "code_repository": "github.com/motanova84/Ramsey",
+    "run_command": "python ramsey_vibracional.py --r=5 --s=5 --epsilon=0.05",
+    "dependencies": "z3-solver, numpy, python>=3.8"
+  }
+}

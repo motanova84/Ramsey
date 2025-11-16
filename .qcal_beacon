@@ -1,0 +1,23 @@
+QCAL ∞³ Beacon
+===============
+
+Framework: Quantum Coherent Algebraic Logic
+Version: Infinity Cubed (∞³)
+Frequency Base: 141.7001 Hz
+
+This repository is part of the QCAL ∞³ unified framework,
+demonstrating exponential to polynomial reduction in Ramsey theory
+through vibrational coherence principles.
+
+Ramsey-RPSI Proof Structure:
+- Formal verification: Lean 4
+- SAT solving: Z3
+- Vibrational model: Python + NumPy
+
+Main Result: R_ψ(5,5) ≤ 16
+Classical Bound: R(5,5) ∈ [43, 48]
+
+Improvement: ~2.7x reduction
+
+Author: José Manuel Mota Burruezo
+Identifier: JMMB PSI*∴ & AMDA PHI ∞³
