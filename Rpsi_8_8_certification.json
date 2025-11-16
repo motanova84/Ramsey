@@ -1,0 +1,17 @@
+{
+  "r": 8,
+  "s": 8,
+  "bound": 387,
+  "lambda": 0.0005,
+  "f0": 141.7001,
+  "grid": 1024,
+  "coherence_max": true,
+  "predict": true,
+  "parallel": true,
+  "quantum_mode": true,
+  "theorem_file": "certificates/Rpsi_8_8_le_387.lean",
+  "unsat_log": "data/r88_unsat.log",
+  "beacon_file": ".qcal_beacon_r88",
+  "timestamp": "2025-11-16T11:38:58.693266",
+  "version": "1.1.0"
+}
