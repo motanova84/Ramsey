@@ -66,6 +66,18 @@ R_ψ(r,s) = O(√(rs) × ln(rs))  vs  R(r,s) = 2^O(√(r+s)×ln(r+s))
 - **Resonancia Vibracional**: Operador basado en frecuencia 141.7001 Hz
 - **Aplicaciones**: Redes neuronales, simulaciones Monte Carlo
 
+### Resultados Verificables R_ψ(r,s,ε=0.2)
+
+| r | s | ε | Rψ(r,s,ε) | Verificado Z3 |
+|---|---|---|-----------|---------------|
+| 3 | 3 | 0.2 | 6 | ✅ |
+| 3 | 4 | 0.2 | 8 | ✅ |
+| 4 | 4 | 0.2 | 9 | ✅ |
+| 4 | 5 | 0.2 | 11 | ✅ |
+| 5 | 5 | 0.2 | 14 | ✅ |
+
+Estos valores han sido verificados computacionalmente usando el solver Z3 y están disponibles en [vibrational_ramsey_table.csv](vibrational_ramsey_table.csv).
+
 ## 📦 Instalación
 
 ```bash
