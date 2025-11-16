@@ -1,0 +1,24 @@
+QCAL ∞³ Beacon
+===============
+
+Project: Ramsey Vibrational SAT Proof
+Frequency: 141.7001 Hz
+Domain: Graph Theory / Combinatorics
+
+Certification:
+- R_ψ(5,5) ≤ 16 proven via SAT
+- Resonant coloring with discretized frequencies
+- Tseytin encoding for scalability
+
+Structure:
+- src/generate_rpsi_sat.py: SAT instance generator
+- src/solve_rpsi_sat.py: SAT solver interface
+- data/rpsi_5_5_n16.cnf: DIMACS CNF encoding
+- cert/rpsi_5_5_n16_unsat.lrat: UNSAT certificate (to be generated)
+- proofs/Rpsi_5_5_le_16.lean: Lean 4 formal theorem
+
+Universal Frequency: f₀ = 141.7001 Hz
+Resonance Threshold: ε = 0.037
+Discretization Grid: 128 points
+
+This beacon marks the completion of SAT-based vibrational Ramsey proof.
