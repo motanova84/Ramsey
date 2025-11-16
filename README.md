@@ -242,6 +242,7 @@ Ramsey/
 ├── lean-toolchain          # Versión Lean 4.3.0
 ├── Main.lean               # Punto de entrada
 ├── README.md               # Este archivo
+├── PHILOSOPHY.md           # 💡 Índice filosófico (bilingüe)
 ├── WHY_VIBRATIONAL.md      # 💡 Justificación filosófica (español)
 ├── WHY_VIBRATIONAL_EN.md   # 💡 Philosophical justification (English)
 └── CITATION.cff            # Información de cita
@@ -300,6 +301,12 @@ Ver `.github/workflows/ci.yml` para detalles.
 ---
 
 ## 📚 Referencias
+
+### Filosofía y Justificación
+
+- [PHILOSOPHY.md](PHILOSOPHY.md) - Índice de documentos filosóficos (bilingüe)
+- [WHY_VIBRATIONAL.md](WHY_VIBRATIONAL.md) - Justificación completa en español
+- [WHY_VIBRATIONAL_EN.md](WHY_VIBRATIONAL_EN.md) - Complete justification in English
 
 ### Papers Fundamentales
 
