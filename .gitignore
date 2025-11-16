@@ -48,6 +48,11 @@ htmlcov/
 *.tmp
 *.log
 
+# Test output files (certificates generated during testing)
+/Rpsi_*.lean
+/Rpsi_*.md
+/Rpsi_*.json
+
 # Lean 4
 .lake/
 build/
