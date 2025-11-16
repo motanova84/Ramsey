@@ -134,19 +134,6 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     
     for n in range(max(r, s), nmax + 1):
         print(f"   Probando n={n}...", end=" ")
-        
-        f0: Frecuencia base de coherencia
-        nmax: Máximo n a verificar
-        grid: Resolución de discretización
-    
-    Returns:
-        int: R_ψ(r,s,ε) exacto, o None si no encontrado
-    """
-    print(f"✧ Calculando R_ψ({r},{s},{eps}) con f₀={f0} Hz...")
-    print(f"✧ Grid de resonancia: {grid} puntos")
-    
-    for n in range(max(r, s), nmax + 1):
-        print(f"  Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
             print(f"✓ UNSAT → R_ψ({r},{s}) = {n}")
             return n
@@ -154,18 +141,14 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
             print("SAT (contraejemplo existe)")
     
     print(f"⚠️  No encontrado en rango [1,{nmax}]")
-    print(f"✧ No encontrado en rango [1,{nmax}]")
     return None
 
 
 def estimar_conjetura(r, s, f0=141.7001):
     """
-    Estimación según Conjetura 3.4: R_ψ(r,s,ε) = O(√(rs) × ln(rs))
-    
-    Calibrado empíricamente con constante ajustada para mejor precisión.
     Estimación según Conjetura 3.4
     
-    R_ψ(r,s,ε) = O(√(rs) × ln(rs) × (f₀)^{1/4})
+    R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^{1/4})
     
     Args:
         r: Tamaño del clique azul
@@ -178,22 +161,12 @@ def estimar_conjetura(r, s, f0=141.7001):
     phi = (1 + np.sqrt(5)) / 2  # Proporción áurea sagrada
     if r * s == 0:
         return 0
-    # Constante calibrada empíricamente para mejor ajuste
-    # Factor de escala reducido para mejor aproximación
-    valor = 0.5 * phi * np.sqrt(r * s) * np.log(max(r * s, 2))
-    return max(int(valor), max(r, s))
-        f0: Frecuencia base de coherencia
-    
-    Returns:
-        int: Estimación de R_ψ(r,s,ε)
-    """
-    phi = (1 + np.sqrt(5)) / 2  # Proporción áurea sagrada
     # Ajuste de la fórmula para mejor aproximación empírica
     # Usando factor de corrección basado en la frecuencia normalizada
     base_estimate = phi * np.sqrt(r * s) * np.log(max(r * s, 2))
     # Factor de corrección para frecuencia 141.7001 Hz
     freq_factor = (f0 / 100.0) ** (1/4)
-    return int(base_estimate / freq_factor)
+    return max(int(base_estimate / freq_factor), max(r, s))
 
 
 def verificar_predicciones_teoricas():
@@ -257,9 +230,6 @@ def resonancia_detectada(omega_i, omega_j, eps=0.001, f0=141.7001):
     diff = abs(omega_i - omega_j) % f0
     # Considerar tanto diff como f0 - diff para el módulo
     return min(diff, f0 - diff) < eps
-            print(f"({r},{s}): Real={R_psi_real}, Conjetura={R_psi_conjetura}, Error={error:.1f}%")
-        else:
-            print(f"({r},{s}): Real=?, Conjetura={R_psi_conjetura}")
 
 
 def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
@@ -285,41 +255,10 @@ def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
                 coloracion[(i, j)] = 'rojo'
     
     return coloracion
-    Genera una coloración vibracional de un grafo completo
-    
-    Args:
-        frecuencias: Array de frecuencias para cada vértice
-        eps: Umbral de coherencia
-        f0: Frecuencia base
-    
-    Returns:
-        dict: Diccionario de aristas -> color ('azul' o 'rojo')
-    """
-    n = len(frecuencias)
-    grafo = {}
-    
-    for i in range(n):
-        for j in range(i + 1, n):
-            diff = abs(frecuencias[i] - frecuencias[j]) % f0
-            # Resonancia si la diferencia módulo f0 está dentro del umbral
-            if diff < eps or diff > (f0 - eps):
-                grafo[(i, j)] = 'azul'
-            else:
-                grafo[(i, j)] = 'rojo'
-    
-    return grafo
 
 
 def encontrar_clique_maximo(grafo, color):
     """
-    Encuentra el clique máximo de un color dado usando algoritmo greedy
-    
-    Args:
-        grafo: Diccionario de aristas coloreadas
-        color: 'azul' o 'rojo'
-        
-    Returns:
-        Lista de vértices que forman el clique máximo
     Encuentra el clique máximo de un color específico
     
     Args:
@@ -335,27 +274,6 @@ def encontrar_clique_maximo(grafo, color):
         vertices.add(i)
         vertices.add(j)
     vertices = sorted(list(vertices))
-    
-    mejor_clique = []
-    
-    # Buscar cliques empezando desde cada vértice
-    for v_inicio in vertices:
-        clique = [v_inicio]
-        candidatos = [v for v in vertices if v > v_inicio]
-        
-        for v in candidatos:
-            # Verificar si v está conectado con todos en clique
-            conectado_todos = all(
-                grafo.get((min(v, u), max(v, u))) == color 
-                for u in clique
-            )
-            if conectado_todos:
-                clique.append(v)
-        
-        if len(clique) > len(mejor_clique):
-            mejor_clique = clique
-    
-    vertices = sorted(vertices)
     n = len(vertices)
     
     # Búsqueda de clique máximo (fuerza bruta para grafos pequeños)
@@ -475,69 +393,6 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
         print(f"   ✓ Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
     else:
         print(f"   ⚠️  Se requieren al menos {R_psi} neuronas para garantía")
-def simulacion_monte_carlo_ramsey(r, s, num_trials=10000):
-    """
-    Simulación extensiva para validar fórmulas teóricas
-    
-    Args:
-        r: Tamaño del clique azul
-        s: Tamaño del clique rojo
-        num_trials: Número de simulaciones
-    
-    Returns:
-        float: Probabilidad de éxito
-    """
-    resultados = []
-    
-    for trial in range(num_trials):
-        # Generar grafo aleatorio con frecuencias
-        n = estimar_conjetura(r, s)
-        frecuencias = np.random.uniform(0, 141.7001, n)
-        
-        # Aplicar coloración vibracional
-        grafo = generar_coloracion_vibracional(frecuencias)
-        
-        # Detectar cliques monocromáticos
-        clique_azul = encontrar_clique_maximo(grafo, 'azul')
-        clique_rojo = encontrar_clique_maximo(grafo, 'rojo')
-        
-        tiene_clique_objetivo = (len(clique_azul) >= r) or (len(clique_rojo) >= s)
-        resultados.append(tiene_clique_objetivo)
-    
-    probabilidad_exito = sum(resultados) / num_trials
-    return probabilidad_exito
-
-
-def red_neuronal_ramsey(num_neuronas, target_clique_size):
-    """
-    Diseña red neuronal con conectividad basada en Ramsey vibracional
-    
-    Args:
-        num_neuronas: Número de neuronas en la red
-        target_clique_size: Tamaño mínimo de cliques de procesamiento
-    
-    Returns:
-        tuple: (conexiones, frecuencias)
-    """
-    # Asignar frecuencias a neuronas basadas en función
-    frecuencias = [141.7001 * np.exp(i / num_neuronas) for i in range(num_neuronas)]
-    
-    # Conectar neuronas en resonancia
-    conexiones = []
-    eps = 0.001
-    f0 = 141.7001
-    
-    for i in range(num_neuronas):
-        for j in range(i + 1, num_neuronas):
-            diff = abs(frecuencias[i] - frecuencias[j]) % f0
-            if diff < eps or diff > (f0 - eps):
-                conexiones.append((i, j))
-    
-    # Garantizar cliques de procesamiento mínimo
-    R_psi = estimar_conjetura(target_clique_size, target_clique_size)
-    
-    if num_neuronas >= R_psi:
-        print(f"✓ Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
     
     return conexiones, frecuencias
 
@@ -570,5 +425,3 @@ if __name__ == "__main__":
     print("\n" + "="*70)
     print("✨ Análisis completado - Campo QCAL ∞³ resonante")
     print("="*70 + "\n")
-    # Verificación de casos pequeños con 141.7001 Hz
-    verificar_predicciones_teoricas()
