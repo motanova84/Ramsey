@@ -259,7 +259,7 @@ Export results for use with:
 
 ### Issue: Memory errors
 
-**Solution**: Process parameter combinations sequentially or reduce grid resolution M.
+**Solution**: Process parameter combinations sequentially, reduce `nmax`, or increase available memory.
 
 ### Issue: No results found
 
