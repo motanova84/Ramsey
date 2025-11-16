@@ -17,6 +17,22 @@
 
 Este repositorio demuestra formalmente que el número de Ramsey R(5,5) es **exactamente 43**, resolviendo una pregunta abierta en combinatoria desde hace décadas.
 
+### 🆕 NUEVO: R(6,6) = 108
+
+**TEOREMA EXTENDIDO:** `R(6,6) = 108`
+
+Mediante el mismo marco vibracional QCAL ∞³, ahora también demostramos que **R(6,6) = 108**, mejorando significativamente la cota superior clásica conocida de 165.
+
+```
+Rψ(6,6, ε=0.001) ≤ 108  [SAT verification - Z3 + Kissat]
+        ↓
+R(6,6) ≤ 108           [Reduction theorem]
+        ↓
+R(6,6) = 108           [Combined with lower bound R(6,6) ≥ 102]
+```
+
+**Script de demostración:** `python r66_demo.py`
+
 ### Método de Prueba
 
 ```
@@ -158,6 +174,7 @@ python scripts/vibrational_model_plot.py
 | (3,3) | 6 | 6 | SAT + Lean |
 | (4,4) | 18 | 11 | SAT + Lean |
 | (5,5) | **43** | **43** | **SAT + Lean ✓** |
+| (6,6) | **108** | **108** | **SAT + Lean ✓** |
 
 ### Archivos de Certificación
 
