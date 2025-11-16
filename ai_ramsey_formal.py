@@ -799,85 +799,105 @@ Examples:
         """
     )
     
-    # Add direct positional arguments for new mode
-    parser.add_argument('r', type=int, nargs='?', help='Red clique size')
-    parser.add_argument('s', type=int, nargs='?', help='Blue clique size')
-    
-    # New flags
-    parser.add_argument('--universal-coherence', action='store_true',
-                       help='Enable universal coherence mode')
-    parser.add_argument('--predict', action='store_true',
-                       help='Enable prediction mode')
-    parser.add_argument('--parallel', action='store_true',
-                       help='Enable parallel processing')
-    parser.add_argument('--quantum-mode', action='store_true',
-                       help='Enable quantum mode')
-    parser.add_argument('--max-r', type=int,
-                       help='Maximum r value for infinite prediction')
-    parser.add_argument('--predict-infinite', action='store_true',
-                       help='Enable infinite prediction mode')
-    parser.add_argument('--generate-scripts', action='store_true',
-                       help='Generate demo scripts')
-    
-    # Existing parameters
-    parser.add_argument('--lam', type=float, default=0.00005, 
-                       help='Lambda parameter (default: 0.00005)')
-    parser.add_argument('--f0', type=float, default=141.7001,
-                       help='Base frequency in Hz (default: 141.7001)')
-    parser.add_argument('--nmax', type=int, default=1200,
-                       help='Maximum n to search (default: 1200)')
-    parser.add_argument('--grid', type=int, default=4096,
-                       help='Grid resolution (default: 4096)')
-    
-    # Legacy subcommands
-    parser.add_argument('command', nargs='?', help='Legacy command (certify/benchmark/list)')
-    
-    args = parser.parse_args()
-    
-    # Handle new modes first
-    if args.predict_infinite or args.max_r:
-        max_r = args.max_r or 25
-        predict_infinite_mode(max_r, args.f0)
+    # Parse with custom logic to handle both old and new interface
+    # First, check if first argument is a legacy command
+    if len(sys.argv) > 1 and sys.argv[1] in ['certify', 'benchmark', 'list']:
+        # Legacy command mode
+        command = sys.argv[1]
+        remaining_args = sys.argv[2:]
+        
+        if command == 'certify':
+            parser.add_argument('command', help='Command (certify/benchmark/list)')
+            parser.add_argument('r', type=int, help='Red clique size')
+            parser.add_argument('s', type=int, help='Blue clique size')
+        else:
+            parser.add_argument('command', help='Command (certify/benchmark/list)')
+        
+        # Existing parameters
+        parser.add_argument('--lam', type=float, default=0.00005, 
+                           help='Lambda parameter (default: 0.00005)')
+        parser.add_argument('--f0', type=float, default=141.7001,
+                           help='Base frequency in Hz (default: 141.7001)')
+        parser.add_argument('--nmax', type=int, default=1200,
+                           help='Maximum n to search (default: 1200)')
+        parser.add_argument('--grid', type=int, default=4096,
+                           help='Grid resolution (default: 4096)')
+        
+        args = parser.parse_args()
+        
+        if args.command == 'certify':
+            return certify_command(args)
+        elif args.command == 'benchmark':
+            return benchmark_command(args)
+        elif args.command == 'list':
+            return list_certificates_command(args)
+    else:
+        # New mode with direct positional arguments
+        parser.add_argument('r', type=int, nargs='?', help='Red clique size')
+        parser.add_argument('s', type=int, nargs='?', help='Blue clique size')
+        
+        # New flags
+        parser.add_argument('--universal-coherence', action='store_true',
+                           help='Enable universal coherence mode')
+        parser.add_argument('--predict', action='store_true',
+                           help='Enable prediction mode')
+        parser.add_argument('--parallel', action='store_true',
+                           help='Enable parallel processing')
+        parser.add_argument('--quantum-mode', action='store_true',
+                           help='Enable quantum mode')
+        parser.add_argument('--max-r', type=int,
+                           help='Maximum r value for infinite prediction')
+        parser.add_argument('--predict-infinite', action='store_true',
+                           help='Enable infinite prediction mode')
+        parser.add_argument('--generate-scripts', action='store_true',
+                           help='Generate demo scripts')
+        
+        # Existing parameters
+        parser.add_argument('--lam', type=float, default=0.00005, 
+                           help='Lambda parameter (default: 0.00005)')
+        parser.add_argument('--f0', type=float, default=141.7001,
+                           help='Base frequency in Hz (default: 141.7001)')
+        parser.add_argument('--nmax', type=int, default=1200,
+                           help='Maximum n to search (default: 1200)')
+        parser.add_argument('--grid', type=int, default=4096,
+                           help='Grid resolution (default: 4096)')
+        
+        args = parser.parse_args()
+        
+        # Handle new modes first
+        if args.predict_infinite or args.max_r:
+            max_r = args.max_r or 25
+            predict_infinite_mode(max_r, args.f0)
+            if args.generate_scripts:
+                generate_demo_scripts()
+            return 0
+        
         if args.generate_scripts:
             generate_demo_scripts()
-        return 0
-    
-    if args.generate_scripts:
-        generate_demo_scripts()
-        return 0
-    
-    # Handle universal coherence mode
-    if args.r is not None and args.s is not None and args.universal_coherence:
-        result = universal_coherence_mode(
-            args.r, args.s, args.lam, args.f0, args.nmax, args.grid,
-            args.predict, args.parallel, args.quantum_mode
-        )
-        if args.generate_scripts:
-            generate_demo_scripts()
-        return 0
-    
-    # Handle direct r s arguments without subcommand
-    if args.r is not None and args.s is not None and not args.command:
-        # Default to universal coherence mode
-        result = universal_coherence_mode(
-            args.r, args.s, args.lam, args.f0, args.nmax, args.grid,
-            args.predict, args.parallel, args.quantum_mode
-        )
-        return 0
-    
-    # Handle legacy subcommands
-    if args.command == 'certify':
-        if args.r is None or args.s is None:
-            parser.error("certify command requires r and s arguments")
-        return certify_command(args)
-    elif args.command == 'benchmark':
-        return benchmark_command(args)
-    elif args.command == 'list':
-        return list_certificates_command(args)
-    
-    # No valid command or arguments
-    parser.print_help()
-    return 1
+            return 0
+        
+        # Handle universal coherence mode
+        if args.r is not None and args.s is not None and args.universal_coherence:
+            result = universal_coherence_mode(
+                args.r, args.s, args.lam, args.f0, args.nmax, args.grid,
+                args.predict, args.parallel, args.quantum_mode
+            )
+            if args.generate_scripts:
+                generate_demo_scripts()
+            return 0
+        
+        # Handle direct r s arguments without subcommand
+        if args.r is not None and args.s is not None:
+            # Default to universal coherence mode
+            result = universal_coherence_mode(
+                args.r, args.s, args.lam, args.f0, args.nmax, args.grid,
+                args.predict, args.parallel, args.quantum_mode
+            )
+            return 0
+        
+        # No valid command or arguments
+        parser.print_help()
+        return 1
     
     return 0
 
