@@ -26,6 +26,16 @@ This repository contains two implementations of Ramsey-type theory with polynomi
 1. **Parameterized Ramsey (R_Λ)** - Rigorous mathematical framework (⭐ **RECOMMENDED**)
 2. **Vibrational Ramsey (R_ψ)** - Original exploratory implementation
 
+## 🌟 NEW: QCAL ∞3 Unified Framework
+
+This repository is part of the **QCAL ∞3** (Quantum Coherent Algebraic Logic) unified framework, which connects:
+- ✅ **Ramsey Theory**: Exponential → Polynomial reduction (IMPLEMENTED)
+- 📐 **Riemann Hypothesis & BSD**: Adelic and Spectral Solutions
+- 💻 **P ≠ NP**: Treewidth-Information Dichotomy
+- 🌊 **Navier-Stokes**: Quantum-Geometric Regularizer at 141.7 Hz
+
+📖 **See full framework**: [QCAL_UNIFIED_FRAMEWORK.md](QCAL_UNIFIED_FRAMEWORK.md)
+
 ---
 
 ## 🎓 Certificados Formales
