@@ -1103,7 +1103,7 @@ R_ψ(5,5) = 16  vs  R(5,5) ∈ [43, 48]
 
 ---
 
-**Made with 💙 by human-AI collaboration**
+**Made with by human-AI collaboration**
 
 *Coherencia + Resonancia = Orden Inevitable*
 
