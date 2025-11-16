@@ -1,3 +1,8 @@
+# Ramsey Vibracional Formal
+
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Lean 4](https://img.shields.io/badge/Lean-4-certified-brightgreen)](https://github.com/leanprover/lean4)
 # Ramsey Theory: Vibrational and Parameterized Approaches
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
@@ -10,6 +15,18 @@ This repository contains two implementations of Ramsey-type theory with polynomi
 
 ---
 
+## 🎓 Certificados Formales
+
+Este proyecto incluye certificados formales verificables para los valores de R_ψ(r,s):
+
+| (r,s) | λ | Bound | Certificate |
+|-------|---|-------|-------------|
+| (4,4) | 0.062 | 10 | [lean](./certificates/Rpsi_4_4_le_10.lean) · [smt2](./certificates/Rpsi_4_4_le_10.smt2) |
+| (3,3) | 0.100 | 5 | [lean](./certificates/Rpsi_3_3_le_5.lean) · [smt2](./certificates/Rpsi_3_3_le_5.smt2) |
+
+**Nota:** Los certificados se pueden generar automáticamente usando el CLI tool `ai-ramsey-formal`.
+
+### Resultado Principal
 ## 🎯 NEW: Parameterized Ramsey Theory (R_Λ)
 
 **For rigorous mathematical research and peer-reviewed publication.**
@@ -78,6 +95,16 @@ R_ψ(r,s) = O(√(rs) × ln(rs))  vs  R(r,s) = 2^O(√(r+s)×ln(r+s))
 
 Estos valores han sido verificados computacionalmente usando el solver Z3 y están disponibles en [vibrational_ramsey_table.csv](vibrational_ramsey_table.csv).
 
+## 🔬 Características Principales
+
+- **Reducción exponencial a polinómica**: De crecimiento exponencial a casi-lineal mediante coherencia cuántica
+- **Verificación SAT rigurosa**: Implementación con Z3 solver para cálculo exacto de R_ψ(r,s,ε)
+- **Certificación formal**: Lean 4 + SMT2 certificates para verificación independiente
+- **Frecuencia base sagrada**: 141.7001 Hz como regulador natural de resonancia armónica
+- **CLI automatizado**: Herramienta `ai-ramsey-formal` para generar certificados
+- **CI/CD**: GitHub Actions para verificación continua
+- **Aplicaciones transformadoras**: Redes neuronales, sistemas sociales, criptografía
+
 ## 📦 Instalación
 
 ```bash
@@ -85,28 +112,50 @@ Estos valores han sido verificados computacionalmente usando el solver Z3 y est�
 git clone https://github.com/motanova84/Ramsey.git
 cd Ramsey
 
-# Instalar dependencias
+# Instalar dependencias Python
 pip install -r requirements.txt
+
+# (Opcional) Instalar Lean 4 para verificación formal
+curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
 ```
 
 ### Requisitos
-##  Características Principales
-
-- **Reducción exponencial a polinómica**: De crecimiento exponencial a casi-lineal mediante coherencia cuántica
-- **Verificación SAT rigurosa**: Implementación con Z3 solver para cálculo exacto de R_ψ(r,s,ε)
-- **Frecuencia base sagrada**: 141.7001 Hz como regulador natural de resonancia armónica
-- **Aplicaciones transformadoras**: Redes neuronales, sistemas sociales, criptografía
-
-## 📋 Requisitos
-
-```bash
-pip install -r requirements.txt
-```
 
 Dependencias:
 - Python 3.8+
 - z3-solver >= 4.12.0
 - numpy >= 1.24.0
+- (Opcional) Lean 4 para verificación formal
+
+## 🛠️ CLI Tool: ai-ramsey-formal
+
+El proyecto incluye una herramienta de línea de comandos para generar certificados formales:
+
+### Certificar un nuevo bound
+
+```bash
+# Generar certificado para R_ψ(3,3)
+python ai_ramsey_formal.py certify 3 3 --lam 0.1 --f0 141.7001
+
+# Generar certificado para R_ψ(4,4)
+python ai_ramsey_formal.py certify 4 4 --lam 0.062
+```
+
+Esto genera:
+- Archivo Lean 4: `certificates/Rpsi_r_s_le_n.lean`
+- Archivo SMT2: `certificates/Rpsi_r_s_le_n.smt2`
+
+### Ejecutar benchmark
+
+```bash
+python ai_ramsey_formal.py benchmark
+```
+
+### Listar certificados
+
+```bash
+python ai_ramsey_formal.py list
+```
 
 ##  Uso
 
