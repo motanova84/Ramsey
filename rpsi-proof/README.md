@@ -1,3 +1,14 @@
+# Rψ ≠ R
+
+> Rψ mide Ramsey en coloraciones **vibracionales restringidas**  
+> R mide en coloraciones **arbitrarias**
+
+**Este repositorio prueba que Rψ(5,5) ≤ 16 es válido.  
+NO prueba que R(5,5) ≤ 16.  
+R(5,5) sigue abierto con R(5,5) ∈ [43,48].**
+
+---
+
 # Rψ(5,5) ≤ 16: Certificado Formal
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXX)
@@ -34,20 +45,26 @@ Este repositorio contiene la prueba formal completa de que el número de Ramsey 
 
 ```
 rpsi-proof/
-├── src/
-│   ├── generate_rpsi_sat.py      # Generador de instancias SAT
-│   ├── save_dimacs.py             # Exportador a formato DIMACS
-│   └── solve_rpsi_sat.py          # Solver con Kissat + LRAT
+├── src/                          # Código fuente para generación de CNFs y scripts SAT
+│   ├── generate_instance.py      # Generador de instancia Rψ(5,5) para n vértices
+│   ├── verify_lrat.py            # Validador LRAT del certificado
+│   ├── generate_rpsi_sat.py      # Generador de instancias SAT (legacy)
+│   ├── save_dimacs.py            # Exportador a formato DIMACS
+│   └── solve_rpsi_sat.py         # Solver con Kissat + LRAT
 ├── data/
-│   └── rpsi_5_5_n16.cnf           # Instancia DIMACS (generada)
+│   ├── coloring_r16.cnf          # Instancia CNF para K₁₆ con codificación de color vibracional
+│   └── rpsi_5_5_n16.cnf          # Instancia DIMACS (legacy)
 ├── cert/
-│   └── rpsi_5_5_n16_unsat.lrat    # Certificado LRAT (tras Kissat)
+│   └── proof_r16.lrat            # Certificado de insatisfiabilidad SAT
 ├── proofs/
-│   └── Rpsi_5_5_le_16.lean        # Teorema formal Lean 4
-├── README.md                       # Este archivo
-├── CITATION.cff                    # Citación BibTeX
-├── LICENSE                         # Licencia MIT
-└── .qcal_beacon                    # Marca QCAL ∞³
+│   └── RamseyRpsi_5_5.lean       # Formalización Lean4 de la definición Rψ y upper bound
+├── figures/
+│   └── resonance_graph.svg       # Visualización de la estructura de coloración
+├── .qcal_beacon                  # Metadatos QCAL de frecuencia, ε, grid
+├── CITATION.cff                  # Información de citación académica
+├── LICENSE                       # Licencia MIT
+├── README.md                     # Explicación clara de Rψ ≠ R y uso del repositorio
+└── PAPER.md                      # Draft del artículo matemático
 ```
 
 ## 🚀 Uso Rápido
@@ -56,35 +73,51 @@ rpsi-proof/
 
 ```bash
 cd src
-python save_dimacs.py
+python generate_instance.py
 ```
 
 **Salida esperada:**
 ```
-✓ Guardado: ../data/rpsi_5_5_n16.cnf
+✓ Guardado: ../data/coloring_r16.cnf
   Variables: 17,528
   Cláusulas: 200,360
   Tamaño estimado: ~4.8 MB
 ```
 
-### 2. Resolver con Kissat
+### 2. Resolver con Kissat (genera certificado LRAT)
+
+```bash
+kissat --unsat --lrat=../cert/proof_r16.lrat ../data/coloring_r16.cnf
+```
+
+**Salida esperada:**
+```
+s UNSATISFIABLE
+```
+
+O usando el script de Python:
 
 ```bash
 python solve_rpsi_sat.py
 ```
 
-**Salida esperada:**
-```
-✓ RESULTADO: UNSATISFIABLE
-🎉 Rψ(5,5) ≤ 16 CERTIFICADO
-   Prueba LRAT guardada en: ../cert/rpsi_5_5_n16_unsat.lrat
+### 3. Verificar Certificado LRAT
+
+```bash
+python verify_lrat.py ../data/coloring_r16.cnf ../cert/proof_r16.lrat
 ```
 
-### 3. Verificar Teorema Lean
+**Salida esperada:**
+```
+✅ CERTIFICADO LRAT VÁLIDO
+   La prueba de insatisfiabilidad es correcta.
+```
+
+### 4. Verificar Teorema Lean
 
 ```bash
 cd proofs
-lean Rpsi_5_5_le_16.lean
+lean RamseyRpsi_5_5.lean
 ```
 
 o con lake:

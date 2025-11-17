@@ -12,4 +12,10 @@
   "formal_proof": "Lean 4",
   "qcal_field": "∞³",
   "resonance": "φ × √2π × f₀"
+  "epsilon": 0.015,
+  "grid": 128,
+  "verified": true,
+  "validator": "Z3+LRAT",
+  "snr_coherence": null,
+  "timestamp": "2025-11-16T00:00:00Z"
 }
