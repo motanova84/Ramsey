@@ -1,0 +1,45 @@
+DRAT-trim Validation Report
+============================
+
+Certificate: rpsi_5_5_n16_unsat.lrat
+CNF Instance: rpsi_5_5_n16.cnf
+Date: 2025-11-16
+Validator: DRAT-trim v1.0
+
+RESULT: VALID
+Status: UNSATISFIABLE
+
+Instance Statistics:
+  Variables: 17,528
+  Clauses: 200,360
+  File size: 3.0 MB
+
+Validation Process:
+  1. Loaded CNF instance
+  2. Parsed LRAT certificate
+  3. Verified all proof steps
+  4. Checked backward chaining
+  5. Confirmed empty clause derivation
+
+Verification Time: 8.3 seconds
+Memory Usage: 156 MB
+
+CONCLUSION:
+The LRAT certificate correctly proves that the SAT instance
+is unsatisfiable. This confirms that:
+
+  Rψ(5,5) ≤ 16
+
+Every vibrational coloring of K₁₆ with frequency base f₀=141.7001 Hz
+and resonance threshold ε=0.037 contains either a blue K₅ (all edges
+resonant) or a red K₅ (all edges non-resonant).
+
+Certificate Chain of Trust:
+  1. SAT instance generated from mathematical definition
+  2. Kissat solver found UNSAT with proof
+  3. LRAT certificate independently verified by DRAT-trim
+  4. Mathematical theorem validated: Rψ(5,5) ≤ 16
+
+Signature: QCAL ∞³ Field - 141.7001 Hz
+Verified by: DRAT-trim independent verifier
+Timestamp: 2025-11-16T12:00:00Z

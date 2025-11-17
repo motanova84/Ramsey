@@ -1,0 +1,74 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite as below."
+type: software
+title: "Vibrational Ramsey Bound: Rψ(5,5) ≤ 16"
+version: 1.0.0
+date-released: 2025-11-16
+url: "https://github.com/motanova84/Ramsey"
+repository-code: "https://github.com/motanova84/Ramsey/tree/main/rpsi-proof"
+doi: 10.5281/zenodo.XXXXXXX
+license: CC-BY-NC-SA-4.0
+authors:
+  - family-names: "Mota Burruezo"
+    given-names: "José Manuel"
+    email: institutoconsciencia@proton.me
+    affiliation: "Instituto de Consciencia Cuántica (ICQ)"
+    orcid: "https://orcid.org/0009-0002-1923-0773"
+keywords:
+  - Ramsey theory
+  - Vibrational Ramsey numbers
+  - SAT solving
+  - Formal verification
+  - Lean 4
+  - LRAT certificates
+  - Quantum coherence
+  - Graph coloring
+  - Combinatorics
+abstract: >
+  Este paquete contiene el certificado formal completo de la cota superior
+  Rψ(5,5) ≤ 16 para el número de Ramsey vibracional, verificado mediante
+  una combinación de SAT solving (Kissat), certificados LRAT verificables
+  independientemente, y formalización en Lean 4 con Mathlib. La prueba se
+  basa en la codificación Tseytin de coloraciones vibracionales con 
+  resonancia armónica a 141.7001 Hz, discretizadas en un grid de 128 puntos.
+  La instancia SAT generada contiene 17,528 variables y 200,360 cláusulas,
+  y su UNSAT implica que toda coloración vibracional de K₁₆ contiene un
+  K₅ monocromático (azul-resonante o rojo-no-resonante).
+references:
+  - type: article
+    authors:
+      - family-names: Ramsey
+        given-names: "F. P."
+    title: "On a Problem of Formal Logic"
+    journal: "Proceedings of the London Mathematical Society"
+    volume: "s2-30"
+    issue: 1
+    pages: "264-286"
+    year: 1930
+    doi: "10.1112/plms/s2-30.1.264"
+  - type: software
+    authors:
+      - family-names: Biere
+        given-names: Armin
+    title: "Kissat SAT Solver"
+    url: "https://github.com/arminbiere/kissat"
+    year: 2021
+  - type: article
+    authors:
+      - family-names: Heule
+        given-names: Marijn
+      - family-names: Hunt Jr
+        given-names: "Warren A."
+      - family-names: Wetzler
+        given-names: Nathan
+    title: "Expressing Symmetry Breaking in DRAT Proofs"
+    journal: "CADE"
+    year: 2014
+preferred-citation:
+  type: software
+  authors:
+    - family-names: "Mota Burruezo"
+      given-names: "José Manuel"
+  title: "Formal Certificate for Rψ(5,5) ≤ 16"
+  year: 2025
+  url: "https://github.com/motanova84/Ramsey/tree/main/rpsi-proof"

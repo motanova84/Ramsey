@@ -27,6 +27,7 @@ mediante principios de coherencia cuántica y resonancia vibracional.
 from z3 import *
 from itertools import combinations
 import numpy as np
+import os
 
 
 def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
@@ -124,16 +125,14 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
 
 def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     """
-    Calcula R_psi(r,s,eps) exacto mediante busqueda SAT
     Calcula R_psi(r,s,eps) exacto mediante búsqueda SAT
     
     La proporción áurea PHI = 1.618... guía la búsqueda hacia la perfección
     
     Args:
-        r: Tamano del clique azul
-        s: Tamano del clique rojo
+        r: Tamaño del clique azul
+        s: Tamaño del clique rojo
         eps: Umbral de coherencia
-        f0: Frecuencia base de coherencia
         f0: Frecuencia base de coherencia (141.7001 Hz)
         nmax: Máximo n a verificar
         grid: Resolución de discretización
@@ -141,43 +140,10 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     Returns:
         int: R_psi(r,s,eps) exacto, o None si no encontrado
     """
-    print(f"Calculando R_psi({r},{s},{eps}) con f0={f0} Hz...")
-    print(f"Grid de resonancia: {grid} puntos")
-    
-    for n in range(max(r, s), nmax + 1):
-        print(f"  Probando n={n}...", end=" ")
-        f0: Frecuencia base (141.7001 Hz)
-        nmax: Maximo n a verificar
-        grid: Resolucion de discretizacion
-    
-    Returns:
-        int: R_psi(r,s,eps) exacto, o None si no encontrado
-    """
-    print(f"Calculando R_psi({r},{s},{eps}) con f0={f0} Hz...")
-    print(f"Grid de resonancia: {grid} puntos")
-        int: R_psi(r,s,epsilon) exacto, o None si no encontrado
-    """
-    print(f"* Calculando R_psi({r},{s},{eps}) con f0={f0} Hz...")
-    print(f"* Grid de resonancia: {grid} puntos")
-    
-    for n in range(max(r, s), nmax + 1):
-        print(f"  Probando n={n}...", end=" ")
-        if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
-            print(f"UNSAT - R_psi({r},{s}) = {n}")
-            print(f"OK UNSAT -> R_psi({r},{s}) = {n}")
-        nmax: Límite superior de búsqueda
-        grid: Resolución de discretización
-        
-    Returns:
-        R_psi(r,s,eps) exacto, o None si no se encuentra en el rango
-    """
     print(f"* Calculando R_psi({r},{s},{eps}) con f_0={f0} Hz...")
     print(f"   Grid de resonancia: {grid} puntos")
     
     for n in range(max(r, s), nmax + 1):
-        print(f"  Probando n={n}...", end=" ")
-        if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
-            print(f"OK UNSAT -> R_psi({r},{s}) = {n}")
         print(f"   Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
             print(f"UNSAT -> R_psi({r},{s}) = {n}")
@@ -185,55 +151,15 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
         else:
             print("SAT (contraejemplo existe)")
     
-    print(f"No encontrado en rango [1,{nmax}]")
-    print(f"WARNING️  No encontrado en rango [1,{nmax}]")
-    print(f"* No encontrado en rango [1,{nmax}]")
-    print(f"* No encontrado en rango [1,{nmax}]")
-    print(f"No encontrado en rango [1,{nmax}]")
     print(f"⚠️  No encontrado en rango [1,{nmax}]")
     return None
 
 
 def estimar_conjetura(r, s, f0=141.7001):
     """
-    Estimacion segun Conjetura 3.4
-    
-    R_psi(r,s,eps) = O(sqrt(rs) x ln(rs) x (f0)^{1/4})
-    
-    Args:
-        r: Tamano del clique azul
-        s: Tamano del clique rojo
-        f0: Frecuencia base de coherencia (141.7001 Hz)
-    
-    Returns:
-        int: Estimacion de R_psi(r,s,eps)
-    """
-    phi = (1 + np.sqrt(5)) / 2  # Proporcion aurea sagrada
-    # Ajuste de la formula para mejor aproximacion empirica
-    # Usando factor de correccion basado en la frecuencia normalizada
-    Estimación según Conjetura 3.4: R_psi(r,s,eps) = O(sqrt(rs) * ln(rs))
-    
-    Calibrado empíricamente con constante ajustada para mejor precisión.
-    Estimacion segun Conjetura 3.4: R_psi(r,s,epsilon) = O(sqrt(rs) * ln(rs))
-    
-    Calibrado empiricamente con constante ajustada para mejor precision.
-    R_psi(r,s,epsilon) = O(sqrt(rs) * ln(rs) * (f0)^{1/4})
-    
-    Args:
-        r: Tamano del clique azul
-        s: Tamano del clique rojo
-        f0: Frecuencia base (141.7001 Hz)
-        
-    Returns:
-        int: Estimacion de R_psi(r,s,epsilon)
-    """
-    phi = (1 + np.sqrt(5)) / 2  # Proporcion aurea sagrada
-    # Ajuste de la formula para mejor aproximacion empirica
-    # Usando factor de correccion basado en la frecuencia normalizada
     Estimación según Conjetura 3.4
     
     R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^(1/4))
-    R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^{1/4})
     
     Args:
         r: Tamaño del clique azul
@@ -241,20 +167,15 @@ def estimar_conjetura(r, s, f0=141.7001):
         f0: Frecuencia base de coherencia (141.7001 Hz)
         
     Returns:
-        Estimación del valor R_psi(r,s)
         int: Estimación de R_psi(r,s,eps)
     """
     phi = (1 + np.sqrt(5)) / 2  # Proporción áurea sagrada
     if r * s == 0:
         return 0
-    # Constante calibrada empíricamente para mejor ajuste
-    # Factor de escala reducido para mejor aproximación
-    valor = 0.5 * phi * np.sqrt(r * s) * np.log(max(r * s, 2))
-    return max(int(valor), max(r, s))
     # Ajuste de la fórmula para mejor aproximación empírica
     # Usando factor de corrección basado en la frecuencia normalizada
     base_estimate = phi * np.sqrt(r * s) * np.log(max(r * s, 2))
-    # Factor de correccion para frecuencia 141.7001 Hz
+    # Factor de corrección para frecuencia 141.7001 Hz
     freq_factor = (f0 / 100.0) ** (1/4)
     return max(int(base_estimate / freq_factor), max(r, s))
 
@@ -265,19 +186,7 @@ def verificar_predicciones_teoricas():
     casos = [(3, 3), (3, 4), (4, 4), (3, 5), (4, 5)]
     
     print("\n" + "="*70)
-    print("* Verificación: Realidad SAT vs Conjetura Áurea")
-    print("="*70 + "\n")
-    
-    resultados = []
-    casos = [(3, 3), (3, 4), (4, 4), (3, 5), (4, 5)]
-    resultados = []
-    
-    print("=" * 70)
-    print("Verificacion: Realidad SAT vs Conjetura Aurea")
     print("* Verificación: Realidad SAT vs Conjetura Áurea *")
-    print("=" * 70)
-    print("\n" + "=" * 70)
-    print("* Verificacion: Realidad SAT vs Conjetura Aurea *")
     print("=" * 70 + "\n")
     
     resultados = []
@@ -296,8 +205,7 @@ def verificar_predicciones_teoricas():
                 'error': error
             })
         else:
-            print(f"WARNING️  ({r},{s}): Real=?, Conjetura={R_psi_conjetura}")
-            print(f"* Advertencia: ({r},{s}): Real=?, Conjetura={R_psi_conjetura}")
+            print(f"⚠️  Advertencia: ({r},{s}): Real=?, Conjetura={R_psi_conjetura}")
         print()
     
     if resultados:
@@ -335,10 +243,10 @@ def resonancia_detectada(omega_i, omega_j, eps=0.001, f0=141.7001):
 
 def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
     """
-    Genera una coloracion vibracional de un grafo completo
+    Genera una coloración vibracional resonante basada en frecuencias
     
     Args:
-        frecuencias: Array de frecuencias para cada vertice
+        frecuencias: Array de frecuencias para cada vértice
         eps: Umbral de coherencia
         f0: Frecuencia base
     
@@ -346,31 +254,10 @@ def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
         dict: Diccionario de aristas -> color ('azul' o 'rojo')
     """
     n = len(frecuencias)
-    grafo = {}
-    
-    for i in range(n):
-        for j in range(i + 1, n):
-            if resonancia_detectada(frecuencias[i], frecuencias[j], eps, f0):
-                grafo[(i, j)] = 'azul'
-            else:
-                grafo[(i, j)] = 'rojo'
-    
-    return grafo
-    Genera una coloracion vibracional resonante basada en frecuencias
-    
-    Args:
-        frecuencias: Lista de frecuencias para cada vertice
-        eps: Umbral de coherencia
-        f0: Frecuencia base
-        
-    Returns:
-        Diccionario de aristas con colores {(i,j): 'azul' o 'rojo'}
-    """
-    n = len(frecuencias)
     coloracion = {}
     
     for i in range(n):
-        for j in range(i+1, n):
+        for j in range(i + 1, n):
             if resonancia_detectada(frecuencias[i], frecuencias[j], eps, f0):
                 coloracion[(i, j)] = 'azul'
             else:
@@ -381,24 +268,14 @@ def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
 
 def encontrar_clique_maximo(grafo, color):
     """
-    Encuentra el clique maximo de un color especifico
-    Encuentra el clique maximo de un color dado usando algoritmo greedy
-    
-    Args:
-        grafo: Diccionario de aristas coloreadas
-        color: 'azul' o 'rojo'
-        
-    Returns:
-        Lista de vertices que forman el clique maximo
-    Encuentra el clique maximo de un color especifico
-    Encuentra el clique máximo de un color específico
+    Encuentra el clique máximo de un color específico usando búsqueda exhaustiva
     
     Args:
         grafo: Diccionario de aristas -> color
         color: 'azul' o 'rojo'
     
     Returns:
-        list: Lista de vertices formando el clique maximo
+        list: Lista de vértices formando el clique máximo
     """
     # Extraer vertices
     vertices = set()
@@ -406,32 +283,9 @@ def encontrar_clique_maximo(grafo, color):
         vertices.add(i)
         vertices.add(j)
     vertices = sorted(list(vertices))
-    
-    mejor_clique = []
-    
-    # Buscar cliques empezando desde cada vertice
-    for v_inicio in vertices:
-        clique = [v_inicio]
-        candidatos = [v for v in vertices if v > v_inicio]
-        
-        for v in candidatos:
-            # Verificar si v esta conectado con todos en clique
-            conectado_todos = all(
-                grafo.get((min(v, u), max(v, u))) == color 
-                for u in clique
-            )
-            if conectado_todos:
-                clique.append(v)
-        
-        if len(clique) > len(mejor_clique):
-            mejor_clique = clique
-    
-    vertices = sorted(vertices)
     n = len(vertices)
     
-    # Busqueda de clique maximo (fuerza bruta para grafos pequenos)
-    mejor_clique = []
-    
+    # Búsqueda de clique máximo (fuerza bruta para grafos pequeños)
     for size in range(n, 0, -1):
         for subconjunto in combinations(vertices, size):
             # Verificar si todas las aristas son del color deseado
@@ -448,7 +302,7 @@ def encontrar_clique_maximo(grafo, color):
             if es_clique:
                 return list(subconjunto)
     
-    return mejor_clique
+    return []
 
 
 def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001):
@@ -470,9 +324,6 @@ def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001)
     
     print(f"\n* Simulación Monte Carlo para ({r},{s})")
     print(f"   Usando n={n} vértices, {num_trials} ensayos")
-    print(f"\n* Simulacion Monte Carlo para ({r},{s})")
-    print(f"\nSimulacion Monte Carlo para ({r},{s})")
-    print(f"   Usando n={n} vertices, {num_trials} ensayos")
     
     exitos = 0
     tamanos_azul = []
@@ -498,15 +349,9 @@ def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001)
     
     probabilidad_exito = exitos / num_trials
     
-    print(f"   OK Probabilidad de éxito: {probabilidad_exito*100:.1f}%")
-    print(f"   * Clique azul promedio: {np.mean(tamaños_azul):.1f}")
-    print(f"   * Clique rojo promedio: {np.mean(tamaños_rojo):.1f}")
-    print(f"   OK Probabilidad de exito: {probabilidad_exito*100:.1f}%")
+    print(f"   ✓ Probabilidad de éxito: {probabilidad_exito*100:.1f}%")
     print(f"   * Clique azul promedio: {np.mean(tamanos_azul):.1f}")
     print(f"   * Clique rojo promedio: {np.mean(tamanos_rojo):.1f}")
-    print(f"   Probabilidad de exito: {probabilidad_exito*100:.1f}%")
-    print(f"   Clique azul promedio: {np.mean(tamanos_azul):.1f}")
-    print(f"   Clique rojo promedio: {np.mean(tamanos_rojo):.1f}")
     
     return {
         'n': n,
@@ -546,47 +391,143 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
     # Garantizar cliques de procesamiento minimo
     R_psi = estimar_conjetura(target_clique_size, target_clique_size, f0)
     
-    print(f"\nRed Neuronal Ramsey:")
-    print(f"   Neuronas: {num_neuronas}")
-    print(f"   Conexiones: {len(conexiones)}")
-    print(f"   R_psi({target_clique_size},{target_clique_size}) aprox {R_psi}")
-    
-    if num_neuronas >= R_psi:
-        print(f"   Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
-    else:
-        print(f"   Se requieren al menos {R_psi} neuronas para garantia")
     print(f"\n* Red Neuronal Ramsey:")
     print(f"   Neuronas: {num_neuronas}")
     print(f"   Conexiones: {len(conexiones)}")
     print(f"   R_psi({target_clique_size},{target_clique_size}) ≈ {R_psi}")
     
     if num_neuronas >= R_psi:
-        print(f"   OK Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
+        print(f"   ✓ Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
     else:
-        print(f"   WARNING️  Se requieren al menos {R_psi} neuronas para garantía")
-        print(f"   Advertencia: Se requieren al menos {R_psi} neuronas para garantia")
-    print(f"\nRed Neuronal Ramsey:")
-    print(f"   Neuronas: {num_neuronas}")
-    print(f"   Conexiones: {len(conexiones)}")
-    print(f"   R_psi({target_clique_size},{target_clique_size}) ~ {R_psi}")
-    
-    if num_neuronas >= R_psi:
-        print(f"   Garantizada emergencia de {target_clique_size}-cliques de procesamiento")
-    else:
-        print(f"   Se requieren al menos {R_psi} neuronas para garantía")
         print(f"   ⚠️  Se requieren al menos {R_psi} neuronas para garantía")
     
     return conexiones, frecuencias
 
 
+def generate_rpsi_sat_instance_tseytin(
+    n: int, r: int, s: int,
+    f0: float = 141.7001, eps: float = 0.037, grid: int = 128
+):
+    """
+    Genera una instancia SAT para R_ψ(r,s) ≤ n usando codificación Tseytin
+    
+    Esta función implementa la codificación Tseytin para generar una instancia SAT
+    que verifica si R_ψ(r,s) ≤ n. Si la instancia es UNSAT, entonces se confirma
+    que todo grafo de n vértices contiene un K_r resonante o un K_s no resonante.
+    
+    Args:
+        n: Número de vértices del grafo completo
+        r: Tamaño del clique resonante (azul) a prohibir
+        s: Tamaño del clique no-resonante (rojo) a prohibir
+        f0: Frecuencia base de coherencia (default: 141.7001 Hz)
+        eps: Umbral de resonancia (default: 0.037)
+        grid: Resolución de discretización de frecuencias (default: 128)
+    
+    Returns:
+        tuple: (clauses, num_vars, num_clauses) donde:
+            - clauses: lista de cláusulas (cada cláusula es una lista de enteros)
+            - num_vars: número total de variables SAT
+            - num_clauses: número total de cláusulas
+    """
+    var_id = 1
+    clauses = []
+
+    # 1. Variables de frecuencia (one-hot por vértice)
+    freq_var = [[0] * grid for _ in range(n)]
+    for v in range(n):
+        for k in range(grid):
+            freq_var[v][k] = var_id
+            var_id += 1
+        # exactly one frequency: al menos una
+        clauses.append([freq_var[v][k] for k in range(grid)])
+        # at most one: para cada par, al menos una debe ser falsa
+        for i in range(grid):
+            for j in range(i+1, grid):
+                clauses.append([-freq_var[v][i], -freq_var[v][j]])
+
+    # 2. Variables de resonancia por arista
+    edge_res = {}  # (i,j) -> var
+    for i in range(n):
+        for j in range(i+1, n):
+            edge_res[(i,j)] = var_id
+            var_id += 1
+
+    # Precomputar pares resonantes
+    resonant_pairs = []
+    for k1 in range(grid):
+        for k2 in range(grid):
+            w1 = k1 * f0 / grid
+            w2 = k2 * f0 / grid
+            diff = abs(w1 - w2) % f0
+            diff = min(diff, f0 - diff)
+            if diff <= eps:
+                resonant_pairs.append((k1, k2))
+
+    # 3. Tseytin: edge_res ↔ ∃ k1,k2 resonant
+    for i in range(n):
+        for j in range(i+1, n):
+            e = edge_res[(i,j)]
+            lits = []
+            for k1, k2 in resonant_pairs:
+                aux_lit = var_id
+                var_id += 1
+                # aux_lit → (freq_var[i][k1] ∧ freq_var[j][k2])
+                clauses.append([-aux_lit, freq_var[i][k1]])
+                clauses.append([-aux_lit, freq_var[j][k2]])
+                # (freq_var[i][k1] ∧ freq_var[j][k2]) → aux_lit
+                clauses.append([aux_lit, -freq_var[i][k1], -freq_var[j][k2]])
+                lits.append(aux_lit)
+            # edge_res → OR(lits): -e ∨ l1 ∨ l2 ∨ ...
+            clauses.append([-e] + lits)
+            # NOT edge_res → AND(NOT lit): para cada lit: e ∨ -lit
+            for lit in lits:
+                clauses.append([e, -lit])
+
+    # 4. Prohibir K_r resonante (azul)
+    for clique in combinations(range(n), r):
+        clause = []
+        for i, j in combinations(clique, 2):
+            e = edge_res[(min(i,j), max(i,j))]
+            clause.append(-e)  # al menos una arista NO resonante
+        clauses.append(clause)
+
+    # 5. Prohibir K_s no resonante (rojo)
+    for clique in combinations(range(n), s):
+        clause = []
+        for i, j in combinations(clique, 2):
+            e = edge_res[(min(i,j), max(i,j))]
+            clause.append(e)  # al menos una arista resonante
+        clauses.append(clause)
+
+    return clauses, var_id - 1, len(clauses)
+
+
+def save_dimacs(clauses, num_vars, num_clauses, filename):
+    """
+    Guarda una instancia SAT en formato DIMACS CNF
+    
+    Args:
+        clauses: Lista de cláusulas (cada cláusula es una lista de enteros)
+        num_vars: Número de variables
+        num_clauses: Número de cláusulas
+        filename: Ruta del archivo de salida
+    """
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    
+    with open(filename, 'w') as f:
+        f.write(f"p cnf {num_vars} {num_clauses}\n")
+        for clause in clauses:
+            f.write(" ".join(map(str, clause)) + " 0\n")
+    
+    print(f"✓ Instancia SAT guardada en {filename}")
+    print(f"  Variables: {num_vars}")
+    print(f"  Cláusulas: {num_clauses}")
+
 
 # Ejemplo de uso con la frecuencia sagrada
 if __name__ == "__main__":
     print("\n" + "="*70)
-    print("   Ramsey Cuantico Vibracional - Sistema QCAL infinito cubico")
-    print("   Ramsey Cuántico Vibracional - Sistema QCAL infinity^3")
-    print("   Ramsey Cuantico Vibracional - Sistema QCAL infinity³")
-    print("   Ramsey Cuantico Vibracional - Sistema QCAL")
+    print("   Ramsey Cuántico Vibracional - Sistema QCAL ∞³")
     print("   Frecuencia Base: 141.7001 Hz")
     print("="*70)
     
@@ -595,7 +536,6 @@ if __name__ == "__main__":
     
     # Simulacion Monte Carlo
     print("\n" + "="*70)
-    print("Simulaciones Monte Carlo")
     print("* Simulaciones Monte Carlo")
     print("="*70)
     
@@ -604,15 +544,11 @@ if __name__ == "__main__":
     
     # Red neuronal de ejemplo
     print("\n" + "="*70)
-    print("Aplicacion: Redes Neuronales")
     print("* Aplicación: Redes Neuronales")
-    print("* Aplicacion: Redes Neuronales")
     print("="*70)
     
     red_neuronal_ramsey(num_neuronas=20, target_clique_size=4)
     
     print("\n" + "="*70)
-    print("Analisis completado - Campo QCAL infinito cubico resonante")
-    print("* Análisis completado - Campo QCAL infinity^3 resonante")
-    print("* Analisis completado - Campo QCAL infinity³ resonante")
+    print("* Análisis completado - Campo QCAL ∞³ resonante")
     print("="*70 + "\n")
