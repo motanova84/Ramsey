@@ -1,0 +1,13 @@
+{
+  "r": 3,
+  "s": 3,
+  "bound": 5,
+  "lambda": 0.001,
+  "f0": 141.7001,
+  "grid": 32,
+  "theorem_file": "Rpsi_3_3_le_5.lean",
+  "explanation_file": "Rpsi_3_3_explanation.md",
+  "lake_build_success": false,
+  "timestamp": "2025-11-16T11:30:03.550502",
+  "version": "1.0.0"
+}
