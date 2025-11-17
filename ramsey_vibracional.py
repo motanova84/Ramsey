@@ -30,6 +30,47 @@ import numpy as np
 import os
 
 
+def vibrational_ramsey(r, s, n=None, M=1000, eps=0.2):
+    """
+    Verifica si existe una coloración vibracional en K_n
+    sin cliques rojos de tamaño r ni cliques azules de tamaño s.
+    
+    Args:
+        r: Tamaño del clique rojo a evitar
+        s: Tamaño del clique azul a evitar
+        n: Número de vértices (si es None, se estima como r + s - 1)
+        M: No usado (mantenido por compatibilidad con firma original)
+        eps: Umbral de resonancia/cercanía para determinar si es rojo
+        
+    Returns:
+        bool: True si existe una coloración válida (SAT), False si no existe (UNSAT)
+    """
+    if n is None:
+        n = r + s - 1  # estimación inicial
+    
+    solver = Solver()
+    omega = [Real(f'omega_{i}') for i in range(n)]
+    
+    # Rango de frecuencias: [0, 1)
+    for w in omega:
+        solver.add(0 <= w, w < 1.0)
+    
+    def is_red(i, j):
+        """Define arista roja: diferencia de frecuencias < eps o cerca de 1"""
+        diff = Abs(omega[i] - omega[j])
+        return Or(diff < eps, 1 - diff < eps)
+    
+    # Evitar cliques rojos de tamaño r
+    for combo in combinations(range(n), r):
+        solver.add(Not(And([is_red(i, j) for i, j in combinations(combo, 2)])))
+    
+    # Evitar cliques azules de tamaño s
+    for combo in combinations(range(n), s):
+        solver.add(Not(And([Not(is_red(i, j)) for i, j in combinations(combo, 2)])))
+    
+    return solver.check() == sat
+
+
 def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
     """
     Verificación SAT corregida para R_psi(r,s,eps)
@@ -125,6 +166,7 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
 
 def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128, trials=1):
     """
+    Calcula R_psi(r,s,epsilon) exacto mediante busqueda SAT
     Calcula R_psi(r,s,eps) exacto mediante búsqueda SAT
     
     La proporción áurea PHI = 1.618... guía la búsqueda hacia la perfección
@@ -133,6 +175,15 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128, trials
         r: Tamaño del clique azul
         s: Tamaño del clique rojo
         eps: Umbral de coherencia
+        f0: Frecuencia base (141.7001 Hz)
+        nmax: Limite superior de busqueda
+        grid: Resolucion de discretizacion
+        
+    Returns:
+        R_psi(r,s,epsilon) exacto, o None si no se encuentra en el rango
+    """
+    print(f"Calculando R_psi({r},{s},{eps}) con f0={f0} Hz...")
+    print(f"Grid de resonancia: {grid} puntos")
         f0: Frecuencia base de coherencia (141.7001 Hz)
         nmax: Máximo n a verificar
         grid: Resolución de discretización
@@ -149,17 +200,22 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128, trials
     for n in range(max(r, s), nmax + 1):
         print(f"   Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
+            print(f"UNSAT → R_psi({r},{s}) = {n}")
             print(f"UNSAT -> R_psi({r},{s}) = {n}")
             return n
         else:
             print("SAT (contraejemplo existe)")
     
+    print(f"No encontrado en rango [1,{nmax}]")
     print(f"⚠️  No encontrado en rango [1,{nmax}]")
     return None
 
 
 def estimar_conjetura(r, s, f0=141.7001):
     """
+    Estimacion segun Conjetura 3.4: R_psi(r,s,epsilon) = O(sqrt(rs) * ln(rs))
+    
+    Calibrado empiricamente con constante ajustada para mejor precision.
     Estimación según Conjetura 3.4
     
     R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^(1/4))
@@ -170,6 +226,7 @@ def estimar_conjetura(r, s, f0=141.7001):
         f0: Frecuencia base de coherencia (141.7001 Hz)
         
     Returns:
+        int: Estimacion de R_psi(r,s,epsilon)
         int: Estimación de R_psi(r,s,eps)
     """
     phi = (1 + np.sqrt(5)) / 2  # Proporción áurea sagrada
@@ -225,6 +282,7 @@ def resonancia_detectada(omega_i, omega_j, eps=0.001, f0=141.7001):
     Detecta si dos frecuencias estan en resonancia
     
     Implementa el Operador de Resonancia:
+    Res(omega_i, omega_j, epsilon) = 1 iff |omega_i - omega_j| mod f0 < epsilon
     Res(omega_i, omega_j, eps) = 1 si |omega_i - omega_j| mod f0 < eps
     Res(omega_i, omega_j, eps) = 1 <=> |omega_i - omega_j| mod f_0 < eps
     Res(omega_i, omega_j, epsilon) = 1 iff |omega_i - omega_j| mod f0 < epsilon
@@ -257,6 +315,18 @@ def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
         dict: Diccionario de aristas -> color ('azul' o 'rojo')
     """
     n = len(frecuencias)
+    grafo = {}
+    
+    for i in range(n):
+        for j in range(i + 1, n):
+            diff = abs(frecuencias[i] - frecuencias[j]) % f0
+            # Resonancia si la diferencia módulo f0 está dentro del umbral
+            if diff < eps or diff > (f0 - eps):
+                grafo[(i, j)] = 'azul'
+            else:
+                grafo[(i, j)] = 'rojo'
+    
+    return grafo
     coloracion = {}
     
     for i in range(n):
@@ -271,6 +341,7 @@ def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
 
 def encontrar_clique_maximo(grafo, color):
     """
+    Encuentra el clique máximo de un color específico
     Encuentra el clique máximo de un color específico usando búsqueda exhaustiva
     
     Args:
