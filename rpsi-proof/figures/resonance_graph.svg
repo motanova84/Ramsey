@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Visualización de la estructura de coloración vibracional -->
+  
+  <defs>
+    <style>
+      .title { font: bold 24px sans-serif; fill: #333; }
+      .subtitle { font: 14px sans-serif; fill: #666; }
+      .label { font: 12px sans-serif; fill: #333; }
+      .resonant { stroke: #4285f4; stroke-width: 2; fill: none; }
+      .non-resonant { stroke: #ea4335; stroke-width: 2; fill: none; }
+      .vertex { fill: #34a853; stroke: #333; stroke-width: 2; }
+      .grid-line { stroke: #ddd; stroke-width: 1; }
+    </style>
+  </defs>
+  
+  <!-- Título -->
+  <text x="400" y="40" text-anchor="middle" class="title">
+    Rψ(5,5): Estructura de Coloración Vibracional
+  </text>
+  <text x="400" y="65" text-anchor="middle" class="subtitle">
+    f₀ = 141.7001 Hz, ε = 0.015, Grid = 128
+  </text>
+  
+  <!-- Grafo circular de 16 vértices -->
+  <g transform="translate(400, 350)">
+    <!-- Círculo de referencia -->
+    <circle cx="0" cy="0" r="200" fill="none" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+    
+    <!-- Vértices (K₁₆) -->
+    <g id="vertices">
+      <circle cx="0" cy="-200" r="12" class="vertex"/>
+      <circle cx="76.5" cy="-184.8" r="12" class="vertex"/>
+      <circle cx="141.4" cy="-141.4" r="12" class="vertex"/>
+      <circle cx="184.8" cy="-76.5" r="12" class="vertex"/>
+      <circle cx="200" cy="0" r="12" class="vertex"/>
+      <circle cx="184.8" cy="76.5" r="12" class="vertex"/>
+      <circle cx="141.4" cy="141.4" r="12" class="vertex"/>
+      <circle cx="76.5" cy="184.8" r="12" class="vertex"/>
+      <circle cx="0" cy="200" r="12" class="vertex"/>
+      <circle cx="-76.5" cy="184.8" r="12" class="vertex"/>
+      <circle cx="-141.4" cy="141.4" r="12" class="vertex"/>
+      <circle cx="-184.8" cy="76.5" r="12" class="vertex"/>
+      <circle cx="-200" cy="0" r="12" class="vertex"/>
+      <circle cx="-184.8" cy="-76.5" r="12" class="vertex"/>
+      <circle cx="-141.4" cy="-141.4" r="12" class="vertex"/>
+      <circle cx="-76.5" cy="-184.8" r="12" class="vertex"/>
+    </g>
+    
+    <!-- Etiquetas de vértices -->
+    <text x="0" y="-215" text-anchor="middle" class="label">0</text>
+    <text x="85" y="-195" text-anchor="middle" class="label">1</text>
+    <text x="155" y="-150" text-anchor="middle" class="label">2</text>
+    <text x="200" y="-80" text-anchor="middle" class="label">3</text>
+    <text x="215" y="5" text-anchor="middle" class="label">4</text>
+    <text x="200" y="85" text-anchor="middle" class="label">5</text>
+    <text x="155" y="155" text-anchor="middle" class="label">6</text>
+    <text x="85" y="200" text-anchor="middle" class="label">7</text>
+    <text x="0" y="220" text-anchor="middle" class="label">8</text>
+    <text x="-85" y="200" text-anchor="middle" class="label">9</text>
+    <text x="-155" y="155" text-anchor="middle" class="label">10</text>
+    <text x="-200" y="85" text-anchor="middle" class="label">11</text>
+    <text x="-220" y="5" text-anchor="middle" class="label">12</text>
+    <text x="-200" y="-80" text-anchor="middle" class="label">13</text>
+    <text x="-155" y="-150" text-anchor="middle" class="label">14</text>
+    <text x="-85" y="-195" text-anchor="middle" class="label">15</text>
+    
+    <!-- Ejemplo de aristas resonantes (azules) -->
+    <line x1="0" y1="-200" x2="76.5" y2="-184.8" class="resonant"/>
+    <line x1="76.5" y1="-184.8" x2="141.4" y2="-141.4" class="resonant"/>
+    
+    <!-- Ejemplo de aristas no-resonantes (rojas) -->
+    <line x1="0" y1="-200" x2="200" y2="0" class="non-resonant"/>
+    <line x1="141.4" y1="-141.4" x2="0" y2="200" class="non-resonant"/>
+  </g>
+  
+  <!-- Leyenda -->
+  <g transform="translate(80, 500)">
+    <line x1="0" y1="0" x2="40" y2="0" class="resonant"/>
+    <text x="50" y="5" class="label">Arista resonante (azul): |ωᵢ - ωⱼ| mod f₀ &lt; ε</text>
+    
+    <line x1="0" y1="25" x2="40" y2="25" class="non-resonant"/>
+    <text x="50" y="30" class="label">Arista no-resonante (roja): |ωᵢ - ωⱼ| mod f₀ ≥ ε</text>
+    
+    <circle cx="20" cy="55" r="8" class="vertex"/>
+    <text x="50" y="60" class="label">Vértice con frecuencia ωᵢ ∈ [0, f₀)</text>
+  </g>
+  
+  <!-- Nota informativa -->
+  <text x="400" y="590" text-anchor="middle" class="subtitle">
+    Rψ(5,5) ≤ 16: Toda coloración vibracional de K₁₆ contiene un K₅ monocromático
+  </text>
+</svg>
