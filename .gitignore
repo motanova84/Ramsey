@@ -48,6 +48,8 @@ htmlcov/
 *.tmp
 *.log
 
+# Test data
+data/test/
 # Generated runtime files (should be in certificates/ or data/)
 /Rpsi_*.lean
 /Rpsi_*.md
