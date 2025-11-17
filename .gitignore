@@ -48,6 +48,10 @@ htmlcov/
 *.tmp
 *.log
 
+# Test output files (certificates generated during testing)
+/Rpsi_*.lean
+/Rpsi_*.md
+/Rpsi_*.json
 # Test data
 data/test/
 # Generated runtime files (should be in certificates/ or data/)

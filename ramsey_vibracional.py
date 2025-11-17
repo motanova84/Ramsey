@@ -123,7 +123,7 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
     return resultado == unsat
 
 
-def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
+def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128, trials=1):
     """
     Calcula R_psi(r,s,eps) exacto mediante búsqueda SAT
     
@@ -136,12 +136,15 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
         f0: Frecuencia base de coherencia (141.7001 Hz)
         nmax: Máximo n a verificar
         grid: Resolución de discretización
+        trials: Número de intentos de verificación (default: 1)
     
     Returns:
         int: R_psi(r,s,eps) exacto, o None si no encontrado
     """
     print(f"* Calculando R_psi({r},{s},{eps}) con f_0={f0} Hz...")
     print(f"   Grid de resonancia: {grid} puntos")
+    if trials > 1:
+        print(f"   Intentos de verificación: {trials}")
     
     for n in range(max(r, s), nmax + 1):
         print(f"   Probando n={n}...", end=" ")
