@@ -28,8 +28,8 @@ keywords:
   - resonance
   - mathematical verification
 license: MIT
-version: "1.0.0"
-date-released: "2025-01-16"
+version: "1.1.0"
+date-released: "2025-11-16"
 references:
   - type: article
     title: "Vibrational Ramsey Theory: A Frequency-Based Approach to Polynomial Bounds"
@@ -41,8 +41,8 @@ references:
     notes: "Preprint - Available in repository as RAMSEY-JMMB.pdf"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.xxxxx"
-    description: "Zenodo DOI (to be assigned upon release)"
+    value: "10.5281/zenodo.17315719"
+    description: "Zenodo DOI for this repository"
 preferred-citation:
   type: software
   title: "Vibrational Ramsey Theory (R_ψ)"
