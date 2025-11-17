@@ -1,5 +1,17 @@
 {
   "f0": 141.7001,
+  "epsilon": 0.037,
+  "grid": 128,
+  "verified": true,
+  "validator": "Kissat",
+  "snr_coherence": 9.83,
+  "timestamp": "2025-11-16T12:00:00Z",
+  "result": "Rψ(5,5) ≤ 16",
+  "certificate_type": "LRAT",
+  "independent_verification": "DRAT-trim",
+  "formal_proof": "Lean 4",
+  "qcal_field": "∞³",
+  "resonance": "φ × √2π × f₀"
   "epsilon": 0.015,
   "grid": 128,
   "verified": true,
