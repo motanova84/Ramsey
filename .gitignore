@@ -48,6 +48,16 @@ htmlcov/
 *.tmp
 *.log
 
+# Test data
+data/test/
+# Generated runtime files (should be in certificates/ or data/)
+/Rpsi_*.lean
+/Rpsi_*.md
+/Rpsi_*.json
+/.qcal_beacon_r*
+/r*_unsat.log
+/*.cnf
+
 # Lean 4
 .lake/
 build/
@@ -74,3 +84,12 @@ paper/*.toc
 paper/*.bbl
 paper/*.blg
 paper/*.synctex.gz
+
+# Generated demo scripts
+r1010_demo.py
+ramsey_infinite.py
+
+# Test-generated files
+Rpsi_*_certification.json
+Rpsi_*_explanation.md
+Rpsi_*_le_*.lean
