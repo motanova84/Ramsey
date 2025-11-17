@@ -32,17 +32,6 @@ except ImportError:
 
 from ramsey_vibracional import (
     ramsey_vibracional_unsat,
-AI-Ramsey-Formal: CLI tool for generating formal certificates
-and managing the Ramsey Vibracional Formal ecosystem
-"""
-
-import argparse
-import os
-import sys
-import time
-import datetime
-from pathlib import Path
-from ramsey_vibracional import (
     calcular_Rpsi_exacto,
     estimar_conjetura,
     verificar_predicciones_teoricas
@@ -362,7 +351,6 @@ def certify(r, s, lam=0.037, f0=141.7001, nmax=30, grid=128, output_dir="."):
     return cert_data
 
 
-def generate_lean_certificate(r, s, bound, lam, f0):
 def generate_lean_certificate(r, s, n, lam, f0):
     """
     Generate a Lean 4 certificate file for R_ψ(r,s) ≤ bound
