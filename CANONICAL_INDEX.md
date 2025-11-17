@@ -66,6 +66,12 @@ Este documento proporciona un índice completo de toda la documentación relacio
    - Frecuencia 141.7001 Hz como constante universal
    - **📄 [Ver QCAL_UNIFIED_FRAMEWORK.md](QCAL_UNIFIED_FRAMEWORK.md)**
 
+1a. **UNIFIED_THEORY_CONNECTION.md**
+   - Conexión entre R_ψ y Teoría Unificada QCAL ∞³
+   - f₀ = 141.7001 Hz como regulador universal
+   - Ondas Gravitacionales, Curvas Elípticas (BSD), Coherencia en Grafos
+   - **📄 [Ver UNIFIED_THEORY_CONNECTION.md](UNIFIED_THEORY_CONNECTION.md)**
+
 2. **FORMAL_SYSTEM.md**
    - Sistema formal de certificación
    - Estructura Lean 4
@@ -266,6 +272,7 @@ Este documento proporciona un índice completo de toda la documentación relacio
 
 #### ...el marco QCAL ∞³ completo
 - **Ver**: [QCAL_UNIFIED_FRAMEWORK.md](QCAL_UNIFIED_FRAMEWORK.md)
+- **Ver**: [UNIFIED_THEORY_CONNECTION.md](UNIFIED_THEORY_CONNECTION.md)
 - **Ver**: [CANONICAL_EXAMPLE.md § Integración](CANONICAL_EXAMPLE.md#🌐-integración-con-ecosistema-qcal-∞³)
 
 #### ...cómo contribuir
@@ -288,6 +295,7 @@ README.md                   # Punto de entrada
 ### Documentación Framework
 ```
 QCAL_UNIFIED_FRAMEWORK.md   # Marco unificado QCAL ∞³
+UNIFIED_THEORY_CONNECTION.md # Conexión R_ψ con Teoría Unificada
 FORMAL_SYSTEM.md            # Sistema formal
 COMPARISON.md               # Comparación con métodos clásicos
 ```
