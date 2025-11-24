@@ -57,4 +57,4 @@ If the SAT solver returns:
 - **UNSAT**: The bound is proven (no valid frequency assignment exists)
 - **SAT**: The bound is not tight (a valid coloring exists)
 
-For R_ψ(5,5) ≤ 16, UNSAT proves that any assignment ω: [16] → [0, f₀) must contain either a blue K₅ or red K₅.
+If UNSAT is achieved for R_ψ(5,5) ≤ 16, then any assignment ω: [16] → [0, f₀) must contain either a blue K₅ or red K₅. However, for n=16, the SAT solver returns SAT, so the bound is not proven.
