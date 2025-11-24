@@ -27,6 +27,48 @@ mediante principios de coherencia cuántica y resonancia vibracional.
 from z3 import *
 from itertools import combinations
 import numpy as np
+import os
+
+
+def vibrational_ramsey(r, s, n=None, M=1000, eps=0.2):
+    """
+    Verifica si existe una coloración vibracional en K_n
+    sin cliques rojos de tamaño r ni cliques azules de tamaño s.
+    
+    Args:
+        r: Tamaño del clique rojo a evitar
+        s: Tamaño del clique azul a evitar
+        n: Número de vértices (si es None, se estima como r + s - 1)
+        M: No usado (mantenido por compatibilidad con firma original)
+        eps: Umbral de resonancia/cercanía para determinar si es rojo
+        
+    Returns:
+        bool: True si existe una coloración válida (SAT), False si no existe (UNSAT)
+    """
+    if n is None:
+        n = r + s - 1  # estimación inicial
+    
+    solver = Solver()
+    omega = [Real(f'omega_{i}') for i in range(n)]
+    
+    # Rango de frecuencias: [0, 1)
+    for w in omega:
+        solver.add(0 <= w, w < 1.0)
+    
+    def is_red(i, j):
+        """Define arista roja: diferencia de frecuencias < eps o cerca de 1"""
+        diff = Abs(omega[i] - omega[j])
+        return Or(diff < eps, 1 - diff < eps)
+    
+    # Evitar cliques rojos de tamaño r
+    for combo in combinations(range(n), r):
+        solver.add(Not(And([is_red(i, j) for i, j in combinations(combo, 2)])))
+    
+    # Evitar cliques azules de tamaño s
+    for combo in combinations(range(n), s):
+        solver.add(Not(And([Not(is_red(i, j)) for i, j in combinations(combo, 2)])))
+    
+    return solver.check() == sat
 
 
 def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
@@ -103,7 +145,7 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
     return resultado == unsat
 
 
-def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
+def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128, trials=1):
     """
     Calcula R_psi(r,s,eps) exacto mediante búsqueda SAT
     
@@ -126,6 +168,7 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
     for n in range(max(r, s), nmax + 1):
         print(f"  Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
+            print(f"UNSAT → R_psi({r},{s}) = {n}")
             print(f"UNSAT -> R_psi({r},{s}) = {n}")
             return n
         else:
@@ -220,10 +263,10 @@ def resonancia_detectada(omega_i, omega_j, eps=0.001, f0=141.7001):
 
 def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
     """
-    Genera una coloracion vibracional de un grafo completo
+    Genera una coloración vibracional resonante basada en frecuencias
     
     Args:
-        frecuencias: Array de frecuencias para cada vertice
+        frecuencias: Array de frecuencias para cada vértice
         eps: Umbral de coherencia
         f0: Frecuencia base
     
@@ -235,7 +278,9 @@ def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
     
     for i in range(n):
         for j in range(i + 1, n):
-            if resonancia_detectada(frecuencias[i], frecuencias[j], eps, f0):
+            diff = abs(frecuencias[i] - frecuencias[j]) % f0
+            # Resonancia si la diferencia módulo f0 está dentro del umbral
+            if diff < eps or diff > (f0 - eps):
                 grafo[(i, j)] = 'azul'
             else:
                 grafo[(i, j)] = 'rojo'
@@ -260,32 +305,9 @@ def encontrar_clique_maximo(grafo, color):
         vertices.add(i)
         vertices.add(j)
     vertices = sorted(list(vertices))
-    
-    mejor_clique = []
-    
-    # Buscar cliques empezando desde cada vertice
-    for v_inicio in vertices:
-        clique = [v_inicio]
-        candidatos = [v for v in vertices if v > v_inicio]
-        
-        for v in candidatos:
-            # Verificar si v esta conectado con todos en clique
-            conectado_todos = all(
-                grafo.get((min(v, u), max(v, u))) == color 
-                for u in clique
-            )
-            if conectado_todos:
-                clique.append(v)
-        
-        if len(clique) > len(mejor_clique):
-            mejor_clique = clique
-    
-    vertices = sorted(vertices)
     n = len(vertices)
     
-    # Busqueda de clique maximo (fuerza bruta para grafos pequenos)
-    mejor_clique = []
-    
+    # Búsqueda de clique máximo (fuerza bruta para grafos pequeños)
     for size in range(n, 0, -1):
         for subconjunto in combinations(vertices, size):
             # Verificar si todas las aristas son del color deseado
@@ -302,7 +324,7 @@ def encontrar_clique_maximo(grafo, color):
             if es_clique:
                 return list(subconjunto)
     
-    return mejor_clique
+    return []
 
 
 def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001):
@@ -324,9 +346,6 @@ def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001)
     
     print(f"\n* Simulación Monte Carlo para ({r},{s})")
     print(f"   Usando n={n} vértices, {num_trials} ensayos")
-    print(f"\n* Simulacion Monte Carlo para ({r},{s})")
-    print(f"\nSimulacion Monte Carlo para ({r},{s})")
-    print(f"   Usando n={n} vertices, {num_trials} ensayos")
     
     exitos = 0
     tamanos_azul = []
@@ -352,15 +371,9 @@ def simulacion_monte_carlo_ramsey(r, s, num_trials=1000, eps=0.001, f0=141.7001)
     
     probabilidad_exito = exitos / num_trials
     
-    print(f"   OK Probabilidad de éxito: {probabilidad_exito*100:.1f}%")
-    print(f"   * Clique azul promedio: {np.mean(tamaños_azul):.1f}")
-    print(f"   * Clique rojo promedio: {np.mean(tamaños_rojo):.1f}")
-    print(f"   OK Probabilidad de exito: {probabilidad_exito*100:.1f}%")
+    print(f"   ✓ Probabilidad de éxito: {probabilidad_exito*100:.1f}%")
     print(f"   * Clique azul promedio: {np.mean(tamanos_azul):.1f}")
     print(f"   * Clique rojo promedio: {np.mean(tamanos_rojo):.1f}")
-    print(f"   Probabilidad de exito: {probabilidad_exito*100:.1f}%")
-    print(f"   Clique azul promedio: {np.mean(tamanos_azul):.1f}")
-    print(f"   Clique rojo promedio: {np.mean(tamanos_rojo):.1f}")
     
     return {
         'n': n,
@@ -412,6 +425,125 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
     
     return conexiones, frecuencias
 
+
+def generate_rpsi_sat_instance_tseytin(
+    n: int, r: int, s: int,
+    f0: float = 141.7001, eps: float = 0.037, grid: int = 128
+):
+    """
+    Genera una instancia SAT para R_ψ(r,s) ≤ n usando codificación Tseytin
+    
+    Esta función implementa la codificación Tseytin para generar una instancia SAT
+    que verifica si R_ψ(r,s) ≤ n. Si la instancia es UNSAT, entonces se confirma
+    que todo grafo de n vértices contiene un K_r resonante o un K_s no resonante.
+    
+    Args:
+        n: Número de vértices del grafo completo
+        r: Tamaño del clique resonante (azul) a prohibir
+        s: Tamaño del clique no-resonante (rojo) a prohibir
+        f0: Frecuencia base de coherencia (default: 141.7001 Hz)
+        eps: Umbral de resonancia (default: 0.037)
+        grid: Resolución de discretización de frecuencias (default: 128)
+    
+    Returns:
+        tuple: (clauses, num_vars, num_clauses) donde:
+            - clauses: lista de cláusulas (cada cláusula es una lista de enteros)
+            - num_vars: número total de variables SAT
+            - num_clauses: número total de cláusulas
+    """
+    var_id = 1
+    clauses = []
+
+    # 1. Variables de frecuencia (one-hot por vértice)
+    freq_var = [[0] * grid for _ in range(n)]
+    for v in range(n):
+        for k in range(grid):
+            freq_var[v][k] = var_id
+            var_id += 1
+        # exactly one frequency: al menos una
+        clauses.append([freq_var[v][k] for k in range(grid)])
+        # at most one: para cada par, al menos una debe ser falsa
+        for i in range(grid):
+            for j in range(i+1, grid):
+                clauses.append([-freq_var[v][i], -freq_var[v][j]])
+
+    # 2. Variables de resonancia por arista
+    edge_res = {}  # (i,j) -> var
+    for i in range(n):
+        for j in range(i+1, n):
+            edge_res[(i,j)] = var_id
+            var_id += 1
+
+    # Precomputar pares resonantes
+    resonant_pairs = []
+    for k1 in range(grid):
+        for k2 in range(grid):
+            w1 = k1 * f0 / grid
+            w2 = k2 * f0 / grid
+            diff = abs(w1 - w2) % f0
+            diff = min(diff, f0 - diff)
+            if diff <= eps:
+                resonant_pairs.append((k1, k2))
+
+    # 3. Tseytin: edge_res ↔ ∃ k1,k2 resonant
+    for i in range(n):
+        for j in range(i+1, n):
+            e = edge_res[(i,j)]
+            lits = []
+            for k1, k2 in resonant_pairs:
+                aux_lit = var_id
+                var_id += 1
+                # aux_lit → (freq_var[i][k1] ∧ freq_var[j][k2])
+                clauses.append([-aux_lit, freq_var[i][k1]])
+                clauses.append([-aux_lit, freq_var[j][k2]])
+                # (freq_var[i][k1] ∧ freq_var[j][k2]) → aux_lit
+                clauses.append([aux_lit, -freq_var[i][k1], -freq_var[j][k2]])
+                lits.append(aux_lit)
+            # edge_res → OR(lits): -e ∨ l1 ∨ l2 ∨ ...
+            clauses.append([-e] + lits)
+            # NOT edge_res → AND(NOT lit): para cada lit: e ∨ -lit
+            for lit in lits:
+                clauses.append([e, -lit])
+
+    # 4. Prohibir K_r resonante (azul)
+    for clique in combinations(range(n), r):
+        clause = []
+        for i, j in combinations(clique, 2):
+            e = edge_res[(min(i,j), max(i,j))]
+            clause.append(-e)  # al menos una arista NO resonante
+        clauses.append(clause)
+
+    # 5. Prohibir K_s no resonante (rojo)
+    for clique in combinations(range(n), s):
+        clause = []
+        for i, j in combinations(clique, 2):
+            e = edge_res[(min(i,j), max(i,j))]
+            clause.append(e)  # al menos una arista resonante
+        clauses.append(clause)
+
+    return clauses, var_id - 1, len(clauses)
+
+
+def save_dimacs(clauses, num_vars, num_clauses, filename):
+    """
+    Guarda una instancia SAT en formato DIMACS CNF
+    
+    Args:
+        clauses: Lista de cláusulas (cada cláusula es una lista de enteros)
+        num_vars: Número de variables
+        num_clauses: Número de cláusulas
+        filename: Ruta del archivo de salida
+    """
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    
+    with open(filename, 'w') as f:
+        f.write(f"p cnf {num_vars} {num_clauses}\n")
+        for clause in clauses:
+            f.write(" ".join(map(str, clause)) + " 0\n")
+    
+    print(f"✓ Instancia SAT guardada en {filename}")
+    print(f"  Variables: {num_vars}")
+    print(f"  Cláusulas: {num_clauses}")
 
 
 # Ejemplo de uso con la frecuencia sagrada

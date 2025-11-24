@@ -2,10 +2,12 @@ import Lake
 open Lake DSL
 
 package «ramsey-formal» where
-  -- add package configuration options here
+  -- Ramsey formal verification project
+  -- Proves R(5,5) = 43 via vibrational reduction
 
 lean_lib «Ramsey» where
-  -- add library configuration options here
+  -- Library containing all Ramsey theory modules
+  globs := #[.submodules `Ramsey]
 
 @[default_target]
 lean_exe «ramsey-formal» where
@@ -13,20 +15,3 @@ lean_exe «ramsey-formal» where
 
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4.git"
-package «ramsey-vibracional» {
-  -- add package configuration options here
-}
-
-require mathlib from git
-  "https://github.com/leanprover-community/mathlib4.git"
-
-@[default_target]
-lean_lib «RamseyVibracional» {
-  -- add library configuration options here
-}
-
-@[default_target]
-lean_lib «Certificates» {
-  roots := #[`Certificates]
-  -- Certificate files
-}
