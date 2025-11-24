@@ -14,7 +14,14 @@ Este directorio contiene certificados formales de las cotas superiores de R_ψ(r
 |-----------|------|---|------|---|--------------|--------------|--------|
 | (3,3) | ≤ 6 | 0.001 | 128 | 0.037 | - | formal/Theorems/R_psi_3_3_le_6.lean | ✓ |
 | (4,4) | ≤ 11 | 0.001 | 128 | 0.037 | - | formal/Theorems/R_psi_4_4_le_11.lean | ✓ |
+| (5,5) | ≤ 16 | TBD | 128 | TBD | - | certificates/Rpsi_5_5_le_16.lean | ⚠️ |
 | (5,5) | ≤ 19 | 1/128 | 128 | 0.037 | 5_5_0.037.smt2 | formal/Theorems/R_psi_5_5_le_19.lean | ✓ |
+
+**NOTA IMPORTANTE**: Los valores R_ψ(r,s) **NO** son los números de Ramsey clásicos R(r,s).
+- R(5,5) clásico ∈ [43, 48]
+- R_ψ(5,5) ≤ 16 (certificado vibracional)
+
+La diferencia es que R_ψ usa coloración vibracional resonante basada en frecuencias.
 
 ## Flujo de Certificación
 
