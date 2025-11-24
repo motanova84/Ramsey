@@ -107,6 +107,8 @@ For a problem with n vertices, r-size blue clique, s-size red clique:
 
 ## Empirical Results
 
+**Note**: The table below shows actual SAT solver results. The finding that R_ψ(5,5) > 16 (SAT result) differs from the original problem statement's claim of R_ψ(5,5) ≤ 16. This discrepancy indicates parameter sensitivity and suggests either: (1) the bound requires different parameters (ε, f₀, or grid size), or (2) higher values of n need to be tested. See the Conclusions section and `FINDINGS.md` for detailed analysis.
+
 ### Verified Bounds
 
 | Problem | n | Result | Time | Interpretation |
