@@ -50,12 +50,12 @@ The proof is certified by:
 
 This result is part of the vibrational Ramsey theory, which shows:
 
-**R_ψ(5,5) ≤ 16**
+**Conjecture/Template: R_ψ(5,5) ≤ 16 (pending parameter adjustment and proof)**
 
-This is dramatically smaller than the classical Ramsey number R(5,5) ∈ [43, 48], demonstrating the power of resonant colorings in reducing graph-theoretic bounds.
+If proven, this would be dramatically smaller than the classical Ramsey number R(5,5) ∈ [43, 48], demonstrating the potential power of resonant colorings in reducing graph-theoretic bounds. However, current SAT results show R_ψ(5,5) > 16 with tested parameters; see `FINDINGS.md`.
 
 ## References
 
 - Classical Ramsey Theory: R(5,5) ∈ [43, 48]
-- Vibrational Ramsey: R_ψ(5,5) ≤ 16 (this work)
+- Vibrational Ramsey: R_ψ(5,5) ≤ 16 (conjectured/template; not yet proven with current parameters)
 - QCAL ∞³ Framework: Universal frequency f₀ = 141.7001 Hz
