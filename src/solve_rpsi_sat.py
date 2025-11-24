@@ -2,7 +2,6 @@
 SAT Solver for Ramsey Resonance Problems
 Uses external SAT solvers or Python-based solvers
 """
-import subprocess
 import os
 import sys
 
