@@ -6,7 +6,7 @@ Frequency: 141.7001 Hz
 Domain: Graph Theory / Combinatorics
 
 Certification:
-- R_ψ(5,5) ≤ 16 proven via SAT
+- SAT solver returned SAT for n=16; R_ψ(5,5) > 16 with tested parameters
 - Resonant coloring with discretized frequencies
 - Tseytin encoding for scalability
 
