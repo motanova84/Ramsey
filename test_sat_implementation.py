@@ -8,7 +8,7 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-from generate_rpsi_sat import generate_rpsi_sat_instance_tseytin, generate_dimacs
+from generate_rpsi_sat import generate_rpsi_sat_instance_tseytin
 from solve_rpsi_sat import solve_cnf
 
 
