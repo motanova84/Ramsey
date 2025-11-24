@@ -325,12 +325,12 @@ python src/solve_rpsi_sat.py data/rpsi_5_5_n16.cnf --n 16 --r 5 --s 5
 Solving data/rpsi_5_5_n16.cnf with z3...
 
 ============================================================
-RESULT: UNSAT
-CONCLUSION: R_ψ(5,5) ≤ 16
+RESULT: SAT
+CONCLUSION: R_ψ(5,5) > 16
 
-This proves that any resonant coloring of K_16
-must contain either:
-  - A blue (resonant) K_5, or
+This means there exists a resonant coloring of K_16
+that avoids both:
+  - A blue (resonant) K_5, and
   - A red (non-resonant) K_5
 ============================================================
 ```
