@@ -31,19 +31,20 @@ def FreqAssignment (n : ℕ) := Fin n → Fin grid
 
 -- Resonance predicate
 def isResonant (ω₁ ω₂ : ℝ) : Prop :=
-  let diff := |ω₁ - ω₂|
-  let circDist := min diff (f₀ - diff)
-  circDist < ε
+-- Minimal circular distance between two frequencies modulo f₀
+def circularDist (ω₁ ω₂ : ℝ) : ℝ :=
+  let d := |ω₁ - ω₂| % f₀
+  min d (f₀ - d)
+
+-- Resonance predicate
+def isResonant (ω₁ ω₂ : ℝ) : Prop :=
+  circularDist ω₁ ω₂ < ε
 
 -- Edge coloring from frequency assignment
 def edgeColor (ω : FreqAssignment n) (i j : Fin n) : Bool :=
   let ω₁ := (ω i).val * f₀ / grid
   let ω₂ := (ω j).val * f₀ / grid
-  -- Returns true for "blue" (resonant), false for "red" (non-resonant)
-  let diff := |ω₁ - ω₂|
-  let circDist := min diff (f₀ - diff)
-  circDist < ε
-
+  isResonant ω₁ ω₂
 -- Predicate: clique is monochromatic blue (all resonant)
 def hasBlueClique (ω : FreqAssignment n) (clique : Finset (Fin n)) : Prop :=
   ∀ i j, i ∈ clique → j ∈ clique → i < j → edgeColor ω i j = true
