@@ -64,9 +64,10 @@ def generate_rpsi_sat_instance_tseytin(
         for k2 in range(grid):
             w1 = k1 * f0 / grid
             w2 = k2 * f0 / grid
-            diff = abs(w1 - w2) % f0
-            # Resonant if close to 0 or close to f0
-            if diff <= eps or diff >= f0 - eps:
+            diff = abs(w1 - w2)
+            circular_diff = min(diff, f0 - diff)
+            # Resonant if circular distance is close to 0
+            if circular_diff <= eps:
                 resonant_pairs.append((k1, k2))
 
     # 3. Tseytin encoding: edge_res ↔ ∃ (k1,k2) resonant
