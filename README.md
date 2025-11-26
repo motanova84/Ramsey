@@ -422,6 +422,12 @@ Ver `.github/workflows/ci.yml` para detalles.
 - [WHY_VIBRATIONAL.md](WHY_VIBRATIONAL.md) - Justificación completa en español
 - [WHY_VIBRATIONAL_EN.md](WHY_VIBRATIONAL_EN.md) - Complete justification in English
 
+### Defensa Técnica
+
+- [DEFENSE_TECHNICAL.md](DEFENSE_TECHNICAL.md) - Respuesta formal a críticas técnicas (español)
+- [DEFENSE_TECHNICAL_EN.md](DEFENSE_TECHNICAL_EN.md) - Technical defense document (English)
+- [docs/CLARIFICATION_R_vs_Rpsi.md](docs/CLARIFICATION_R_vs_Rpsi.md) - Clarificación R vs R_ψ
+
 ### Papers Fundamentales
 
 1. **Ramsey, F. P.** (1930). "On a Problem of Formal Logic"
