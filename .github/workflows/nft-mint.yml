@@ -18,6 +18,8 @@ jobs:
   compile-and-test:
     name: Compile & Test Smart Contracts
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - uses: actions/checkout@v4
@@ -43,6 +45,8 @@ jobs:
   lint:
     name: Lint Solidity
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - uses: actions/checkout@v4
@@ -65,6 +69,8 @@ jobs:
   validate-metadata:
     name: Validate NFT Metadata
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - uses: actions/checkout@v4
@@ -93,6 +99,8 @@ jobs:
   security-check:
     name: Security Analysis
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     needs: compile-and-test
     
     steps:
@@ -122,6 +130,7 @@ jobs:
   summary:
     name: NFT CI Summary
     runs-on: ubuntu-latest
+    permissions: {}
     needs: [compile-and-test, lint, validate-metadata, security-check]
     
     steps:
