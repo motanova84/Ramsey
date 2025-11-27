@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mint AIK NFT - Proof of Mathematical Truth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 1.2em;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .card h2 {
+            margin-bottom: 20px;
+            color: #00d4ff;
+        }
+        
+        button {
+            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        button:disabled {
+            background: #444;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .status.success {
+            background: rgba(0, 255, 100, 0.1);
+            border: 1px solid #00ff64;
+            display: block;
+        }
+        
+        .status.error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff4444;
+            display: block;
+        }
+        
+        .status.info {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid #00d4ff;
+            display: block;
+        }
+        
+        .wallet-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .wallet-address {
+            font-family: monospace;
+            color: #00d4ff;
+        }
+        
+        .beacon-list {
+            list-style: none;
+        }
+        
+        .beacon-list li {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .beacon-list li.minted {
+            border-left: 3px solid #00ff64;
+        }
+        
+        .beacon-theorem {
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .beacon-status {
+            font-size: 0.9em;
+            color: #888;
+        }
+        
+        #networkInfo {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AIK Beacons NFT</h1>
+            <p class="subtitle">Proof of Mathematical Truth</p>
+        </header>
+        
+        <div id="networkInfo" class="card">
+            <p>Network: <span id="networkName">Not Connected</span></p>
+        </div>
+        
+        <div class="card">
+            <h2>1. Connect Wallet</h2>
+            <div class="wallet-info" id="walletInfo" style="display: none;">
+                <span>Connected:</span>
+                <span class="wallet-address" id="walletAddress"></span>
+            </div>
+            <button id="connectBtn">Connect MetaMask</button>
+            <div id="connectStatus" class="status"></div>
+        </div>
+        
+        <div class="card">
+            <h2>2. Available Beacons</h2>
+            <ul class="beacon-list" id="beaconList">
+                <li>
+                    <div>
+                        <span class="beacon-theorem">R(5,5) = 43</span>
+                        <p class="beacon-status">Vibrational proof via QCAL framework</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <span class="beacon-theorem">Rψ(5,5; f₀=141.7001 Hz) ≤ 16</span>
+                        <p class="beacon-status">Vibrational Ramsey model</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <span class="beacon-theorem">QCAL ∞³ Framework</span>
+                        <p class="beacon-status">Universal coherence beacon</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>3. Mint NFT</h2>
+            <p style="margin-bottom: 20px; color: #888;">
+                Minting creates an immutable on-chain certificate of mathematical truth.
+            </p>
+            <button id="mintBtn" disabled>Mint Rψ(5,5) NFT</button>
+            <div id="mintStatus" class="status"></div>
+        </div>
+        
+        <div class="footer">
+            <p>Built with QCAL ∞³ Framework</p>
+            <p><a href="https://github.com/motanova84/Ramsey" target="_blank">View on GitHub</a></p>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6/dist/ethers.umd.min.js"></script>
+    <script>
+        // Contract configuration
+        const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS_HERE";  // Replace after deployment
+        const CONTRACT_ABI = [
+            "function mintIfValidProof(string theorem, string proofFileCID, string beaconCID, bytes32 expectedBeaconHash, bytes signature) external",
+            "function totalSupply() view returns (uint256)",
+            "function verifyProof(uint256 tokenId) view returns (bool)",
+            "event BeaconMinted(uint256 indexed tokenId, bytes32 beaconHash, string theorem)"
+        ];
+        
+        let provider = null;
+        let signer = null;
+        let contract = null;
+        
+        // DOM elements
+        const connectBtn = document.getElementById('connectBtn');
+        const mintBtn = document.getElementById('mintBtn');
+        const walletInfo = document.getElementById('walletInfo');
+        const walletAddress = document.getElementById('walletAddress');
+        const networkName = document.getElementById('networkName');
+        const connectStatus = document.getElementById('connectStatus');
+        const mintStatus = document.getElementById('mintStatus');
+        
+        // Check if MetaMask is installed
+        function checkMetaMask() {
+            if (typeof window.ethereum === 'undefined') {
+                connectStatus.textContent = 'MetaMask is not installed. Please install MetaMask to continue.';
+                connectStatus.className = 'status error';
+                connectBtn.disabled = true;
+                return false;
+            }
+            return true;
+        }
+        
+        // Connect wallet
+        async function connectWallet() {
+            if (!checkMetaMask()) return;
+            
+            try {
+                connectStatus.textContent = 'Connecting...';
+                connectStatus.className = 'status info';
+                
+                provider = new ethers.BrowserProvider(window.ethereum);
+                await provider.send("eth_requestAccounts", []);
+                signer = await provider.getSigner();
+                
+                const address = await signer.getAddress();
+                const network = await provider.getNetwork();
+                
+                walletAddress.textContent = `${address.slice(0, 6)}...${address.slice(-4)}`;
+                walletInfo.style.display = 'flex';
+                networkName.textContent = network.name || `Chain ID: ${network.chainId}`;
+                
+                connectStatus.textContent = '✓ Wallet connected successfully!';
+                connectStatus.className = 'status success';
+                connectBtn.textContent = 'Connected';
+                connectBtn.disabled = true;
+                
+                // Enable mint button
+                mintBtn.disabled = false;
+                
+                // Initialize contract
+                if (CONTRACT_ADDRESS !== "YOUR_CONTRACT_ADDRESS_HERE") {
+                    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                }
+                
+            } catch (error) {
+                console.error('Connection error:', error);
+                connectStatus.textContent = `Error: ${error.message}`;
+                connectStatus.className = 'status error';
+            }
+        }
+        
+        // Mint NFT
+        async function mintNFT() {
+            if (!signer) {
+                mintStatus.textContent = 'Please connect your wallet first.';
+                mintStatus.className = 'status error';
+                return;
+            }
+            
+            if (CONTRACT_ADDRESS === "YOUR_CONTRACT_ADDRESS_HERE") {
+                mintStatus.textContent = 'Contract not deployed yet. Update CONTRACT_ADDRESS after deployment.';
+                mintStatus.className = 'status error';
+                return;
+            }
+            
+            try {
+                mintStatus.textContent = 'Preparing transaction...';
+                mintStatus.className = 'status info';
+                mintBtn.disabled = true;
+                
+                const theorem = "R(5,5) = 43";
+                const beaconCID = "ipfs://QmExampleCID";
+                const proofFileCID = beaconCID;
+                
+                // Calculate hash
+                const expectedBeaconHash = ethers.keccak256(ethers.toUtf8Bytes(beaconCID));
+                
+                // Sign the message
+                const messageHash = ethers.keccak256(
+                    ethers.solidityPacked(["bytes32", "string"], [expectedBeaconHash, theorem])
+                );
+                const signature = await signer.signMessage(ethers.getBytes(messageHash));
+                
+                mintStatus.textContent = 'Please confirm the transaction in MetaMask...';
+                
+                // Send transaction
+                const tx = await contract.mintIfValidProof(
+                    theorem,
+                    proofFileCID,
+                    beaconCID,
+                    expectedBeaconHash,
+                    signature
+                );
+                
+                mintStatus.textContent = `Transaction submitted: ${tx.hash.slice(0, 10)}...`;
+                
+                // Wait for confirmation
+                const receipt = await tx.wait();
+                
+                mintStatus.innerHTML = `
+                    ✓ NFT Minted Successfully!<br>
+                    Transaction: <a href="https://basescan.org/tx/${tx.hash}" target="_blank" style="color: #00d4ff">${tx.hash.slice(0, 20)}...</a><br>
+                    Block: ${receipt.blockNumber}
+                `;
+                mintStatus.className = 'status success';
+                
+            } catch (error) {
+                console.error('Mint error:', error);
+                mintStatus.textContent = `Error: ${error.message}`;
+                mintStatus.className = 'status error';
+            } finally {
+                mintBtn.disabled = false;
+            }
+        }
+        
+        // Event listeners
+        connectBtn.addEventListener('click', connectWallet);
+        mintBtn.addEventListener('click', mintNFT);
+        
+        // Check MetaMask on load
+        checkMetaMask();
+        
+        // Handle account changes
+        if (window.ethereum) {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    // User disconnected
+                    walletInfo.style.display = 'none';
+                    connectBtn.textContent = 'Connect MetaMask';
+                    connectBtn.disabled = false;
+                    mintBtn.disabled = true;
+                    signer = null;
+                    contract = null;
+                } else {
+                    // Account changed, reconnect
+                    connectWallet();
+                }
+            });
+            
+            window.ethereum.on('chainChanged', () => {
+                window.location.reload();
+            });
+        }
+    </script>
+</body>
+</html>

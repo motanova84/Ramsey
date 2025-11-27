@@ -97,3 +97,24 @@ ramsey_infinite.py
 Rpsi_*_certification.json
 Rpsi_*_explanation.md
 Rpsi_*_le_*.lean
+
+# Node.js / NPM
+node_modules/
+package-lock.json
+
+# Hardhat / Solidity
+cache/
+artifacts/
+typechain-types/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# NFT generated files
+nft/metadata/*_cids.json
+nft/metadata/*_metadata.json
+nft/metadata/deployment.json
+nft/metadata/batch_mint_results.json
+
