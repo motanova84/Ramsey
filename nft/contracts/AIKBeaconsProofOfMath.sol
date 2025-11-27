@@ -17,7 +17,7 @@ contract AIKBeaconsProofOfMath is ERC721, ERC721URIStorage, Ownable {
     string public constant NAME = "AIK Beacons - Proof of Mathematical Truth";
     string public constant SYMBOL = "AIK";
 
-    mapping(uint256 => bytes32) public beaconHash;   // SHA3-256 of the beacon
+    mapping(uint256 => bytes32) public beaconHash;   // keccak256 of the beacon CID
     mapping(uint256 => string)  public beaconCID;    // IPFS CID
     mapping(uint256 => bool)    public isValidProof;
     address public immutable creator;  // Creator address (fixed)
@@ -34,14 +34,14 @@ contract AIKBeaconsProofOfMath is ERC721, ERC721URIStorage, Ownable {
     /**
      * @dev Mint a new NFT if the proof is valid
      * @param theorem The theorem statement
-     * @param proofFileCID IPFS CID of the proof file
+     * @param _proofFileCID IPFS CID of the proof file (reserved for future use)
      * @param _beaconCID IPFS CID of the beacon JSON
      * @param expectedBeaconHash Expected hash of the beacon
      * @param signature ECDSA signature for verification
      */
     function mintIfValidProof(
         string memory theorem,
-        string memory proofFileCID,
+        string memory _proofFileCID,
         string memory _beaconCID,
         bytes32 expectedBeaconHash,
         bytes calldata signature
@@ -68,8 +68,8 @@ contract AIKBeaconsProofOfMath is ERC721, ERC721URIStorage, Ownable {
         _setTokenURI(tokenId, _beaconCID);
         emit BeaconMinted(tokenId, expectedBeaconHash, theorem);
 
-        // Suppress unused variable warning
-        proofFileCID;
+        // Note: _proofFileCID is reserved for future proof file storage
+        _proofFileCID;
     }
 
     /**

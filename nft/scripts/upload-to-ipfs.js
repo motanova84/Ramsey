@@ -1,5 +1,6 @@
 require('dotenv').config();
 const fs = require('fs');
+const path = require('path');
 
 // Note: In production, use Pinata SDK for IPFS uploads
 // This is a simplified version that prepares metadata for upload
@@ -48,8 +49,12 @@ function prepareForIPFS(beaconJsonPath, metadataName) {
   
   const metadata = generateMetadata(beaconJsonPath, metadataName);
   
+  // Ensure metadata directory exists
+  const metadataDir = 'nft/metadata';
+  fs.mkdirSync(metadataDir, { recursive: true });
+  
   // Save metadata to file
-  const metadataPath = `nft/metadata/${metadataName}_metadata.json`;
+  const metadataPath = path.join(metadataDir, `${metadataName}_metadata.json`);
   fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
   console.log(`Metadata saved to: ${metadataPath}`);
   
@@ -66,7 +71,7 @@ function prepareForIPFS(beaconJsonPath, metadataName) {
     ]
   };
   
-  const cidInfoPath = `nft/metadata/${metadataName}_cids.json`;
+  const cidInfoPath = path.join(metadataDir, `${metadataName}_cids.json`);
   fs.writeFileSync(cidInfoPath, JSON.stringify(cidInfo, null, 2));
   console.log(`CID info saved to: ${cidInfoPath}`);
   

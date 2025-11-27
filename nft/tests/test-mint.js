@@ -69,15 +69,17 @@ describe("AIKBeaconsProofOfMath", function () {
         ethers.solidityPacked(["bytes32", "string"], [wrongHash, theorem])
       );
       const signature = await creator.signMessage(ethers.getBytes(messageHash));
+      const proofFileCID = "ipfs://QmTestProofCID123";
 
       await expect(
-        contract.mintIfValidProof(theorem, beaconCID, beaconCID, wrongHash, signature)
+        contract.mintIfValidProof(theorem, proofFileCID, beaconCID, wrongHash, signature)
       ).to.be.revertedWith("Hash mismatch");
     });
 
     it("Should reject invalid signature", async function () {
       const theorem = "R(5,5) = 43";
       const beaconCID = "ipfs://QmTestBeaconCID123";
+      const proofFileCID = "ipfs://QmTestProofCID123";
       const expectedBeaconHash = ethers.keccak256(ethers.toUtf8Bytes(beaconCID));
       
       // Sign with wrong account
@@ -87,13 +89,14 @@ describe("AIKBeaconsProofOfMath", function () {
       const signature = await otherAccount.signMessage(ethers.getBytes(messageHash));
 
       await expect(
-        contract.mintIfValidProof(theorem, beaconCID, beaconCID, expectedBeaconHash, signature)
+        contract.mintIfValidProof(theorem, proofFileCID, beaconCID, expectedBeaconHash, signature)
       ).to.be.revertedWith("Invalid signature");
     });
 
     it("Should reject empty CID", async function () {
       const theorem = "R(5,5) = 43";
       const beaconCID = "";
+      const proofFileCID = "ipfs://QmTestProofCID123";
       const expectedBeaconHash = ethers.keccak256(ethers.toUtf8Bytes(beaconCID));
       
       const messageHash = ethers.keccak256(
@@ -102,13 +105,14 @@ describe("AIKBeaconsProofOfMath", function () {
       const signature = await creator.signMessage(ethers.getBytes(messageHash));
 
       await expect(
-        contract.mintIfValidProof(theorem, beaconCID, beaconCID, expectedBeaconHash, signature)
+        contract.mintIfValidProof(theorem, proofFileCID, beaconCID, expectedBeaconHash, signature)
       ).to.be.revertedWith("Invalid CID");
     });
 
     it("Should only allow owner to mint", async function () {
       const theorem = "R(5,5) = 43";
       const beaconCID = "ipfs://QmTestBeaconCID123";
+      const proofFileCID = "ipfs://QmTestProofCID123";
       const expectedBeaconHash = ethers.keccak256(ethers.toUtf8Bytes(beaconCID));
       
       const messageHash = ethers.keccak256(
@@ -118,7 +122,7 @@ describe("AIKBeaconsProofOfMath", function () {
 
       // Try to mint from non-owner account
       await expect(
-        contract.connect(otherAccount).mintIfValidProof(theorem, beaconCID, beaconCID, expectedBeaconHash, signature)
+        contract.connect(otherAccount).mintIfValidProof(theorem, proofFileCID, beaconCID, expectedBeaconHash, signature)
       ).to.be.revertedWithCustomError(contract, "OwnableUnauthorizedAccount");
     });
   });
@@ -127,6 +131,7 @@ describe("AIKBeaconsProofOfMath", function () {
     it("Should verify proof on-chain", async function () {
       const theorem = "R(5,5) = 43";
       const beaconCID = "ipfs://QmTestBeaconCID123";
+      const proofFileCID = "ipfs://QmTestProofCID123";
       const expectedBeaconHash = ethers.keccak256(ethers.toUtf8Bytes(beaconCID));
       
       const messageHash = ethers.keccak256(
@@ -135,7 +140,7 @@ describe("AIKBeaconsProofOfMath", function () {
       const signature = await creator.signMessage(ethers.getBytes(messageHash));
 
       // Mint first
-      await contract.mintIfValidProof(theorem, beaconCID, beaconCID, expectedBeaconHash, signature);
+      await contract.mintIfValidProof(theorem, proofFileCID, beaconCID, expectedBeaconHash, signature);
 
       // Verify
       expect(await contract.verifyProof(0)).to.be.true;
@@ -150,6 +155,7 @@ describe("AIKBeaconsProofOfMath", function () {
     it("Should return correct token URI", async function () {
       const theorem = "R(5,5) = 43";
       const beaconCID = "ipfs://QmTestBeaconCID123";
+      const proofFileCID = "ipfs://QmTestProofCID123";
       const expectedBeaconHash = ethers.keccak256(ethers.toUtf8Bytes(beaconCID));
       
       const messageHash = ethers.keccak256(
@@ -157,7 +163,7 @@ describe("AIKBeaconsProofOfMath", function () {
       );
       const signature = await creator.signMessage(ethers.getBytes(messageHash));
 
-      await contract.mintIfValidProof(theorem, beaconCID, beaconCID, expectedBeaconHash, signature);
+      await contract.mintIfValidProof(theorem, proofFileCID, beaconCID, expectedBeaconHash, signature);
 
       expect(await contract.tokenURI(0)).to.equal(beaconCID);
     });
