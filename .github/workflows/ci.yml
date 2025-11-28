@@ -103,15 +103,31 @@ jobs:
         echo "Checking data files..."
         test -f data/rpsi_vibration_model.json && echo "✓ rpsi_vibration_model.json"
         test -f data/coloring_sat_r55.cnf && echo "✓ coloring_sat_r55.cnf"
-        test -f data/proof_unsat_z3.log && echo "✓ proof_unsat_z3.log"
         test -f data/verified_bound_R55.json && echo "✓ verified_bound_R55.json"
+    
+    - name: Install Z3 and run solver
+      run: |
+        sudo apt-get update && sudo apt-get install -y z3
+        mkdir -p data
+        set -o pipefail
+        # Run Z3 on SMT2 file and save output to proof_unsat_z3.log
+        z3 -smt2 certificates/3_3_0_1000.smt2 2>&1 | tee data/proof_unsat_z3.log || true
     
     - name: Validate SAT result
       run: |
-        if grep -q "UNSAT" data/proof_unsat_z3.log; then
-          echo "✓ SAT verification: UNSAT confirmed"
+        if [[ -f data/proof_unsat_z3.log ]]; then
+          if grep -q "unsat" data/proof_unsat_z3.log; then
+            echo "✓ SAT verification: UNSAT confirmed"
+          else
+            echo "✗ SAT result not UNSAT"
+            echo "---- Inicio proof_unsat_z3.log ----"
+            sed -n '1,200p' data/proof_unsat_z3.log
+            echo "---- Fin proof_unsat_z3.log ----"
+            exit 1
+          fi
         else
-          echo "✗ SAT result not UNSAT"
+          echo "✗ data/proof_unsat_z3.log not found"
+          ls -la data || true
           exit 1
         fi
     
