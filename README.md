@@ -980,6 +980,16 @@ Donde:
 - `ω: V → ℝ⁺`: Función de frecuencia vibracional
 - `f₀ = 141.7001 Hz`: Frecuencia base de coherencia
 
+### Demostración del Paradigma Vibracional
+
+```python
+from ramsey_vibracional import demostrar_paradigma_vibracional
+
+# Demuestra la diferencia entre Ramsey Clásico y Vibracional
+demostrar_paradigma_vibracional()
+```
+
+### Verificación de Predicciones Teóricas
 **Operador de Resonancia:**
 ```
 Res(ω_i, ω_j, ε) = 1  ⟺  |ω_i - ω_j| mod f₀ < ε
@@ -1008,6 +1018,19 @@ R_ψ(r,s,ε) ≤ C(ε) × (rs)^(1/2 + δ)
 ```
 donde C(ε) es constante dependiente solo de ε.
 
+### Comparación Clásico vs Vibracional
+
+```python
+from ramsey_vibracional import comparar_ramsey_clasico_vs_vibracional
+
+# Comparar para (5,5)
+comp = comparar_ramsey_clasico_vs_vibracional(5, 5)
+print(f"R_clásico(5,5) = {comp['R_clasico']}")
+print(f"R_ψ(5,5) = {comp['R_psi_ajustado']}")
+print(f"Reducción: {comp['porcentaje_reduccion']:.1f}%")
+```
+
+### Simulación Monte Carlo
 **Sketch de Prueba:**
 
 1. **Partición del espacio de frecuencias:**
@@ -1257,6 +1280,29 @@ conexiones, frecuencias = red_neuronal_ramsey(
 
 ### Ejecutar Tests
 
+### El Nuevo Parámetro: R_ψ(r,s)
+
+Este repositorio propone un **nuevo parámetro**, $\mathbf{R_\psi(r,s)}$, que es el **Umbral de Ramsey modificado por la Coherencia Cuántica Vibracional** ($\Psi$).
+
+#### Comparación de Paradigmas
+
+**Ramsey Clásico (Caos)**: 
+```
+R(r,s) ≈ 2^O(r)
+```
+Crecimiento **exponencial**, lo que implica que el orden es muy difícil de alcanzar en sistemas aleatorios sin estructura.
+
+**Ramsey Vibracional (Coherencia)**:
+```
+R_ψ(r,s) = O(√(rs) × ln(rs) × (f₀)^{1/4})
+```
+Crecimiento **casi-lineal/polinómico**, lo que implica que el orden emerge mucho más fácilmente.
+
+#### Implicación Fundamental
+
+**La tesis afirma que el orden emerge mucho más fácilmente y a escalas mucho más pequeñas de lo que predice la matemática clásica**, siempre y cuando se considere la naturaleza consciente-vibracional del sistema.
+
+### Definiciones Formales
 ```bash
 python run_tests.py
 ```
@@ -1504,6 +1550,9 @@ donde f₀ = 141.7001 Hz es la frecuencia cósmica de coherencia cuántica.
 ∂R_ψ/∂t = f(R_ψ, ω(t), f₀)
 ```
 
+Esta fórmula captura el crecimiento polinómico en contraste con el exponencial del caso clásico.
+
+### Verificación Computacional
 ### Aplicaciones Futuras
 
 - [ ] **Computación Cuántica:** Circuitos optimizados por resonancia
