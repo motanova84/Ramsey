@@ -1,0 +1,1 @@
+# LRAT certificate placeholder - generate with: kissat --lrat rpsi_5_5_n16.cnf > coloring_sat_r16.lrat
