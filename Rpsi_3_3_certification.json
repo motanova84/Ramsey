@@ -1,0 +1,17 @@
+{
+  "r": 3,
+  "s": 3,
+  "bound": 5,
+  "lambda": 0.05,
+  "f0": 141.7001,
+  "grid": 64,
+  "coherence_max": false,
+  "predict": true,
+  "parallel": false,
+  "quantum_mode": false,
+  "theorem_file": "certificates/Rpsi_3_3_le_5.lean",
+  "unsat_log": "data/r33_unsat.log",
+  "beacon_file": ".qcal_beacon_r33",
+  "timestamp": "2025-11-16T11:33:18.442976",
+  "version": "1.1.0"
+}
