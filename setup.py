@@ -11,7 +11,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'ai-ramsey-formal=ai-ramsey-formal.cli:cli',
+            'ai-ramsey-formal=ai_ramsey_formal.cli:cli',
         ],
     },
     author='José Manuel Mota Burruezo',
