@@ -63,7 +63,7 @@ jobs:
     
     - name: Build Lean project
       run: |
-        lake update
+        lake update -R
         lake build
     
     - name: Check Lean files

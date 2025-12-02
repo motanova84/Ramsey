@@ -30,7 +30,9 @@ jobs:
           ${{ runner.os }}-lean-
     
     - name: Build Lean project
-      run: lake build
+      run: |
+        lake update -R
+        lake build
       continue-on-error: true
     
     - name: List certificates
