@@ -16,8 +16,8 @@ mediante principios de coherencia cuántica y resonancia vibracional.
 """
 
 from z3 import *
-import itertools
 from itertools import combinations
+import itertools
 import numpy as np
 import os
 
@@ -207,7 +207,6 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128, trials
         print(f"  Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
             print(f"UNSAT → R_psi({r},{s}) = {n}")
-            print(f"UNSAT -> R_psi({r},{s}) = {n}")
             return n
         else:
             print("SAT (contraejemplo existe)")
