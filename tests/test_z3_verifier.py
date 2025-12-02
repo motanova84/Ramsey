@@ -18,6 +18,12 @@ class TestZ3Verifier(unittest.TestCase):
             capture_output=True,
             text=True
         )
+        # Check for subprocess errors
+        if result.returncode != 0:
+            raise RuntimeError(
+                f"Verifier script failed with return code {result.returncode}.\n"
+                f"stderr:\n{result.stderr.strip()}"
+            )
         # Parse output to get YES/NO
         output = result.stdout.strip()
         return 'YES' in output
