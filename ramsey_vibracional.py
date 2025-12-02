@@ -16,15 +16,30 @@ mediante principios de coherencia cuántica y resonancia vibracional.
 """
 
 from z3 import *
-from itertools import combinations
 import itertools
+from itertools import combinations
 import numpy as np
 import os
 
 
 # Helper functions for color edge operations
 def color_edge(omega_i, omega_j, eps):
-    """Devuelve 'R' si hay resonancia, 'B' si no."""
+    """
+    Determina el color de una arista basado en la diferencia de frecuencias.
+    
+    Args:
+        omega_i: Frecuencia del vértice i (en rango [0, 1))
+        omega_j: Frecuencia del vértice j (en rango [0, 1))
+        eps: Umbral de resonancia
+    
+    Returns:
+        'R' si hay resonancia (rojo), 'B' si no hay resonancia (azul)
+    
+    Note:
+        Una arista es roja (resonante) si la diferencia de frecuencias es pequeña
+        (< eps) o si está cerca del punto de wraparound (> 1 - eps), ya que las
+        frecuencias están en el espacio modular [0, 1).
+    """
     diff = abs(omega_i - omega_j)
     return "R" if diff < eps or diff > 1 - eps else "B"
 
