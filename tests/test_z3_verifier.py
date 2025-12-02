@@ -5,6 +5,7 @@ import unittest
 import subprocess
 import sys
 import os
+import re
 
 
 class TestZ3Verifier(unittest.TestCase):
@@ -25,7 +26,6 @@ class TestZ3Verifier(unittest.TestCase):
                 f"stderr:\n{result.stderr.strip()}"
             )
         # Parse output to get YES/NO using regex for robust matching
-        import re
         output = result.stdout.strip()
         match = re.search(r'Result:.*\?\s+(YES|NO)', output)
         if not match:
