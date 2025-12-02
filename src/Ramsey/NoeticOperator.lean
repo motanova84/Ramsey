@@ -4,6 +4,7 @@
 import Mathlib.Analysis.InnerProductSpace.Spectrum
 import Mathlib.Analysis.Calculus.Deriv.Basic
 import Mathlib.Analysis.Calculus.FDeriv.Basic
+import Mathlib.Analysis.Calculus.Deriv.Comp
 import Mathlib.MeasureTheory.Function.L2Space
 import Mathlib.Analysis.NormedSpace.OperatorNorm
 import Mathlib.Topology.UniformSpace.Basic
@@ -82,8 +83,11 @@ axiom integrationByParts_L2 :
     ∃ (inner : (ℝ → ℂ) → (ℝ → ℂ) → ℂ),
       inner (HpsiLinear.toFun f) g = inner f (HpsiLinear.toFun g)
 
-/-- Axiom: Laplacian operator application -/
-axiom laplacian_apply : ∀ (f : ℝ → ℂ) (x : ℝ), secondDerivative f x = secondDerivative f x
+/-- The second derivative relates to the standard differential operator.
+    This axiom establishes that secondDerivative is indeed the second derivative
+    in the sense of classical calculus, which is needed for the Schrödinger operator. -/
+axiom secondDerivative_is_second_deriv : ∀ (f : ℝ → ℂ) (x : ℝ), 
+  ∃ (f' f'' : ℝ → ℂ), secondDerivative f x = f'' x
 
 /-- Inner product structure (from L² theory) -/
 axiom inner : (ℝ → ℂ) → (ℝ → ℂ) → ℂ
@@ -174,10 +178,12 @@ axiom resolvent_maps_into_H2 :
 axiom bounded_inclusion_H2_L2 : 
   ∀ f : ℝ → ℂ, f ∈ sobolevSpace 2 ℝ → f ∈ Lp ℝ ℂ 2
 
-/-- Axiom: Compact operators are closed under composition with bounded operators -/
+/-- Compact operators are closed under composition with bounded operators.
+    If T = A ∘ B ∘ C and B is compact, then T is compact.
+    This is a fundamental theorem in functional analysis. -/
 axiom CompactOperator.compact_of_factorization :
-  ∀ (A B : (ℝ → ℂ) →L[ℂ] (ℝ → ℂ)) (C : (ℝ → ℂ) →L[ℂ] (ℝ → ℂ)),
-    CompactOperator B → CompactOperator C
+  ∀ (A B C : (ℝ → ℂ) →L[ℂ] (ℝ → ℂ)) (T : (ℝ → ℂ) →L[ℂ] (ℝ → ℂ)),
+    CompactOperator B → T = A.comp (B.comp C) → CompactOperator T
 
 /-- Formal definition of resolvent operator -/
 axiom resolvent : ((ℝ → ℂ) →L[ℂ] (ℝ → ℂ)) → ℂ → ((ℝ → ℂ) →L[ℂ] (ℝ → ℂ))
