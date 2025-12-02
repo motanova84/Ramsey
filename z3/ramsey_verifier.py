@@ -4,6 +4,30 @@ import argparse
 
 
 def vibrational_ramsey(r, s, M=1000, eps=0.2):
+    """
+    Verifies the existence of a vibrational Ramsey coloring for given parameters.
+
+    This function encodes a Ramsey-type property using Z3 SMT solver. It attempts to find a coloring
+    of n = r + s - 1 points on a circle such that:
+        - No subset of r points forms a "red" clique (all pairwise distances < eps or > 1 - eps).
+        - No subset of s points forms a "blue" clique (all pairwise distances >= eps and <= 1 - eps).
+
+    Parameters:
+        r (int): Size of the red clique to avoid.
+        s (int): Size of the blue clique to avoid.
+        M (int, optional): Discretization parameter (unused in current implementation, reserved for future use).
+        eps (float, optional): Resonance threshold for determining "red" edges.
+
+    Returns:
+        bool: True if a valid coloring exists (SAT), False otherwise (UNSAT).
+              SAT means Rψ(r, s, eps) > r + s - 1.
+
+    Logic:
+        - Each point is assigned a real value in [0, 1).
+        - An edge is "red" if the distance between two points is less than eps or greater than 1 - eps.
+        - The solver checks that no r-clique is fully red and no s-clique is fully blue.
+        - Returns True if the constraints are satisfiable, False otherwise.
+    """
     # Input validation
     if not (isinstance(r, int) and r >= 1):
         raise ValueError(f"Parameter 'r' must be a positive integer (r >= 1), got {r}")
