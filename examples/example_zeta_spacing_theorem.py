@@ -15,8 +15,14 @@ Where:
     - ε is the resonance threshold
 """
 
+import os
 import sys
-sys.path.append('..')
+
+# Add parent directory to path for imports
+# This allows running the example from within the examples/ directory
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
 
 from zeta_spacing_connection import (
     compute_spectral_constant,

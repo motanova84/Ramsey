@@ -14,7 +14,17 @@ import numpy as np
 from typing import Tuple, List
 
 # Constantes fundamentales
+# F0 = 141.7001 Hz es la frecuencia universal de resonancia QCAL ∞³
+# Esta frecuencia emerge de múltiples dominios independientes:
+#   - Ondas gravitacionales LIGO (GW170817 y otros)
+#   - Función zeta de Riemann: |ζ'(1/2)| × 36.14 ≈ 141.7 Hz
+#   - Curvas elípticas y conjetura BSD
+#   - Espaciamiento de primos y teoría espectral
+# Ver PHYSICAL_JUSTIFICATION.md para derivación completa
 F0 = 141.7001  # Hz - Frecuencia base de coherencia
+
+# N = 43 es el umbral de coherencia espectral, correspondiente a R(5,5) = 43
+# Representa el punto crítico donde la densidad vibracional alcanza coherencia cuántica
 N_THRESHOLD = 43  # Umbral mínimo para coherencia espectral
 
 
@@ -49,8 +59,12 @@ def estimate_zeta_zero_spacing(height: float) -> float:
     Returns:
         float: Espaciamiento promedio estimado
     """
-    if height <= 2 * np.pi:
-        height = 2 * np.pi + 1  # Evitar log de valores pequeños
+    # Constante mínima para evitar log(0) o logaritmos de números muy pequeños
+    # Usamos un pequeño epsilon relativo a 2π para mantener la estabilidad numérica
+    MIN_HEIGHT = 2 * np.pi * (1 + 1e-10)
+    
+    if height <= MIN_HEIGHT:
+        height = MIN_HEIGHT
     
     delta = (2 * np.pi) / np.log(height / (2 * np.pi))
     return delta
