@@ -36,8 +36,8 @@ def vibrational_ramsey(r, s, M=1000, eps=0.2):
     if not (isinstance(eps, float) or isinstance(eps, int)) or not (0 < eps < 0.5):
         raise ValueError(f"Parameter 'eps' must be a float in the range (0, 0.5), got {eps}")
     solver = Solver()
-    n_val = r + s - 1
-    omega = [Real(f'omega_{i}') for i in range(n_val)]
+    n = r + s - 1
+    omega = [Real(f'omega_{i}') for i in range(n)]
     for w in omega:
         solver.add(0 <= w, w < 1.0)
 
@@ -47,11 +47,11 @@ def vibrational_ramsey(r, s, M=1000, eps=0.2):
         return Or(diff < eps, 1 - diff < eps)
 
 
-    for combo in combinations(range(n_val), r):
+    for combo in combinations(range(n), r):
         solver.add(Not(And([is_red(i,j) for i,j in combinations(combo, 2)])))
 
 
-    for combo in combinations(range(n_val), s):
+    for combo in combinations(range(n), s):
         solver.add(Not(And([Not(is_red(i,j)) for i,j in combinations(combo, 2)])))
 
 

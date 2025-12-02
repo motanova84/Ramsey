@@ -24,9 +24,13 @@ class TestZ3Verifier(unittest.TestCase):
                 f"Verifier script failed with return code {result.returncode}.\n"
                 f"stderr:\n{result.stderr.strip()}"
             )
-        # Parse output to get YES/NO
+        # Parse output to get YES/NO using regex for robust matching
+        import re
         output = result.stdout.strip()
-        return 'YES' in output
+        match = re.search(r'Result:.*\?\s+(YES|NO)', output)
+        if not match:
+            raise ValueError(f"Unexpected output format: {output}")
+        return match.group(1) == 'YES'
     
     def test_basic_case_3_3(self):
         """Test basic R_psi(3,3) case"""
