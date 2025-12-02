@@ -6,6 +6,7 @@ import Ramsey.Classical
 import Ramsey.Vibrational
 import Ramsey.Reduction
 import Ramsey.R55Proof
+import Ramsey.HamiltonianOperator
 
 open Ramsey
 
@@ -15,11 +16,12 @@ def main : IO Unit := do
   IO.println "╚══════════════════════════════════════════════════════════════╝"
   IO.println ""
   IO.println "Modules loaded:"
-  IO.println "  ✓ Graph.lean         - Graph definitions and colorings"
-  IO.println "  ✓ Classical.lean     - Classical Ramsey numbers R(r,s)"
-  IO.println "  ✓ Vibrational.lean   - Vibrational Ramsey numbers Rψ(r,s)"
-  IO.println "  ✓ Reduction.lean     - Theorem: Rψ(r,s) ≤ N → R(r,s) ≤ N"
-  IO.println "  ✓ R55Proof.lean      - Main theorem: R(5,5) = 43"
+  IO.println "  ✓ Graph.lean              - Graph definitions and colorings"
+  IO.println "  ✓ Classical.lean          - Classical Ramsey numbers R(r,s)"
+  IO.println "  ✓ Vibrational.lean        - Vibrational Ramsey numbers Rψ(r,s)"
+  IO.println "  ✓ Reduction.lean          - Theorem: Rψ(r,s) ≤ N → R(r,s) ≤ N"
+  IO.println "  ✓ R55Proof.lean           - Main theorem: R(5,5) = 43"
+  IO.println "  ✓ HamiltonianOperator.lean - Self-adjoint operator Hψ theory"
   IO.println ""
   IO.println "Main Theorem:"
   IO.println "  R(5,5) = 43"
