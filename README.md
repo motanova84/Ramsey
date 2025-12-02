@@ -334,7 +334,8 @@ Ramsey/
 │   ├── Classical.lean         # Ramsey clásico R(r,s)
 │   ├── Vibrational.lean       # Ramsey vibracional Rψ(r,s)
 │   ├── Reduction.lean         # Teorema de reducción
-│   └── R55Proof.lean          # Prueba R(5,5) = 43 ⭐
+│   ├── R55Proof.lean          # Prueba R(5,5) = 43 ⭐
+│   └── HamiltonianOperator.lean  # Operador Hψ auto-adjunto 🆕
 │
 ├── data/                    # Datos y certificados
 │   ├── rpsi_vibration_model.json
@@ -349,7 +350,14 @@ Ramsey/
 │
 ├── test/                    # Tests Lean
 │   ├── test_reduction.lean
-│   └── test_r55.lean
+│   ├── test_r55.lean
+│   └── test_hamiltonian.lean  # Tests operador Hψ 🆕
+│
+├── examples/                # Ejemplos de uso
+│   └── hamiltonian_example.lean  # Ejemplo operador Hψ 🆕
+│
+├── docs/                    # Documentación técnica
+│   └── HAMILTONIAN_OPERATOR_THEORY.md  # Teoría operador Hψ 🆕
 │
 ├── .qcal_beacon            # Firma QCAL ∞³
 ├── lakefile.lean           # Configuración Lean
@@ -397,6 +405,42 @@ theorem R_5_5_exact : R 5 5 = 43 := by
   have h := R_5_5_tight_bound
   omega
 ```
+
+### 🆕 Operador Hamiltoniano Auto-adjunto Hψ
+
+El módulo **HamiltonianOperator.lean** implementa la teoría formal del operador de Schrödinger que fundamenta matemáticamente la estructura vibracional:
+
+```lean
+-- Operador: Hψ f = -f'' + V(x)f
+-- Potencial: V(x) = ζ'(1/2) π Φ(x)
+
+def Hpsi (f : ℝ → ℂ) (x : ℝ) : ℂ := ...
+```
+
+**Programa de verificación de 6 pasos (von Neumann):**
+
+1. ✅ **PASO 1:** Dominio denso `Dom(Hψ) = {f ∈ H²(ℝ) | Vf ∈ L²(ℝ)}`
+2. ✅ **PASO 2:** Simetría `⟨Hψ f, g⟩ = ⟨f, Hψ g⟩` (integración por partes)
+3. ✅ **PASO 3:** Operador cerrado `H̄ψ = Hψ**`
+4. ✅ **PASO 4:** Índices de deficiencia `(0, 0)` (Teorema de von Neumann)
+5. ✅ **PASO 5:** Auto-adjunción esencial `Hψ = Hψ*`
+6. ✅ **PASO 6:** Resolvente compacto `(Hψ + I)⁻¹` (Rellich-Kondrachov)
+
+**Teorema principal:**
+```lean
+theorem Hpsi_complete_theory :
+  IsSelfAdjoint Hpsi ∧ CompactOperator ((Hψ + I)⁻¹)
+```
+
+Esta teoría garantiza:
+- ✓ Niveles de energía reales (autovalores)
+- ✓ Espectro discreto (cuantización)
+- ✓ Evolución unitaria (conservación de probabilidad)
+- ✓ Descomposición espectral completa
+
+**Conexión con Ramsey:** El resolvente compacto implica modos vibracionales discretos, que corresponden a las frecuencias de resonancia usadas en la coloración vibracional del grafo, justificando las cotas polinomiales.
+
+📖 **Documentación completa:** [docs/HAMILTONIAN_OPERATOR_THEORY.md](docs/HAMILTONIAN_OPERATOR_THEORY.md)
 
 ---
 
