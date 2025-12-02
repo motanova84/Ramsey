@@ -4,6 +4,13 @@ import argparse
 
 
 def vibrational_ramsey(r, s, M=1000, eps=0.2):
+    # Input validation
+    if not (isinstance(r, int) and r >= 1):
+        raise ValueError(f"Parameter 'r' must be a positive integer (r >= 1), got {r}")
+    if not (isinstance(s, int) and s >= 1):
+        raise ValueError(f"Parameter 's' must be a positive integer (s >= 1), got {s}")
+    if not (isinstance(eps, float) or isinstance(eps, int)) or not (0 < eps < 0.5):
+        raise ValueError(f"Parameter 'eps' must be a float in the range (0, 0.5), got {eps}")
     solver = Solver()
     n_val = r + s - 1
     omega = [Real(f'omega_{i}') for i in range(n_val)]
