@@ -17,7 +17,6 @@ mediante principios de coherencia cuántica y resonancia vibracional.
 
 from z3 import *
 from itertools import combinations
-import itertools
 import numpy as np
 import os
 
@@ -45,23 +44,44 @@ def color_edge(omega_i, omega_j, eps):
 
 
 def check_clique(vertices, color_matrix, target_color):
-    """Comprueba si un conjunto de vértices forma una camarilla del color indicado."""
-    for i, j in itertools.combinations(vertices, 2):
+    """
+    Comprueba si un conjunto de vértices forma una camarilla del color indicado.
+    
+    Args:
+        vertices: Iterable de índices de vértices a verificar
+        color_matrix: Estructura 2D que contiene los colores de las aristas
+        target_color: Color esperado de las aristas ('R' para rojo, 'B' para azul)
+        
+    Returns:
+        bool: True si todos los vértices forman una camarilla del color indicado
+    """
+    for i, j in combinations(vertices, 2):
         if color_matrix[i][j] != target_color:
             return False
     return True
 
 
 def exists_monochromatic_clique(color_matrix, r, s):
-    """Verifica si existe una camarilla monocromática de tamaño r o s."""
+    """
+    Verifica si existe una camarilla monocromática de tamaño r o s.
+    
+    Args:
+        color_matrix: Estructura 2D que contiene los colores de las aristas
+        r: Tamaño del clique rojo a buscar
+        s: Tamaño del clique azul a buscar
+        
+    Returns:
+        tuple: (existe, color, vertices) donde existe es bool, color es 'RED' o 'BLUE' 
+               o None, y vertices es la tupla de índices del clique encontrado o None
+    """
     n = len(color_matrix)
     # Busca clique roja K_r
-    for subset in itertools.combinations(range(n), r):
+    for subset in combinations(range(n), r):
         if check_clique(subset, color_matrix, "R"):
             return True, "RED", subset
 
     # Busca clique azul K_s
-    for subset in itertools.combinations(range(n), s):
+    for subset in combinations(range(n), s):
         if check_clique(subset, color_matrix, "B"):
             return True, "BLUE", subset
 
