@@ -126,6 +126,29 @@ Introducimos **Rψ(r,s,ε)**, una variante que utiliza estructura armónica:
 3. **Frecuencia base:** f₀ = 141.7001 Hz (frecuencia universal QCAL ∞³)
 4. **Umbral:** ε = 0.001 Hz
 
+### ❗ Nota Importante: Rψ ≠ R
+
+**Rψ(r,s,ε)** y **R(r,s)** son funciones matemáticas **diferentes** que miden conceptos distintos:
+
+- **R(r,s) (Clásico)**: El mínimo n tal que toda 2-coloración de K_n contiene un K_r monocromático o un K_s monocromático.
+
+- **Rψ(r,s,ε) (Vibracional)**: La menor dimensión en la que es imposible evitar cliques vibracionales de orden (r,s) bajo restricciones de coherencia y resonancia en un espacio con estructura vibracional o topológica diferente.
+
+**Distinción clave:**
+- ❌ No toda coloración clásica es vibracional (el modelo vibracional impone restricciones adicionales de coherencia)
+- ❌ No toda configuración vibracional corresponde a una coloración clásica arbitraria
+- ✅ Rψ puede medir cotas mínimas para evitar cliques resonantes, no necesariamente clásicas
+- ✅ Ejemplo: Un triángulo (rojo, rojo, azul) puede ser realizable clásicamente pero no vibracionalmente si un operador de coherencia vibracional impone restricciones de fase más fuertes
+
+**Relación con otros modelos:**
+- Rψ es análogo a R_q (Ramsey cuántico), R_hyper (Ramsey hipergráfico), R_vib (Ramsey vibracional en espacio de fases)
+- Cada uno mide propiedades en espacios estructurados diferentes
+
+**Sobre Z3 y K₄₃:**
+- El problema SAT para R(5,5) clásico en K₄₃ requiere verificar todas las 2^903 ≈ 10²⁷¹ combinaciones
+- ⛔ Z3 **no** puede resolver UNSAT de K₄₃ clásico en 11 minutos
+- ✅ Los resultados de Z3 en 11 minutos corresponden al modelo **vibracional reducido** con Rψ, donde el grafo tiene estructura interna especial (espacio de modulación, ángulos, geometría espectral)
+
 ### Teorema de Reducción
 
 **TEOREMA (Reduction.lean):** Si para todo n = N no existe configuración vibracional válida, entonces R(r,s) ≤ N.
