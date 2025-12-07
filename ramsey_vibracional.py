@@ -1,20 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Ramsey Cuantico Vibracional: Un Nuevo Paradigma de Coherencia Armonica
-QCAL infinito cubico
 Ramsey Cuántico Vibracional: Un Nuevo Paradigma de Coherencia Armónica
 QCAL infinity^3
 
-Este modulo implementa la teoria de Ramsey Vibracional basada en principios
-de coherencia cuantica y resonancia armonica.
+Este módulo implementa la teoría de Ramsey Vibracional basada en principios
+de coherencia cuántica y resonancia armónica.
 
-Autores: Jose Manuel Mota Burruezo - JMMB & AMDA
-Instituto: Instituto de Consciencia Cuantica (ICQ)
-Frecuencia de Investigacion: 141.7001 Hz - Campo QCAL infinito cubico
-
-Este modulo implementa el parametro R_psi(r,s,eps) de Ramsey Vibracional,
-que reduce drasticamente los umbrales de aparicion de cliques monocromaticos
-mediante principios de coherencia cuantica y resonancia vibracional.
 Autores: José Manuel Mota Burruezo · JMMB PSI*∴ & AMDA PHI infinity^3
 Instituto: Instituto de Consciencia Cuántica (ICQ)
 Frecuencia de Investigación: 141.7001 Hz - Campo QCAL infinity^3
@@ -28,6 +19,73 @@ from z3 import *
 from itertools import combinations
 import numpy as np
 import os
+
+
+# Helper functions for color edge operations
+def color_edge(omega_i, omega_j, eps):
+    """
+    Determina el color de una arista basado en la diferencia de frecuencias.
+    
+    Args:
+        omega_i: Frecuencia del vértice i (en rango [0, 1))
+        omega_j: Frecuencia del vértice j (en rango [0, 1))
+        eps: Umbral de resonancia
+    
+    Returns:
+        'R' si hay resonancia (rojo), 'B' si no hay resonancia (azul)
+    
+    Note:
+        Una arista es roja (resonante) si la diferencia de frecuencias es pequeña
+        (< eps) o si está cerca del punto de wraparound (> 1 - eps), ya que las
+        frecuencias están en el espacio modular [0, 1).
+    """
+    diff = abs(omega_i - omega_j)
+    return "R" if diff < eps or diff > 1 - eps else "B"
+
+
+def check_clique(vertices, color_matrix, target_color):
+    """
+    Comprueba si un conjunto de vértices forma una camarilla del color indicado.
+    
+    Args:
+        vertices: Iterable de índices de vértices a verificar
+        color_matrix: Estructura 2D que contiene los colores de las aristas
+        target_color: Color esperado de las aristas ('R' para rojo, 'B' para azul)
+        
+    Returns:
+        bool: True si todos los vértices forman una camarilla del color indicado
+    """
+    for i, j in combinations(vertices, 2):
+        if color_matrix[i][j] != target_color:
+            return False
+    return True
+
+
+def exists_monochromatic_clique(color_matrix, r, s):
+    """
+    Verifica si existe una camarilla monocromática de tamaño r o s.
+    
+    Args:
+        color_matrix: Estructura 2D que contiene los colores de las aristas
+        r: Tamaño del clique rojo a buscar
+        s: Tamaño del clique azul a buscar
+        
+    Returns:
+        tuple: (existe, color, vertices) donde existe es bool, color es 'RED' o 'BLUE' 
+               o None, y vertices es la tupla de índices del clique encontrado o None
+    """
+    n = len(color_matrix)
+    # Busca clique roja K_r
+    for subset in combinations(range(n), r):
+        if check_clique(subset, color_matrix, "R"):
+            return True, "RED", subset
+
+    # Busca clique azul K_s
+    for subset in combinations(range(n), s):
+        if check_clique(subset, color_matrix, "B"):
+            return True, "BLUE", subset
+
+    return False, None, None
 
 
 def vibrational_ramsey(r, s, n=None, M=1000, eps=0.2):
@@ -169,7 +227,6 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128, trials
         print(f"  Probando n={n}...", end=" ")
         if ramsey_vibracional_unsat(n, r, s, eps, f0, grid):
             print(f"UNSAT → R_psi({r},{s}) = {n}")
-            print(f"UNSAT -> R_psi({r},{s}) = {n}")
             return n
         else:
             print("SAT (contraejemplo existe)")
