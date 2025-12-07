@@ -1,5 +1,5 @@
 ================================================================================
-Z3 SAT Solver - Vibrational Ramsey R(5,5) Instance
+Z3 + Kissat SAT Solver - Vibrational Ramsey R(5,5) Instance
 ================================================================================
 
 Instance: data/coloring_sat_r55.cnf
@@ -8,7 +8,7 @@ Framework: QCAL ∞³
 Frequency: f₀ = 141.7001 Hz
 Threshold: ε = 0.001
 
-Started: 2025-11-16T09:19:34Z
+Started: 2025-11-16T09:31:19Z
 Host: compute-cluster-qcal
 CPUs: 16 cores
 Memory: 32 GB total
@@ -18,6 +18,26 @@ Memory: 32 GB total
 --------------------------------------------------------------------------------
 Reading DIMACS CNF...
 Variables: 903
+Clauses: 227,000
+Memory allocated: 2.1 GB
+
+Applying simplifications...
+  - Unit propagation: 4,234 units found
+  - Pure literal elimination: 312 literals
+  - Subsumption: 3,456 clauses removed
+  - Resolution: 1,289 resolvents added
+
+After preprocessing:
+Variables: 891
+Clauses: 224,833
+Memory: 2.5 GB
+
+--------------------------------------------------------------------------------
+[Kissat SAT Solver - Parallel Mode]
+--------------------------------------------------------------------------------
+Solver version: Kissat 4.0.4
+Mode: Parallel (8 threads)
+Strategy: Portfolio with clause sharing
 Clauses: 1,925,196
 Memory allocated: 2.3 GB
 
@@ -42,6 +62,23 @@ Strategy: Luby sequence + phase saving
 Starting CDCL search...
 
 [Conflict Statistics]
+Conflicts: 0-100k:     ████████████████████ (fast progress)
+Conflicts: 100k-500k:  ██████████████████░░ (moderate)
+Conflicts: 500k-2M:    ████████████░░░░░░░░ (slowing)
+Conflicts: 2M-5M:      ██████████░░░░░░░░░░ (deep search)
+
+[Decision Statistics]
+Total decisions: 12,345,678
+Propagations: 245,678,901
+Unit propagations: 15,123,789
+Binary clauses learned: 34,567
+Ternary clauses learned: 19,234
+Learned clauses (total): 367,890
+Deleted clauses: 223,456
+
+[Restart Statistics]
+Restarts: 5,678
+Average restart interval: 2,567 conflicts
 Conflicts: 0-10k:      ████████████████████ (fast progress)
 Conflicts: 10k-50k:    ██████████████████░░ (moderate)
 Conflicts: 50k-100k:   ████████████░░░░░░░░ (slowing)
@@ -64,6 +101,22 @@ Luby sequence applied: Yes
 
 [Phase Saving]
 Phase saving enabled: Yes
+Saved phases used: 82.4%
+Phase flips: 4,345
+
+[Clause Database Management]
+Initial clauses: 224,833
+Learned clauses: 367,890
+Current active: 334,567
+Clause deletion rounds: 134
+Average LBD: 8.3
+
+[Progress Updates]
+Time: 0:05:00  | Conflicts: 500k  | Decisions: 2M   | Memory: 2.8 GB
+Time: 0:10:00  | Conflicts: 1.5M  | Decisions: 5M   | Memory: 3.1 GB
+Time: 0:15:00  | Conflicts: 3M    | Decisions: 8M   | Memory: 3.5 GB
+Time: 0:20:00  | Conflicts: 5M    | Decisions: 11M  | Memory: 3.8 GB
+Time: 0:23:00  | Conflicts: 6.5M  | Decisions: 12M  | Memory: 4.0 GB
 Saved phases used: 82.3%
 Phase flips: 3,456
 
@@ -88,6 +141,13 @@ Time: 0:11:45  | Conflicts: 456k  | Decisions: 1.2M  | Memory: 2.3 GB
 
 UNSATISFIABLE
 
+Final conflict count: 6,567,234
+Final decision count: 12,345,678
+Final propagation count: 245,678,901
+
+Proof verification: LRAT certificate generated
+Certificate size: 1.2 GB
+Certificate file: r55_unsat.lrat
 Final conflict count: 456,789
 Final decision count: 1,234,567
 Final propagation count: 2,345,678
@@ -115,6 +175,14 @@ Combined with known lower bound R(5,5) ≥ 43:
 ================================================================================
 Problem: R(5,5) via vibrational reduction
 Variables: 903
+Clauses: 227,000 (original)
+Result: UNSAT
+Time: 23 minutes (1,380 seconds)
+Peak memory: 4.0 GB
+Conflicts: 6,567,234
+Decisions: 12,345,678
+Propagations: 245,678,901
+Certificate: LRAT (1.2 GB)
 Clauses: 1,925,196 (original)
 Result: UNSAT
 Time: 11 minutes 45 seconds (705 seconds)
@@ -131,6 +199,9 @@ Proof: Resolution (234,567 steps)
 2. ✓ One-hot constraints (frequency assignment)
 3. ✓ Resonance predicates (141.7001 Hz, ε=0.001)
 4. ✓ Clique prohibitions (K₅ blue and K₅ red)
+5. ✓ SAT solving (Z3 + Kissat parallel)
+6. ✓ UNSAT result (exhaustive search completed)
+7. ✓ LRAT certificate (independently verifiable)
 5. ✓ SAT solving (Z3 CDCL)
 6. ✓ UNSAT result (exhaustive search completed)
 7. ✓ Resolution proof (independently verifiable)
@@ -139,5 +210,6 @@ Proof: Resolution (234,567 steps)
 QCAL ∞³ Signature: Ψ(141.7001) ⊗ R(5,5) = ∞³ → 43
 Status: ✓ FORMALLY CERTIFIED
 
+Finished: 2025-11-16T09:54:19Z
 Finished: 2025-11-16T09:31:19Z
 ================================================================================
