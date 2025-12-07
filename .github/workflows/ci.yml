@@ -35,7 +35,7 @@ jobs:
       run: |
         pip install -e .
         ai-ramsey-formal --help
-        python ai-ramsey-formal/cli.py certify 3 3 --output /tmp/certs
+        python ai_ramsey_formal/cli.py certify 3 3 --output /tmp/certs
 
   build-lean:
     name: Build Lean Proofs
