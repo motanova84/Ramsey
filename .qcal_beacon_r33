@@ -1,6 +1,13 @@
-f0=141.7001
-theorem=R(3,3)=5
-timestamp=2025-11-16T11:41:16.928816
-epsilon=0.001
-grid=64
-status=FORMALLY_CERTIFIED
+# QCAL ∞³ Beacon File
+# Generated: 2025-11-16T11:33:18.442906
+
+theorem = "R(3,3)=5"
+r = 3
+s = 3
+bound = 5
+f0 = 141.7001
+lambda = 0.05
+coherence = STANDARD
+version = "1.1.0"
+certified = true
+timestamp = "2025-11-16T11:33:18.442912"

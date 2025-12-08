@@ -66,6 +66,12 @@ Este documento proporciona un índice completo de toda la documentación relacio
    - Frecuencia 141.7001 Hz como constante universal
    - **📄 [Ver QCAL_UNIFIED_FRAMEWORK.md](QCAL_UNIFIED_FRAMEWORK.md)**
 
+1a. **UNIFIED_THEORY_CONNECTION.md**
+   - Conexión entre R_ψ y Teoría Unificada QCAL ∞³
+   - f₀ = 141.7001 Hz como regulador universal
+   - Ondas Gravitacionales, Curvas Elípticas (BSD), Coherencia en Grafos
+   - **📄 [Ver UNIFIED_THEORY_CONNECTION.md](UNIFIED_THEORY_CONNECTION.md)**
+
 2. **FORMAL_SYSTEM.md**
    - Sistema formal de certificación
    - Estructura Lean 4
@@ -129,6 +135,20 @@ Este documento proporciona un índice completo de toda la documentación relacio
     - Flujo de trabajo completo
     - Proceso de desarrollo
     - **📄 [Ver WORKFLOW.md](WORKFLOW.md)**
+
+### Defensa Técnica
+
+12. **DEFENSE_TECHNICAL.md** (Español)
+    - Respuesta estructurada a críticas técnicas
+    - Clarificación R_ψ ≠ R(r,s)
+    - Justificación del modelo vibracional
+    - Defensa de f₀ = 141.7001 Hz
+    - **📄 [Ver DEFENSE_TECHNICAL.md](DEFENSE_TECHNICAL.md)**
+
+13. **DEFENSE_TECHNICAL_EN.md** (English)
+    - Technical defense document (English version)
+    - Response to criticisms about vibrational model
+    - **📄 [Ver DEFENSE_TECHNICAL_EN.md](DEFENSE_TECHNICAL_EN.md)**
 
 ### Para Contribuidores
 
@@ -224,6 +244,7 @@ Este documento proporciona un índice completo de toda la documentación relacio
 | **Lean 4 Proofs** | FORMAL_SYSTEM.md | RAMSEY_FORMAL_README.md, src/Ramsey/*.lean |
 | **CLI Tool** | AI_RAMSEY_FORMAL_SUMMARY.md | INTEGRATION_GUIDE.md, README.md |
 | **Comparación Clásico vs Vibracional** | COMPARISON.md | CANONICAL_EXAMPLE.md |
+| **Defensa Técnica** | DEFENSE_TECHNICAL.md | DEFENSE_TECHNICAL_EN.md, CLARIFICATION_R_vs_Rpsi.md |
 
 ---
 
@@ -266,11 +287,17 @@ Este documento proporciona un índice completo de toda la documentación relacio
 
 #### ...el marco QCAL ∞³ completo
 - **Ver**: [QCAL_UNIFIED_FRAMEWORK.md](QCAL_UNIFIED_FRAMEWORK.md)
+- **Ver**: [UNIFIED_THEORY_CONNECTION.md](UNIFIED_THEORY_CONNECTION.md)
 - **Ver**: [CANONICAL_EXAMPLE.md § Integración](CANONICAL_EXAMPLE.md#🌐-integración-con-ecosistema-qcal-∞³)
 
 #### ...cómo contribuir
 - **Ver**: [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Ver**: [WORKFLOW.md](WORKFLOW.md)
+
+#### ...la defensa técnica del modelo
+- **Ver**: [DEFENSE_TECHNICAL.md](DEFENSE_TECHNICAL.md) (Español)
+- **Ver**: [DEFENSE_TECHNICAL_EN.md](DEFENSE_TECHNICAL_EN.md) (English)
+- **Ver**: [docs/CLARIFICATION_R_vs_Rpsi.md](docs/CLARIFICATION_R_vs_Rpsi.md)
 
 ---
 
@@ -288,6 +315,7 @@ README.md                   # Punto de entrada
 ### Documentación Framework
 ```
 QCAL_UNIFIED_FRAMEWORK.md   # Marco unificado QCAL ∞³
+UNIFIED_THEORY_CONNECTION.md # Conexión R_ψ con Teoría Unificada
 FORMAL_SYSTEM.md            # Sistema formal
 COMPARISON.md               # Comparación con métodos clásicos
 ```

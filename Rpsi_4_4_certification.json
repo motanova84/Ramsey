@@ -1,0 +1,17 @@
+{
+  "r": 4,
+  "s": 4,
+  "bound": 10,
+  "lambda": 0.01,
+  "f0": 141.7001,
+  "grid": 128,
+  "coherence_max": true,
+  "predict": true,
+  "parallel": true,
+  "quantum_mode": true,
+  "theorem_file": "certificates/Rpsi_4_4_le_10.lean",
+  "unsat_log": "data/r44_unsat.log",
+  "beacon_file": ".qcal_beacon_r44",
+  "timestamp": "2025-11-16T11:33:34.281178",
+  "version": "1.1.0"
+}

@@ -14,7 +14,7 @@ from pathlib import Path
 # Add the project root to the path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from ai_ramsey_formal import certify, generate_lean_template, generate_explanation_template
+from ai_ramsey_formal import certify, lean_theorem, generate_qcal_beacon
 
 
 def test_certify_basic():
@@ -40,23 +40,16 @@ def test_certify_basic():
         assert result['bound'] >= 3, f"Bound should be >= 3, got {result['bound']}"
         
         # Check files were created
-        lean_file = Path(tmpdir) / result['theorem_file']
-        explanation_file = Path(tmpdir) / result['explanation_file']
+        lean_file = Path(result['theorem_file'])
         cert_file = Path(tmpdir) / f"Rpsi_{result['r']}_{result['s']}_certification.json"
         
         assert lean_file.exists(), f"Lean file should exist: {lean_file}"
-        assert explanation_file.exists(), f"Explanation file should exist: {explanation_file}"
         assert cert_file.exists(), f"Certification JSON should exist: {cert_file}"
         
         # Verify Lean file content
         lean_content = lean_file.read_text()
         assert 'import Mathlib.Combinatorics.Ramsey' in lean_content, "Lean file should import Mathlib"
         assert f'R_psi_{result["r"]}_{result["s"]}_le_{result["bound"]}' in lean_content, "Lean file should define theorem"
-        
-        # Verify explanation file content
-        explanation_content = explanation_file.read_text()
-        assert 'Vibrational Ramsey' in explanation_content, "Explanation should mention Vibrational Ramsey"
-        assert f'{result["r"]}' in explanation_content, "Explanation should mention r value"
         
         # Verify certification JSON
         with open(cert_file) as f:
@@ -88,7 +81,7 @@ def test_certify_asymmetric():
         assert result['bound'] >= max(3, 4), f"Bound should be >= max(r,s)"
         
         # Check theorem file was created
-        lean_file = Path(tmpdir) / result['theorem_file']
+        lean_file = Path(result['theorem_file'])
         assert lean_file.exists(), "Lean file should be created"
         
         print(f"✓ Test passed: Found bound R_psi(3,4) <= {result['bound']}")
@@ -116,33 +109,34 @@ def test_no_bound_found():
         print("✓ Test passed: Correctly handles no bound found")
 
 
-def test_lean_template_generation():
-    """Test Lean template generation"""
-    print("\n=== Test: Lean template generation ===")
+def test_lean_theorem_generation():
+    """Test Lean theorem generation"""
+    print("\n=== Test: Lean theorem generation ===")
     
-    lean_code = generate_lean_template(r=3, s=3, n=6, lam=0.001, f0=141.7001)
+    lean_code = lean_theorem(r=3, s=3, n=6, lam=0.001, f0=141.7001)
     
     assert 'import Mathlib.Combinatorics.Ramsey' in lean_code, "Should import Mathlib"
     assert 'theorem R_psi_3_3_le_6' in lean_code, "Should define theorem with correct name"
     assert 'vibrational_unsat_tac' in lean_code, "Should use vibrational_unsat_tac"
-    assert '0.001' in lean_code or '0.001' in lean_code, "Should include lam parameter"
+    assert '0.001' in lean_code, "Should include lam parameter"
     assert '141.7001' in lean_code, "Should include f0 parameter"
     
-    print("✓ Test passed: Lean template generated correctly")
+    print("✓ Test passed: Lean theorem generated correctly")
 
 
-def test_explanation_template_generation():
-    """Test explanation template generation"""
-    print("\n=== Test: Explanation template generation ===")
+def test_qcal_beacon_generation():
+    """Test QCAL beacon generation"""
+    print("\n=== Test: QCAL beacon generation ===")
     
-    explanation = generate_explanation_template(r=4, s=4, n=12, lam=0.05, f0=141.7001)
+    beacon = generate_qcal_beacon(r=4, s=4, n=12, lam=0.05, f0=141.7001, coherence_mode=True)
     
-    assert 'R_psi(4,4)' in explanation or 'R_psi(4, 4)' in explanation, "Should mention R_psi(4,4)"
-    assert '12' in explanation, "Should mention bound value"
-    assert 'vibrational' in explanation.lower(), "Should discuss vibrational approach"
-    assert 'lambda=' in explanation.lower() or 'lam=' in explanation.lower(), "Should mention lambda parameter"
+    assert 'R(4,4)=12' in beacon, "Should mention R(4,4)=12"
+    assert '12' in beacon, "Should mention bound value"
+    assert 'f0 = 141.7001' in beacon, "Should mention f0 parameter"
+    assert 'lambda = 0.05' in beacon, "Should mention lambda parameter"
+    assert 'coherence = MAX' in beacon, "Should mention coherence mode"
     
-    print("✓ Test passed: Explanation template generated correctly")
+    print("✓ Test passed: QCAL beacon generated correctly")
 
 
 def test_output_directory_creation():
@@ -164,7 +158,7 @@ def test_output_directory_creation():
         )
         
         assert output_dir.exists(), "Output directory should be created"
-        lean_file = output_dir / result['theorem_file']
+        lean_file = Path(result['theorem_file'])
         assert lean_file.exists(), "Lean file should be in created directory"
         
         print("✓ Test passed: Output directory created successfully")
@@ -180,8 +174,8 @@ def run_all_tests():
         test_certify_basic,
         test_certify_asymmetric,
         test_no_bound_found,
-        test_lean_template_generation,
-        test_explanation_template_generation,
+        test_lean_theorem_generation,
+        test_qcal_beacon_generation,
         test_output_directory_creation,
     ]
     

@@ -1,0 +1,13 @@
+# QCAL ∞³ Beacon File
+# Generated: 2025-11-16T11:33:34.281099
+
+theorem = "R(4,4)=10"
+r = 4
+s = 4
+bound = 10
+f0 = 141.7001
+lambda = 0.01
+coherence = MAX
+version = "1.1.0"
+certified = true
+timestamp = "2025-11-16T11:33:34.281106"

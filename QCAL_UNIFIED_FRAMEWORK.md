@@ -38,6 +38,9 @@ El repositorio actual implementa completamente la reducción del número de Rams
 - Análisis de redes sociales
 - Sistemas de comunicación coherentes
 
+### Conexión con la Teoría Unificada
+Para una explicación detallada de cómo la frecuencia f₀ = 141.7001 Hz en el modelo R_ψ conecta con las Ondas Gravitacionales (LIGO) y las Curvas Elípticas (BSD), ver **[UNIFIED_THEORY_CONNECTION.md](UNIFIED_THEORY_CONNECTION.md)**.
+
 ---
 
 ## 2. Matemática Pura: Soluciones Adélicas y Espectrales

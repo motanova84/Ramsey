@@ -15,7 +15,10 @@ from ramsey_vibracional import (
     calcular_Rpsi_exacto,
     estimar_conjetura,
     generar_coloracion_vibracional,
-    encontrar_clique_maximo
+    encontrar_clique_maximo,
+    ramsey_clasico_estimacion,
+    ramsey_vibracional_orden_asintotico,
+    comparar_ramsey_clasico_vs_vibracional
 )
 import numpy as np
 
@@ -162,6 +165,74 @@ def test_monotonicidad_n():
     print("✓ Test pasado")
 
 
+def test_ramsey_clasico_conocidos():
+    """Test de valores conocidos de Ramsey clásico"""
+    print("\n=== Test: Valores conocidos de Ramsey clásico ===")
+    
+    # Verificar valores exactos conocidos
+    casos_conocidos = [
+        ((3, 3), 6),
+        ((3, 4), 9),
+        ((4, 4), 18),
+        ((3, 5), 14),
+        ((4, 5), 25),
+    ]
+    
+    for (r, s), R_esperado in casos_conocidos:
+        R_calculado = ramsey_clasico_estimacion(r, s)
+        print(f"R_clásico({r},{s}) = {R_calculado} (esperado: {R_esperado})")
+        assert R_calculado == R_esperado, \
+            f"R_clásico({r},{s}) debería ser {R_esperado}, obtuvimos {R_calculado}"
+    
+    print("✓ Test pasado")
+
+
+def test_comparacion_paradigmas():
+    """Test de comparación entre paradigmas clásico y vibracional"""
+    print("\n=== Test: Comparación de paradigmas ===")
+    
+    # Para valores grandes, R_ψ debe ser significativamente menor que R_clásico
+    r, s = 5, 5
+    comp = comparar_ramsey_clasico_vs_vibracional(r, s)
+    
+    print(f"Comparación para ({r},{s}):")
+    print(f"  R_clásico = {comp['R_clasico']}")
+    print(f"  R_ψ ajustado = {comp['R_psi_ajustado']}")
+    print(f"  Reducción = {comp['reduccion']} ({comp['porcentaje_reduccion']:.1f}%)")
+    
+    # Para (5,5), R_ψ debe ser significativamente menor
+    assert comp['R_psi_ajustado'] < comp['R_clasico'], \
+        "R_ψ debe ser menor que R_clásico para valores grandes"
+    
+    # La reducción debe ser positiva y significativa para valores grandes
+    assert comp['reduccion'] > 0, "Debe haber reducción para valores grandes"
+    
+    print("✓ Test pasado")
+
+
+def test_orden_asintotico():
+    """Test de orden de crecimiento asintótico"""
+    print("\n=== Test: Orden de crecimiento asintótico ===")
+    
+    # El orden asintótico debe crecer polinómicamente
+    valores = []
+    for k in range(3, 8):
+        orden = ramsey_vibracional_orden_asintotico(k, k)
+        valores.append(orden)
+        print(f"Orden({k},{k}) = {orden:.2f}")
+    
+    # Verificar que crece, pero no exponencialmente
+    # Para exponencial, esperaríamos que cada valor sea ~2x el anterior
+    # Para polinómico, el crecimiento es más moderado
+    for i in range(len(valores) - 1):
+        ratio = valores[i + 1] / valores[i]
+        print(f"  Ratio [{i+3},{i+3}] a [{i+4},{i+4}]: {ratio:.2f}")
+        # El ratio debe ser menor que 2 (no exponencial)
+        assert ratio < 2, f"Crecimiento no debe ser exponencial: ratio={ratio}"
+    
+    print("✓ Test pasado")
+
+
 def run_all_tests():
     """Ejecuta todos los tests"""
     print("=" * 70)
@@ -176,6 +247,9 @@ def run_all_tests():
         test_encontrar_clique_maximo,
         test_relacion_con_ramsey_clasico,
         test_monotonicidad_n,
+        test_ramsey_clasico_conocidos,
+        test_comparacion_paradigmas,
+        test_orden_asintotico,
     ]
     
     passed = 0
