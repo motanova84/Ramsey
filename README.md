@@ -1516,7 +1516,7 @@ print(f"Seguridad: {estimar_seguridad(r=5, s=5)} bits")
 | 1955 | Greenwood-Gleason | [43, 55] | Constructivo |
 | 1995 | McKay-Radziszowski | [43, 49] | Computacional |
 | 2017 | Various | [43, 48] | SAT + simetría |
-| **2025** | **JMMB & Claude** | **≤ 16** ⚡ | **Vibracional** |
+| **2025** | **JMMB** | **≤ 16** ⚡ | **Vibracional** |
 
 **Reducción:** ~3x mejora sobre mejor bound conocido
 
