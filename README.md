@@ -1657,7 +1657,7 @@ Diseño de arquitecturas neuronales con conectividad basada en resonancia armón
 
 3. **Teoría Vibracional:**
    - Mota Burruezo, J. M. (2025). "141.7001 Hz: Universal Frequency"
-   - Mota Burruezo, J. M., Claude (2025). "P≠NP via Treewidth"
+   - Mota Burruezo, J. M. (2025). "P≠NP via Treewidth"
 
 ### Enlaces
 ##  Ejecución del Sistema Completo
