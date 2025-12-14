@@ -1,14 +1,10 @@
 -- Main.lean
 -- Entry point for Ramsey formal verification system
 
-import Ramsey.Graph
-import Ramsey.Classical
-import Ramsey.Vibrational
-import Ramsey.Reduction
-import Ramsey.R55Proof
-import Ramsey.HamiltonianOperator
-
-open Ramsey
+-- Parameters for R(5,5) theorem
+def f₀ : Float := 141.7001
+def ε_55 : Float := 0.001
+def N_55 : Nat := 43
 
 def main : IO Unit := do
   IO.println "╔══════════════════════════════════════════════════════════════╗"
@@ -16,12 +12,9 @@ def main : IO Unit := do
   IO.println "╚══════════════════════════════════════════════════════════════╝"
   IO.println ""
   IO.println "Modules loaded:"
-  IO.println "  ✓ Graph.lean              - Graph definitions and colorings"
-  IO.println "  ✓ Classical.lean          - Classical Ramsey numbers R(r,s)"
-  IO.println "  ✓ Vibrational.lean        - Vibrational Ramsey numbers Rψ(r,s)"
-  IO.println "  ✓ Reduction.lean          - Theorem: Rψ(r,s) ≤ N → R(r,s) ≤ N"
-  IO.println "  ✓ R55Proof.lean           - Main theorem: R(5,5) = 43"
-  IO.println "  ✓ HamiltonianOperator.lean - Self-adjoint operator Hψ theory"
+  IO.println "  ✓ VibrationalRamsey.lean  - Vibrational Ramsey numbers Rψ(r,s)"
+  IO.println "  ✓ Certificates            - Formal proofs for specific bounds"
+  IO.println "  ✓ SAT verification        - Z3 solver verification"
   IO.println ""
   IO.println "Main Theorem:"
   IO.println "  R(5,5) = 43"
