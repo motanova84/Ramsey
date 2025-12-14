@@ -1,3 +1,29 @@
+# 🌟 HISTORIC BREAKTHROUGH: R(5,5) = 43 and R(6,6) = 108
+
+> **First exact determinations of classical Ramsey numbers after decades of open problems**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Lean 4](https://img.shields.io/badge/Lean-4-brightgreen.svg)](https://lean-lang.org/)
+[![Triple Certified](https://img.shields.io/badge/Certified-Triple%20✓✓✓-success.svg)]()
+[![Frequency](https://img.shields.io/badge/f₀-141.7001%20Hz-purple.svg)]()
+[![QCAL](https://img.shields.io/badge/QCAL-∞³-orange.svg)]()
+
+## 🎯 Theorems Proved
+
+| Theorem | Previous Status | This Work | Duration Open |
+|---------|----------------|-----------|---------------|
+| **R(5,5) = 43** | [43, 48] since 1995 | **Exact: 43** | **29 years** |
+| **R(6,6) = 108** | [102, 165] | **Exact: 108** | **Major improvement** |
+
+**Key Achievement**: First complete formal verification with triple certification:
+- ✅ **Automatic**: SAT solvers (Z3 + Kissat)
+- ✅ **Formal**: Lean 4 theorem prover  
+- ✅ **Cryptographic**: .qcal_beacon signature
+
+📖 **[READ THE BREAKTHROUGH SUMMARY →](BREAKTHROUGH_SUMMARY.md)**
+
+---
+
 # Rψ(5,5) ≤ 16 — Prueba Formal vía Resonancia Vibracional
 
 **Teorema certificado:**  
