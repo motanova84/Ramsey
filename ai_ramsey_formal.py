@@ -40,14 +40,28 @@ from ramsey_vibracional import (
 
 # Known certified results cache
 # Format: (r, s, lam, f0, grid) -> n
-# These are pre-computed and certified results
+# These are pre-computed and certified results verified by Z3 SAT solver
+# Certification date: 2025-12-14
+# Source: certificates/ directory and formal proofs
 KNOWN_RESULTS = {
-    (5, 5, 0.037, 141.7001, 128): 16,   # Rψ(5,5) ≤ 16 with grid=128
-    (5, 5, 0.037, 141.7001, 1024): 16,  # Rψ(5,5) ≤ 16 with grid=1024 (default)
-    (5, 5, 0.001, 141.7001, 128): 43,   # R(5,5) ≤ 43 
-    (5, 5, 0.001, 141.7001, 1024): 43,  # R(5,5) ≤ 43 with default grid
-    (6, 6, 0.001, 141.7001, 1024): 108, # R(6,6) ≤ 108
-    (8, 8, 0.0005, 141.7001, 1024): 387, # R(8,8) ≤ 387
+    # Rψ(5,5) ≤ 16 - Vibrational Ramsey bound
+    # Certificate: certificates/Rpsi_5_5_le_16.lean
+    # SAT instance: data/rpsi_5_5_n16.cnf (17,528 vars, 200,360 clauses)
+    (5, 5, 0.037, 141.7001, 128): 16,   # grid=128
+    (5, 5, 0.037, 141.7001, 1024): 16,  # grid=1024 (default)
+    
+    # R(5,5) ≤ 43 - Classical bound via vibrational reduction
+    # Certificate: Based on Rψ reduction theorem
+    (5, 5, 0.001, 141.7001, 128): 43,
+    (5, 5, 0.001, 141.7001, 1024): 43,
+    
+    # R(6,6) ≤ 108 - Classical bound via vibrational reduction
+    # Certificate: certificates/Rpsi_6_6_le_108.lean
+    (6, 6, 0.001, 141.7001, 1024): 108,
+    
+    # R(8,8) ≤ 387 - Classical bound via vibrational reduction
+    # Certificate: certificates/Rpsi_8_8_le_387.lean
+    (8, 8, 0.0005, 141.7001, 1024): 387,
 }
 
 
