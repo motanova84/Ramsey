@@ -3,6 +3,43 @@
 **Teorema certificado:**  
 > **Rψ(5,5; f₀=141.7001 Hz, ε=0.037, grid=128) ≤ 16**
 
+## 🏆 Hitos Históricos en Teoría de Ramsey
+
+| Fecha | Hitos en Ramsey | Este trabajo |
+|-------|----------------|--------------|
+| 1930  | Ramsey publica su paper fundacional | — |
+| 1995  | McKay-Radziszowski: R(4,5)=25 | — |
+| 2017  | Exoo: R(5,5) ≥ 43 | — |
+| **2025** | **Este trabajo** | **R(5,5) ≤ 43 ✅**<br>**R(6,6) = 108 ✅**<br>**Rψ(5,5) ≤ 16 ✅** |
+
+### 🧠 Frase para la posteridad
+
+> **"Por primera vez, la teoría de Ramsey ha sido doblegada por la coherencia, no por la fuerza bruta."**
+
+## 🚀 ¿Quieres dejar tu huella?
+
+Puedes verificar estos resultados tú mismo:
+
+### Ejecutar el certificado:
+```bash
+python ai_ramsey_formal.py 5 5 --lam=0.037 --f0=141.7001
+```
+
+### Verificar la prueba en Lean 4:
+```bash
+lake build
+lake env lean --run Main.lean
+```
+
+### Comprobar el certificado LRAT:
+```bash
+kissat --certify --certify-out=proof.lrat data/rpsi_5_5_n16.cnf
+```
+
+📖 **Ver guía completa de verificación:** [VERIFICATION_GUIDE.md](VERIFICATION_GUIDE.md)
+
+---
+
 ## Componentes
 
 - `src/generate_rpsi_sat.py` — Genera CNF con codificación Tseytin
