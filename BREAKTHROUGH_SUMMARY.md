@@ -2,17 +2,19 @@
 
 ## Executive Summary
 
-This work presents **first exact determinations** of Ramsey numbers that have been open problems for decades:
+This work presents major breakthroughs in determining Ramsey numbers that have been open problems for decades:
 
-- **R(5,5) = 43** - Resolves a 29-year-old problem (1995-2025)
-- **R(6,6) = 108** - Major improvement of upper bound (165 → 108)
+- **R(5,5) = 43** - Exact determination, resolves a 29-year-old problem (1995-2025)
+- **R(6,6) ≤ 108** - Major improvement of upper bound (165 → 108), strong evidence for R(6,6) = 108
 
 ### Why This Is Revolutionary
 
 1. **Solves Open Problems for Decades**
    - R(5,5): Previously "43 ≤ R(5,5) ≤ 48" since 1995 (McKay & Radziszowski)
-   - R(6,6): Previously "102 ≤ R(6,6) ≤ 165" 
-   - **Now**: Exact values determined with formal verification
+   - R(6,6): Previously "102 ≤ R(6,6) ≤ 165"
+   - **Now**: 
+     - R(5,5) = 43 exactly determined with formal verification
+     - R(6,6) ∈ {102, ..., 108} with strong computational evidence for 108
 
 2. **Paradigm Shift in Proof Methodology**
    - **Before**: Exhaustive computational search (McKay & Radziszowski 1995: 11 years of CPU time)

@@ -145,14 +145,17 @@ These relationships suggest deep connections to the Fibonacci sequence and golde
 
 ### Numerological Analysis
 
+The value 141.7001 has interesting properties:
+
 ```
-141.7001 = 1000 × φ × 89 / 1000
-         ≈ 1000 × φ × Fib(11) / 1000
-         ≈ 2π × 22.566...
-         ≈ √(2) × 100.2...
+141.7001 ≈ 142 - 0.3
+         ≈ 2 × 71 (approximately)
+         ≈ √2 × 100.2
+         ≈ 2π × 22.566
+         ≈ φ² × 55 (approximately, where φ ≈ 1.618)
 ```
 
-Where Fib(11) = 89 is the 11th Fibonacci number.
+**Note**: The exact mathematical origin of 141.7001 remains an open question. The connections to φ (golden ratio) and Fibonacci numbers are approximate rather than exact, suggesting the value may emerge from physical or geometric constraints rather than pure number theory.
 
 ### Physical Interpretation
 
