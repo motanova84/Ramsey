@@ -175,6 +175,8 @@ theorem vibrational_implies_classical (r s N : ℕ)
 | `Classical.lean` | Números de Ramsey R(r,s), propiedades básicas |
 | `Vibrational.lean` | Definición Rψ(r,s,ε), modelo vibracional |
 | `Reduction.lean` | Teorema: Rψ(r,s) ≤ N → R(r,s) ≤ N |
+| `Instance.lean` | Instancias vibracionales compatibles con SAT |
+| `ReductionProof.lean` | Prueba detallada de reducción con redondeo de malla |
 | `R55Proof.lean` | **Prueba final: R(5,5) = 43** |
 
 #### 2. Verificación SAT con Z3
@@ -193,6 +195,47 @@ Firma simbiótica con:
 - Frecuencia f₀ = 141.7001 Hz
 - Coherencia QCAL ∞³
 - Timestamp y metadatos de verificación
+
+---
+
+## 🧪 Testing y Verificación
+
+### Suite de Tests Completa
+
+El proyecto incluye una suite comprehensiva de tests unitarios:
+
+```bash
+# Ejecutar verificación completa
+./scripts/build_and_verify.sh
+
+# Ejecutar tests individuales
+lake env lean test/TestReduction.lean
+lake env lean test/test_r55.lean
+lake env lean test/test_reduction.lean
+```
+
+### Archivos de Test
+
+- **`test/TestReduction.lean`**: Tests comprehensivos del teorema de reducción
+  - 15 tests unitarios cubriendo todos los aspectos de la prueba
+  - Verificación de parámetros, propiedades y teoremas
+  - Validación de la cadena de prueba completa
+
+- **`test/test_r55.lean`**: Tests específicos para R(5,5) = 43
+- **`test/test_reduction.lean`**: Tests básicos de reducción
+
+### Scripts de Verificación
+
+- **`scripts/verify_all.lean`**: Verificación formal completa en Lean
+- **`scripts/build_and_verify.sh`**: Script automatizado de build y verificación
+
+### Documentación de Testing
+
+Ver **[TESTING.md](TESTING.md)** para documentación detallada sobre:
+- Estructura de tests
+- Cómo ejecutar la verificación
+- Axiomas utilizados
+- Estructura de la prueba
 
 ---
 
