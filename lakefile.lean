@@ -13,6 +13,13 @@ lean_lib Ramsey where
   -- add library configuration options here
   globs := #[.submodules "Ramsey"]
 
+-- Verification script
+lean_exe verify_all where
+  root := `scripts.verify_all
+
+require mathlib from git
+  "https://github.com/leanprover-community/mathlib4.git"
+
 lean_exe verify_all where
   root := `scripts.verify_all
 
