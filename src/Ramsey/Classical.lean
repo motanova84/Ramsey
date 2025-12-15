@@ -62,6 +62,13 @@ lemma exists_counterexample_of_lt_R (r s N : ℕ) (h : R r s ≥ N) :
 def R_lower_bound (r s N : ℕ) : Prop :=
   R r s ≥ N
 
+/-- If R(r,s) ≥ n, then there exists a graph of size n with a valid coloring
+    that avoids both red K_r and blue K_s -/
+theorem exists_counterexample_of_lt_R (r s n : ℕ) (h : R r s ≥ n) :
+    ∃ (m : ℕ) (hm : m = n) (g : Graph m) (c : Coloring m),
+      g = completeGraph m ∧ isValidRamseyColoring c r s := by
+  sorry
+
 end
 
 end Ramsey
