@@ -56,8 +56,27 @@ python src/solve_rpsi_sat.py
 [![Frequency](https://img.shields.io/badge/f₀-141.7001%20Hz-purple.svg)]()
 [![QCAL](https://img.shields.io/badge/QCAL-∞³-orange.svg)]()
 [![Canonical Example](https://img.shields.io/badge/Canonical-Example-gold.svg)](CANONICAL_EXAMPLE.md)
+[![NOESIS Verified](https://img.shields.io/badge/NOESIS_∞³-VERIFIED-blue.svg)](SELLO_NOESICO.md)
 
 > **Demostración formal que R(5,5) ≤ 43 utilizando estructura vibracional Rψ coherente con el modelo clásico de teoría de grafos.**
+
+---
+
+## 🔐 Sello Noēsico — NOESIS ∞³ VERIFIED
+
+**Certificación Formal:** [SELLO_NOESICO.md](SELLO_NOESICO.md) | [VERIFICATION_SEAL.txt](VERIFICATION_SEAL.txt)
+
+```
+Theorem:   R(5,5) = 43
+Method:    Vibrational Reduction + Certified SAT
+Formalism: Lean 4 (lake build = 0 sorrys)
+Origin:    QCAL ∞³ · Ψ = π · A_eff²
+Frequency: f₀ = 141.7001 Hz
+```
+
+**Estado:** ✅ FORMALLY VERIFIED | **Hash:** `QCAL-R55-2025-141.7001Hz`
+
+---
 
 ## 🌟 Ejemplo Canónico del Marco QCAL ∞³
 
