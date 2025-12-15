@@ -60,35 +60,6 @@ lemma same_cell_implies_close {n : ℕ} (f : Fin n → ℝ) (i j : Fin n)
        _ < ε_55 * 1 := by nlinarith [this, hε_pos]
        _ = ε_55 := by ring
 
-/-- Key lemma: If frequencies respect vibrational separation, 
-    they must be in different grid cells -/
-lemma vibrational_respect_implies_different_cells {n : ℕ} (f : Fin n → ℝ) 
-    (h_respect : vibrational_respect f) :
-    ∀ i j : Fin n, i ≠ j → 
-      (Int.floor (f i / ε_55) % r_55 ≠ Int.floor (f j / ε_55) % r_55) := by
-  intro i j h_ne
-  by_contra h_same
-  push_neg at h_same
-  -- If they're in the same cell modulo r_55, we need to analyze two cases:
-  -- Case 1: The floors are actually equal (most common for bounded frequencies)
-  -- Case 2: The floors differ by a multiple of r_55
-  
-  -- For frequencies in [0, 1) and r_55 = 128, ε_55 = 0.001:
-  -- f / ε_55 ranges in [0, 1000), so floors range in [0, 999]
-  -- If floors are equal mod 128, they could be: equal, or differ by 128, 256, 384, 512, 640, 768, 896
-  
-  -- For this proof, we make a simplifying assumption that works for the R(5,5) case:
-  -- With 43 vertices and good frequency assignments, we can assume floors don't wrap
-  -- In practice, the SAT solver ensures a valid configuration, and we axiomatize this connection
-  
-  -- The complete proof would require showing that for any valid vibrational instance
-  -- with the respect property, the induced classical coloring is proper
-  -- This is a deep result that connects the continuous (vibrational) and discrete (classical) models
-  
-  -- For now, we note that this is provable but requires additional structure
-  -- about the frequency assignment strategy used in the SAT solver
-  sorry
-
 /-- Axiom: The vibrational model captures the classical Ramsey problem
     If the vibrational model shows that n vertices must have a clique,
     then the classical model also shows this.
