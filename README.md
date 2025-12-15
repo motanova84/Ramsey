@@ -20,7 +20,10 @@
 - ✅ **Formal**: Lean 4 theorem prover  
 - ✅ **Cryptographic**: .qcal_beacon signature
 
-📖 **[READ THE BREAKTHROUGH SUMMARY →](BREAKTHROUGH_SUMMARY.md)**
+### 📚 Documentation
+
+- 🎓 **[GETTING STARTED GUIDE →](GETTING_STARTED.md)** — New here? Start with this beginner-friendly explanation!
+- 📖 **[READ THE BREAKTHROUGH SUMMARY →](BREAKTHROUGH_SUMMARY.md)** — Technical details of the achievement
 
 ---
 
