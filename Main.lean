@@ -5,6 +5,7 @@ import Ramsey.Graph
 import Ramsey.Classical
 import Ramsey.Vibrational
 import Ramsey.Reduction
+import Ramsey.VibrationalReduction
 import Ramsey.Instance
 import Ramsey.ReductionProof
 import Ramsey.SATVerification
@@ -24,6 +25,7 @@ def main : IO Unit := do
   IO.println "  ✓ Classical.lean          - Classical Ramsey numbers R(r,s)"
   IO.println "  ✓ Vibrational.lean        - Vibrational Ramsey numbers Rψ(r,s)"
   IO.println "  ✓ Reduction.lean          - Theorem: Rψ(r,s) ≤ N → R(r,s) ≤ N"
+  IO.println "  ✓ VibrationalReduction.lean - Vibrational → Classical reduction"
   IO.println "  ✓ Instance.lean           - SAT-compatible vibrational instances"
   IO.println "  ✓ ReductionProof.lean     - Detailed reduction proof with grid rounding"
   IO.println "  ✓ SATVerification.lean    - SAT certificate verification"
