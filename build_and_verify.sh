@@ -45,7 +45,7 @@ fi
 # 4. Ejecutar verificación
 echo ""
 echo "4. Ejecutando verificación completa..."
-lake env lean scripts/verify_all.lean
+lake exe verify_all
 
 if [ $? -eq 0 ]; then
     echo "✅ Verificación exitosa"

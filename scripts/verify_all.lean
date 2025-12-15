@@ -28,9 +28,9 @@ def main : IO Unit := do
   
   -- Verify parameters
   IO.println "✓ Parámetros verificados:"
-  IO.println s!"  - f₀ = {f₀} Hz (frecuencia de coherencia universal)"
-  IO.println s!"  - ε = {ε_55} (umbral de resonancia)"
-  IO.println s!"  - N = {N_55} (cota objetivo)"
+  IO.println s!"  - f₀ = {Ramsey.f₀} Hz (frecuencia de coherencia universal)"
+  IO.println s!"  - ε = {Ramsey.ε_55} (umbral de resonancia)"
+  IO.println s!"  - N = {Ramsey.N_55} (cota objetivo)"
   IO.println ""
   
   -- Verify main theorems
