@@ -2,6 +2,12 @@
 -- Complete proof of vibrational → classical reduction
 -- This file provides the key lemmas connecting vibrational and classical Ramsey theory
 
+-- Formal proof that vibrational bound implies classical bound
+-- Proves: Rψ(r,s,ε) ≤ N → R(r,s) ≤ N
+
+import Mathlib.Data.Real.Basic
+import Mathlib.Data.Finset.Basic
+import Mathlib.Tactic
 import Ramsey.Graph
 import Ramsey.Classical
 import Ramsey.Vibrational
@@ -131,6 +137,17 @@ theorem vibrational_unsat_implies_ramsey_property
     simp
     intro h_red
     exact hall_blue i hi j hj hij h_red
+/-- Main reduction theorem: If no vibrational configuration of size N avoids cliques,
+    then the classical Ramsey number is bounded by N.
+    
+    This is the key theorem connecting vibrational and classical Ramsey theory.
+-/
+theorem vibrational_implies_classical_reduction (r s N : ℕ) (ε : ℝ)
+    (h_unsat : ∀ (inst : Instance r s ε N), ¬VibrationalUnsat inst) :
+    R r s ≤ N := by
+  -- This uses the reduction theorem from Reduction.lean
+  apply vibrational_implies_classical
+  exact h_unsat
 
 end
 
