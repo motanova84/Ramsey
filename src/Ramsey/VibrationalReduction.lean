@@ -30,14 +30,15 @@ Se usará:
 - Finitud de configuraciones
 -/
 
-namespace VibrationalReduction
+namespace Ramsey.VibrationalReduction
 
 -- Definimos un tipo para frecuencias vibracionales (ℝ≥0)
 def Frequency := {f : ℝ // 0 ≤ f}
 
--- Representación de coloración clásica como función discreta
+-- Representación de coloración clásica de vértices como función discreta
+-- Nota: Esto es diferente del Coloring en Graph.lean que colorea aristas
 variable (r : ℕ) in
-abbrev Coloring (V : Type*) [Fintype V] := V → Fin r
+abbrev VertexColoring (V : Type*) [Fintype V] := V → Fin r
 
 -- Representación de frecuencia asignada (vibracional)
 abbrev FreqAssignment (V : Type*) [Fintype V] := V → Frequency
@@ -73,47 +74,57 @@ theorem vibrational_implies_classical
   (G : SimpleGraph V)
   (hr_pos : 0 < r)
   (h : ∀ (f : FreqAssignment V), ¬Resonant G f δ) :
-  ∃ c : Coloring r V, ∀ ⦃v w⦄, G.Adj v w → c v ≠ c w := by
-  -- Esta versión usa la hipótesis de que NINGUNA asignación frecuencial es resonante
-  -- Lo cual significa que el problema vibracional es UNSAT
-  -- Por lo tanto, cualquier coloración discreta debe tener conflictos
-  -- Pero esto crea una contradicción - si el problema es UNSAT, no hay coloración posible
+  ∃ c : VertexColoring r V, ∀ ⦃v w⦄, G.Adj v w → c v ≠ c w := by
+  -- This version uses the hypothesis that NO frequency assignment is resonant
+  -- This means the vibrational problem is UNSAT
+  -- Therefore, any discrete coloring must have conflicts
+  -- But this creates a contradiction - if the problem is UNSAT, no coloring is possible
   -- 
-  -- La formulación correcta debería ser: si existe una asignación resonante,
-  -- entonces existe una coloración clásica válida.
+  -- The correct formulation should be: if there exists a resonant assignment,
+  -- then there exists a valid classical coloring.
   -- 
-  -- Por ahora, usamos sorry para indicar que la prueba necesita refinamiento
+  -- For now, we use sorry to indicate that the proof needs refinement
   sorry
 
--- Versión alternativa más útil del teorema:
--- Si existe una asignación frecuencial resonante, entonces hay una coloración clásica válida
+-- Alternative and more useful version of the theorem:
+-- If there exists a resonant frequency assignment, then there is a valid classical coloring
 theorem vibrational_to_classical
   {r : ℕ} {V : Type*} [Fintype V] [DecidableEq V]
   (G : SimpleGraph V)
   (hr_pos : 0 < r)
   (f : FreqAssignment V)
   (hf : Resonant G f δ) :
-  ∃ c : Coloring r V, ∀ ⦃v w⦄, G.Adj v w → c v ≠ c w := by
+  ∃ c : VertexColoring r V, ∀ ⦃v w⦄, G.Adj v w → c v ≠ c w := by
   classical
-  -- Discretizamos las frecuencias a colores
+  -- Discretize frequencies to colors
   let ε := δ / 10
-  -- Asignamos cada vértice a un color basado en su frecuencia discretizada
-  let c : Coloring r V := fun v ↦ 
+  -- Assign each vertex to a color based on its discretized frequency
+  let c : VertexColoring r V := fun v ↦ 
     ⟨(⌊(f v).1 / ε⌋.toNat) % r, Nat.mod_lt _ hr_pos⟩
   use c
   intro v w adj
   by_contra H
   simp only [ne_eq, not_not] at H
-  -- Si c v = c w, entonces sus frecuencias están en el mismo "bin" discretizado
-  -- Esto implica que |(f v).1 - (f w).1| < ε
+  -- If c v = c w, then their frequencies are in the same discretized "bin"
+  -- This implies that |(f v).1 - (f w).1| < ε
+  -- 
+  -- To complete this proof rigorously, we need to show:
+  -- If ⌊x/ε⌋ mod r = ⌊y/ε⌋ mod r, then either |x - y| < ε or
+  -- they are in bins that wrap around modulo r*ε
+  -- 
+  -- For the theorem to work correctly, we need additional assumptions:
+  -- - Either frequencies are bounded by r*ε, or
+  -- - We use a different discretization scheme
+  -- 
+  -- This requires careful analysis of the modular arithmetic
   have freq_close : |(f v).1 - (f w).1| < ε := by
-    -- Los valores de c son iguales, así que están en el mismo módulo
-    -- Esto implica proximidad en frecuencia
-    sorry -- Refinamiento de la geometría de la discretización
-  -- Pero ε < δ, así que tenemos |(f v).1 - (f w).1| < δ
+    -- The values of c are equal, so they are in the same modulo class
+    -- For this to guarantee proximity in frequency, we need bounds on the frequencies
+    sorry -- TODO: Complete the discretization geometry proof
+  -- But ε < δ, so we have |(f v).1 - (f w).1| < δ
   have : |(f v).1 - (f w).1| < δ := by linarith
-  -- Esto contradice hf que dice que la distancia debe ser ≥ δ
+  -- This contradicts hf which says the distance must be ≥ δ
   have resonance : |(f v).1 - (f w).1| ≥ δ := hf adj
   linarith
 
-end VibrationalReduction
+end Ramsey.VibrationalReduction

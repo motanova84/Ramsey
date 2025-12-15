@@ -18,8 +18,9 @@ This module implements a bridge between vibrational (frequency-based) graph colo
 
 ### Classical Coloring
 - Discrete assignment of colors from a finite set
-- Type: `Coloring r V := V → Fin r` (r colors)
+- Type: `VertexColoring r V := V → Fin r` (r colors)
 - Adjacent vertices must have different colors
+- Note: This is different from `Coloring` in Graph.lean which colors edges
 
 ## Main Theorems
 
@@ -52,11 +53,13 @@ This reduction is crucial for proving R(5,5) ≤ 43:
 ```lean
 import Ramsey.VibrationalReduction
 
+open Ramsey.VibrationalReduction
+
 -- Prove a graph has a valid coloring from a resonant frequency assignment
 example {r : ℕ} {V : Type*} [Fintype V] [DecidableEq V]
   (G : SimpleGraph V) (hr : 0 < r)
   (f : FreqAssignment V) (hf : Resonant G f δ) :
-  ∃ c : Coloring r V, ∀ ⦃v w⦄, G.Adj v w → c v ≠ c w :=
+  ∃ c : VertexColoring r V, ∀ ⦃v w⦄, G.Adj v w → c v ≠ c w :=
 vibrational_to_classical G hr f hf
 ```
 

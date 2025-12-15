@@ -8,7 +8,7 @@ import Mathlib.Tactic
 
 namespace VibrationalReductionExamples
 
-open VibrationalReduction
+open Ramsey.VibrationalReduction
 open Classical
 
 /-!
@@ -42,7 +42,7 @@ lemma triangle_resonant : Resonant triangleGraph triangleFreq δ := by
   all_goals (try norm_num; done)
 
 -- Apply the reduction theorem
-example : ∃ c : Coloring 3 (Fin 3), ∀ ⦃v w⦄, triangleGraph.Adj v w → c v ≠ c w := by
+example : ∃ c : VertexColoring 3 (Fin 3), ∀ ⦃v w⦄, triangleGraph.Adj v w → c v ≠ c w := by
   apply vibrational_to_classical triangleGraph (by norm_num) triangleFreq
   exact triangle_resonant
 
@@ -95,7 +95,7 @@ lemma path_resonant : Resonant pathGraph pathFreq δ := by
     done
   )
 
-example : ∃ c : Coloring 2 (Fin 3), ∀ ⦃v w⦄, pathGraph.Adj v w → c v ≠ c w := by
+example : ∃ c : VertexColoring 2 (Fin 3), ∀ ⦃v w⦄, pathGraph.Adj v w → c v ≠ c w := by
   apply vibrational_to_classical pathGraph (by norm_num) pathFreq
   exact path_resonant
 

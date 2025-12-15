@@ -7,7 +7,7 @@ import Mathlib.Tactic
 
 namespace VibrationalReductionTest
 
-open VibrationalReduction
+open Ramsey.VibrationalReduction
 open Classical
 
 -- Test that Frequency type is well-defined
@@ -26,15 +26,15 @@ example {V : Type*} [Fintype V] (G : SimpleGraph V) (f : FreqAssignment V) :
   rfl
 
 -- Test basic coloring type
-example {V : Type*} [Fintype V] (r : ℕ) : Type* := Coloring r V
+example {V : Type*} [Fintype V] (r : ℕ) : Type* := VertexColoring r V
 
--- Verify that the alternative theorem type checks
+-- Verify that the main theorem type checks
 example {r : ℕ} {V : Type*} [Fintype V] [DecidableEq V]
   (G : SimpleGraph V)
   (hr_pos : 0 < r)
   (f : FreqAssignment V)
   (hf : Resonant G f δ) :
-  ∃ c : Coloring r V, ∀ ⦃v w⦄, G.Adj v w → c v ≠ c w :=
+  ∃ c : VertexColoring r V, ∀ ⦃v w⦄, G.Adj v w → c v ≠ c w :=
   vibrational_to_classical G hr_pos f hf
 
 end VibrationalReductionTest
