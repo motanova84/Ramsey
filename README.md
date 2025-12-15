@@ -20,10 +20,38 @@
 - ✅ **Formal**: Lean 4 theorem prover  
 - ✅ **Cryptographic**: .qcal_beacon signature
 
+## 🎬 Demostración de Metodología del Siglo XXI
+
+Este repositorio es una **demostración práctica** de cómo combinar tres pilares para resolver problemas históricos:
+
+1. **🔢 Combinatoria** - Teoría de Ramsey clásica y grafos
+2. **⚛️ Física Cuántica** - Modelo vibracional con f₀ = 141.7001 Hz  
+3. **✅ Verificación Lógica** - SAT solvers + Lean 4 + certificación criptográfica
+
+**Demo rápida (5 minutos):**
+```bash
+# Instalar dependencias
+pip install numpy z3-solver matplotlib
+
+# Ejecutar demo completa
+python demo.py
+
+# Tutorial interactivo
+python tutorial_methodology.py
+
+# Validar instalación
+python validate_demonstration.py
+```
+
+📖 **Ver guía completa:** [DEMO_METHODOLOGY.md](DEMO_METHODOLOGY.md) | [QUICKSTART_DEMO.md](QUICKSTART_DEMO.md)
+
 ### 📚 Documentation
 
+- 🎬 **[DEMO: METODOLOGÍA DEL SIGLO XXI →](DEMO_METHODOLOGY.md)** — **Demostración completa de la metodología** ⭐
+- 🚀 **[QUICKSTART DEMO →](QUICKSTART_DEMO.md)** — Guía rápida de inicio (5 minutos)
 - 🎓 **[GETTING STARTED GUIDE →](GETTING_STARTED.md)** — New here? Start with this beginner-friendly explanation!
 - 📖 **[READ THE BREAKTHROUGH SUMMARY →](BREAKTHROUGH_SUMMARY.md)** — Technical details of the achievement
+- 📊 **[DIAGRAMAS VISUALES →](DIAGRAMS_METHODOLOGY.md)** — Diagramas explicativos de la metodología
 
 ---
 
