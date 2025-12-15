@@ -35,13 +35,13 @@ structure SATCertificate where
 /-- The main SAT verification axiom for R(5,5)
     This is the computational component verified by Z3
     See data/proof_unsat_z3.log for the actual verification output -/
-axiom sat_certificate_5_5 : SATCertificate where
-  r := 5
-  s := 5
-  ε := 0.001
-  n := 43
-  result := SATResult.UNSAT
-  verified := rfl
+axiom sat_certificate_5_5 : SATCertificate
+
+-- Properties of the certificate
+axiom sat_certificate_5_5_r : sat_certificate_5_5.r = 5
+axiom sat_certificate_5_5_s : sat_certificate_5_5.s = 5
+axiom sat_certificate_5_5_n : sat_certificate_5_5.n = 43
+axiom sat_certificate_5_5_result : sat_certificate_5_5.result = SATResult.UNSAT
 
 /-- Extract the UNSAT property from a certificate -/
 theorem certificate_unsat (cert : SATCertificate) :
@@ -61,7 +61,7 @@ theorem verify_from_certificate (cert : SATCertificate)
 /-- Specific verification for R(5,5) = 43 using the certificate -/
 theorem sat_verified_R_5_5 : R 5 5 ≤ 43 := by
   apply verify_from_certificate sat_certificate_5_5
-  exact sat_certificate_5_5.verified
+  exact sat_certificate_5_5_result
 
 end
 

@@ -4,12 +4,5 @@
 
 import Ramsey.Reduction
 
-namespace Ramsey
-
--- Re-export main reduction theorems for verification purposes
-export Reduction (vibrational_implies_classical)
-export Reduction (vibToClassical)
-export Reduction (vib_unsat_implies_classical_valid)
-export Reduction (reduction_via_sat)
-
-end Ramsey
+-- This module simply re-exports Ramsey.Reduction
+-- All theorems and definitions from Reduction.lean are available when importing ReductionProof
