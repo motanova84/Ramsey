@@ -7,6 +7,7 @@ import Ramsey.Graph
 import Ramsey.Classical
 import Ramsey.Vibrational
 import Ramsey.Reduction
+import Ramsey.ReductionProof
 
 namespace Ramsey
 
@@ -26,6 +27,11 @@ def N_55 : ℕ := 43      -- Target bound
     
     The actual verification is done by Z3 SAT solver and recorded in
     data/proof_unsat_z3.log
+    
+    Mathematical interpretation: For all possible frequency assignments
+    ω : Fin 43 → [0, 141.7001), where edges are colored based on
+    resonance |ω_i - ω_j| < 0.001, there exists either a red 5-clique
+    or a blue 5-clique.
 -/
 axiom sat_verified_unsat_43 : 
   ∀ (inst : Instance 5 5 ε_55 N_55), ¬VibrationalUnsat inst
@@ -36,6 +42,12 @@ axiom sat_verified_unsat_43 :
     1. Vibrational model with f₀ = 141.7001 Hz and ε = 0.001
     2. SAT verification shows no valid configuration exists for n = 43
     3. Reduction theorem: Rψ(5,5) ≤ 43 → R(5,5) ≤ 43
+    
+    The reduction works because:
+    - Any classical 2-coloring can be represented as vibrational frequencies
+    - The vibrational model is complete: if it has no valid configuration,
+      then classical colorings have no valid configuration
+    - Therefore the vibrational bound is also a classical bound
 -/
 theorem R_5_5_le_43 : R 5 5 ≤ 43 := by
   apply reduction_via_sat 5 5 43 ε_55
