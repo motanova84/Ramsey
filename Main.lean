@@ -7,6 +7,7 @@ import Ramsey.Vibrational
 import Ramsey.Reduction
 import Ramsey.R55Proof
 import Ramsey.HamiltonianOperator
+import Ramsey.SATVerification
 
 open Ramsey
 
@@ -22,6 +23,7 @@ def main : IO Unit := do
   IO.println "  ✓ Reduction.lean          - Theorem: Rψ(r,s) ≤ N → R(r,s) ≤ N"
   IO.println "  ✓ R55Proof.lean           - Main theorem: R(5,5) = 43"
   IO.println "  ✓ HamiltonianOperator.lean - Self-adjoint operator Hψ theory"
+  IO.println "  ✓ SATVerification.lean    - LRAT certificate importer and verifier"
   IO.println ""
   IO.println "Main Theorem:"
   IO.println "  R(5,5) = 43"
