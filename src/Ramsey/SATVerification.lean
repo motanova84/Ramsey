@@ -55,7 +55,7 @@ theorem certificate_unsat (cert : SATCertificate) :
 theorem verify_from_certificate (cert : SATCertificate) 
     (h : cert.result = SATResult.UNSAT) :
     R cert.r cert.s ≤ cert.n := by
-  apply reduction_via_sat
+  apply reduction_via_sat cert.r cert.s cert.n cert.ε
   exact certificate_unsat cert
 
 /-- Specific verification for R(5,5) = 43 using the certificate -/
