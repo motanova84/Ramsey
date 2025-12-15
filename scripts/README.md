@@ -81,6 +81,74 @@ The script requires:
 - **ReductionProof.lean**: Alias module for Reduction.lean, provides explicit namespace
 - **SATVerification.lean**: Encapsulates SAT solver verification logic and certificates
 
+## R(5,5) = 43 Verification Scripts
+
+### verify_ramsey_r55.sh
+
+Complete 5-step verification script for R(5,5) = 43 theorem.
+
+**Usage:**
+```bash
+./scripts/verify_ramsey_r55.sh
+```
+
+**Steps:**
+1. Verifies SAT solver results (generates n=43 instance if needed)
+2. Compiles and verifies Lean 4 proofs
+3. Counts `sorry` statements in codebase
+4. Validates .qcal_beacon certificate
+5. Displays final verification status
+
+**Requirements:**
+- Python 3.8+
+- Z3 or Kissat SAT solver (optional but recommended)
+- Lean 4 with lake (optional but recommended)
+
+### verify_qcal_beacon.py
+
+Validates QCAL ∞³ beacon certificates for cryptographic verification.
+
+**Usage:**
+```bash
+python scripts/verify_qcal_beacon.py .qcal_beacon
+```
+
+**Checks:**
+- Frequency f₀ = 141.7001 Hz present
+- R(5,5) theorem statement
+- QCAL ∞³ framework markers
+- Certification metadata
+- Computes SHA256 hash
+
+**Returns:**
+- Exit code 0 if certificate is valid
+- Exit code 1 if validation fails
+
+### generate_rpsi_5_5_n43.py
+
+Generates SAT instance for R(5,5) = 43 verification.
+
+**Usage:**
+```bash
+python scripts/generate_rpsi_5_5_n43.py
+```
+
+**Output:**
+- File: `data/rpsi_5_5_n43.cnf`
+- Variables: 903 (one per edge in K₄₃)
+- Clauses: 1,925,196
+- Size: ~84 MB
+- Format: DIMACS CNF
+
+**Parameters:**
+- n = 43 (vertices)
+- r = 5 (red clique to avoid)
+- s = 5 (blue clique to avoid)
+- f₀ = 141.7001 Hz (vibrational frequency)
+- ε = 0.001 Hz (coherence threshold)
+
+**Note:** The generated CNF file is large and not committed to git. Run this script to regenerate it locally.
+
 ## Other Scripts
 
 - `generate_graphs.py`: Python script for graph generation
