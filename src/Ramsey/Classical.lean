@@ -52,6 +52,16 @@ axiom R_4_4_eq : R 4 4 = 18
 axiom R_5_5_lower : R 5 5 ≥ 43
 axiom R_5_5_upper : R 5 5 ≤ 48
 
+/-- If R(r,s) ≥ N, there exists a graph with N vertices that avoids cliques -/
+lemma exists_counterexample_of_lt_R (r s N : ℕ) (h : R r s ≥ N) :
+    ∃ (n : ℕ) (hn : n = N) (G : Graph n) (c : Coloring n),
+      ¬hasRedClique c r ∧ ¬hasBlueClique c s := by
+  sorry
+
+/-- Lower bound function for R(r,s) -/
+def R_lower_bound (r s N : ℕ) : Prop :=
+  R r s ≥ N
+
 end
 
 end Ramsey

@@ -13,5 +13,10 @@ lean_lib «Ramsey» where
 lean_exe «ramsey-formal» where
   root := `Main
 
+-- Verification script
+lean_exe verify_all where
+  root := `scripts.verify_all
+
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4.git"
+
