@@ -51,9 +51,9 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 
 if command -v lake &> /dev/null; then
     echo "Compilando proyecto Lean..."
-    lake build > /tmp/lean_build.log 2>&1 || true
-    
-    if [ $? -eq 0 ]; then
+    lake build > /tmp/lean_build.log 2>&1
+    build_status=$?
+    if [ $build_status -eq 0 ]; then
         echo -e "${GREEN}✓ Lean 4: Compilación exitosa${NC}"
     else
         echo -e "${BLUE}⚠ Lean 4: Compilación con advertencias (ver /tmp/lean_build.log)${NC}"
