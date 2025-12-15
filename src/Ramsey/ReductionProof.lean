@@ -45,24 +45,27 @@ theorem vib_to_classical_preserves_validity {n r s : ℕ} {ε : ℝ}
     (inst : Instance r s ε n) 
     (h : VibrationalUnsat inst) :
     isValidRamseyColoring (vibToClassical inst) r s := by
-  sorry
+  -- TODO: Complete this proof
   -- This proof would show that if VibrationalUnsat holds,
   -- then the induced classical coloring avoids both cliques
+  sorry
 
 /-- Key lemma: Classical coloring can be embedded into vibrational model -/
 theorem classical_embeds_in_vibrational {n r s : ℕ} (ε : ℝ) (hε : 0 < ε)
     (c : Coloring n) :
     ∃ (inst : Instance r s ε n), 
       ∀ i j, c i j = true ↔ isRed inst.ω i j := by
-  sorry
+  -- TODO: Complete this proof
   -- This would construct a vibrational instance that realizes
   -- the given classical coloring
+  sorry
 
 /-- Main reduction theorem: completeness direction -/
 theorem reduction_completeness (r s N : ℕ) (ε : ℝ) (hε : 0 < ε)
     (h_vib : ∀ (inst : Instance r s ε N), ¬VibrationalUnsat inst) :
     ∀ (c : Coloring N), hasRedClique c r ∨ hasBlueClique c s := by
   intro c
+  -- TODO: Complete this proof
   -- By classical_embeds_in_vibrational, c corresponds to some inst
   -- By h_vib, inst doesn't satisfy VibrationalUnsat
   -- Therefore inst has either a red r-clique or blue s-clique
@@ -74,6 +77,7 @@ theorem reduction_soundness (r s N : ℕ) (ε : ℝ) (hε : 0 < ε)
     (h_classical : R r s ≤ N) :
     ∀ (inst : Instance r s ε N), ¬VibrationalUnsat inst := by
   intro inst h_unsat
+  -- TODO: Complete this proof
   -- If inst satisfies VibrationalUnsat, the induced coloring is valid
   have h_valid := vib_to_classical_preserves_validity inst h_unsat
   -- But this contradicts R(r,s) ≤ N
