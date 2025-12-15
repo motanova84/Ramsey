@@ -14,7 +14,6 @@ Uso:
 
 import sys
 import subprocess
-import os
 from pathlib import Path
 import argparse
 
@@ -191,8 +190,8 @@ def test_beacon_file():
         print_success("Contiene frecuencia f₀ = 141.7001 Hz")
         return True
     else:
-        print_warning("No se encontró frecuencia f₀ en el beacon")
-        return True  # No crítico
+        print_failure("No se encontró frecuencia f₀ en el beacon")
+        return False
 
 def test_demo_script(verbose=False):
     """Test 7: Ejecutar demo.py y verificar que funciona."""

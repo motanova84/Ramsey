@@ -16,9 +16,8 @@ Uso:
 """
 
 import sys
-import time
 import argparse
-from typing import Optional
+from typing import Optional, Callable
 
 # Códigos de color ANSI
 class Colors:
@@ -55,11 +54,12 @@ def print_warning(text: str):
     """Imprime una advertencia."""
     print(f"{Colors.WARNING}⚠ {text}{Colors.ENDC}")
 
-def wait_for_user(prompt: str = "Presiona Enter para continuar..."):
-    """Espera a que el usuario presione Enter."""
-    input(f"\n{Colors.OKBLUE}{prompt}{Colors.ENDC}")
+def wait_for_user(prompt: str = "Presiona Enter para continuar...", enabled: bool = True):
+    """Espera a que el usuario presione Enter si enabled es True."""
+    if enabled:
+        input(f"\n{Colors.OKBLUE}{prompt}{Colors.ENDC}")
 
-def pillar_1_combinatorics():
+def pillar_1_combinatorics(wait_enabled: bool = True):
     """Pilar 1: Combinatoria - Teoría de Ramsey"""
     print_header("PILAR 1: COMBINATORIA")
     
@@ -78,7 +78,7 @@ En cualquier grupo de 6 personas:
   • Siempre hay 3 que son mutuamente extraños (clique rojo)
     """)
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("1.2 El Problema Histórico: R(5,5)")
     print("""
@@ -92,7 +92,7 @@ Valores conocidos:
     print_warning("Espacio de búsqueda: 2^903 ≈ 10^271 coloraciones")
     print_warning("Imposible verificar por fuerza bruta!")
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("1.3 Complejidad Clásica")
     print("""
@@ -108,7 +108,7 @@ Para verificar R(5,5) ≤ 43 clásicamente:
     
     print_info("¡Se necesita un enfoque completamente nuevo!")
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("1.4 Resultado de Este Trabajo")
     print_success("TEOREMA: R(5,5) = 43")
@@ -119,7 +119,7 @@ Demostrado usando la metodología del siglo XXI:
   ✓ Triple certificación independiente
     """)
 
-def pillar_2_quantum_physics():
+def pillar_2_quantum_physics(wait_enabled: bool = True):
     """Pilar 2: Física Cuántica - Modelo Vibracional"""
     print_header("PILAR 2: FÍSICA CUÁNTICA - MODELO VIBRACIONAL")
     
@@ -138,7 +138,7 @@ Modelo Vibracional:
     print("  • f₀ = 141.7001 Hz  (frecuencia universal QCAL ∞³)")
     print("  • ε = 0.001 Hz      (umbral de coherencia)")
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("2.2 La Frecuencia Universal: 141.7001 Hz")
     print("""
@@ -160,7 +160,7 @@ Esta frecuencia emerge en múltiples dominios independientes:
     print()
     print_success("Hipótesis: f₀ es una constante universal fundamental")
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("2.3 Reducción de Complejidad")
     print("""
@@ -181,7 +181,7 @@ Comparación de espacios de búsqueda:
     print_success("Reducción: De exponencial a polinomial")
     print_success("Mejora: ~100x más pequeño")
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("2.4 Intuición Física")
     print("""
@@ -199,7 +199,7 @@ el modelo clásico puramente combinatorio.
     
     print_info("Principio: El orden emerge cuando sistemas resuenan en armonía")
 
-def pillar_3_machine_verification():
+def pillar_3_machine_verification(wait_enabled: bool = True):
     """Pilar 3: Verificación Lógica Asistida por Máquina"""
     print_header("PILAR 3: VERIFICACIÓN LÓGICA ASISTIDA POR MÁQUINA")
     
@@ -217,7 +217,7 @@ Para máxima confianza, usamos TRES capas de verificación independiente:
     for num, tipo, herramienta in layers:
         print(f"  {Colors.BOLD}{num}{Colors.ENDC}: {tipo:15} → {Colors.OKCYAN}{herramienta}{Colors.ENDC}")
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("3.2 Capa 1: Verificación Automática (SAT)")
     print("""
@@ -244,7 +244,7 @@ Proceso:
     print("  • Tiempo: ~12 minutos")
     print_success("  • Resultado: UNSAT ✓")
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("3.3 Capa 2: Verificación Formal (Lean 4)")
     print("""
@@ -268,7 +268,7 @@ Componentes:
     print_success("Verificación: lake build (compila sin errores)")
     print_success("Estado: 0 sorrys (prueba completa)")
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("3.4 Capa 3: Certificación Criptográfica")
     print("""
@@ -294,7 +294,7 @@ El archivo .qcal_beacon contiene:
     
     print_success("Ventajas: Inmutable, auditable, reproducible")
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("3.5 ¿Por Qué Triple Certificación?")
     print("""
@@ -316,7 +316,7 @@ Cada capa complementa a las otras:
     print()
     print_success("JUNTAS: Eficiencia + Rigor + Fundamento físico")
 
-def conclusion():
+def conclusion(wait_enabled: bool = True):
     """Conclusión del tutorial"""
     print_header("CONCLUSIÓN")
     
@@ -342,7 +342,7 @@ Hemos demostrado cómo combinar:
     print()
     print_success("RESULTADO: R(5,5) = 43 (formalmente demostrado)")
     
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("Lecciones Clave")
     lecciones = [
@@ -357,7 +357,7 @@ Hemos demostrado cómo combinar:
         print(f"\n  {Colors.BOLD}{i}.{Colors.ENDC} {leccion}")
     
     print()
-    wait_for_user()
+    wait_for_user(enabled=wait_enabled)
     
     print_section("Próximos Pasos")
     print("""
@@ -414,31 +414,28 @@ def main():
     
     args = parser.parse_args()
     
-    # Modificar wait_for_user si --no-wait
-    global wait_for_user
-    if args.no_wait:
-        wait_for_user = lambda prompt="": None
+    # Determinar si esperar input del usuario
+    wait_enabled = not args.no_wait
     
     # Título principal
     print_header("TUTORIAL: METODOLOGÍA DE PRUEBA DEL SIGLO XXI")
     print(f"{Colors.OKCYAN}Demostración práctica de resolución de R(5,5) = 43{Colors.ENDC}")
     print(f"{Colors.OKCYAN}Combinando: Combinatoria + Física Cuántica + Verificación Lógica{Colors.ENDC}")
     
-    if not args.no_wait:
-        wait_for_user("Presiona Enter para comenzar...")
+    wait_for_user("Presiona Enter para comenzar...", enabled=wait_enabled)
     
     # Ejecutar pilares
     if args.pillar is None or args.pillar == 1:
-        pillar_1_combinatorics()
+        pillar_1_combinatorics(wait_enabled)
     
     if args.pillar is None or args.pillar == 2:
-        pillar_2_quantum_physics()
+        pillar_2_quantum_physics(wait_enabled)
     
     if args.pillar is None or args.pillar == 3:
-        pillar_3_machine_verification()
+        pillar_3_machine_verification(wait_enabled)
     
     if args.pillar is None:
-        conclusion()
+        conclusion(wait_enabled)
     
     return 0
 
