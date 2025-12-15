@@ -17,10 +17,11 @@ example {n r s : ℕ} {ε : ℝ} (inst : Instance r s ε n) :
   use vibToClassical inst
 
 -- Test basic properties of reduction
-example (r s N : ℕ) (ε : ℝ) :
+example (r s N : ℕ) (ε : ℝ) (hε : 0 < ε) (hε_small : ε < 1) :
     (∀ (inst : Instance r s ε N), ¬VibrationalUnsat inst) →
     R r s ≤ N := by
   intro h
+  exact vibrational_implies_classical r s N ε hε hε_small h
   exact vibrational_implies_classical r s N ε h
 
 -- Test that vibrational unsat implies classical valid coloring

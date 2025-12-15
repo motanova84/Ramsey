@@ -18,6 +18,17 @@ Este documento proporciona un índice completo de toda la documentación relacio
    - **Audiencia**: Todos los usuarios
    - **📄 [Ver README.md](README.md)**
 
+### 1a. **GETTING_STARTED.md** - Guía para Principiantes 🎓
+   - **Descripción**: Explicación accesible para quienes no son matemáticos
+   - **Contiene**:
+     - ¿Qué es un número de Ramsey? (explicación simple)
+     - Qué logró este proyecto
+     - Los tres pilares de verificación explicados claramente
+     - El enfoque vibracional en términos simples
+     - Cómo explorar el repositorio
+   - **Audiencia**: Principiantes, estudiantes, público general
+   - **📄 [Ver GETTING_STARTED.md](GETTING_STARTED.md)**
+
 ### 2. **CANONICAL_EXAMPLE.md** - Documento Definitivo ⭐
    - **Descripción**: Explicación exhaustiva de por qué este es un ejemplo canónico
    - **Contiene**:
