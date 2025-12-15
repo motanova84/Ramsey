@@ -10,41 +10,41 @@ open System
 
 namespace Ramsey
 
--- Estructura para certificados SAT
+-- Structure for SAT certificates
 structure LRATCertificate where
   formula_hash : String
   proof_steps : List String
   verified_by : String := "Kissat+LRAT"
 
--- Leer certificado del archivo
+-- Read certificate from file
 def read_certificate (path : String) : IO LRATCertificate := do
   let content ← FS.readFile path
   let lines := content.splitOn "\n"
   pure {
     formula_hash := lines.getD 0 ""
     proof_steps := lines.drop 1
-    verified_by := "Kissat"
+    verified_by := "Kissat+LRAT"
   }
 
--- Certificado específico para R(5,5)
+-- Certificate path for R(5,5)
 def r55_certificate_path : String := "data/proof_unsat_z3.log"
 
--- Teorema construido desde el certificado
--- Este teorema representa una prueba basada en el certificado SAT
--- En una implementación completa, parsearía y verificaría el certificado LRAT
+-- Theorem built from the certificate
+-- This theorem represents a proof based on the SAT certificate
+-- In a complete implementation, it would parse and verify the LRAT certificate
 theorem R55_unsat_proof : ∀ (inst : Instance 5 5 ε_55 N_55), ¬VibrationalUnsat inst := by
-  -- En la práctica, esto parsearía el certificado LRAT
-  -- Para este ejemplo, asumimos que el certificado es válido
+  -- In practice, this would parse the LRAT certificate
+  -- For this example, we assume the certificate is valid
   intro inst
   
-  -- Cargar certificado (en ejecución real)
+  -- Load certificate (in actual execution)
   -- let cert ← read_certificate r55_certificate_path
   
-  -- El certificado LRAT de Z3/Kissat prueba que no existe ninguna
-  -- configuración vibracional de 43 vértices que evite ambos cliques
+  -- The Z3/Kissat LRAT certificate proves that no vibrational
+  -- configuration of 43 vertices can avoid both cliques
   
-  -- Por ahora, usamos el axioma existente que representa la verificación SAT
-  -- En una implementación completa, esto verificaría cada paso del certificado
+  -- For now, we use the existing axiom that represents SAT verification
+  -- In a complete implementation, this would verify each step of the certificate
   exact sat_verified_unsat_43 inst
 
 end Ramsey

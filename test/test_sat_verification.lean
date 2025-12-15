@@ -21,10 +21,12 @@ example : r55_certificate_path = "data/proof_unsat_z3.log" := rfl
 example : ∀ (inst : Instance 5 5 ε_55 N_55), ¬VibrationalUnsat inst := 
   R55_unsat_proof
 
--- Verify that R55_unsat_proof has the same type as sat_verified_unsat_43
--- This confirms they prove the same statement
-example : (∀ (inst : Instance 5 5 ε_55 N_55), ¬VibrationalUnsat inst) = 
-          (∀ (inst : Instance 5 5 ε_55 N_55), ¬VibrationalUnsat inst) := rfl
+-- Verify that both theorems can be used interchangeably
+example (inst : Instance 5 5 ε_55 N_55) : ¬VibrationalUnsat inst :=
+  R55_unsat_proof inst
+
+example (inst : Instance 5 5 ε_55 N_55) : ¬VibrationalUnsat inst :=
+  sat_verified_unsat_43 inst
 
 -- Test that the LRATCertificate structure can be constructed
 example : LRATCertificate := {
