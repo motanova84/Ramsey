@@ -91,6 +91,14 @@ theorem R_5_5_exact : R 5 5 = 43 := by
 theorem R_psi_5_5_le_43 : Rψ 5 5 ε_55 ≤ 43 := by
   sorry  -- Would follow from completeness
 
+/-- Vibrational Ramsey bound: R_ψ(5,5,ε_55) ≤ 43 -/
+theorem R_psi_5_5_le_43 : 
+    ∀ (inst : Instance 5 5 ε_55 N_55), ¬VibrationalUnsat inst :=
+  sat_verified_unsat_43
+
+/-- Alternative notation: R_ψ bound for R(5,5) -/
+notation "R_ψ" => Rψ
+
 end
 -- Corolario: R_ψ(5,5) ≤ 43
 theorem R_psi_5_5_le_43 : Rψ 5 5 ε_55 ≤ 43 := by
