@@ -5,8 +5,14 @@ Display the Sello Noēsico (Noetic Seal) certification for R(5,5) = 43
 
 def display_seal():
     """Display the ASCII art verification seal"""
-    with open('VERIFICATION_SEAL.txt', 'r') as f:
-        print(f.read())
+    try:
+        with open('VERIFICATION_SEAL.txt', 'r') as f:
+            print(f.read())
+    except FileNotFoundError:
+        print("Error: VERIFICATION_SEAL.txt not found")
+        print("Please ensure you are running this script from the repository root directory.")
+        return False
+    return True
 
 def display_certification_summary():
     """Display a summary of the certification"""
@@ -34,5 +40,5 @@ def display_certification_summary():
 
 if __name__ == "__main__":
     print("\n")
-    display_seal()
-    display_certification_summary()
+    if display_seal():
+        display_certification_summary()
