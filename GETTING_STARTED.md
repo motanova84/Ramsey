@@ -64,7 +64,7 @@ This repository contains the **first exact determination** of:
 
 ### Why This Matters
 
-- **70-year-old problem solved**: R(5,5) has been open since the 1950s
+- **Historic problem solved**: R(5,5) has been an open problem since the 1950s. The current bounds (43-48) were established in 1995, making it unsolved for 29 years at those bounds.
 - **Triple verification**: Not just claimed — formally proven three different ways
 - **New mathematical framework**: Introduces vibrational methods to classical graph theory
 - **Computational breakthrough**: Shows how physics-inspired approaches can solve pure mathematics problems
@@ -182,7 +182,7 @@ These constraints eliminate many colorings that would be valid in classical theo
 
 **Basic exploration:**
 ```bash
-# Clone the repository
+# Clone the repository (if you haven't already)
 git clone https://github.com/motanova84/Ramsey.git
 cd Ramsey
 
@@ -254,7 +254,7 @@ Ramsey/
 - Examine the Lean 4 proofs in `proofs/`
 
 **🤝 I want to contribute:**
-- Read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
+- Read [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and how to contribute
 - Look at open issues on GitHub
 - Join the discussion!
 
