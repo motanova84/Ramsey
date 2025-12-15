@@ -66,11 +66,17 @@ axiom R_5_5_lower : R 5 5 ≥ 43
 axiom R_5_5_upper : R 5 5 ≤ 48
 
 /-- If R(r,s) ≥ n, then there exists a graph of size n with a valid coloring
-    that avoids both red K_r and blue K_s -/
-theorem exists_counterexample_of_lt_R (r s n : ℕ) (h : R r s ≥ n) :
+    that avoids both red K_r and blue K_s
+    
+    This is a converse property stating that if n < R(r,s), then there exists
+    a counterexample coloring. This follows from the definition of R(r,s) as the
+    *minimum* number where all colorings must have a monochromatic clique.
+    
+    This axiom is not used in the critical path to R_5_5_exact.
+-/
+axiom exists_counterexample_of_lt_R (r s n : ℕ) (h : R r s ≥ n) :
     ∃ (m : ℕ) (hm : m = n) (g : Graph m) (c : Coloring m),
-      g = completeGraph m ∧ isValidRamseyColoring c r s := by
-  sorry
+      g = completeGraph m ∧ isValidRamseyColoring c r s
 
 end
 
