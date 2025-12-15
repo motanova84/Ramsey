@@ -39,7 +39,12 @@ axiom sat_verified_unsat_43 :
 -/
 theorem R_5_5_le_43 : R 5 5 ≤ 43 := by
   apply reduction_via_sat 5 5 43 ε_55
-  exact sat_verified_unsat_43
+  · -- 0 < ε_55
+    norm_num [ε_55]
+  · -- ε_55 < 1
+    norm_num [ε_55]
+  · -- SAT verified
+    exact sat_verified_unsat_43
 
 /-- Corollary: Combined with known lower bound, R(5,5) ∈ {43, 44, 45, 46, 47, 48} -/
 theorem R_5_5_tight_bound : 43 ≤ R 5 5 ∧ R 5 5 ≤ 43 := by
