@@ -201,6 +201,8 @@ theorem vibrational_implies_classical (r s N : ℕ)
 | `Classical.lean` | Números de Ramsey R(r,s), propiedades básicas |
 | `Vibrational.lean` | Definición Rψ(r,s,ε), modelo vibracional |
 | `Reduction.lean` | Teorema: Rψ(r,s) ≤ N → R(r,s) ≤ N |
+| `Instance.lean` | Instancias vibracionales compatibles con SAT |
+| `ReductionProof.lean` | Prueba detallada de reducción con redondeo de malla |
 | `R55Proof.lean` | **Prueba final: R(5,5) = 43** |
 
 #### 2. Verificación SAT con Z3
