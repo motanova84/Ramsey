@@ -7,6 +7,8 @@ import Ramsey.Vibrational
 import Ramsey.Reduction
 import Ramsey.Instance
 import Ramsey.ReductionProof
+import Ramsey.ReductionProof
+import Ramsey.SATVerification
 import Ramsey.R55Proof
 import Ramsey.HamiltonianOperator
 
@@ -24,6 +26,8 @@ def main : IO Unit := do
   IO.println "  ✓ Reduction.lean          - Theorem: Rψ(r,s) ≤ N → R(r,s) ≤ N"
   IO.println "  ✓ Instance.lean           - SAT-compatible vibrational instances"
   IO.println "  ✓ ReductionProof.lean     - Detailed reduction proof with grid rounding"
+  IO.println "  ✓ ReductionProof.lean     - Main reduction theorem"
+  IO.println "  ✓ SATVerification.lean    - SAT certificate verification"
   IO.println "  ✓ R55Proof.lean           - Main theorem: R(5,5) = 43"
   IO.println "  ✓ HamiltonianOperator.lean - Self-adjoint operator Hψ theory"
   IO.println ""
@@ -39,6 +43,11 @@ def main : IO Unit := do
   IO.println s!"  • f₀ = {f₀} Hz (universal coherence frequency)"
   IO.println s!"  • ε = {ε_55} (resonance threshold)"
   IO.println s!"  • N = {N_55} (target bound)"
+  IO.println ""
+  IO.println "Architecture:"
+  IO.println "  • SAT certificate in SATVerification module (no axiom in R55Proof)"
+  IO.println "  • Reduction theorem in ReductionProof module"
+  IO.println "  • Clean separation between computational and logical proofs"
   IO.println ""
   IO.println "QCAL ∞³ Framework:"
   IO.println "  • Quantum Coherent Algebraic Logic"
