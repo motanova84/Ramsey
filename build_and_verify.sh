@@ -54,17 +54,31 @@ else
     exit 1
 fi
 
-# 5. Ejecutar tests
+# 5. Ejecutar tests (compilar archivos de test)
 echo ""
 echo "5. Ejecutando tests..."
-lake test
-
-if [ $? -eq 0 ]; then
-    echo "✅ Todos los tests pasaron"
-else
-    echo "❌ Algunos tests fallaron"
+echo "   Compilando test/test_r55.lean..."
+lake env lean test/test_r55.lean > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "❌ Error en test_r55.lean"
     exit 1
 fi
+
+echo "   Compilando test/test_reduction.lean..."
+lake env lean test/test_reduction.lean > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "❌ Error en test_reduction.lean"
+    exit 1
+fi
+
+echo "   Compilando test/test_hamiltonian.lean..."
+lake env lean test/test_hamiltonian.lean > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "❌ Error en test_hamiltonian.lean"
+    exit 1
+fi
+
+echo "✅ Todos los tests pasaron"
 
 echo ""
 echo "================================================"
