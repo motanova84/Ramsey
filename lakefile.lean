@@ -1,13 +1,28 @@
+-- lakefile.lean
 import Lake
 open Lake DSL
 
-package «ramsey-formal» where
-  -- Ramsey formal verification project
-  -- Proves R(5,5) = 43 via vibrational reduction
+package Ramsey where
+  -- more package configuration options go here
+
+require mathlib from git
+  "https://github.com/leanprover-community/mathlib4.git" @ "v4.10.0"
 
 @[default_target]
-lean_exe «ramsey-formal» where
-  root := `Main
+lean_lib Ramsey where
+  -- add library configuration options here
+  globs := #[.submodules "Ramsey"]
+
+-- Verification script
+lean_exe verify_all where
+  root := `scripts.verify_all
 
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4.git"
+
+lean_exe verify_all where
+  root := `scripts.verify_all
+
+-- Dependencia para certificados SAT
+require «aesop» from git
+  "https://github.com/leanprover-community/aesop" @ "master"
