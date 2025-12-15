@@ -76,6 +76,14 @@ axiom vibrational_completeness (r s n : ℕ) (ε : ℝ) (h : n ≥ Rψ r s ε) :
 axiom vibrational_polynomial_bound (r s : ℕ) (ε : ℝ) (h : 0 < ε) :
   ∃ C : ℝ, ∀ r s, Rψ r s ε ≤ C * Real.sqrt (r * s) * Real.log (r * s)
 
+namespace Vibrational
+
+/-- If R(r,s) ≤ N then R_ψ(r,s,ε) ≤ N for any ε -/
+theorem R_psi_le_of_R_le (r s N : ℕ) (ε : ℝ) (h : R r s ≤ N) : Rψ r s ε ≤ N := by
+  sorry
+
+end Vibrational
+
 end
 
 end Ramsey

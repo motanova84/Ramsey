@@ -65,6 +65,13 @@ axiom R_4_4_eq : R 4 4 = 18
 axiom R_5_5_lower : R 5 5 ≥ 43
 axiom R_5_5_upper : R 5 5 ≤ 48
 
+/-- If R(r,s) ≥ n, then there exists a graph of size n with a valid coloring
+    that avoids both red K_r and blue K_s -/
+theorem exists_counterexample_of_lt_R (r s n : ℕ) (h : R r s ≥ n) :
+    ∃ (m : ℕ) (hm : m = n) (g : Graph m) (c : Coloring m),
+      g = completeGraph m ∧ isValidRamseyColoring c r s := by
+  sorry
+
 end
 
 end Ramsey
