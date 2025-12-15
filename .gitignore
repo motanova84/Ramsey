@@ -66,6 +66,9 @@ htmlcov/
 /Rpsi_*.json
 # Test data
 data/test/
+
+# Large generated SAT instances (generate on demand)
+data/rpsi_5_5_n43.cnf
 # Generated runtime files (should be in certificates/ or data/)
 /Rpsi_*.lean
 /Rpsi_*.md
