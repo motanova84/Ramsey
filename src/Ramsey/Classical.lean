@@ -68,6 +68,11 @@ axiom R_5_5_upper : R 5 5 ≤ 48
 /-- R(6,6) is between 102 and 165 (best known bounds before this work) -/
 axiom R_6_6_lower_classical : R 6 6 ≥ 102
 axiom R_6_6_upper_classical : R 6 6 ≤ 165
+/-- If R(r,s) ≥ N, there exists a graph with N vertices that avoids cliques -/
+lemma exists_counterexample_of_lt_R (r s N : ℕ) (h : R r s ≥ N) :
+    ∃ (n : ℕ) (hn : n = N) (G : Graph n) (c : Coloring n),
+      ¬hasRedClique c r ∧ ¬hasBlueClique c s := by
+  sorry
 
 /-- Lower bound function for R(r,s) -/
 def R_lower_bound (r s N : ℕ) : Prop :=
