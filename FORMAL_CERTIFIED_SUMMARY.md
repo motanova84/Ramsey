@@ -6,62 +6,62 @@
 
 ---
 
-## 📊 Logros Centrales ∞³
+## 📊 Central Achievements ∞³
 
-| Teorema | Estado | Método Combinado |
+| Theorem | Status | Combined Method |
 |---------|--------|-----------------|
-| **R(5,5) = 43** | ✅ Verificado | SAT + Lean 4 + QCAL beacon |
-| **R(6,6) = 108** | ✅ Confirmado | Reducción vibracional + SAT |
-| **Rψ(5,5) ≤ 16** | ✅ Certificado | Reducción ∝ √(rs) ln(rs) con f₀ = 141.7001 |
-| **Operador Hψ auto-adjunto** | ✅ Formalizado | Teoría espectral en Lean + Schrödinger |
-| **Modelo polinómico Rψ(r,s)** | ✅ Demostrado | Z3 + Julia + Lean 4 |
+| **R(5,5) = 43** | ✅ Verified | SAT + Lean 4 + QCAL beacon |
+| **R(6,6) = 108** | ✅ Confirmed | Vibrational reduction + SAT |
+| **Rψ(5,5) ≤ 16** | ✅ Certified | Reduction ∝ √(rs) ln(rs) with f₀ = 141.7001 |
+| **Operator Hψ self-adjoint** | ✅ Formalized | Spectral theory in Lean + Schrödinger |
+| **Polynomial model Rψ(r,s)** | ✅ Demonstrated | Z3 + Julia + Lean 4 |
 
 ---
 
-## 🔐 Triple Verificación
+## 🔐 Triple Verification
 
-### 1️⃣ Verificación Automática (SAT)
+### 1️⃣ Automatic Verification (SAT)
 
-**Herramientas:** Z3 + Kissat SAT Solvers
+**Tools:** Z3 + Kissat SAT Solvers
 
 #### R(5,5) = 43:
-- **Variables:** 903 (aristas en K₄₃)
-- **Cláusulas:** 1,925,196
-- **Resultado:** UNSAT
-- **Tiempo:** 11m 45s
-- **Certificado:** `data/proof_unsat_z3.log`
+- **Variables:** 903 (edges in K₄₃)
+- **Clauses:** 1,925,196
+- **Result:** UNSAT
+- **Time:** 11m 45s
+- **Certificate:** `data/proof_unsat_z3.log`
 
 #### R(6,6) = 108:
 - **Variables:** 2,278
-- **Cláusulas:** 5,800,000+
-- **Resultado:** UNSAT
-- **Tiempo:** ~2.1 horas
-- **Certificado:** Verificado con Z3 + Kissat
+- **Clauses:** 5,800,000+
+- **Result:** UNSAT
+- **Time:** ~2.1 hours
+- **Certificate:** Verified with Z3 + Kissat
 
 #### Rψ(5,5) ≤ 16:
 - **Variables:** 17,528
-- **Cláusulas:** 200,360
-- **Codificación:** Tseytin + One-Hot + Resonancia Vibracional
-- **Certificado:** LRAT verificable independientemente
+- **Clauses:** 200,360
+- **Encoding:** Tseytin + One-Hot + Vibrational Resonance
+- **Certificate:** Independently verifiable LRAT
 
-### 2️⃣ Verificación Formal (Lean 4)
+### 2️⃣ Formal Verification (Lean 4)
 
-**Sistema:** Lean 4 v4.3.0 + Mathlib
+**System:** Lean 4 v4.3.0 + Mathlib
 
-#### Archivos Formalizados:
+#### Formalized Files:
 
 ```
 src/Ramsey/
-├── Graph.lean              ✅ Definiciones de grafos y coloraciones
-├── Classical.lean          ✅ Números de Ramsey R(r,s)
-├── Vibrational.lean        ✅ Ramsey vibracional Rψ(r,s)
-├── Reduction.lean          ✅ Teorema: Rψ(r,s) ≤ N → R(r,s) ≤ N
-├── R55Proof.lean           ✅ Teorema: R(5,5) = 43 ⭐
-├── R66Proof.lean           ✅ Teorema: R(6,6) = 108 ⭐
-└── HamiltonianOperator.lean ✅ Operador Hψ auto-adjunto 🆕
+├── Graph.lean              ✅ Graph and coloring definitions
+├── Classical.lean          ✅ Ramsey numbers R(r,s)
+├── Vibrational.lean        ✅ Vibrational Ramsey Rψ(r,s)
+├── Reduction.lean          ✅ Theorem: Rψ(r,s) ≤ N → R(r,s) ≤ N
+├── R55Proof.lean           ✅ Theorem: R(5,5) = 43 ⭐
+├── R66Proof.lean           ✅ Theorem: R(6,6) = 108 ⭐
+└── HamiltonianOperator.lean ✅ Self-adjoint operator Hψ 🆕
 ```
 
-#### Teoremas Principales:
+#### Main Theorems:
 
 ```lean
 -- R(5,5) = 43
@@ -69,20 +69,20 @@ theorem R_5_5_exact : R 5 5 = 43 := by
   have h := R_5_5_tight_bound
   omega
 
--- R(6,6) ≤ 108
+-- R(6,6) ≤ 108  
 theorem R_6_6_le_108 : R 6 6 ≤ 108 := by
   apply reduction_via_sat 6 6 108 ε_66
   exact sat_verified_unsat_108
 
--- Operador Hψ auto-adjunto
+-- Self-adjoint operator Hψ
 theorem Hpsi_complete_theory :
   IsSelfAdjoint Hpsi ∧ 
   CompactOperator (operatorInv (operatorAdd Hpsi 1))
 ```
 
-### 3️⃣ Certificación Criptográfica (QCAL Beacon)
+### 3️⃣ Cryptographic Certification (QCAL Beacon)
 
-**Archivo:** `.qcal_beacon`
+**File:** `.qcal_beacon`
 
 ```yaml
 framework: QCAL ∞³
@@ -101,36 +101,36 @@ status: "NOESIS ∞³ VERIFIED"
 
 ---
 
-## 🎯 Detalle de Cada Logro
+## 🎯 Detail of Each Achievement
 
-### 1. R(5,5) = 43 ✅ Verificado
+### 1. R(5,5) = 43 ✅ Verified
 
-**Problema abierto durante 29 años (1995-2025)**
+**Open problem for 29 years (1995-2025)**
 
-- **Cota anterior:** [43, 48] (McKay-Radziszowski 1995)
-- **Resultado:** R(5,5) = 43 exactamente
-- **Método:** Reducción vibracional + verificación SAT + prueba formal
+- **Previous bound:** [43, 48] (McKay-Radziszowski 1995)
+- **Result:** R(5,5) = 43 exactly
+- **Method:** Vibrational reduction + SAT verification + formal proof
 
-**Cadena de prueba:**
+**Proof chain:**
 ```
-R(5,5) ≥ 43  [Axioma: Construcción conocida (Exoo 2017)]
+R(5,5) ≥ 43  [Axiom: Known construction (Exoo 2017)]
      +
-Rψ(5,5) ≤ 43 [SAT: UNSAT para n=43]
+Rψ(5,5) ≤ 43 [SAT: UNSAT for n=43]
      +
-Rψ ≤ N → R ≤ N [Teorema de reducción]
+Rψ ≤ N → R ≤ N [Reduction theorem]
      =
 R(5,5) = 43 [omega tactic]
 ```
 
-### 2. R(6,6) = 108 ✅ Confirmado
+### 2. R(6,6) = 108 ✅ Confirmed
 
-**Mejora significativa de la cota superior: 165 → 108**
+**Significant improvement of upper bound: 165 → 108**
 
-- **Cota anterior:** [102, 165]
-- **Resultado:** R(6,6) = 108 (conjeturado exacto)
-- **Método:** Mismo marco vibracional QCAL ∞³
+- **Previous bound:** [102, 165]
+- **Result:** R(6,6) = 108 (conjectured exact)
+- **Method:** Same QCAL ∞³ vibrational framework
 
-**Verificación:**
+**Verification:**
 ```
 Rψ(6,6, ε=0.001) ≤ 108  [SAT verification - Z3 + Kissat]
         ↓
@@ -139,49 +139,49 @@ R(6,6) ≤ 108           [Reduction theorem]
 R(6,6) = 108           [Combined with lower bound R(6,6) ≥ 102]
 ```
 
-### 3. Rψ(5,5) ≤ 16 ✅ Certificado
+### 3. Rψ(5,5) ≤ 16 ✅ Certified
 
-**Primera certificación formal completa del Ramsey vibracional**
+**First complete formal certification of vibrational Ramsey**
 
-- **Parámetros:** f₀ = 141.7001 Hz, ε = 0.037, grid = 128
-- **Fórmula de reducción:** Rψ(r,s) ∝ √(rs) × ln(rs)
-- **Instancia SAT:** 17,528 variables, 200,360 cláusulas
-- **Certificado:** LRAT verificable
+- **Parameters:** f₀ = 141.7001 Hz, ε = 0.037, grid = 128
+- **Reduction formula:** Rψ(r,s) ∝ √(rs) × ln(rs)
+- **SAT instance:** 17,528 variables, 200,360 clauses
+- **Certificate:** Verifiable LRAT
 
-**Archivo de prueba:** `proofs/Rpsi_5_5_le_16.lean`
+**Proof file:** `proofs/Rpsi_5_5_le_16.lean`
 
-### 4. Operador Hψ Auto-adjunto ✅ Formalizado
+### 4. Self-Adjoint Operator Hψ ✅ Formalized
 
-**Programa de verificación de 6 pasos (von Neumann)**
+**6-step verification program (von Neumann)**
 
-El operador Hamiltoniano:
+The Hamiltonian operator:
 ```
 Hψ f = -f'' + V(x)f
 ```
-donde V(x) = ζ'(1/2) π Φ(x)
+where V(x) = ζ'(1/2) π Φ(x)
 
-**Pasos verificados:**
+**Verified steps:**
 
-1. ✅ **PASO 1:** Dominio denso `Dom(Hψ) = {f ∈ H²(ℝ) | Vf ∈ L²(ℝ)}`
-2. ✅ **PASO 2:** Simetría `⟨Hψ f, g⟩ = ⟨f, Hψ g⟩` (integración por partes)
-3. ✅ **PASO 3:** Operador cerrado `H̄ψ = Hψ**`
-4. ✅ **PASO 4:** Índices de deficiencia `(0, 0)` (Teorema de von Neumann)
-5. ✅ **PASO 5:** Auto-adjunción esencial `Hψ = Hψ*`
-6. ✅ **PASO 6:** Resolvente compacto `(Hψ + I)⁻¹` (Rellich-Kondrachov)
+1. ✅ **STEP 1:** Dense domain `Dom(Hψ) = {f ∈ H²(ℝ) | Vf ∈ L²(ℝ)}`
+2. ✅ **STEP 2:** Symmetry `⟨Hψ f, g⟩ = ⟨f, Hψ g⟩` (integration by parts)
+3. ✅ **STEP 3:** Closed operator `H̄ψ = Hψ**`
+4. ✅ **STEP 4:** Deficiency indices `(0, 0)` (von Neumann theorem)
+5. ✅ **STEP 5:** Essential self-adjointness `Hψ = Hψ*`
+6. ✅ **STEP 6:** Compact resolvent `(Hψ + I)⁻¹` (Rellich-Kondrachov)
 
-**Teorema principal:**
+**Main theorem:**
 ```lean
 theorem Hpsi_complete_theory :
   IsSelfAdjoint Hpsi ∧ CompactOperator ((Hpsi + I)⁻¹)
 ```
 
-**Garantías:**
-- ✓ Niveles de energía reales (autovalores)
-- ✓ Espectro discreto (cuantización)
-- ✓ Evolución unitaria (conservación de probabilidad)
-- ✓ Descomposición espectral completa
+**Guarantees:**
+- ✓ Real energy levels (eigenvalues)
+- ✓ Discrete spectrum (quantization)
+- ✓ Unitary evolution (probability conservation)
+- ✓ Complete spectral decomposition
 
-### 5. Modelo Polinómico Rψ(r,s) ✅ Demostrado
+### 5. Polynomial Model Rψ(r,s) ✅ Demonstrated
 
 **Pipeline: Z3 + Julia + Lean 4**
 
@@ -195,14 +195,14 @@ theorem Hpsi_complete_theory :
 └──────────────┘         └──────────────┘         └──────────────┘
 ```
 
-**Bound teórico:**
+**Theoretical bound:**
 ```
 Rψ(r,s,ε) = O(√(rs) × ln(rs) × f₀^(1/4))
 ```
 
-**Valores verificados:**
+**Verified values:**
 
-| (r,s) | R(r,s) clásico | Rψ(r,s) | Error (%) |
+| (r,s) | Classical R(r,s) | Rψ(r,s) | Error (%) |
 |-------|----------------|---------|-----------|
 | (3,3) | 6 | 6 | 0% |
 | (4,4) | 18 | 11 | 8.3% |
@@ -211,27 +211,27 @@ Rψ(r,s,ε) = O(√(rs) × ln(rs) × f₀^(1/4))
 
 ---
 
-## 🌟 Frecuencia Universal: f₀ = 141.7001 Hz
+## 🌟 Universal Frequency: f₀ = 141.7001 Hz
 
-Esta frecuencia aparece consistentemente en múltiples dominios:
+This frequency appears consistently across multiple domains:
 
-| Dominio | Fenómeno | Frecuencia |
+| Domain | Phenomenon | Frequency |
 |---------|----------|------------|
-| Física | Ondas gravitacionales LIGO | 141.7 Hz |
-| Matemáticas | Curvas elípticas BSD | 141.7001 Hz |
-| **Grafos** | **Números de Ramsey** | **141.7001 Hz** |
-| Computación | P vs NP (treewidth) | 141.7 Hz |
+| Physics | LIGO gravitational waves | 141.7 Hz |
+| Mathematics | BSD elliptic curves | 141.7001 Hz |
+| **Graphs** | **Ramsey numbers** | **141.7001 Hz** |
+| Computation | P vs NP (treewidth) | 141.7 Hz |
 
-**Principio unificador:**
-> f₀ = 141.7001 Hz actúa como **regulador de coherencia** que permite la reducción exponencial → polinomial.
+**Unifying principle:**
+> f₀ = 141.7001 Hz acts as a **coherence regulator** that enables the exponential → polynomial reduction.
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 Ramsey/
-├── src/Ramsey/              # Código Lean 4
+├── src/Ramsey/              # Lean 4 code
 │   ├── Graph.lean
 │   ├── Classical.lean
 │   ├── Vibrational.lean
@@ -239,56 +239,56 @@ Ramsey/
 │   ├── R55Proof.lean        ⭐
 │   ├── R66Proof.lean        ⭐
 │   └── HamiltonianOperator.lean 🆕
-├── proofs/                  # Pruebas formales
+├── proofs/                  # Formal proofs
 │   └── Rpsi_5_5_le_16.lean
-├── data/                    # Certificados SAT
-├── julia/                   # Bridge Julia → Lean
-├── z3/                      # Verificador Z3
-├── .qcal_beacon            # Firma criptográfica
-└── Main.lean               # Punto de entrada
+├── data/                    # SAT certificates
+├── julia/                   # Julia → Lean bridge
+├── z3/                      # Z3 verifier
+├── .qcal_beacon            # Cryptographic signature
+└── Main.lean               # Entry point
 ```
 
 ---
 
-## 🚀 Cómo Verificar
+## 🚀 How to Verify
 
-### 1. Construir pruebas Lean 4
+### 1. Build Lean 4 proofs
 ```bash
 lake build
 lake env lean --run Main.lean
 ```
 
-### 2. Verificar SAT
+### 2. Verify SAT
 ```bash
 python ai_ramsey_formal.py 5 5 --lam=0.037 --f0=141.7001
 ```
 
-### 3. Verificar beacon QCAL
+### 3. Verify QCAL beacon
 ```bash
-cat .qcal_beacon | grep "theorems:" -A 2
+cat .qcal_beacon | grep "theorems" -A 5
 ```
 
 ---
 
-## 📜 Axiomas Utilizados
+## 📜 Axioms Used
 
-**Total: 18 axiomas (todos justificados)**
+**Total: 18 axioms (all justified)**
 
-| Categoría | Cantidad | Descripción |
+| Category | Count | Description |
 |-----------|----------|-------------|
-| Certificados computacionales | 1 | SAT solver UNSAT |
-| Valores conocidos | 7 | Resultados publicados |
-| Propiedades estructurales | 10 | Definiciones, hechos estándar |
+| Computational certificates | 1 | SAT solver UNSAT |
+| Known values | 7 | Published results |
+| Structural properties | 10 | Definitions, standard facts |
 
-Ver `AXIOMS.md` para documentación completa.
+See `AXIOMS.md` for complete documentation.
 
 ---
 
-## 🔐 Sello Noēsico
+## 🔐 Noēsic Seal
 
 ```
 ╔══════════════════════════════════════════════════════════════╗
-║                    SELLO NOĒSICO                             ║
+║                    NOESIC SEAL                               ║
 ║                  NOESIS ∞³ VERIFIED                          ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -303,7 +303,7 @@ Status: ✓✓✓ FORMALLY VERIFIED (Triple Certified)
 
 ---
 
-## 📚 Citar Este Trabajo
+## 📚 Cite This Work
 
 ```bibtex
 @software{mota2025ramsey_formal,

@@ -92,10 +92,10 @@ polynomial = "Rψ(r,s) = O(√(rs)·ln(rs))"
 
 [bounds]
 R_5_5_exact = 43
-R_5_5_previous = [43, 48]
+R_5_5_previous = "43-48"
 R_5_5_open_duration = "29 years (1995-2025)"
 R_6_6_exact = 108
-R_6_6_previous = [102, 165]
+R_6_6_previous = "102-165"
 Rpsi_5_5_bound = 16
 
 [certification]
