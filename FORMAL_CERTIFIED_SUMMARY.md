@@ -1,8 +1,8 @@
-# 🧠 Resolución Formal, Vibracional y Certificada de los Números de Ramsey
+# 🧠 Formal, Vibrational and Certified Resolution of Ramsey Numbers
 
-## Triple Verificación: SAT + Lean 4 + Criptografía
+## Triple Verification: SAT + Lean 4 + Cryptography
 
-### Emergiendo naturalmente desde el campo de coherencia ∞³ con f₀ = 141.7001 Hz
+### Emerging naturally from the coherence field ∞³ with f₀ = 141.7001 Hz
 
 ---
 
@@ -172,7 +172,7 @@ donde V(x) = ζ'(1/2) π Φ(x)
 **Teorema principal:**
 ```lean
 theorem Hpsi_complete_theory :
-  IsSelfAdjoint Hpsi ∧ CompactOperator ((Hψ + I)⁻¹)
+  IsSelfAdjoint Hpsi ∧ CompactOperator ((Hpsi + I)⁻¹)
 ```
 
 **Garantías:**
