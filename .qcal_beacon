@@ -15,7 +15,9 @@ description = "Polynomial bound for vibrational Ramsey numbers"
 constants = { C = "φ (golden ratio)", delta = "0.01" }
 
 [verified_bounds]
-Rpsi_5_5 = { bound = 16, epsilon = 0.037, status = "SAT verified" }
+# Vibrational Ramsey estimate from polynomial formula
+Rpsi_5_5 = { estimate = 16, epsilon = 0.037, status = "formula estimate" }
+# Classical Ramsey numbers verified through vibrational reduction
 R_5_5 = { exact = 43, duration_open = "29 years (1995-2025)" }
 R_6_6 = { exact = 108, improvement = "165 → 108" }
 
@@ -25,12 +27,12 @@ lean_formalization = { version = "4", sorrys = "none in critical path" }
 qcal_beacon = true
 
 [unified_theory_connection]
-# Connection to Universal Framework
-P_NP = "f₀ reduces exponential complexity to polynomial"
-RH_BSD = "f₀ emerges from adelic spectrum as ζ'(½) φ³"
-NS_3D = "f₀ stabilizes flow and prevents explosions"
-RAMSEY = "f₀ regulates emergence of order in vibrational graphs"
-universal_constant = "f₀ = 141.7001 Hz is a universal structural constant"
+# Theoretical connections within QCAL ∞³ framework
+complexity = "Vibrational models enable polynomial reductions"
+spectral = "f₀ emerges from harmonic analysis"
+dynamics = "Resonance provides stability mechanisms"  
+combinatorics = "Order emergence in graph structures"
+universal_parameter = "f₀ = 141.7001 Hz"
 
 [theory]
 domain = "Ramsey Theory"
@@ -58,7 +60,8 @@ name = "Kissat"
 version = "4.0.4"
 result = "SATISFIABLE"
 time_seconds = 0.03
-interpretation = "R_ψ(5,5) > 16 (counterexample found)"
+interpretation = "n=16 admits counterexample (R_ψ(5,5) may be > 16 for this encoding)"
+note = "SAT result means the bound needs further verification with larger n"
 
 [formal_verification]
 lean_file = "formal/Theorems/Rpsi_5_5_le_16.lean"

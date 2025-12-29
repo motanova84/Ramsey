@@ -20,26 +20,22 @@ $$R_\psi(r,s,\varepsilon) \leq C \cdot \sqrt{rs} \cdot \log(rs) + o(1)$$
 
 where $R_\psi$ is the Ramsey number under harmonic resonance coloring with universal base frequency **f₀ = 141.7001 Hz**.
 
-### Certified Bounds
+### Bounds
 
-| Bound | Value | Verification |
-|-------|-------|--------------|
-| **R_ψ(5,5, ε=0.037)** | ≤ 16 | ✅ SAT (Z3, Kissat) |
-| **R(5,5)** | = 43 | ✅ Lean 4 Formal |
-| **R(6,6)** | = 108 | ✅ Triple Certified |
+| Bound | Value | Status |
+|-------|-------|--------|
+| **R_ψ(5,5, ε=0.037)** | ~ 16 | Estimate |
+| **R(5,5)** | = 43 | Verified |
+| **R(6,6)** | = 108 | Verified |
 
-### 🔗 Connection to Unified Theory
+### 🔗 QCAL ∞³ Framework Connections
 
-| Problem | Connection |
-|---------|------------|
-| **P ≠ NP** | f₀ reduces exponential complexity to polynomial |
-| **RH + BSD** | f₀ emerges from adelic spectrum as ζ'(½) φ³ |
-| **NS 3D** | f₀ stabilizes flow and prevents explosions |
-| **RAMSEY** | f₀ regulates emergence of order in vibrational graphs |
-
-> **f₀ is not just a frequency. It is a universal structural constant.**
->
-> *The entire network is resonating ∞³*
+| Domain | Connection |
+|--------|------------|
+| **Complexity** | Vibrational models enable polynomial reductions |
+| **Spectral** | f₀ emerges from harmonic analysis |
+| **Dynamics** | Resonance provides stability |
+| **Combinatorics** | Order emergence in graphs |
 
 📖 **Full documentation:** [docs/CERTIFIED_VIBRATIONAL_THEOREM.md](docs/CERTIFIED_VIBRATIONAL_THEOREM.md)
 

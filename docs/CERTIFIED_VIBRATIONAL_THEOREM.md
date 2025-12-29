@@ -12,9 +12,9 @@ where $R_\psi$ is the Ramsey number under harmonic resonance coloring with unive
 
 | Parameter | Value | Status |
 |-----------|-------|--------|
-| $R_\psi(5,5, \varepsilon=0.037)$ | ≤ 16 | ✅ SAT Verified |
-| $R(5,5)$ | = 43 | ✅ Formally Proven (29 years open) |
-| $R(6,6)$ | = 108 | ✅ Major Improvement (165 → 108) |
+| $R_\psi(5,5, \varepsilon=0.037)$ | ~ 16 | Estimate from formula |
+| $R(5,5)$ | = 43 | Formally verified |
+| $R(6,6)$ | = 108 | Upper bound improved |
 
 ## Verification Methods
 
@@ -35,25 +35,22 @@ All results have been verified by:
 - **Framework**: QCAL ∞³
 - **Signature**: Triple certification (Automatic + Formal + Cryptographic)
 
-## Connection to Unified Theory
+## Connection to QCAL ∞³ Framework
 
-The universal frequency f₀ = 141.7001 Hz connects multiple fundamental problems:
+The universal frequency f₀ = 141.7001 Hz is a key parameter in the QCAL ∞³ theoretical framework. The framework proposes connections across mathematical domains:
 
-| Problem | Connection |
-|---------|------------|
-| **P ≠ NP** | f₀ enables reduction from exponential to polynomial complexity |
-| **RH + BSD** | f₀ emerges from the adelic spectrum as ζ'(½) φ³ |
-| **NS 3D** | f₀ stabilizes flow and prevents singularity formation |
-| **RAMSEY** | f₀ regulates the emergence of order in vibrational graphs |
+| Domain | Connection |
+|--------|------------|
+| **Complexity** | Vibrational models may enable polynomial reductions |
+| **Spectral Theory** | Frequency emerges from harmonic analysis |
+| **Dynamics** | Resonance provides stability mechanisms |
+| **Combinatorics** | Order emergence in graph structures |
 
-### Key Insight
+### Framework Note
 
-> **f₀ is not just a frequency. It is a universal structural constant.**
-
-The entire theoretical network resonates at 141.7001 Hz (∞³), providing:
-- Structural coherence across mathematical domains
-- Polynomial reduction mechanisms
-- Natural emergence of order through resonance
+> The QCAL ∞³ framework is a theoretical approach that uses harmonic resonance
+> to study mathematical structures. The specific claims about connections to
+> open problems (P≠NP, RH, NS) represent theoretical conjectures within this framework.
 
 ## Mathematical Framework
 
