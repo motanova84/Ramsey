@@ -27,6 +27,14 @@ jobs:
     - name: Install dependencies from lock file
       run: pip install -r requirements-lock.txt
     
+    - name: Verify Environment Reproducibility
+      run: |
+        python scripts/verify_environment.py
+    
+    - name: Verify Data Integrity
+      run: |
+        python scripts/verify_integrity.py
+    
     - name: Run Python tests
       run: |
         python run_tests.py
