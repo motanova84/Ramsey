@@ -13,7 +13,7 @@ import sys
 import os
 import subprocess
 from pathlib import Path
-from typing import Tuple, Optional
+from typing import Tuple, Optional, List
 import json
 
 
@@ -22,8 +22,10 @@ def get_python_version() -> Tuple[int, int, int]:
     return sys.version_info[:3]
 
 
-def get_command_version(command: str, args: list = ["--version"]) -> Optional[str]:
+def get_command_version(command: str, args: Optional[List[str]] = None) -> Optional[str]:
     """Get version from a command line tool."""
+    if args is None:
+        args = ["--version"]
     try:
         result = subprocess.run(
             [command] + args,
@@ -74,11 +76,24 @@ def check_lean_version(verbose: bool = False) -> Tuple[bool, str]:
     if lean_version is None:
         return False, f"⚠ Lean not found (expected: {expected})"
     
-    # Extract version number from output
-    if "4.3.0" in lean_version or expected.endswith("4.3.0"):
-        return True, f"✓ Lean version matches toolchain: {expected}"
-    else:
-        return False, f"❌ Lean version mismatch (expected: {expected}, got: {lean_version})"
+    # Extract version number from both strings for comparison
+    # Expected format: "leanprover/lean4:v4.3.0"
+    # Actual format: "Lean (version 4.3.0, ...)"
+    try:
+        # Extract version from expected toolchain string
+        expected_version = expected.split(':')[-1].replace('v', '')
+        
+        # Check if expected version appears in actual output
+        if expected_version in lean_version:
+            return True, f"✓ Lean version matches toolchain: {expected}"
+        else:
+            return False, f"❌ Lean version mismatch (expected: {expected}, got: {lean_version})"
+    except Exception:
+        # Fallback to simple string matching if parsing fails
+        if "4.3.0" in lean_version:
+            return True, f"✓ Lean version matches toolchain: {expected}"
+        else:
+            return False, f"⚠ Could not verify Lean version (expected: {expected}, got: {lean_version})"
 
 
 def check_nodejs_version(verbose: bool = False) -> Tuple[bool, str]:

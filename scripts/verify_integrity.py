@@ -14,7 +14,7 @@ import hashlib
 import sys
 import os
 from pathlib import Path
-from typing import Dict, Tuple, List
+from typing import Dict, Tuple, List, Optional
 
 # Expected checksums from ENV.lock
 EXPECTED_CHECKSUMS = {
@@ -35,7 +35,7 @@ CRITICAL_BEACONS = [
 ]
 
 
-def calculate_sha256(filepath: Path) -> str:
+def calculate_sha256(filepath: Path) -> Optional[str]:
     """Calculate SHA-256 checksum of a file."""
     sha256_hash = hashlib.sha256()
     try:

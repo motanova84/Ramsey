@@ -30,7 +30,7 @@ Actualmente se proporciona soporte de seguridad para las siguientes versiones:
 
 Si descubres una vulnerabilidad de seguridad, por favor **NO** la reportes públicamente a través de GitHub Issues. En su lugar:
 
-1. **Envía un email a**: [Crear email de contacto de seguridad]
+1. **Envía un email a**: security@ramsey-project.example.com (Por definir - contactar al mantenedor vía GitHub Issues privados mientras tanto)
 2. **Incluye**:
    - Descripción detallada de la vulnerabilidad
    - Pasos para reproducir el problema
@@ -326,7 +326,7 @@ python display_seal.py
 
 Para preguntas sobre seguridad:
 
-- **Email de seguridad**: [A definir]
+- **Email de seguridad**: security@ramsey-project.example.com (Por definir - contactar al mantenedor mientras tanto)
 - **Mantenedor del proyecto**: José Manuel Mota Burruezo (JMMB Ψ✧∴)
 - **Repositorio**: https://github.com/motanova84/Ramsey
 - **Issues públicos** (no sensibles): GitHub Issues

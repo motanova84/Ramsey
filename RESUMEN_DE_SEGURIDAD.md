@@ -181,7 +181,7 @@ lake build
 **¿Encontraste una vulnerabilidad?**
 
 1. **NO** la reportes públicamente en GitHub Issues
-2. Envía email confidencial a: [Email de seguridad - a definir]
+2. Envía email confidencial a: security@ramsey-project.example.com (Por definir - contactar al mantenedor vía GitHub)
 3. Incluye: descripción, pasos de reproducción, impacto
 4. Espera confirmación en 48 horas
 
