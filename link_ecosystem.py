@@ -22,7 +22,7 @@ def crear_faro_noetico():
 
 **Nodo:** {nodo_actual}
 
-**Frecuencia:** 141.7 Hz | 888 Hz
+**Frecuencia:** 141.7001 Hz | 888 Hz
 
 **Estado:** Activo
 
@@ -78,11 +78,11 @@ def generar_beacon_nodo(nombre_nodo, datos_symbio):
 [node]
 name = "{nodo_info['name']}"
 role = "{nodo_info['role']}"
-frequency = {datos_symbio.get('frequency', '141.7001 Hz') if datos_symbio else '141.7001 Hz'}
+frequency = "141.7001 Hz"
 
 [ecosystem]
-protocol = "{datos_symbio.get('protocol', 'QCAL-SYMBIO-BRIDGE') if datos_symbio else 'QCAL-SYMBIO-BRIDGE'}"
-version = "{datos_symbio.get('version', '1.0.0') if datos_symbio else '1.0.0'}"
+protocol = "QCAL-SYMBIO-BRIDGE"
+version = "1.0.0"
 
 [constants]
 """

@@ -150,14 +150,18 @@ def calculate_symbiotic_coherence(nodes):
     """
     Calcula la coherencia simbiótica entre nodos del ecosistema.
     
+    En el marco QCAL ∞³, todos los nodos sincronizados comparten la misma
+    coherencia PSI perfecta (0.999999), por lo que la coherencia simbiótica
+    del sistema es constante cuando hay al menos un nodo presente.
+    
     Args:
-        nodes: Lista de nodos en el ecosistema
+        nodes: Lista de nodos en el ecosistema (debe ser no vacía)
         
     Returns:
-        Valor de coherencia simbiótica (0-1)
+        Valor de coherencia simbiótica (0-1), o 0.0 si no hay nodos
     """
     if not nodes:
         return 0.0
     
-    # Optimize: coherence_field(PSI) is constant for all nodes
+    # All synchronized nodes in QCAL ∞³ share perfect coherence
     return QCALMathLibrary.coherence_field(QCALMathLibrary.CONSTANTS["PSI"])
