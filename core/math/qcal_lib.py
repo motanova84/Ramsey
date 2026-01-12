@@ -159,8 +159,5 @@ def calculate_symbiotic_coherence(nodes):
     if not nodes:
         return 0.0
     
-    total_coherence = sum([
-        QCALMathLibrary.coherence_field(QCALMathLibrary.CONSTANTS["PSI"])
-        for _ in nodes
-    ])
-    return total_coherence / len(nodes)
+    # Optimize: coherence_field(PSI) is constant for all nodes
+    return QCALMathLibrary.coherence_field(QCALMathLibrary.CONSTANTS["PSI"])
