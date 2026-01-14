@@ -33,11 +33,13 @@ where $R_\psi$ is the Ramsey number under harmonic resonance coloring with unive
 | Domain | Connection |
 |--------|------------|
 | **Complexity** | Vibrational models enable polynomial reductions |
+| **P-NP Geometry** | κ_Π = 2.5773 defines computational tractability horizon |
 | **Spectral** | f₀ emerges from harmonic analysis |
 | **Dynamics** | Resonance provides stability |
 | **Combinatorics** | Order emergence in graphs |
 
-📖 **Full documentation:** [docs/CERTIFIED_VIBRATIONAL_THEOREM.md](docs/CERTIFIED_VIBRATIONAL_THEOREM.md)
+📖 **Full documentation:** [docs/CERTIFIED_VIBRATIONAL_THEOREM.md](docs/CERTIFIED_VIBRATIONAL_THEOREM.md)  
+🔬 **P-NP Framework:** [P_NP_FRAMEWORK.md](P_NP_FRAMEWORK.md)
 
 ---
 
@@ -85,6 +87,7 @@ python validate_demonstration.py
 - 🎓 **[GETTING STARTED GUIDE →](GETTING_STARTED.md)** — New here? Start with this beginner-friendly explanation!
 - 📖 **[READ THE BREAKTHROUGH SUMMARY →](BREAKTHROUGH_SUMMARY.md)** — Technical details of the achievement
 - 📊 **[DIAGRAMAS VISUALES →](DIAGRAMS_METHODOLOGY.md)** — Diagramas explicativos de la metodología
+- 🔬 **[P-NP COMPLEXITY FRAMEWORK →](P_NP_FRAMEWORK.md)** — Calabi-Yau geometry and κ_Π = 2.5773
 
 ---
 
