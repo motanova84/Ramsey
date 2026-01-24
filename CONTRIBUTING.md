@@ -55,8 +55,22 @@
 Antes de enviar un PR, asegúrate de que todos los tests pasen:
 
 ```bash
+# Verificar entorno y reproducibilidad
+python scripts/verify_environment.py
+python scripts/verify_integrity.py
+
+# Ejecutar tests
 python test_ramsey.py
 ```
+
+### Seguridad
+
+Para reportar vulnerabilidades de seguridad, consulta [SEGURIDAD.md](SEGURIDAD.md). No reportes vulnerabilidades públicamente a través de GitHub Issues.
+
+Para contribuciones que modifiquen:
+- **Dependencias**: Actualiza `ENV.lock` con nuevas versiones
+- **Datos críticos**: Actualiza checksums en `ENV.lock`
+- **Parámetros clave** (f₀, ε): Requiere revisión exhaustiva y documentación
 
 ### Reportar Issues
 

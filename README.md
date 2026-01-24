@@ -89,6 +89,21 @@ python validate_demonstration.py
 - 📊 **[DIAGRAMAS VISUALES →](DIAGRAMS_METHODOLOGY.md)** — Diagramas explicativos de la metodología
 - 🔬 **[P-NP COMPLEXITY FRAMEWORK →](P_NP_FRAMEWORK.md)** — Calabi-Yau geometry and κ_Π = 2.5773
 
+### 🔒 Security & Reproducibility
+
+- 🔐 **[SEGURIDAD.md](SEGURIDAD.md)** — Comprehensive security policy and guidelines
+- 📋 **[RESUMEN DE SEGURIDAD →](RESUMEN_DE_SEGURIDAD.md)** — Security summary and quick reference
+- 🔄 **[ENV.lock](ENV.lock)** — Environment lock file ensuring reproducibility
+
+**Verify reproducibility:**
+```bash
+# Verify environment matches specifications
+python scripts/verify_environment.py
+
+# Verify data integrity (SHA-256 checksums)
+python scripts/verify_integrity.py
+```
+
 ---
 
 # Rψ(5,5) ≤ 16 — Prueba Formal vía Resonancia Vibracional
