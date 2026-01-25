@@ -146,6 +146,9 @@ def generate_dimacs(n: int, r: int, s: int,
     if output_file is None:
         output_file = f"data/rpsi_{r}_{s}_n{n}.cnf"
     
+    # Ensure the parent directory exists
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    
     clauses, num_vars, num_clauses = generate_rpsi_sat_instance_tseytin(
         n, r, s, f0, eps, grid
     )

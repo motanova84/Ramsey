@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Demonstration of SAT-based proof for R_ψ(5,5) ≤ 16
+SAT-based investigation for R_ψ(5,5) bound with resonant coloring
 
-This script shows how the SAT-based approach proves that there is no
-frequency assignment ω: [16] → [0, f₀) that avoids both blue K₅ and red K₅
-under resonant coloring.
+This script explores the vibrational Ramsey bound by testing whether
+frequency assignments exist that avoid both blue K₅ and red K₅ under
+resonant coloring. Current parameters yield SAT (valid coloring exists).
 """
 
 import os
@@ -19,11 +19,11 @@ from solve_rpsi_sat import solve_cnf
 
 def main():
     print("="*70)
-    print("SAT-Based Proof: R_ψ(5,5) ≤ 16")
+    print("SAT-Based Investigation: R_ψ(5,5) bound exploration")
     print("="*70)
     print()
-    print("This demonstration proves that no frequency assignment")
-    print("ω: [16] → [0, f₀) can avoid both:")
+    print("This script tests whether a frequency assignment exists")
+    print("for ω: [16] → [0, f₀) that avoids both:")
     print("  • Blue (resonant) K₅")
     print("  • Red (non-resonant) K₅")
     print()
@@ -119,10 +119,14 @@ def main():
         print()
     elif result == "SAT":
         print()
-        print("⚠ UNEXPECTED: Found a valid coloring")
+        print("✓ RESULT: Found a valid coloring")
         print()
-        print("This suggests the bound might be higher than 16.")
-        print("Please verify the implementation.")
+        print("A frequency assignment exists that avoids both blue K₅ and red K₅.")
+        print("This means R_ψ(5,5) > 16 with the current parameters:")
+        print("  • f₀ = 141.7001 Hz, ε = 0.037, grid = 128")
+        print()
+        print("The bound may require parameter adjustment or testing higher n values.")
+        print("See FINDINGS.md for detailed analysis.")
         print()
     else:
         print()
