@@ -71,13 +71,21 @@ def solve_with_z3(cnf_file: str):
     with open(cnf_file, 'r') as f:
         for line in f:
             line = line.strip()
+            if not line:
+                # Skip empty lines
+                continue
             if line.startswith('c'):
                 continue
             elif line.startswith('p'):
                 parts = line.split()
                 num_vars = int(parts[2])
             else:
-                clause = [int(x) for x in line.split() if x != '0']
+                parts = line.split()
+                # In DIMACS, a line containing only '0' represents an empty clause,
+                # which makes the whole CNF UNSAT.
+                if len(parts) == 1 and parts[0] == '0':
+                    return "UNSAT", None
+                clause = [int(x) for x in parts if x != '0']
                 if clause:
                     clauses.append(clause)
     
