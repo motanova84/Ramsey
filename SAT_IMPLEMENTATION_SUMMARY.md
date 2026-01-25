@@ -49,11 +49,11 @@ All generated CNF files are in standard DIMACS format:
 ### 4. Testing
 
 #### `test_sat_implementation.py`
-Comprehensive test suite with 3 tests:
+Standalone test script with 3 targeted checks (run manually, e.g. via `python test_sat_implementation.py`):
 - ✅ CNF structure consistency validation
 - ✅ UNSAT verification (R_ψ(3,3) ≤ 6)
 - ✅ SAT verification (R_ψ(3,3) > 3)
-- **Result**: All tests pass
+- **Status**: All three checks currently pass when run as described
 
 #### `demo_sat_proof.py`
 Interactive demonstration script that:
