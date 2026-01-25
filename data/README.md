@@ -5,7 +5,8 @@ This directory contains DIMACS CNF files for Ramsey resonance SAT instances.
 ## Files
 
 ### `rpsi_5_5_n16.cnf`
-- **Theorem**: R_ψ(5,5) ≤ 16
+- **Instance/Encoding for testing**: R_ψ(5,5) ≤ 16
+- **Result**: SAT (bound not proven with current parameters)
 - **Variables**: 17,528
 - **Clauses**: 200,360
 - **Size**: ~3.1 MB

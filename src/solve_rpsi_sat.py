@@ -110,8 +110,10 @@ def solve_with_z3(cnf_file: str):
         model = solver.model()
         model_dict = {}
         for i in range(1, num_vars + 1):
-            val = model.eval(vars_z3[i])
-            model_dict[i] = True if str(val) == "True" else False
+            val = model.eval(vars_z3[i], model_completion=True)
+            # Use Z3's is_true() to properly evaluate boolean values
+            from z3 import is_true
+            model_dict[i] = is_true(val)
         return "SAT", model_dict
     else:
         return "UNSAT", None

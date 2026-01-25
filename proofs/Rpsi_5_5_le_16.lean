@@ -52,22 +52,26 @@ def hasBlueClique {n : ℕ} (ω : FreqAssignment n) (clique : Finset (Fin n)) : 
 def hasRedClique {n : ℕ} (ω : FreqAssignment n) (clique : Finset (Fin n)) : Prop :=
   ∀ i j, i ∈ clique → j ∈ clique → i < j → edgeColor ω i j = false
 
--- Main theorem: R_ψ(5,5) ≤ 16
+-- Main theorem template: R_ψ(5,5) ≤ 16 (conjecture/pending proof with adjusted parameters)
+-- NOTE: Current SAT testing shows SAT for n=16, meaning R_ψ(5,5) > 16 with parameters
+-- (f₀=141.7001, ε=0.037, grid=128). This theorem serves as a template for when
+-- UNSAT is achieved through parameter adjustment or testing higher n.
 theorem Rpsi_5_5_le_16 : 
   ∀ (ω : FreqAssignment 16),
     (∃ (clique : Finset (Fin 16)), clique.card = 5 ∧ hasBlueClique ω clique) ∨
     (∃ (clique : Finset (Fin 16)), clique.card = 5 ∧ hasRedClique ω clique) := by
   intro ω
-  -- This theorem is proven by SAT solver exhaustive verification
+  -- This theorem would be proven by SAT solver exhaustive verification if UNSAT is achieved.
   -- The CNF formula in data/rpsi_5_5_n16.cnf encodes all constraints:
   --   1. Each vertex has exactly one frequency (one-hot encoding)
   --   2. Edge colors determined by resonance relation
   --   3. No blue K₅ exists (all edges in any 5-clique not all resonant)
   --   4. No red K₅ exists (all edges in any 5-clique not all non-resonant)
   -- 
-  -- SAT solver returns UNSAT, proving the formula is unsatisfiable,
-  -- therefore every frequency assignment must contain either a blue K₅ or red K₅.
-  sorry -- Certified by SAT solver UNSAT proof in cert/rpsi_5_5_n16_unsat.lrat
+  -- When SAT solver returns UNSAT, this proves the formula is unsatisfiable,
+  -- meaning every frequency assignment must contain either a blue K₅ or red K₅.
+  -- Currently: SAT solver returns SAT, so the proof is pending (see FINDINGS.md)
+  sorry -- Pending UNSAT certification (current result: SAT for n=16)
 
 -- Corollary: Vibrational Ramsey number upper bound
 theorem vibrational_ramsey_5_5_upper_bound :

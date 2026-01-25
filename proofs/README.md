@@ -22,10 +22,11 @@ This theorem states that for any frequency assignment ω: [16] → [0, f₀), th
 - A 5-clique with all edges resonant (blue), or
 - A 5-clique with all edges non-resonant (red)
 
-**Proof Method**: SAT solver exhaustive verification
-- The proof is certified by the UNSAT result of the CNF formula in `data/rpsi_5_5_n16.cnf`
-- The CNF encodes all constraints of the resonant coloring problem
-- UNSAT proves the formula is unsatisfiable, meaning no valid coloring exists
+**Proof Method**: SAT solver exhaustive verification (pending)
+- The CNF formula in `data/rpsi_5_5_n16.cnf` encodes all constraints of the resonant coloring problem
+- **Current status**: SAT solver returns SAT for n=16 with tested parameters (f₀=141.7001, ε=0.037, grid=128)
+- UNSAT certification is pending parameter adjustment or testing higher values of n
+- See `FINDINGS.md` for detailed analysis of current empirical results
 
 **Parameters**:
 - f₀ = 141.7001 Hz (QCAL ∞³ universal frequency)
