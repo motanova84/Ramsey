@@ -24,7 +24,6 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
     """
     Verificación SAT corregida para R_psi(r,s,eps)
     
-    Retorna True si NO existe asignación de frecuencias que evite 
     Retorna True si NO existe asignación de frecuencias que evite
     simultáneamente todo K_r azul Y todo K_s rojo (i.e., UNSAT)
     
@@ -38,12 +37,6 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
         f0: Frecuencia base de coherencia (141.7001 Hz)
         grid: Resolución de discretización de frecuencias
         
-    Returns:
-        True si UNSAT (n >= R_psi(r,s,eps)), False si SAT (existe contraejemplo)
-        eps: Umbral de coherencia (default: 0.001 Hz)
-        f0: Frecuencia base de coherencia (default: 141.7001 Hz)
-        grid: Resolución de discretización (default: 128)
-    
     Returns:
         bool: True si UNSAT (n >= R_psi(r,s,eps)), False si SAT
     """
@@ -59,19 +52,16 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
     # Frecuencias como expresiones aritméticas exactas
     omega = [(f0 * ki) / grid for ki in k]
     
-    # Simetría áurea: ordenar frecuencias (rompe permutaciones)
+    # Simetria aurea: ordenar frecuencias (rompe permutaciones)
     for i in range(n-1):
         solver.add(k[i] <= k[i+1])
-    for i in range(n - 1):
-        solver.add(k[i] <= k[i + 1])
     
     def es_azul_resonante(i, j):
         """
         Predicado de resonancia: |omega_i - omega_j| mod f0 <= eps
         
-        Tres casos para capturar módulo sin enteros auxiliares:
+        Tres casos para capturar modulo sin enteros auxiliares:
         - Diferencia directa: omega_j - omega_i in [-eps, eps]
-        - Wrap superior: (omega_j - omega_i) - f0 in [-eps, eps] 
         - Wrap superior: (omega_j - omega_i) - f0 in [-eps, eps]
         - Wrap inferior: (omega_j - omega_i) + f0 in [-eps, eps]
         
@@ -82,7 +72,6 @@ def ramsey_vibracional_unsat(n, r, s, eps=0.001, f0=141.7001, grid=128):
         
         return Or(
             And(dij >= -eps_grid, dij <= eps_grid),           # Caso directo
-            And(dij >= -eps_grid, dij <= eps_grid),  # Caso directo
             And(dij - grid >= -eps_grid, dij - grid <= eps_grid),  # Wrap +
             And(dij + grid >= -eps_grid, dij + grid <= eps_grid)   # Wrap -
         )
@@ -147,12 +136,9 @@ def calcular_Rpsi_exacto(r, s, eps=0.001, f0=141.7001, nmax=25, grid=128):
 
 def estimar_conjetura(r, s, f0=141.7001):
     """
-    Estimacion segun Conjetura 3.4: R_psi(r,s,eps) = O(sqrt(rs) * ln(rs))
+    Estimacion segun Conjetura 3.4: R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^{1/4})
     
     Calibrado empiricamente con constante ajustada para mejor precision.
-    Estimacion segun Conjetura 3.4
-    
-    R_psi(r,s,eps) = O(sqrt(rs) * ln(rs) * (f0)^{1/4})
     
     Args:
         r: Tamano del clique azul
