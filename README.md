@@ -316,7 +316,7 @@ This implementation provides a SAT-based approach to determine vibrational Ramse
 # Generate CNF for R_ψ(5,5) ≤ 16
 python src/generate_rpsi_sat.py 16 5 5
 
-# Solve with Z3 (proves UNSAT)
+# Solve with Z3 (checks SAT/UNSAT)
 python src/solve_rpsi_sat.py data/rpsi_5_5_n16.cnf --n 16 --r 5 --s 5
 ```
 
