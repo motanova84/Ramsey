@@ -1,0 +1,22 @@
+# Core dependencies for Ramsey formal verification project
+# Use pip-compile to generate requirements-lock.txt from this file:
+#   pip install pip-tools
+#   pip-compile requirements.in --output-file=requirements-lock.txt
+
+# Z3 solver for SAT verification
+z3-solver>=4.12.0
+
+# NumPy for numerical computations
+numpy>=1.24.0
+
+# Fire for CLI
+fire>=0.5.0
+
+# OpenAI for AI-based verification
+openai>=1.0.0
+
+# Matplotlib for visualization
+matplotlib>=3.5.0
+
+# Click for additional CLI functionality
+click>=8.0.0

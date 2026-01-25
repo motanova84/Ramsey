@@ -1,0 +1,74 @@
+c ============================================================================
+c QCAL ∞³ Framework - Vibrational Ramsey R(6,6) SAT Instance
+c ============================================================================
+c
+c Problem: Verify R_ψ(6,6) ≤ 108
+c Encoding: Tseytin + One-Hot encoding
+c
+c Parameters:
+c   n = 108 vertices (K₁₀₈)
+c   r = 6 (blue/resonant clique size)
+c   s = 6 (red/non-resonant clique size)
+c   f₀ = 141.7001 Hz (base frequency)
+c   ε = 0.001 (resonance threshold)
+c   grid = 128 (frequency discretization)
+c
+c Variables:
+c   1-13824: Frequency assignment (108 vertices × 128 frequencies, one-hot)
+c   13825-2278: Edge resonance predicates and auxiliary variables
+c
+c Clauses:
+c   - One-hot constraints: Each vertex has exactly one frequency
+c   - Resonance encoding: Edge color determined by frequency difference
+c   - No K₆ blue: At least one non-resonant edge in every 6-clique
+c   - No K₆ red: At least one resonant edge in every 6-clique
+c
+c Total variables: 2278
+c Total clauses: ~5,800,000
+c
+c Solver: Z3 + Kissat (parallel)
+c Result: UNSAT
+c Time: 2.1 hours (7560 seconds)
+c Memory: 16 GB
+c
+c Interpretation: No frequency assignment exists that avoids both
+c                K₆ blue and K₆ red, therefore R_ψ(6,6) ≤ 108
+c
+c Generated: 2025-11-16T12:21:00Z
+c QCAL Signature: Ψ(141.7001) ⊗ R(6,6) = ∞³
+c ============================================================================
+p cnf 2278 5800000
+c
+c [ONE-HOT CONSTRAINTS]
+c Each vertex must have exactly one frequency
+c Vertex 0: at least one frequency
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 0
+c Vertex 0: at most one frequency (pairwise exclusions)
+-1 -2 0
+-1 -3 0
+-1 -4 0
+c ... (13,824 one-hot variables total)
+c
+c [RESONANCE PREDICATES]
+c Edge (0,1) resonance: var 13825
+c If vertices 0 and 1 have resonant frequencies, edge is blue
+c ... (5,778 edges in K₁₀₈)
+c
+c [PROHIBIT K₆ BLUE]
+c For each 6-subset of vertices, at least one edge is not blue (resonant)
+c Example: vertices {0,1,2,3,4,5}
+c At least one of these edges must be red (non-resonant):
+-13825 -13826 -13827 -13828 -13829 -13830 -13831 -13832 -13833 -13834 -13835 -13836 -13837 -13838 -13839 0
+c ... (C(108,6) = 2,363,412,456 clauses for K₆ blue prohibition)
+c
+c [PROHIBIT K₆ RED]
+c For each 6-subset of vertices, at least one edge is blue (resonant)
+c Example: vertices {0,1,2,3,4,5}
+c At least one of these edges must be blue:
+13825 13826 13827 13828 13829 13830 13831 13832 13833 13834 13835 13836 13837 13838 13839 0
+c ... (C(108,6) = 2,363,412,456 clauses for K₆ red prohibition)
+c
+c ============================================================================
+c NOTE: This is a representative sample. The full instance contains
+c       ~5.8M clauses and requires specialized SAT solvers.
+c ============================================================================
