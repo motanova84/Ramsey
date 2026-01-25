@@ -161,7 +161,9 @@ class QuantumCoherenceApproach:
             print(f"  ✅ Emerge naturalmente de resonancia a f₀")
             return rpsi
         else:
-            # Bound teórico general (ver VIBRATIONAL_FORMALISM.md para derivación)
+            # Bound teórico general desde coherencia
+            # Nota: Fórmula simplificada. La versión completa en VIBRATIONAL_FORMALISM.md
+            # incluye término f₀^(1/4), aquí mostramos el término dominante para claridad
             rpsi = int(np.sqrt(r * s) * np.log(r * s))
             return rpsi
     
@@ -196,26 +198,30 @@ class QuantumCoherenceApproach:
         """
         P vs NP conectado con f₀ mediante geometría Calabi-Yau
         
-        κ_Π = (f₀/54.7)² ≈ 2.5773
+        κ_Π ∼ (f₀/f_Riemann)²
         
         Horizonte de tractabilidad computacional
+        
+        Nota: Los valores específicos son parte del marco teórico QCAL ∞³
+        Ver P_NP_FRAMEWORK.md para la derivación completa
         """
         print(f"Analizando P vs NP desde coherencia geométrica...")
         
-        # Frecuencia fundamental del espectro de Riemann
-        riemann_fundamental = 54.7  # Hz
+        # Nota: Este valor es ilustrativo del marco teórico QCAL ∞³
+        # Ver P_NP_FRAMEWORK.md para justificación matemática completa
+        riemann_fundamental = 54.7  # Hz (valor teórico del marco QCAL)
         
         # Horizonte de tractabilidad
         kappa_pi = (self.f0 / riemann_fundamental) ** 2
         
-        print(f"  Conexión: κ_Π = (f₀/f_Riemann)²")
-        print(f"  ✅ κ_Π = ({self.f0}/{riemann_fundamental})² ≈ {kappa_pi:.4f}")
+        print(f"  Conexión: κ_Π ∼ (f₀/f_Riemann)²")
+        print(f"  ✅ κ_Π ≈ {kappa_pi:.4f} (valor ilustrativo)")
         print(f"  ✅ Define horizonte de tractabilidad computacional")
-        print(f"  ✅ Conecta complejidad con espectro de Riemann")
+        print(f"  ✅ Ver P_NP_FRAMEWORK.md para derivación matemática")
         
         return {
             'f0': self.f0,
-            'f_riemann': riemann_fundamental,
+            'f_riemann_theoretical': riemann_fundamental,
             'kappa_pi': kappa_pi
         }
     

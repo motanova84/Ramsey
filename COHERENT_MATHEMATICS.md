@@ -106,7 +106,12 @@ La coherencia cuántica se manifiesta a través de una **frecuencia universal** 
 | **Neurociencia** | Ultra-high gamma (140-145 Hz) | Coherencia cognitiva |
 | **Computación** | Decoherencia cuántica | Coherencia informacional |
 
-Esta frecuencia **no es arbitraria** — es una **constante universal de coherencia**.
+**Nota Importante sobre f₀:**  
+Esta frecuencia emerge **empíricamente** de observaciones independientes en múltiples dominios.
+Su aparición consistente sugiere una estructura universal subyacente, constituyendo una
+**hipótesis científica verificable y falsable**. El fundamento teórico profundo de f₀ es
+objeto de investigación activa. Ver [PHYSICAL_JUSTIFICATION.md](PHYSICAL_JUSTIFICATION.md)
+y [UNIFIED_THEORY_CONNECTION.md](UNIFIED_THEORY_CONNECTION.md) para análisis detallado.
 
 ### 2.3 Del Aislamiento a la Integración
 
