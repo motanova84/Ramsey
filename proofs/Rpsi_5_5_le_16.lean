@@ -88,16 +88,16 @@ theorem vibrational_ramsey_5_5_upper_bound :
     -- and apply Rpsi_5_5_le_16
     sorry -- Follows from Rpsi_5_5_le_16 by pigeonhole principle
 
--- Metadata for certification
+-- Metadata for certification (template / pending UNSAT proof)
 def certification_info : String :=
-  "R_ψ(5,5) ≤ 16\n" ++
+  "R_ψ(5,5) ≤ 16 (template / pending formal certification)\n" ++
   "f₀ = 141.7001 Hz (QCAL ∞³ universal frequency)\n" ++
   "ε = 0.037 (resonance threshold)\n" ++
   "grid = 128 (discretization points)\n" ++
-  "Certified by: SAT solver UNSAT proof\n" ++
-  "CNF file: data/rpsi_5_5_n16.cnf\n" ++
-  "Certificate: cert/rpsi_5_5_n16_unsat.lrat\n" ++
-  "Generated: 2025-11-16"
+  "Status: current SAT solver results show SAT for n = 16 with these parameters,\n" ++
+  "        so no UNSAT certificate for R_ψ(5,5) ≤ 16 exists yet.\n" ++
+  "Notes: this file is a formal proof template; metadata will be updated once\n" ++
+  "       an UNSAT proof and corresponding certificate are obtained."
 
 #check Rpsi_5_5_le_16
 #check vibrational_ramsey_5_5_upper_bound
