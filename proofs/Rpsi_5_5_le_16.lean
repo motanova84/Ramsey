@@ -39,18 +39,18 @@ def isResonant (ω₁ ω₂ : ℝ) : Prop :=
   circularDist ω₁ ω₂ < ε
 
 -- Edge coloring from frequency assignment
-def edgeColor {n : ℕ} (ω : FreqAssignment n) (i j : Fin n) : Bool :=
+def edgeColor {n : ℕ} (ω : FreqAssignment n) (i j : Fin n) : Prop :=
   let ω₁ := (ω i).val * f₀ / grid
   let ω₂ := (ω j).val * f₀ / grid
   isResonant ω₁ ω₂
 
 -- Predicate: clique is monochromatic blue (all resonant)
 def hasBlueClique {n : ℕ} (ω : FreqAssignment n) (clique : Finset (Fin n)) : Prop :=
-  ∀ i j, i ∈ clique → j ∈ clique → i < j → edgeColor ω i j = true
+  ∀ i j, i ∈ clique → j ∈ clique → i < j → edgeColor ω i j
 
 -- Predicate: clique is monochromatic red (all non-resonant)
 def hasRedClique {n : ℕ} (ω : FreqAssignment n) (clique : Finset (Fin n)) : Prop :=
-  ∀ i j, i ∈ clique → j ∈ clique → i < j → edgeColor ω i j = false
+  ∀ i j, i ∈ clique → j ∈ clique → i < j → ¬ edgeColor ω i j
 
 -- Main theorem template: R_ψ(5,5) ≤ 16 (conjecture/pending proof with adjusted parameters)
 -- NOTE: Current SAT testing shows SAT for n=16, meaning R_ψ(5,5) > 16 with parameters
