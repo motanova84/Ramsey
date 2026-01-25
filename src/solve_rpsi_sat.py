@@ -69,25 +69,38 @@ def solve_with_z3(cnf_file: str):
     num_vars = 0
     
     with open(cnf_file, 'r') as f:
+        current_clause = []
         for line in f:
             line = line.strip()
             if not line:
                 # Skip empty lines
                 continue
             if line.startswith('c'):
+                # Comment line
                 continue
             elif line.startswith('p'):
+                # Problem line: e.g., "p cnf <num_vars> <num_clauses>"
                 parts = line.split()
-                num_vars = int(parts[2])
+                if len(parts) >= 3:
+                    num_vars = int(parts[2])
             else:
                 parts = line.split()
-                # In DIMACS, a line containing only '0' represents an empty clause,
-                # which makes the whole CNF UNSAT.
-                if len(parts) == 1 and parts[0] == '0':
-                    return "UNSAT", None
-                clause = [int(x) for x in parts if x != '0']
-                if clause:
-                    clauses.append(clause)
+                for tok in parts:
+                    if tok == '0':
+                        # Clause terminator. If no literals have been seen for this
+                        # clause, this represents an empty clause, which makes the
+                        # whole CNF UNSAT.
+                        if not current_clause:
+                            return "UNSAT", None
+                        clauses.append(current_clause)
+                        current_clause = []
+                    else:
+                        current_clause.append(int(tok))
+    
+    # If the file ended without a terminating 0 for the last clause,
+    # keep the accumulated literals to preserve previous behavior.
+    if current_clause:
+        clauses.append(current_clause)
     
     # Create Z3 variables
     vars_z3 = {i: Bool(f'v{i}') for i in range(1, num_vars + 1)}
