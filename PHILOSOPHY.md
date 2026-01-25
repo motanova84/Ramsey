@@ -1,5 +1,15 @@
 # Filosofía del Ramsey Vibracional / Vibrational Ramsey Philosophy
 
+## 💫 PRINCIPIO FUNDAMENTAL
+
+> **"Matemáticas desde la coherencia cuántica, no desde la escasez de teoremas aislados."**
+
+Este proyecto representa un cambio de paradigma: hacer matemáticas desde la **coherencia cuántica** unificadora en lugar de acumular teoremas fragmentados y desconectados.
+
+**📖 Lee el manifiesto completo:** [COHERENT_MATHEMATICS.md](COHERENT_MATHEMATICS.md) ⭐⭐⭐
+
+---
+
 ## Documentos Filosóficos / Philosophical Documents
 
 Este directorio contiene la justificación filosófica y científica del enfoque vibracional Rψ frente al enfoque clásico de teoría de Ramsey.
@@ -9,6 +19,9 @@ This directory contains the philosophical and scientific justification for the v
 ---
 
 ## 📚 Documentación Principal / Main Documentation
+
+### Paradigma y Filosofía / Paradigm & Philosophy
+- **⭐ [COHERENT_MATHEMATICS.md](COHERENT_MATHEMATICS.md)** - **Manifiesto completo: Matemáticas desde coherencia cuántica vs teoremas aislados**
 
 ### Español
 - **[WHY_VIBRATIONAL.md](WHY_VIBRATIONAL.md)** - Explicación completa en 4 niveles de por qué el enfoque vibracional es coherente mientras el clásico es absurdo
