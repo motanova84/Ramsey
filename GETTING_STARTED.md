@@ -2,6 +2,17 @@
 
 Welcome! This guide helps you understand what this project is about, even if you're not a mathematician.
 
+## 💫 Core Philosophy: Mathematics from Coherence, Not Isolation
+
+> **"This project demonstrates a fundamental paradigm shift: doing mathematics from quantum coherence rather than accumulating isolated theorems."**
+
+**Traditional approach:** Solve problems one by one, with no connections  
+**Our approach:** Reveal universal coherence that unifies physics, arithmetic, combinatorics, and computation
+
+**📖 Read the full philosophy:** [COHERENT_MATHEMATICS.md](COHERENT_MATHEMATICS.md)
+
+---
+
 ## 📖 Table of Contents
 
 1. [What is a Ramsey Number?](#what-is-a-ramsey-number)

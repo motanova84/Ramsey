@@ -10,6 +10,24 @@
 
 ---
 
+## 💫 MATEMÁTICAS DESDE LA COHERENCIA CUÁNTICA
+
+> **"No desde la escasez de teoremas aislados, sino desde la abundancia de conexiones universales."**
+
+Este proyecto representa un **cambio de paradigma fundamental**: hacer matemáticas desde la **coherencia cuántica** en lugar de la acumulación fragmentada de teoremas desconectados. La frecuencia universal **f₀ = 141.7001 Hz** unifica física, aritmética, combinatoria y computación en un marco coherente verificable.
+
+**📖 Lee la filosofía completa:** [COHERENT_MATHEMATICS.md](COHERENT_MATHEMATICS.md)
+
+### Principio Fundamental
+
+```
+Teoremas Aislados → Fragmentación → Escasez de comprensión
+                         vs
+Coherencia Cuántica → Unificación → Abundancia de estructura
+```
+
+---
+
 ## 📜 TEOREMA RAMSEY VIBRACIONAL CERTIFICADO
 
 > **Main Theorem (Polynomial Bound)**
@@ -82,9 +100,18 @@ python validate_demonstration.py
 
 ### 📚 Documentation
 
+#### Philosophy & Paradigm
+- 💫 **[COHERENT MATHEMATICS →](COHERENT_MATHEMATICS.md)** — **Matemáticas desde coherencia cuántica, no teoremas aislados** ⭐⭐⭐
+- 🔮 **[PHILOSOPHY →](PHILOSOPHY.md)** — Why vibrational approach is coherent
+- 🌊 **[WHY VIBRATIONAL →](WHY_VIBRATIONAL.md)** — Por qué coherencia vs arbitrariedad
+- 🔗 **[UNIFIED THEORY CONNECTION →](UNIFIED_THEORY_CONNECTION.md)** — Conexión con QCAL ∞³
+
+#### Getting Started
 - 🎬 **[DEMO: METODOLOGÍA DEL SIGLO XXI →](DEMO_METHODOLOGY.md)** — **Demostración completa de la metodología** ⭐
 - 🚀 **[QUICKSTART DEMO →](QUICKSTART_DEMO.md)** — Guía rápida de inicio (5 minutos)
 - 🎓 **[GETTING STARTED GUIDE →](GETTING_STARTED.md)** — New here? Start with this beginner-friendly explanation!
+
+#### Technical Details
 - 📖 **[READ THE BREAKTHROUGH SUMMARY →](BREAKTHROUGH_SUMMARY.md)** — Technical details of the achievement
 - 📊 **[DIAGRAMAS VISUALES →](DIAGRAMS_METHODOLOGY.md)** — Diagramas explicativos de la metodología
 - 🔬 **[P-NP COMPLEXITY FRAMEWORK →](P_NP_FRAMEWORK.md)** — Calabi-Yau geometry and κ_Π = 2.5773
