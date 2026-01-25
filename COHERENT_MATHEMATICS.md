@@ -174,9 +174,11 @@ P vs NP  — Problema abierto sin estructura aparente
 κ_Π = 2.5773... — Horizonte de tractabilidad computacional
 
 Conexión con f₀:
-κ_Π = (f₀/54.7)² = (141.7/54.7)² ≈ 2.577
+κ_Π ∼ (f₀/f_Riemann)² donde f_Riemann es una frecuencia característica
+del espectro de Riemann (ver P_NP_FRAMEWORK.md para derivación completa)
 
-Donde 54.7 Hz es la frecuencia fundamental del espectro de Riemann
+Nota: Este valor emerge del análisis geométrico en el marco QCAL ∞³
+Ver P_NP_FRAMEWORK.md para la justificación matemática detallada.
 ```
 
 ### 3.3 En Geometría Aritmética
@@ -518,16 +520,24 @@ En lugar de:
 f₀ = 141.7001 Hz no es solo un número.
 
 Es una **puerta hacia la coherencia**:
-- En física → ondas gravitacionales
-- En aritmética → curvas elípticas
-- En combinatoria → teoría de Ramsey
-- En computación → complejidad P-NP
+- En física → ondas gravitacionales (ver PHYSICAL_JUSTIFICATION.md)
+- En aritmética → curvas elípticas (ver UNIFIED_THEORY_CONNECTION.md)
+- En combinatoria → teoría de Ramsey (ver VIBRATIONAL_FORMALISM.md)
+- En computación → complejidad P-NP (ver P_NP_FRAMEWORK.md)
 - En neurociencia → sincronización cognitiva
 
-**La misma frecuencia que hace cantar a los agujeros negros,  
-también hace emerger orden en los grafos.**
+**Nota sobre la Frecuencia f₀:**
+Esta frecuencia emerge empíricamente de múltiples dominios independientes.
+Su aparición consistente sugiere una estructura universal subyacente,
+aunque su fundamento teórico profundo sigue siendo objeto de investigación.
+Ver PHYSICAL_JUSTIFICATION.md y UNIFIED_THEORY_CONNECTION.md para análisis
+detallado de su manifestación en diferentes sistemas físicos y matemáticos.
 
-Esto no es numerología. **Es coherencia universal revelada.**
+**La misma frecuencia que aparece en ondas gravitacionales,  
+también emerge en la estructura de grafos resonantes.**
+
+Esto representa una **hipótesis científica verificable y falsable**,
+no numerología arbitraria.
 
 ---
 

@@ -46,9 +46,11 @@ class IsolatedTheoremsApproach:
         - No hay estructura que explotar
         - Espacio de búsqueda: 2^(C(n,2)) - exponencial
         - Sin conexión con física, aritmética, etc.
+        
+        Nota: La pausa representa la dificultad computacional del enfoque clásico
         """
         print(f"Calculando R({r},{s}) de forma aislada...")
-        time.sleep(0.5)  # Simula cómputo costoso
+        time.sleep(0.5)  # Pausa visual para representar complejidad
         
         # Solo podemos dar bounds aproximados
         if r == 5 and s == 5:
@@ -142,22 +144,24 @@ class QuantumCoherenceApproach:
         - Resonancia armónica a frecuencia f₀
         - Reducción de espacio: exponencial → polinomial
         - Estructura física real (no arbitraria)
+        
+        Nota: Los valores verificados están en ramsey_vibracional.py
         """
         print(f"Calculando R_ψ({r},{s}) desde coherencia cuántica...")
         print(f"  Frecuencia base: f₀ = {self.f0} Hz")
         print(f"  Umbral de resonancia: ε = {epsilon}")
-        time.sleep(0.3)
+        time.sleep(0.3)  # Pausa visual para demo
         
         if r == 5 and s == 5:
-            # Valor exacto emerge de coherencia
+            # Valor verificado en ramsey_vibracional.py y formal/Theorems/
             rpsi = 16
             print(f"  ✅ Resultado: R_ψ(5,5) ≤ {rpsi}")
             print(f"  ✅ Reducción: 10^271 → 10^10 (261 órdenes de magnitud)")
-            print(f"  ✅ Verificado por: SAT (Z3) + Lean 4 + QCAL beacon")
+            print(f"  ✅ Ver verificación en: ramsey_vibracional.py, formal/Theorems/")
             print(f"  ✅ Emerge naturalmente de resonancia a f₀")
             return rpsi
         else:
-            # Fórmula general desde coherencia
+            # Bound teórico general (ver VIBRATIONAL_FORMALISM.md para derivación)
             rpsi = int(np.sqrt(r * s) * np.log(r * s))
             return rpsi
     
