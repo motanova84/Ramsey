@@ -53,6 +53,9 @@ def main():
             n, r, s, f0, eps, grid
         )
         
+        # Ensure the parent directory exists
+        os.makedirs(os.path.dirname(cnf_file), exist_ok=True)
+        
         # Write CNF file
         with open(cnf_file, 'w') as f:
             f.write(f"c Ramsey Resonance SAT Instance\n")

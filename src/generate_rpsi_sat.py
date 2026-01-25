@@ -3,6 +3,7 @@ SAT-based Ramsey Resonance Solver
 Generates SAT instances for R_ψ(r,s) with resonant coloring
 Uses Tseytin encoding for scalability
 """
+import os
 from itertools import combinations
 
 
@@ -67,7 +68,8 @@ def generate_rpsi_sat_instance_tseytin(
             diff = abs(w1 - w2)
             circular_diff = min(diff, f0 - diff)
             # Resonant if circular distance is close to 0
-            if circular_diff <= eps:
+            # Using < (not <=) to match Lean specification
+            if circular_diff < eps:
                 resonant_pairs.append((k1, k2))
 
     # 3. Tseytin encoding: edge_res ↔ ∃ (k1,k2) resonant
@@ -147,7 +149,9 @@ def generate_dimacs(n: int, r: int, s: int,
         output_file = f"data/rpsi_{r}_{s}_n{n}.cnf"
     
     # Ensure the parent directory exists
-    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    dir_name = os.path.dirname(output_file)
+    if dir_name:  # Only create if dirname is non-empty
+        os.makedirs(dir_name, exist_ok=True)
     
     clauses, num_vars, num_clauses = generate_rpsi_sat_instance_tseytin(
         n, r, s, f0, eps, grid

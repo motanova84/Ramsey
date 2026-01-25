@@ -59,7 +59,7 @@ def solve_with_z3(cnf_file: str):
         - model: dict of variable assignments (if SAT) or None
     """
     try:
-        from z3 import Bool, Solver, sat, Or, Not
+        from z3 import Bool, Solver, sat, Or, Not, is_true
     except ImportError:
         print("Z3 not available. Install with: pip install z3-solver")
         return None, None
@@ -112,7 +112,6 @@ def solve_with_z3(cnf_file: str):
         for i in range(1, num_vars + 1):
             val = model.eval(vars_z3[i], model_completion=True)
             # Use Z3's is_true() to properly evaluate boolean values
-            from z3 import is_true
             model_dict[i] = is_true(val)
         return "SAT", model_dict
     else:
