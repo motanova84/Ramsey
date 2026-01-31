@@ -73,13 +73,13 @@
       "riemann"
     ],
     "navier_stokes": [
-      "riemann",
-      "ramsey"
+      "ramsey",
+      "riemann"
     ],
     "ramsey": [
       "p_vs_np",
-      "riemann",
-      "navier_stokes"
+      "navier_stokes",
+      "riemann"
     ],
     "yang_mills": [],
     "hodge": []
