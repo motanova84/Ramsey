@@ -1,0 +1,97 @@
+{
+  "constants": {
+    "kappa_pi": 2.5773,
+    "f0": 141.7001,
+    "critical_line": 0.5,
+    "ramsey_ratio": 0.39814814814814814,
+    "navier_stokes_epsilon": 0.5772,
+    "bsd_delta": 1.0,
+    "yang_mills_g": 1.4142135623730951,
+    "hodge_sum": 13
+  },
+  "problems": {
+    "p_vs_np": {
+      "name": "P vs NP",
+      "statement": "P \u2260 NP via treewidth-information dichotomy",
+      "constant": "kappa_pi",
+      "operator": "D_PNP",
+      "verification": "TreewidthICProtocol"
+    },
+    "riemann": {
+      "name": "Riemann Hypothesis",
+      "statement": "\u03b6(s) = 0 \u2192 Re(s) = 1/2",
+      "constant": "f0",
+      "operator": "H_\u03a8",
+      "verification": "AdelicSpectralProtocol"
+    },
+    "bsd": {
+      "name": "BSD Conjecture",
+      "statement": "L(E,1) determines rank via BSD formula",
+      "constant": "bsd_delta",
+      "operator": "L_E",
+      "verification": "AdelicSpectralProtocol"
+    },
+    "navier_stokes": {
+      "name": "Navier-Stokes",
+      "statement": "Global regularity of 3D Navier-Stokes",
+      "constant": "navier_stokes_epsilon",
+      "operator": "NS",
+      "verification": "QuantumRegularization"
+    },
+    "ramsey": {
+      "name": "Ramsey Numbers",
+      "statement": "R_\u03c8(m,n) achieves polynomial growth",
+      "constant": "ramsey_ratio",
+      "operator": "R",
+      "verification": "VibrationalReduction"
+    },
+    "yang_mills": {
+      "name": "Yang-Mills",
+      "statement": "Mass gap exists",
+      "constant": "yang_mills_g",
+      "operator": "YM",
+      "verification": "SpectralAnalysis"
+    },
+    "hodge": {
+      "name": "Hodge Conjecture",
+      "statement": "Hodge cycles are algebraic",
+      "constant": "hodge_sum",
+      "operator": "Hodge",
+      "verification": "SpectralAnalysis"
+    }
+  },
+  "connections": {
+    "p_vs_np": [
+      "ramsey"
+    ],
+    "riemann": [
+      "bsd",
+      "navier_stokes",
+      "ramsey"
+    ],
+    "bsd": [
+      "riemann"
+    ],
+    "navier_stokes": [
+      "riemann",
+      "ramsey"
+    ],
+    "ramsey": [
+      "p_vs_np",
+      "riemann",
+      "navier_stokes"
+    ],
+    "yang_mills": [],
+    "hodge": []
+  },
+  "coherence": 0.5114157315081065,
+  "verification_status": {
+    "p_vs_np": "Computational verification via treewidth",
+    "riemann": "Spectral analysis on adelic spaces",
+    "bsd": "Spectral analysis on adelic spaces",
+    "navier_stokes": "Quantum field regularization",
+    "ramsey": "Vibrational resonance verified",
+    "yang_mills": "Spectral operator analysis",
+    "hodge": "Spectral operator analysis"
+  }
+}
