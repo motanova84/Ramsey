@@ -57,7 +57,36 @@ where $R_\psi$ is the Ramsey number under harmonic resonance coloring with unive
 | **Combinatorics** | Order emergence in graphs |
 
 📖 **Full documentation:** [docs/CERTIFIED_VIBRATIONAL_THEOREM.md](docs/CERTIFIED_VIBRATIONAL_THEOREM.md)  
-🔬 **P-NP Framework:** [P_NP_FRAMEWORK.md](P_NP_FRAMEWORK.md)
+🔬 **P-NP Framework:** [P_NP_FRAMEWORK.md](P_NP_FRAMEWORK.md)  
+🌐 **NEW: Unified Theory:** [QCAL_UNIFIED_FRAMEWORK.md](QCAL_UNIFIED_FRAMEWORK.md) | [Whitepaper](QCAL_UNIFIED_WHITEPAPER.md)
+
+### 🆕 QCAL Unified Framework (NEW!)
+
+The **QCAL Unified Framework** demonstrates deep connections between Millennium Prize Problems through spectral operators and universal constants:
+
+```bash
+# Run unified framework demonstration
+python3 qcal_unified_framework.py
+
+# Generate whitepaper
+python3 generate_qcal_whitepaper.py
+
+# Complete integration
+./integrate_qcal_framework.sh
+
+# Interactive notebook
+jupyter notebook QCAL_Unification_Demo.ipynb
+```
+
+**Key Features:**
+- 🔢 **7 Millennium Problems** unified through QCAL operators
+- 🎯 **Universal Constants**: κ_Π = 2.5773, f₀ = 141.7001 Hz, φ_R = 43/108
+- ✅ **Cross-Verification Protocol** with coherence testing
+- 🔗 **REST API** for programmatic access
+- 📊 **Interactive Jupyter** notebook with visualizations
+- 📝 **Lean 4 Formalization** in QCAL_Unified_Theory.lean
+
+See [QCAL_UNIFIED_WHITEPAPER.md](QCAL_UNIFIED_WHITEPAPER.md) for complete theory.
 
 ---
 
