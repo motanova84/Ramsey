@@ -1,43 +1,47 @@
-# Certificados LRAT
+# Certificados SAT para R_ψ(5,5)
 
-Este directorio contiene certificados de insatisfacibilidad (UNSAT) en formato LRAT generados por el solver Kissat.
+Este directorio contiene los resultados de la verificación SAT para R_ψ(5,5).
 
 ## Archivos
 
-- `rpsi_5_5_n16_unsat.lrat` - Certificado LRAT para Rψ(5,5) ≤ 16
+- `rpsi_5_5_n16_kissat_output.txt` - Salida completa del solver Kissat para n=16
+- `rpsi_5_5_n16_result.md` - Análisis e interpretación del resultado SAT
 
-## Formato LRAT
+## Resultado IMPORTANTE
 
-LRAT (Literal Reverse Addition Tautology) es un formato de certificado que permite verificar formalmente la insatisfacibilidad de una fórmula CNF.
+**El solver Kissat encontró que la instancia para n=16 es SATISFIABLE** (exit code 10).
 
-### Verificación
+Esto significa:
+- **SÍ existe** una asignación de frecuencias para 16 vértices que evita ambos:
+  - Un K₅ completamente resonante (azul)
+  - Un K₅ completamente no-resonante (rojo)
+- Por lo tanto: **R_ψ(5,5) > 16**, NO R_ψ(5,5) ≤ 16
 
-Para verificar un certificado LRAT:
+## Implicaciones
+
+El resultado SATISFIABLE demuestra que n=16 es insuficiente. Para encontrar el valor exacto
+de R_ψ(5,5), es necesario probar con n=17, 18, 19, ... hasta encontrar el primer n donde
+la instancia sea UNSAT. Ese valor será R_ψ(5,5).
+
+## Verificación
+
+Para reproducir el resultado:
 
 ```bash
-# Usando lrat-check
-lrat-check data/rpsi_5_5_n16.cnf cert/rpsi_5_5_n16_unsat.lrat
+# Generar la instancia CNF
+python generate_rpsi_5_5_instance.py --n=16
 
-# Usando drat-trim
-drat-trim data/rpsi_5_5_n16.cnf cert/rpsi_5_5_n16_unsat.lrat
+# Resolver con Kissat
+kissat data/rpsi_5_5_n16.cnf
+# Resultado esperado: exit code 10 (SATISFIABLE)
 ```
-
-## Generación
-
-Los certificados se generan ejecutando:
-
-```bash
-python src/solve_rpsi_sat.py
-```
-
-Este script invoca Kissat con la opción `--lrat` que genera el certificado durante la resolución.
 
 ## Importancia
 
-Los certificados LRAT proporcionan una prueba verificable formalmente de que:
-- La fórmula SAT es UNSAT
-- No existe asignación de frecuencias que evite cliques monocromáticos
-- Por lo tanto, Rψ(5,5) ≤ 16 está certificado matemáticamente
+Este resultado SAT demuestra que:
+- La instancia para n=16 es SATISFIABLE
+- Existe una asignación de frecuencias que evita cliques monocromáticos
+- Por lo tanto, R_ψ(5,5) > 16 está certificado computacionalmente
 
 ## Referencias
 

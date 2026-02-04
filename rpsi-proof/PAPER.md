@@ -1,4 +1,19 @@
-# Vibrational Ramsey Bound: Rψ(5,5) ≤ 16
+# Vibrational Ramsey Bound: Rψ(5,5) > 16
+
+**⚠️ IMPORTANT CORRECTION (2026-02-04):**  
+**The original claim in this document that Rψ(5,5) ≤ 16 is INCORRECT.**
+
+The SAT solver (Kissat) found the instance for n=16 to be **SATISFIABLE** (exit code 10), 
+not UNSATISFIABLE as originally claimed. This means:
+- There **EXISTS** a frequency assignment for 16 vertices that avoids both blue K₅ and red K₅
+- Therefore: **Rψ(5,5) > 16**, NOT Rψ(5,5) ≤ 16
+- The exact value of Rψ(5,5) remains to be determined through testing n=17, 18, etc.
+
+See `cert/rpsi_5_5_n16_result.md` for the actual SAT solver output and analysis.
+
+**This document is kept for historical purposes but its main claim is refuted by the SAT certificate.**
+
+---
 
 **José Manuel Mota Burruezo**  
 *Instituto de Consciencia Cuántica (ICQ)*  
