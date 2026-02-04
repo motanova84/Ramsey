@@ -1,4 +1,5 @@
 -- proofs/Rpsi_5_5_le_16.lean
+-- NOTE: This file name is misleading - the SAT result shows R_ψ(5,5) > 16
 -- Vibrational Ramsey Theorem Certification
 -- QCAL ∞³ Framework - Resonance at 141.7001 Hz
 --
@@ -58,6 +59,13 @@ structure VibColoring (n : ℕ) where
   color : Fin n → Fin n → Bool      -- Edge coloring
   valid : ∀ i j, color i j ↔ resonant (ω i) (ω j)  -- Consistency
 
+-- CORRECTED: SAT solver shows n=16 is SATISFIABLE, so the bound is > 16, not ≤ 16
+axiom Rψ_5_5_counterexample_n16 :
+  ∃ (c : VibColoring 16),
+    (∀ S : Finset (Fin 16), S.card = 5 → ∃ e ∈ S.offDiag, ¬c.color e.1 e.2) ∧
+    (∀ S : Finset (Fin 16), S.card = 5 → ∃ e ∈ S.offDiag, c.color e.1 e.2)
+-- This axiom states that there exists a coloring of K₁₆ with NO monochromatic K₅,
+-- proving R_ψ(5,5) > 16
 /-- SAT solver verification certificate (Kissat 4.0.4)
     The SAT instance for n=16 is SATISFIABLE, indicating that there exists
     a frequency assignment avoiding both K₅ cliques. However, this establishes

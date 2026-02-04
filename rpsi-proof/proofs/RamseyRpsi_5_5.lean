@@ -1,5 +1,7 @@
 -- proofs/RamseyRpsi_5_5.lean
--- Teorema Formal Verificado: Rψ(5,5) ≤ 16
+-- ⚠️ CORRECCIÓN: El teorema Rψ(5,5) ≤ 16 es INCORRECTO
+-- El resultado SAT muestra SATISFIABLE, no UNSAT
+-- Por lo tanto: Rψ(5,5) > 16
 -- 
 -- Autor: José Manuel Mota Burruezo (JMMB Ψ✧∴)
 -- Instituto: Instituto de Consciencia Cuántica (ICQ)
@@ -10,10 +12,13 @@ import Mathlib.Data.Real.Basic
 import Mathlib.Data.Fin.Basic
 
 /-!
-# Ramsey Vibracional: Rψ(5,5) ≤ 16
+# Ramsey Vibracional: Rψ(5,5) > 16
 
-Este módulo contiene la prueba formal de que Rψ(5,5) ≤ 16, donde Rψ es el
-número de Ramsey vibracional definido mediante coloración por resonancia armónica.
+⚠️ **CORRECCIÓN IMPORTANTE**: El SAT solver (Kissat) encontró que la instancia
+para n=16 es **SATISFIABLE**, lo que significa que existe una coloración vibracional
+de K₁₆ que evita ambos K₅ monocromáticos. Por lo tanto, Rψ(5,5) > 16.
+
+Este módulo mantiene las definiciones originales pero corrige el teorema principal.
 
 ## Definiciones
 
@@ -23,9 +28,10 @@ número de Ramsey vibracional definido mediante coloración por resonancia armó
 - `ω_vals`: Función que asigna frecuencias a índices del grid
 - `is_resonant`: Predicado que determina si dos frecuencias resuenan
 
-## Teorema Principal
+## Resultado Real
 
-`Rψ_5_5_le_16`: Toda coloración vibracional de K₁₆ contiene un K₅ monocromático
+El certificado SAT muestra que n=16 es insuficiente. El valor exacto de Rψ(5,5)
+requiere verificar n=17, 18, ... hasta encontrar UNSAT.
 
 -/
 
@@ -57,55 +63,36 @@ def Clique (n k : ℕ) := {s : Finset (Fin n) // s.card = k}
 def all_edges_same (c : VibrationalColoring n) (s : Finset (Fin n)) (color : Bool) : Prop :=
   ∀ i j, i ∈ s → j ∈ s → i ≠ j → c.edge i j = color
 
-/-- Teorema Principal: Rψ(5,5) ≤ 16
+/-- Axioma Corregido: Rψ(5,5) > 16
     
-    Para toda coloración vibracional de K₁₆, existe un K₅ monocromático
-    (ya sea azul-resonante o rojo-no-resonante)
+    El SAT solver encontró una coloración vibracional de K₁₆ que NO contiene
+    ningún K₅ monocromático, demostrando que el bound es > 16, no ≤ 16.
 -/
-theorem Rψ_5_5_le_16 :
-    ∀ (c : VibrationalColoring 16),
-      (∃ s : Finset (Fin 16), s.card = 5 ∧ all_edges_same c s true) ∨
-      (∃ s : Finset (Fin 16), s.card = 5 ∧ all_edges_same c s false) := by
-  intro c
-  -- Prueba por certificado SAT + discretización finita
-  -- El espacio de estados es finito: 128^16 configuraciones posibles
-  -- La instancia SAT con codificación Tseytin ha sido verificada UNSAT por Kissat
-  -- UNSAT implica que no existe coloración que evite ambos K₅ monocromáticos
-  sorry  -- Certificado LRAT proporciona la prueba formal
+axiom Rψ_5_5_counterexample_n16 :
+    ∃ (c : VibrationalColoring 16),
+      (∀ s : Finset (Fin 16), s.card = 5 → ∃ i j, i ∈ s ∧ j ∈ s ∧ i ≠ j ∧ c.edge i j = false) ∧
+      (∀ s : Finset (Fin 16), s.card = 5 → ∃ i j, i ∈ s ∧ j ∈ s ∧ i ≠ j ∧ c.edge i j = true)
 
 /-!
-## Notas sobre la Prueba
+## Notas sobre el Resultado SAT
 
-Esta prueba se basa en:
+Esta corrección se basa en:
 
-1. **Discretización finita**: El espacio de frecuencias [0, f₀) se discretiza
-   en un grid de 128 puntos, reduciendo el espacio de búsqueda a finito.
+1. **Resultado SAT real**: Kissat encontró la instancia SATISFIABLE (exit code 10),
+   no UNSATISFIABLE como se afirmó originalmente.
 
-2. **Reducción a SAT**: La existencia de una coloración válida (sin K₅ azul
-   ni K₅ rojo) se codifica como fórmula SAT usando codificación Tseytin.
+2. **Interpretación correcta**: SATISFIABLE significa que existe una asignación
+   de frecuencias que evita ambos K₅ monocromáticos, por lo tanto Rψ(5,5) > 16.
 
-3. **Verificación por SAT solver**: Kissat demuestra que la fórmula es UNSAT,
-   lo que implica que toda coloración contiene al menos un K₅ monocromático.
-
-4. **Certificado LRAT**: La prueba UNSAT de Kissat se exporta como certificado
-   LRAT verificable independientemente.
+3. **Próximos pasos**: Para encontrar el valor exacto de Rψ(5,5), es necesario
+   probar con n=17, 18, ... hasta encontrar el primer n donde la instancia sea UNSAT.
 
 ## Verificación
 
-Para compilar esta prueba:
-```bash
-lake build
+Ver el resultado SAT real en:
 ```
-
-Para verificar con el certificado LRAT:
-```bash
-lrat-check ../data/rpsi_5_5_n16.cnf ../cert/rpsi_5_5_n16_unsat.lrat
+cert/rpsi_5_5_n16_result.md
+cert/rpsi_5_5_n16_kissat_output.txt
 ```
-
-## Referencias
-
-- Kissat SAT Solver: https://github.com/arminbiere/kissat
-- LRAT Format: https://www.cs.utexas.edu/~marijn/publications/lrat.pdf
-- Mathlib: https://leanprover-community.github.io/mathlib4_docs/
 
 -/

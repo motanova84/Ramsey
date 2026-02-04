@@ -6,25 +6,22 @@ import Mathlib.Combinatorics.Ramsey
 import RamseyVibracional.Tactic
 
 /-- 
-Vibrational Ramsey bound: R_ψ(5, 5, 0.037) ≤ 16
+Vibrational Ramsey bound: R_ψ(5, 5, 0.037) > 16
 
-This theorem certifies that any complete graph on 16 vertices
-with vibrational coloring (λ=0.037, f₀=141.7001 Hz) must contain
-either a 5-clique of resonant (blue) edges or a 5-clique of 
+IMPORTANT: SAT solver (Kissat) verification shows that the instance for n=16
+is SATISFIABLE, meaning there EXISTS a frequency assignment for 16 vertices
+that avoids both a 5-clique of resonant (blue) edges AND a 5-clique of 
 non-resonant (red) edges.
 
-The proof is verified by Z3 SAT solver showing UNSAT for n=16,
-meaning no counterexample exists.
+This proves that R_ψ(5, 5, 0.037) > 16, not ≤ 16.
 
-FORMALLY CERTIFIED with DRAT/LRAT verification
+The SAT result (exit code 10 = SATISFIABLE) demonstrates a counterexample exists.
+To find the exact bound, testing must continue with n=17, 18, ... until UNSAT is found.
+
+See cert/rpsi_5_5_n16_result.md for the SAT solver output and analysis.
 -/
-theorem R_psi_5_5_le_16 : 
-  R_ψ 5 5 (0.037) ≤ 16 := by
-  vibrational_unsat_tac {
-    lam := 0.037,
-    f0 := 141.7001,
-    grid := 1024
-  }
+axiom R_psi_5_5_gt_16 : 
+  R_ψ 5 5 (0.037) > 16
 
 /-- Helper lemma: Vibrational coloring principle -/
 lemma vibrational_coloring {n : ℕ} {omega : Fin n → ℝ} :

@@ -171,10 +171,12 @@ python scripts/verify_integrity.py
 
 ---
 
-# Rψ(5,5) ≤ 16 — Prueba Formal vía Resonancia Vibracional
+# Rψ(5,5) > 16 — SAT Result: Counterexample Found
 
-**Teorema certificado:**  
-> **Rψ(5,5; f₀=141.7001 Hz, ε=0.037, grid=128) ≤ 16**
+**⚠️ IMPORTANT CORRECTION:**  
+> The SAT solver found that **Rψ(5,5; f₀=141.7001 Hz, ε=0.037, grid=128) > 16**
+> 
+> The instance for n=16 is **SATISFIABLE** (counterexample exists), not UNSAT.
 
 ## 🏆 Hitos Históricos en Teoría de Ramsey
 
@@ -183,7 +185,7 @@ python scripts/verify_integrity.py
 | 1930  | Ramsey publica su paper fundacional | — |
 | 1995  | McKay-Radziszowski: R(4,5)=25 | — |
 | 2017  | Exoo: R(5,5) ≥ 43 | — |
-| **2025** | **Este trabajo** | **R(5,5) ≤ 43 ✅**<br>**R(6,6) = 108 ✅**<br>**Rψ(5,5) ≤ 16 ✅** |
+| **2025** | **Este trabajo** | **R(5,5) ≤ 43 ✅**<br>**R(6,6) = 108 ✅**<br>**Rψ(5,5) > 16 ⚠️** |
 
 ### 🧠 Frase para la posteridad
 
@@ -886,7 +888,8 @@ This repository contains two implementations of Ramsey-type theory with polynomi
 
 **NO es R(5,5) ≤ 16**: El número de Ramsey clásico R(5,5) ∈ [43, 48]
 
-**SÍ es R_ψ(5,5) ≤ 16**: El número de Ramsey **vibracional** (certificado: ≤ 19, objetivo: ≤ 16)
+**CORRECCIÓN: R_ψ(5,5) > 16**: El SAT solver encontró la instancia SATISFIABLE para n=16, 
+demostrando que existe un contraejemplo. El número de Ramsey **vibracional** es mayor que 16.
 
 R_ψ es un parámetro diferente basado en **coloración por resonancia de frecuencias**, no coloración arbitraria.
 
@@ -910,21 +913,21 @@ This repository is part of the **QCAL ∞3** (Quantum Coherent Algebraic Logic) 
 
 Este proyecto incluye certificados formales verificables para los valores de R_ψ(r,s):
 
-| (r,s) | λ | Bound | Certificate |
-|-------|---|-------|-------------|
-| (5,5) | 0.037 | **16** | [📁 rpsi-proof](./rpsi-proof/) · [lean](./rpsi-proof/proofs/Rpsi_5_5_le_16.lean) · [cnf](./rpsi-proof/data/rpsi_5_5_n16.cnf) |
-| (4,4) | 0.062 | 10 | [lean](./certificates/Rpsi_4_4_le_10.lean) · [smt2](./certificates/Rpsi_4_4_le_10.smt2) |
-| (3,3) | 0.100 | 5 | [lean](./certificates/Rpsi_3_3_le_5.lean) · [smt2](./certificates/Rpsi_3_3_le_5.smt2) |
+| (r,s) | λ | Bound | Certificate | Status |
+|-------|---|-------|-------------|--------|
+| (5,5) | 0.037 | **> 16** | [📁 rpsi-proof](./rpsi-proof/) · [lean](./rpsi-proof/proofs/Rpsi_5_5_le_16.lean) · [cnf](./rpsi-proof/data/rpsi_5_5_n16.cnf) | ⚠️ SAT (contraejemplo) |
+| (4,4) | 0.062 | 10 | [lean](./certificates/Rpsi_4_4_le_10.lean) · [smt2](./certificates/Rpsi_4_4_le_10.smt2) | ✓ |
+| (3,3) | 0.100 | 5 | [lean](./certificates/Rpsi_3_3_le_5.lean) · [smt2](./certificates/Rpsi_3_3_le_5.smt2) | ✓ |
 
-### 🆕 Certificación Formal Completa: Rψ(5,5) ≤ 16
+### ⚠️ Corrección Importante: Rψ(5,5) > 16
 
-**RÉCORD OFICIAL** - Primera certificación formal completa de Rψ(5,5) ≤ 16:
+**RESULTADO SAT**: La instancia para n=16 es SATISFIABLE (no UNSAT):
 
-- ✅ **Instancia SAT**: 17,528 variables, 200,360 cláusulas ([DIMACS](./rpsi-proof/data/rpsi_5_5_n16.cnf))
-- ✅ **Codificación**: Tseytin + One-Hot + Resonancia Vibracional
-- ✅ **Solver**: Kissat (estado del arte)
-- ✅ **Certificado**: LRAT verificable independientemente
-- ✅ **Teorema**: Formalizado en Lean 4 ([ver](./rpsi-proof/proofs/Rpsi_5_5_le_16.lean))
+- ⚠️ **Instancia SAT**: 17,528 variables, 200,360 cláusulas ([DIMACS](./rpsi-proof/data/rpsi_5_5_n16.cnf))
+- ⚠️ **Codificación**: Tseytin + One-Hot + Resonancia Vibracional
+- ⚠️ **Solver**: Kissat (estado del arte)
+- ⚠️ **Resultado**: SATISFIABLE (exit code 10) - existe contraejemplo
+- ⚠️ **Conclusión**: Rψ(5,5) > 16, no ≤ 16
 
 📂 **Directorio completo**: [rpsi-proof/](./rpsi-proof/)  
 📖 **Guía rápida**: [QUICKSTART.md](./rpsi-proof/QUICKSTART.md)  
