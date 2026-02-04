@@ -18,6 +18,7 @@ import Ramsey.R66Proof
 import Ramsey.HamiltonianOperator
 import Ramsey.SATVerification
 import Ramsey.CertifiedVibrationalTheorem
+import Ramsey.Ramsey
 
 open Ramsey
 
