@@ -125,17 +125,13 @@ jobs:
     - name: Validate SAT result
       run: |
         if [[ -f data/proof_unsat_z3.log ]]; then
-          if grep -q "unsat" data/proof_unsat_z3.log; then
+          if grep -iq "unsat" data/proof_unsat_z3.log; then
             echo "✓ SAT verification: UNSAT confirmed"
           else
             echo "✗ SAT result not UNSAT"
-            echo "---- Inicio proof_unsat_z3.log ----"
+            echo "---- Start proof_unsat_z3.log ----"
             sed -n '1,200p' data/proof_unsat_z3.log
-            echo "---- Fin proof_unsat_z3.log ----"
-          if grep -q "UNSAT" data/proof_unsat_z3.log; then
-            echo "✓ SAT verification: UNSAT confirmed"
-          else
-            echo "✗ SAT result not UNSAT"
+            echo "---- End proof_unsat_z3.log ----"
             exit 1
           fi
         else
