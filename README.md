@@ -162,12 +162,12 @@ python scripts/verify_integrity.py
 
 ---
 
-# Rψ(5,5) > 16 — Resultado SAT: Contraejemplo Encontrado
+# Rψ(5,5) > 16 — SAT Result: Counterexample Found
 
-**⚠️ CORRECCIÓN IMPORTANTE:**  
-> El SAT solver encontró que **Rψ(5,5; f₀=141.7001 Hz, ε=0.037, grid=128) > 16**
+**⚠️ IMPORTANT CORRECTION:**  
+> The SAT solver found that **Rψ(5,5; f₀=141.7001 Hz, ε=0.037, grid=128) > 16**
 > 
-> La instancia para n=16 es **SATISFIABLE** (existe contraejemplo), no UNSAT.
+> The instance for n=16 is **SATISFIABLE** (counterexample exists), not UNSAT.
 
 ## 🏆 Hitos Históricos en Teoría de Ramsey
 

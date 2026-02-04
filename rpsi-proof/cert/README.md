@@ -1,6 +1,6 @@
 # Certificates and Validation
 
-⚠️ **IMPORTANT CORRECTION**: This directory was meant to document validation of Rψ(5,5) ≤ 16, 
+⚠️ **IMPORTANT CORRECTION**: This directory originally documented validation of Rψ(5,5) ≤ 16, 
 but the actual SAT result shows the instance is **SATISFIABLE**, not UNSAT.
 
 This directory contains the actual SAT solver outputs showing that n=16 is insufficient.
