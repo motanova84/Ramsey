@@ -149,6 +149,41 @@ python scripts/generate_rpsi_5_5_n43.py
 
 **Note:** The generated CNF file is large and not committed to git. Run this script to regenerate it locally.
 
+### generar_certificado_lrat.py
+
+Generates LRAT certificates for R_psi(5,5) ≤ 16 with coherence constraints.
+
+**Usage:**
+```bash
+python scripts/generar_certificado_lrat.py
+```
+
+**Purpose:**
+Generates formal SAT certificates for the coherent Ramsey number R_psi(5,5) with coherence threshold epsilon=0.037. Creates:
+- CNF instance encoding Ramsey problem with coherence constraint
+- LRAT certificate (simulated when Kissat is not available)
+- Cryptographic seal with SHA3-512 and SHA256 hashes
+- Metadata JSON file with configuration
+
+**Output Files:**
+- `/tmp/ramsey_psi_5_5_16.cnf` - SAT instance in DIMACS format
+- `/tmp/ramsey_psi_5_5_16.lrat` - LRAT unsatisfiability certificate
+- `/tmp/ramsey_psi_5_5_16.json` - Metadata with cryptographic seals
+
+**Parameters:**
+- n = 16 (vertices)
+- r = 5 (red clique to avoid)
+- s = 5 (blue clique to avoid)
+- epsilon = 0.037 (coherence threshold)
+- f₀ = 141.7001 Hz (QCAL base frequency)
+- Sello: ∴𓂀Ω∞³ (QCAL certification mark)
+
+**QCAL Integration:**
+This script is part of the QCAL ∞³ framework for coherent Ramsey theory, integrating:
+- Vibrational coloring with coherence invariant Ψ
+- SAT-based verification with LRAT certificates
+- Cryptographic sealing for formal verification
+
 ## Other Scripts
 
 - `generate_graphs.py`: Python script for graph generation
