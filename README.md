@@ -56,9 +56,18 @@ where $R_\psi$ is the Ramsey number under harmonic resonance coloring with unive
 | **Dynamics** | Resonance provides stability |
 | **Combinatorics** | Order emergence in graphs |
 
-📖 **Full documentation:** [docs/CERTIFIED_VIBRATIONAL_THEOREM.md](docs/CERTIFIED_VIBRATIONAL_THEOREM.md)  
+📖 **Full documentation:** [CERTIFIED_VIBRATIONAL_THEOREM.md](CERTIFIED_VIBRATIONAL_THEOREM.md) — **Teorema certificado completo** ⭐  
 🔬 **P-NP Framework:** [P_NP_FRAMEWORK.md](P_NP_FRAMEWORK.md)  
 🌐 **NEW: Unified Theory:** [QCAL_UNIFIED_FRAMEWORK.md](QCAL_UNIFIED_FRAMEWORK.md) | [Whitepaper](QCAL_UNIFIED_WHITEPAPER.md)
+
+🎨 **Display theorem:**
+```bash
+# Ver teorema certificado completo
+python3 display_vibrational_theorem.py
+
+# Ver versión compacta
+python3 display_vibrational_theorem.py --compact
+```
 
 ### 🆕 QCAL Unified Framework (NEW!)
 
