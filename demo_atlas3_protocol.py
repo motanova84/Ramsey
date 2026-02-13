@@ -85,6 +85,14 @@ def main():
     
     n_values = [64, 128, 256, 512]
     print(f"  Resolviendo para n = {n_values}")
+    
+    # Warning for large n values
+    if max(n_values) >= 512:
+        print()
+        print("  ⚠️  Nota: n=512 generará matriz 512×512 con ~262K puntos de integración")
+        print("     El cálculo puede tardar varios segundos...")
+        print()
+    
     scaling = atlas.compute_scaling_law(n_values, damping=0.1, coupling_strength=0.15)
     
     print()

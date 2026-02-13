@@ -41,7 +41,7 @@ class TestAtlas3Phase1(unittest.TestCase):
         # Check normalization (L² norm should be ~1)
         for n in range(n_modes):
             norm = np.sqrt(trapezoid(modal_basis[:, n]**2, self.atlas.time_grid))
-            self.assertAlmostEqual(norm, 1.0, places=1)
+            self.assertAlmostEqual(norm, 1.0, places=2)
     
     def test_operator_construction(self):
         """Test operator 𝒪 = 𝔻 + 𝕂 construction."""
@@ -68,7 +68,7 @@ class TestAtlas3Phase1(unittest.TestCase):
         # Test with normalized diagonal
         operator = self.atlas.construct_operator_O(n_modes, coupling_strength=0.0, normalize_diagonal=True)
         for n in range(n_modes):
-            expected = 1.0 + 0.1 * n
+            expected = 1.0 + self.atlas.DIAGONAL_SCALING_FACTOR * n
             self.assertAlmostEqual(operator[n, n], expected, places=2)
         
         # Test with original (non-normalized) diagonal

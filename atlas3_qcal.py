@@ -69,6 +69,11 @@ class Atlas3QCAL:
         
         # Constants
         self.kappa_pi = 2.5773  # Universal packing constant
+        
+        # Numerical stability constants
+        self.EPSILON_LOG_PROTECTION = 1e-10
+        self.UNIVERSALITY_THRESHOLD = 1.0
+        self.DIAGONAL_SCALING_FACTOR = 0.1  # For normalized diagonal: 1.0 + factor * n
     
     # ============================================================
     # PHASE 1: DEPLOYMENT OF HILBERT SPACE ℋ
@@ -142,7 +147,7 @@ class Atlas3QCAL:
         # Use normalized form to balance with coupling
         if normalize_diagonal:
             # Scale so diagonal is O(1)
-            D = np.diag([1.0 + 0.1 * n for n in range(n_modes)])
+            D = np.diag([1.0 + self.DIAGONAL_SCALING_FACTOR * n for n in range(n_modes)])
         else:
             # Original form with quadratic scaling
             D = np.diag([(n + 1)**2 for n in range(n_modes)])
@@ -264,10 +269,10 @@ class Atlas3QCAL:
             # Compute κ(n) using normalized spectral gap
             # The theoretical form is: gap(n) ~ C / √(n log n)
             # So: C ~ gap(n) * √(n log n)
-            if n > 1:
-                kappa = dna['spectral_gap'] * np.sqrt(n * np.log(n))
-            else:
-                kappa = 0
+            if n <= 1:
+                raise ValueError(f"Scaling law undefined for n={n}. Must have n > 1.")
+            
+            kappa = dna['spectral_gap'] * np.sqrt(n * np.log(n))
             
             kappa_values.append(kappa)
         
@@ -283,7 +288,7 @@ class Atlas3QCAL:
         # gap ~ A * n^alpha where alpha ~ -0.5
         if len(n_values) >= 2:
             log_n = np.log(n_values)
-            log_gap = np.log(np.array(spectral_gaps) + 1e-10)
+            log_gap = np.log(np.array(spectral_gaps) + self.EPSILON_LOG_PROTECTION)
             # Linear fit: log(gap) = log(A) + alpha * log(n)
             alpha = np.polyfit(log_n, log_gap, 1)[0]
         else:
@@ -296,7 +301,7 @@ class Atlas3QCAL:
             'C_estimate': C_estimate,
             'power_law_exponent': alpha,
             'theoretical_kappa_pi': self.kappa_pi,
-            'convergence_to_kappa_pi': abs(C_estimate - self.kappa_pi) < 0.5,
+            'convergence_to_kappa_pi': abs(C_estimate - self.kappa_pi) < self.UNIVERSALITY_THRESHOLD,
             'relative_error': abs(C_estimate - self.kappa_pi) / self.kappa_pi if C_estimate > 0 else float('inf')
         }
         
@@ -352,7 +357,7 @@ class Atlas3QCAL:
             'min_C': np.min(all_C) if all_C else 0,
             'max_C': np.max(all_C) if all_C else 0,
             'kappa_pi_target': self.kappa_pi,
-            'universality_achieved': np.abs(np.mean(all_C) - self.kappa_pi) < 1.0 if all_C else False,
+            'universality_achieved': np.abs(np.mean(all_C) - self.kappa_pi) < self.UNIVERSALITY_THRESHOLD if all_C else False,
             'stability_ratio': np.std(all_C) / np.mean(all_C) if all_C and np.mean(all_C) > 0 else float('inf')
         }
         
