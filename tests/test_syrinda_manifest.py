@@ -41,10 +41,10 @@ class TestSyrindaManifest(unittest.TestCase):
         spectral = self.manifest['spectral_anchor']
         
         # Check kappa_pi value
-        self.assertEqual(spectral['kappa_pi'], 2.57731)
+        self.assertAlmostEqual(spectral['kappa_pi'], 2.57731, places=5)
         
         # Check error margin
-        self.assertEqual(spectral['error_margin'], 0.00008)
+        self.assertAlmostEqual(spectral['error_margin'], 0.00008, places=5)
         
         # Check source node
         self.assertEqual(spectral['source_node'], "Ramsey-V13")

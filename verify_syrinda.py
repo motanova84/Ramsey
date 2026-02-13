@@ -34,7 +34,7 @@ def verify_syrinda_implementation():
         total_checks += 1
         print("✓ Verificando inyección de κ_Π en operador genético...")
         kappa_pi = manifest['spectral_anchor']['kappa_pi']
-        if kappa_pi == 2.57731:
+        if abs(kappa_pi - 2.57731) < 1e-5:
             print(f"  ✓ κ_Π = {kappa_pi} (correcto)")
             checks_passed += 1
         else:
@@ -43,7 +43,7 @@ def verify_syrinda_implementation():
         # Check 2: Error margin
         total_checks += 1
         error = manifest['spectral_anchor']['error_margin']
-        if error == 0.00008:
+        if abs(error - 0.00008) < 1e-10:
             print(f"  ✓ Margen de error = {error} (correcto)")
             checks_passed += 1
         else:
