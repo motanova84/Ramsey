@@ -121,13 +121,15 @@ class TestSyrindaManifest(unittest.TestCase):
     
     def test_kappa_pi_consistency(self):
         """Verify κ_Π values are consistent across the manifest"""
-        # Main spectral anchor value
+        # Main spectral anchor value (high precision: 5 decimals)
         kappa_pi_main = self.manifest['spectral_anchor']['kappa_pi']
         
         # Verify it's close to 2.5773 (accounting for precision)
         self.assertAlmostEqual(kappa_pi_main, 2.57731, places=5)
         
         # Check the torsion factor mentions the same value
+        # Note: The torsion factor uses 4 decimals (2.5773) for display clarity
+        # while the spectral anchor uses 5 decimals (2.57731) for precision
         torsion = self.manifest['biological_mapping']['factor_torsion']
         self.assertIn("2.5773", torsion)
 

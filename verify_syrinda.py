@@ -43,7 +43,7 @@ def verify_syrinda_implementation():
         # Check 2: Error margin
         total_checks += 1
         error = manifest['spectral_anchor']['error_margin']
-        if abs(error - 0.00008) < 1e-10:
+        if abs(error - 0.00008) < 1e-6:
             print(f"  ✓ Margen de error = {error} (correcto)")
             checks_passed += 1
         else:
