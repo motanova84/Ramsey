@@ -87,6 +87,9 @@ class V13LimitValidator:
         """
         return kappa_inf + a / (N ** alpha)
     
+    # Constants for curvature computation
+    COUPLING_SCALING_FACTOR = 2.6 / 0.15  # Scale coupling to achieve target κ_Π range
+    
     def compute_spectral_curvature(self, N: int, damping: float = 0.1,
                                    coupling_strength: float = 0.15) -> float:
         """
@@ -103,9 +106,9 @@ class V13LimitValidator:
         Returns:
             Spectral curvature κ(N)
         """
-        # Generate system with stronger coupling to match target scale
-        # Adjust coupling to achieve convergence near κ_Π
-        effective_coupling = coupling_strength * (2.6 / 0.15)  # Scale to target range
+        # Generate system with scaled coupling to match target range
+        # The scaling factor relates the input coupling to the κ_Π target value
+        effective_coupling = coupling_strength * self.COUPLING_SCALING_FACTOR
         
         self.atlas.generate_modal_basis(N, damping=damping)
         self.atlas.construct_operator_O(N, coupling_strength=effective_coupling)
@@ -238,11 +241,11 @@ class V13LimitValidator:
             
             # Convergence assessment
             if rel_error < 0.001:  # 0.1%
-                print(f"  ✅ OBJETIVO PULVERIZADO (error < 0.1%)")
+                print(f"  ✅ TARGET ACHIEVED (error < 0.1%)")
             elif rel_error < 0.01:  # 1%
-                print(f"  ✅ Convergencia excelente (error < 1%)")
+                print(f"  ✅ Excellent convergence (error < 1%)")
             else:
-                print(f"  ⚠️  Convergencia en progreso")
+                print(f"  ⚠️  Convergence in progress")
             
             print()
             
@@ -300,7 +303,12 @@ class V13LimitValidator:
         
         # Compute mean spacing
         spacings = np.diff(eigs)
-        mean_spacing = np.mean(spacings) if len(spacings) > 0 else 1.0
+        if len(spacings) == 0:
+            import warnings
+            warnings.warn(f"Insufficient eigenvalues ({n_eigs}) to compute spacing. Need at least 2.")
+            mean_spacing = 1.0
+        else:
+            mean_spacing = np.mean(spacings)
         
         sigma2 = []
         
@@ -405,10 +413,10 @@ class V13LimitValidator:
         print(f"  Mean rel. dev.  = {mean_rel_deviation:.2%}")
         
         if self.number_variance_data['rigidity_achieved']:
-            print(f"  ✅ Rigidez logarítmica GOE detectada")
-            print(f"  🧬 Memoria Estructural Infinita confirmada")
+            print(f"  ✅ GOE logarithmic rigidity detected")
+            print(f"  🧬 Infinite Structural Memory confirmed")
         else:
-            print(f"  ⚠️  Desviación de GOE - sistema en transición")
+            print(f"  ⚠️  GOE deviation - system in transition")
         
         print()
         
@@ -464,9 +472,9 @@ class V13LimitValidator:
                    linestyle=':', linewidth=2,
                    label=f"κ_Π objetivo = {self.kappa_pi_target}")
         
-        ax1.set_xlabel('Tamaño del Sistema (N)', fontsize=12)
-        ax1.set_ylabel('Curvatura Espectral κ(N)', fontsize=12)
-        ax1.set_title('V13-B: Extrapolación al Límite Termodinámico', fontsize=13, fontweight='bold')
+        ax1.set_xlabel('System Size (N)', fontsize=12)
+        ax1.set_ylabel('Spectral Curvature κ(N)', fontsize=12)
+        ax1.set_title('V13-B: Thermodynamic Limit Extrapolation', fontsize=13, fontweight='bold')
         ax1.legend(fontsize=9)
         ax1.grid(True, alpha=0.3)
         ax1.set_xscale('log')
