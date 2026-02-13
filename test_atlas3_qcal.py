@@ -64,11 +64,17 @@ class TestAtlas3Phase1(unittest.TestCase):
         """Test operator has proper frequency scaling."""
         n_modes = 4
         self.atlas.generate_modal_basis(n_modes)
-        operator = self.atlas.construct_operator_O(n_modes, coupling_strength=0.0)
         
-        # With zero coupling, diagonal should be (n+1)²
+        # Test with normalized diagonal
+        operator = self.atlas.construct_operator_O(n_modes, coupling_strength=0.0, normalize_diagonal=True)
         for n in range(n_modes):
-            self.assertAlmostEqual(operator[n, n], (n + 1)**2, places=2)
+            expected = 1.0 + 0.1 * n
+            self.assertAlmostEqual(operator[n, n], expected, places=2)
+        
+        # Test with original (non-normalized) diagonal
+        operator2 = self.atlas.construct_operator_O(n_modes, coupling_strength=0.0, normalize_diagonal=False)
+        for n in range(n_modes):
+            self.assertAlmostEqual(operator2[n, n], (n + 1)**2, places=2)
 
 
 class TestAtlas3Phase2(unittest.TestCase):
