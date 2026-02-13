@@ -394,7 +394,7 @@ class Atlas3QCAL:
             # Apply refined κ_Π formula: gap × √(N log N)
             # This is the correct normalization for spectral density convergence
             if n <= 1:
-                raise ValueError(f"κ_Π formula undefined for N={n}. Must have N > 1.")
+                raise ValueError(f"κ_Π formula undefined for n={n}. Must have n > 1.")
             
             kappa_pi_n = spectral_gap * np.sqrt(n * np.log(n))
             
