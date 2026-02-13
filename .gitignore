@@ -133,3 +133,8 @@ nft/metadata/*_metadata.json
 nft/metadata/deployment.json
 nft/metadata/batch_mint_results.json
 
+# V9 visualization outputs
+v9_*.png
+v9_*.pdf
+v9_*.svg
+
