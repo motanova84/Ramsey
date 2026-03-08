@@ -436,7 +436,41 @@ def demostrar_paradigma_vibracional():
     print(f"\n{'(r,s)':<10} {'R_clásico':<15} {'R_ψ ajustado':<15} {'Reducción':<15} {'% Red.':<10}")
     print("-" * 65)
     
-    return coloracion
+    for (r, s) in casos:
+        r_clasico = ramsey_clasico_estimacion(r, s)
+        r_psi = estimar_conjetura(r, s)
+        reduccion = r_clasico - r_psi
+        pct = (reduccion / r_clasico * 100) if r_clasico > 0 else 0
+        print(f"  ({r},{s})    {r_clasico:<15} {r_psi:<15} {reduccion:<15} {pct:.1f}%")
+    
+    print("=" * 90)
+
+
+def generar_coloracion_vibracional(frecuencias, eps=0.001, f0=141.7001):
+    """
+    Genera una coloración vibracional de las aristas de un grafo completo.
+
+    Para cada par de vértices (i, j) con i < j, asigna:
+      - 'azul' si las frecuencias están en resonancia
+      - 'rojo' en caso contrario
+
+    Args:
+        frecuencias: Lista de frecuencias (una por vértice)
+        eps: Umbral de coherencia
+        f0: Frecuencia base (Campo QCAL ∞³ = 141.7001 Hz)
+
+    Returns:
+        dict: Diccionario {(i, j): color} con i < j
+    """
+    grafo = {}
+    n = len(frecuencias)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if resonancia_detectada(frecuencias[i], frecuencias[j], eps, f0):
+                grafo[(i, j)] = 'azul'
+            else:
+                grafo[(i, j)] = 'rojo'
+    return grafo
 
 
 def encontrar_clique_maximo(grafo, color):
@@ -574,9 +608,7 @@ def red_neuronal_ramsey(num_neuronas, target_clique_size, eps=0.001, f0=141.7001
     else:
         print(f"   Se requieren al menos {R_psi} neuronas para garantia")
     
-    print(f"✓ Instancia SAT guardada en {filename}")
-    print(f"  Variables: {num_vars}")
-    print(f"  Cláusulas: {num_clauses}")
+    return conexiones, frecuencias
 
 
 # Ejemplo de uso con la frecuencia sagrada
