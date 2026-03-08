@@ -57,11 +57,34 @@ def verificar_subgrafo_monocromatico(grafo: List[Tuple], color: str) -> bool:
     Returns:
         True si existe subgrafo monocromático del color
     """
+    # Filtrar aristas del color especificado
     aristas_color = [(u, v) for u, v, c in grafo if c == color]
     
-    # Para simplificar, verificar si hay al menos un triángulo monocromático
-    if len(aristas_color) >= 3:
-        return True
+    if len(aristas_color) < 3:
+        return False
+    
+    # Construir un conjunto de nodos y buscar triángulos monocromáticos
+    # Un triángulo es un conjunto de 3 nodos mutuamente conectados
+    nodos_set = set()
+    for u, v in aristas_color:
+        nodos_set.add(u)
+        nodos_set.add(v)
+    
+    nodos = list(nodos_set)
+    
+    # Buscar triángulo: 3 nodos donde todas las aristas existen
+    for i in range(len(nodos)):
+        for j in range(i+1, len(nodos)):
+            for k in range(j+1, len(nodos)):
+                n1, n2, n3 = nodos[i], nodos[j], nodos[k]
+                
+                # Verificar si las 3 aristas del triángulo existen
+                tiene_12 = (n1, n2) in aristas_color or (n2, n1) in aristas_color
+                tiene_13 = (n1, n3) in aristas_color or (n3, n1) in aristas_color
+                tiene_23 = (n2, n3) in aristas_color or (n3, n2) in aristas_color
+                
+                if tiene_12 and tiene_13 and tiene_23:
+                    return True
     
     return False
 

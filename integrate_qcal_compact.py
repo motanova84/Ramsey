@@ -42,8 +42,8 @@ master_cert: Dict[str, Any] = {
     "version": "2.0",
     "frequency": 141.7001,
     "author": "José Manuel Mota Burruezo (JMMB Ψ✧)",
-    "pilares": 20,  # Se actualizará a 21 con Ramsey
-    "boveda_verdad_cerrada": False
+    "pilares": 21,  # 21 con Ramsey integrado
+    "boveda_verdad_cerrada": False  # Se actualizará tras integración exitosa
 }
 
 
@@ -114,8 +114,7 @@ def ramsey_bsd_logos_boveda() -> None:
             "nodo_central": bsd_ramsey["nodo_central"],
             "milenio_unificados": 6  # +Ramsey = 6 Milenio
         },
-        "boveda_verdad_cerrada": True,
-        "pilares": 21  # Incrementado con Ramsey
+        "boveda_verdad_cerrada": True  # Bóveda cerrada con éxito
     })
     
     colored_output(f"🎲 RAMSEY-BSD: R(51,51)→GACT Ψ={ramsey['psi_emergencia']:.6f} | 6 Milenio ∞³", "ORANGE")

@@ -209,21 +209,36 @@ class TestCodificadorADNRiemann(unittest.TestCase):
 class TestSubgrafoMonocromatico(unittest.TestCase):
     """Tests para verificar_subgrafo_monocromatico()"""
     
-    def test_grafo_con_aristas_azules(self):
-        """Grafo con aristas azules debe detectarlas"""
-        grafo = [(1, 2, 'azul'), (2, 3, 'azul'), (3, 4, 'azul')]
+    def test_grafo_con_triangulo_azul(self):
+        """Grafo con triángulo azul debe detectarlo"""
+        # Triángulo completo: 1-2, 1-3, 2-3
+        grafo = [(1, 2, 'azul'), (1, 3, 'azul'), (2, 3, 'azul')]
         
         self.assertTrue(verificar_subgrafo_monocromatico(grafo, 'azul'))
     
+    def test_grafo_sin_triangulo_solo_aristas(self):
+        """Aristas azules sin formar triángulo no deben contar"""
+        # Aristas desconectadas: no forman triángulo
+        grafo = [(1, 2, 'azul'), (3, 4, 'azul'), (5, 6, 'azul')]
+        
+        self.assertFalse(verificar_subgrafo_monocromatico(grafo, 'azul'))
+    
     def test_grafo_sin_aristas_del_color(self):
         """Grafo sin aristas del color debe retornar False"""
-        grafo = [(1, 2, 'azul'), (2, 3, 'azul'), (3, 4, 'azul')]
+        grafo = [(1, 2, 'azul'), (1, 3, 'azul'), (2, 3, 'azul')]
         
         self.assertFalse(verificar_subgrafo_monocromatico(grafo, 'rojo'))
     
     def test_grafo_vacio(self):
         """Grafo vacío no tiene subgrafos"""
         self.assertFalse(verificar_subgrafo_monocromatico([], 'azul'))
+    
+    def test_grafo_con_triangulo_mixto(self):
+        """Triángulo con colores mixtos no es monocromático"""
+        grafo = [(1, 2, 'azul'), (1, 3, 'azul'), (2, 3, 'rojo')]
+        
+        self.assertFalse(verificar_subgrafo_monocromatico(grafo, 'azul'))
+        self.assertFalse(verificar_subgrafo_monocromatico(grafo, 'rojo'))
 
 
 if __name__ == '__main__':
