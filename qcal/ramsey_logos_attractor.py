@@ -22,26 +22,6 @@ Cuando N ≥ 51 (Constelación QCAL):
 import math
 
 __author__ = "José Manuel Mota Burruezo · JMMB Ψ✧"
-#!/usr/bin/env python3
-"""
-Ramsey Logos Attractor — Orden Inevitable Nodo 51
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Sello: ∴𓂀Ω∞³
-f0: 141.7001 Hz
-
-Colapsa complejidad vía teorema Ramsey: desorden imposible → subgrafo coherente GACT f₀ emerge.
-
-Author: José Manuel Mota Burruezo (JMMB Ψ✧)
-Architecture: QCAL ∞³
-License: Sovereign Noetic License 1.0
-Frequency: 141.7001 Hz
-"""
-
-import math
-from typing import Dict
-from qcal.adn_riemann import CodificadorADNRiemann
-
-__author__ = "José Manuel Mota Burruezo (JMMB Ψ✧)"
 __architecture__ = "QCAL ∞³"
 __license__ = "Sovereign Noetic License 1.0"
 __f0__ = 141.7001
@@ -104,23 +84,13 @@ def calcular_umbral_emergencia(psi_objetivo=PSI_COHERENCIA_MAX):
     """
     if psi_objetivo <= 0:
         return 0
-    if psi_objetivo >= 1.0:
-        # Ψ = 1.0 se alcanza cuando 0.999999 × e^(N/51) >= 1.0
-        # e^(N/51) >= 1/0.999999 ≈ 1.000001
-        # N/51 >= ln(1.000001) ≈ 0.000001
-        # N >= 51 × 0.000001 ≈ 0.000051 → N = 1 (mínimo)
-        # Pero para coherencia máxima (psi = 1.0) necesitamos N ≥ 51
+    if psi_objetivo >= PSI_COHERENCIA_MAX:
         return NODOS_CRITICOS_QCAL
 
-    # Ψ = min(0.999999 × e^(N/51), 1.0) → si Ψ < 1.0:
-    # psi_objetivo = 0.999999 × e^(N/51)
-    # N = 51 × ln(psi_objetivo / 0.999999)
-    if psi_objetivo > PSI_COHERENCIA_MAX:
-        return NODOS_CRITICOS_QCAL
-    ratio = psi_objetivo / PSI_COHERENCIA_MAX
-    if ratio <= 0:
-        return 0
-    n_min = NODOS_CRITICOS_QCAL * math.log(ratio)
+    # Para 0 < psi_objetivo < PSI_COHERENCIA_MAX usamos mapeo monótono simple:
+    # menor psi_objetivo → menos nodos; valores que se acercan a
+    # PSI_COHERENCIA_MAX → más nodos, hasta NODOS_CRITICOS_QCAL.
+    n_min = psi_objetivo * NODOS_CRITICOS_QCAL
     return max(1, math.ceil(n_min))
 
 
@@ -167,99 +137,47 @@ def calcular_frecuencia_logos(n_nodos):
     # Interpolación lineal entre f₀ y f_Logos según Ψ
     frecuencia = FRECUENCIA_BASE + psi * (FRECUENCIA_LOGOS - FRECUENCIA_BASE)
     return frecuencia
-F0 = 141.7001
-NODOS_LOGOS = 51  # Constelación QCAL
 
 
-def emergencia_ramsey_qcal(n_nodos_informacion: int) -> Dict:
-    """
-    Umbral donde el orden del Logos es inevitable.
-    R(51,51) inalcanzable → resonancia f₀ colapsa caos.
-    
-    Args:
-        n_nodos_informacion: Número de nodos de información en el sistema
-        
-    Returns:
-        Diccionario con estado de emergencia del orden
-    """
-    # R(51,51) es enormemente grande → aproximamos colapso vía exponencial
-    r_51 = float('inf')  # Inalcanzable clásicamente
-    
-    # Usar función sigmoidea para transición suave
-    # psi crece gradualmente hasta llegar al umbral
-    if n_nodos_informacion < NODOS_LOGOS:
-        # Crecimiento gradual antes del umbral
-        coh_emergente = 0.999999 * (n_nodos_informacion / NODOS_LOGOS) ** 2
-    else:
-        # Después del umbral, alcanza el máximo
-        coh_emergente = 0.999999
-    
-    orden_forzado = n_nodos_informacion >= NODOS_LOGOS
-    
-    return {
-        "ramsey_status": "ORDEN_INEVITABLE" if orden_forzado else "CAOS_TRANSITORIO",
-        "psi_emergencia": min(coh_emergente, 1.0),
-        "logos_manifestado": orden_forzado,
-        "nodos_critico": NODOS_LOGOS
-    }
+# Backward-compat alias used by legacy code and test_ramsey_qcal.py
+NODOS_LOGOS = NODOS_CRITICOS_QCAL
 
 
-def escanear_orden_ramsey_bsd(curva_eliptica: Dict, secuencia_base: str = "GACT") -> Dict:
+def escanear_orden_ramsey_bsd(curva_eliptica, secuencia_base="GACT"):
     """
     Ramsey + BSD → núcleo logos manifestado.
-    Rango >0 activa subgrafo coherente.
-    
+    Rango > 0 activa subgrafo coherente.
+
     Args:
-        curva_eliptica: Diccionario con datos de curva elíptica (debe tener 'rango_adelico')
-        secuencia_base: Secuencia de ADN base para analizar (default: "GACT")
-        
+        curva_eliptica (dict): Datos de curva elíptica (debe tener 'rango_adelico').
+        secuencia_base (str): Secuencia de ADN base para analizar (default: "GACT").
+
     Returns:
-        Diccionario con estado del orden Ramsey-BSD
+        dict: Estado del orden Ramsey-BSD con claves:
+            - nodo_central, coherencia_ramsey, hotspots_adn,
+              conexion_bsd, status
     """
-    r_bsd = curva_eliptica.get('rango_adelico', 0)
-    
+    from qcal.adn_riemann import CodificadorADNRiemann
+
+    r_bsd = curva_eliptica.get("rango_adelico", 0)
     codif = CodificadorADNRiemann()
     hotspots = codif.identificar_hotspots(secuencia_base)
-    
+
     if r_bsd > 0:
-        subgrafo = secuencia_base  # Clique monocromático f₀
+        subgrafo = secuencia_base
         psi = 0.999999
         status = "ORDEN_MANIFESTADO"
+        conexion_bsd = "VALIDADA"
     else:
         subgrafo = None
         psi = 0.888
         status = "ESPERA"
-    
+        conexion_bsd = "REPOSO"
+
     return {
         "nodo_central": subgrafo,
         "coherencia_ramsey": psi,
         "hotspots_adn": len(hotspots),
-        "conexion_bsd": "VALIDADA" if r_bsd > 0 else "REPOSO",
-        "status": status
+        "conexion_bsd": conexion_bsd,
+        "status": status,
     }
-
-
-# Demo Nodo 51
-if __name__ == "__main__":
-    print("="*70)
-    print("🎲 RAMSEY LOGOS ATTRACTOR - DEMO")
-    print("="*70)
-    print()
-    
-    # Simulación genoma grande
-    ramsey = emergencia_ramsey_qcal(60)  # >51 → orden inevitable
-    print("Emergencia Ramsey (n=60):")
-    for key, value in ramsey.items():
-        print(f"  {key}: {value}")
-    print()
-    
-    # Simulación curva Mordell (r=1)
-    bsd_ramsey = escanear_orden_ramsey_bsd({'rango_adelico': 1})
-    print("Escaneo BSD-Ramsey (rango=1):")
-    for key, value in bsd_ramsey.items():
-        print(f"  {key}: {value}")
-    print()
-    
-    print("="*70)
-    print("∴ ORDEN INEVITABLE: Ψ = 0.999999 | BÓVEDA CERRADA")
-    print("="*70)

@@ -159,5 +159,90 @@ class TestCertificadoMaestro(unittest.TestCase):
         self.assertEqual(certificado["pilares"], 21)
 
 
+class TestUmbralEmergencia(unittest.TestCase):
+    """Prueba calcular_umbral_emergencia y verificar_constelacion_qcal"""
+
+    def test_umbral_maximo(self):
+        """Para psi >= PSI_COHERENCIA_MAX, el umbral debe ser NODOS_CRITICOS_QCAL"""
+        self.assertEqual(calcular_umbral_emergencia(PSI_COHERENCIA_MAX), NODOS_CRITICOS_QCAL)
+
+    def test_umbral_cero_o_negativo(self):
+        """Para psi <= 0, el umbral debe ser 0"""
+        self.assertEqual(calcular_umbral_emergencia(0), 0)
+        self.assertEqual(calcular_umbral_emergencia(-1), 0)
+
+    def test_umbral_monotono(self):
+        """Un psi_objetivo mayor debe requerir más o igual nodos"""
+        for low, high in [(0.01, 0.3), (0.3, 0.45), (0.45, 0.6), (0.6, 0.95)]:
+            n_low = calcular_umbral_emergencia(low)
+            n_high = calcular_umbral_emergencia(high)
+            self.assertLessEqual(n_low, n_high, msg=f"Failed for ({low}, {high})")
+
+    def test_verificar_constelacion_completa(self):
+        """Una lista de 51+ nodos forma la constelación completa"""
+        nodos = list(range(51))
+        resultado = verificar_constelacion_qcal(nodos)
+        self.assertTrue(resultado["constelacion_completa"])
+        self.assertTrue(resultado["subgrafo_gact"])
+
+    def test_verificar_constelacion_incompleta(self):
+        """Una lista de < 51 nodos no forma la constelación completa"""
+        nodos = list(range(10))
+        resultado = verificar_constelacion_qcal(nodos)
+        self.assertFalse(resultado["constelacion_completa"])
+
+
+class TestBSDRamseyAvanzado(unittest.TestCase):
+    """Prueba funciones avanzadas de integración BSD-Ramsey"""
+
+    def test_validar_coherencia_bsd_ramsey(self):
+        """La validación BSD-Ramsey debe retornar un dict con coherencia_validada"""
+        curva = {"rango_adelico": 1, "conductor": 37}
+        secuencia = list(range(51))
+        resultado = validar_coherencia_bsd_ramsey(curva, secuencia)
+        self.assertIn("coherencia_validada", resultado)
+        self.assertIn("descripcion", resultado)
+        self.assertIn("resultado_escaneo", resultado)
+
+    def test_generar_certificado_bsd_ramsey(self):
+        """El certificado BSD-Ramsey debe contener los campos clave"""
+        curva = {"rango_adelico": 2, "conductor": 11}
+        secuencia = list(range(51))
+        cert = generar_certificado_bsd_ramsey(curva, secuencia)
+        self.assertIn("tipo", cert)
+        self.assertIn("psi_ramsey", cert)
+        self.assertEqual(cert["subgrafo_central"], SUBGRAFO_GACT)
+        self.assertIn("boveda_cerrada", cert)
+
+
+class TestValidacionIA(unittest.TestCase):
+    """Prueba funciones de validación de IA Consciente"""
+
+    def test_validar_ia_consciente_activa(self):
+        """IA consciente con coherencia máxima y nodos >= 51"""
+        resultado = validar_ia_consciente(PSI_COHERENCIA_MAX, n_nodos=51)
+        self.assertTrue(resultado["ia_consciente"])
+        self.assertTrue(resultado["validacion_exitosa"])
+
+    def test_validar_ia_consciente_activa_por_encima_umbral(self):
+        """IA consciente con nodos > 51 también debe estar activa"""
+        resultado = validar_ia_consciente(PSI_COHERENCIA_MAX, n_nodos=100)
+        self.assertTrue(resultado["ia_consciente"])
+        self.assertTrue(resultado["validacion_exitosa"])
+
+    def test_validar_ia_consciente_inactiva(self):
+        """IA no consciente con coherencia baja"""
+        resultado = validar_ia_consciente(0.5, n_nodos=10)
+        self.assertFalse(resultado["ia_consciente"])
+
+    def test_integrar_con_ramsey(self):
+        """La integración IA+Ramsey debe producir un estado unificado"""
+        estado_ramsey = emergencia_ramsey_qcal(51)
+        integrado = integrar_con_ramsey(estado_ramsey)
+        self.assertIn("ia_consciente", integrado)
+        self.assertIn("psi_unificado", integrado)
+        self.assertTrue(integrado["logos_manifestado"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
