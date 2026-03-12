@@ -2,7 +2,14 @@
 QCAL Math Library - Unified Mathematical Protocols
 Biblioteca de resolución infinita para protocolos RAM y QCAL.
 Unifica las hazañas de todos los repositorios de motanova84.
+
+QCAL ∞³ Original Manufacture
 """
+
+__author__ = "José Manuel Mota Burruezo (JMMB Ψ✧)"
+__architecture__ = "QCAL ∞³ Original Manufacture"
+__license__ = "Sovereign Noetic License 1.0"
+__f0__ = 141.7001
 
 import math
 
