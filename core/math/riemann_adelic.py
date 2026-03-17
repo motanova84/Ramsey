@@ -298,7 +298,7 @@ class WeilTraceFormula:
             'arithmetic_side': arithmetic,
             'residue': residue,
             'relative_residue': relative_residue,
-            'is_valid': relative_residue < 1.0 / np.sqrt(n)
+            'is_valid': bool(relative_residue < 1.0 / np.sqrt(n))
         }
     
     @staticmethod
@@ -486,7 +486,7 @@ class MontgomeryCorrelation:
             'empirical': empirical,
             'theoretical': theoretical,
             'mse': mse,
-            'is_gue': mse < 0.1
+            'is_gue': bool(mse < 0.1)
         }
 
 
@@ -596,7 +596,7 @@ class WeilScanner:
         comparison = self.compare_with_odlyzko()
         
         # Isomorphism is valid if relative error < 10%
-        is_valid = comparison['relative_error'] < 0.10
+        is_valid = bool(comparison['relative_error'] < 0.10)
         
         return {
             'comparison': comparison,
