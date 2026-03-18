@@ -128,7 +128,8 @@ class Atlas3QCAL:
     
     def construct_operator_O(self, n_modes: int, coupling_strength: float = 0.1,
                             forcing_function: Optional[Callable] = None,
-                            normalize_diagonal: bool = True) -> np.ndarray:
+                            normalize_diagonal: bool = True,
+                            normalization_scheme: str = 'linear') -> np.ndarray:
         """
         Construct operator 𝒪 = 𝔻 + 𝕂 representing duality of identity and coupling.
         
@@ -140,6 +141,8 @@ class Atlas3QCAL:
             coupling_strength: Strength of inter-modal coupling
             forcing_function: Optional forcing F(t). If None, uses sinusoidal
             normalize_diagonal: If True, normalizes diagonal to be O(1) like coupling
+            normalization_scheme: Diagonal scaling scheme: 'linear', 'logarithmic', 
+                                 'sqrt', 'constant', 'quadratic'
             
         Returns:
             Operator matrix 𝒪 of shape (n_modes, n_modes)
@@ -147,8 +150,24 @@ class Atlas3QCAL:
         # 𝔻: Identity operator (diagonal - proper frequencies)
         # Use normalized form to balance with coupling
         if normalize_diagonal:
-            # Scale so diagonal is O(1)
-            D = np.diag([1.0 + self.DIAGONAL_SCALING_FACTOR * n for n in range(n_modes)])
+            if normalization_scheme == 'constant':
+                # Pure constant diagonal
+                D = np.diag([1.0] * n_modes)
+            elif normalization_scheme == 'linear':
+                # Linear scaling (original)
+                D = np.diag([1.0 + self.DIAGONAL_SCALING_FACTOR * n for n in range(n_modes)])
+            elif normalization_scheme == 'sqrt':
+                # Square root scaling - slower growth
+                D = np.diag([1.0 + np.sqrt(n + 1) * 0.1 for n in range(n_modes)])
+            elif normalization_scheme == 'logarithmic':
+                # Logarithmic scaling - very slow growth
+                D = np.diag([1.0 + np.log(n + 2) * 0.2 for n in range(n_modes)])
+            elif normalization_scheme == 'quadratic':
+                # Quadratic but normalized
+                D = np.diag([1.0 + 0.01 * (n + 1)**2 for n in range(n_modes)])
+            else:
+                # Default to linear
+                D = np.diag([1.0 + self.DIAGONAL_SCALING_FACTOR * n for n in range(n_modes)])
         else:
             # Original form with quadratic scaling
             D = np.diag([(n + 1)**2 for n in range(n_modes)])
@@ -316,7 +335,8 @@ class Atlas3QCAL:
                                            n_values: List[int],
                                            damping: float = 0.1,
                                            coupling_strength: float = 0.1,
-                                           normalize_diagonal: bool = True) -> Dict:
+                                           normalize_diagonal: bool = True,
+                                           normalization_scheme: str = 'linear') -> Dict:
         """
         Compute spectral invariant κ_Π using refined formula from Hilbert-Pólya theory.
         
@@ -357,6 +377,8 @@ class Atlas3QCAL:
             damping: Damping coefficient ζ
             coupling_strength: Inter-modal coupling strength
             normalize_diagonal: Whether to use normalized diagonal operator
+            normalization_scheme: Diagonal scaling scheme: 'linear', 'logarithmic',
+                                 'sqrt', 'constant', 'quadratic'
             
         Returns:
             Dictionary with:
@@ -385,7 +407,8 @@ class Atlas3QCAL:
             # Generate system at resolution N
             self.generate_modal_basis(n, damping=damping)
             self.construct_operator_O(n, coupling_strength=coupling_strength, 
-                                     normalize_diagonal=normalize_diagonal)
+                                     normalize_diagonal=normalize_diagonal,
+                                     normalization_scheme=normalization_scheme)
             dna = self.compute_spectral_dna()
             
             # Compute spectral gap (primary formula)
