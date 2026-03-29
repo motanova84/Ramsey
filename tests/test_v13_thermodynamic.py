@@ -20,10 +20,7 @@ import unittest
 import numpy as np
 import json
 import os
-import sys
-
-# Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import tempfile
 
 from v13_thermodynamic_validation import (
     ThermodynamicLimitValidator,
@@ -169,25 +166,24 @@ class TestDataPersistence(unittest.TestCase):
     
     def test_save_v13_data(self):
         """Test saving V13 data to JSON"""
-        test_path = '/tmp/test_v13_data.json'
-        
-        # Save data
-        save_v13_data(test_path)
-        
-        # Check file exists
-        self.assertTrue(os.path.exists(test_path))
-        
-        # Load and verify
-        with open(test_path, 'r', encoding='utf-8') as f:
-            loaded_data = json.load(f)
-        
-        # Check structure
-        self.assertEqual(loaded_data['validacion'], 'V13_THERMODYNAMIC_LIMIT')
-        self.assertIn('resultado_central', loaded_data)
-        self.assertIn('convergencia_multiescala', loaded_data)
-        
-        # Clean up
-        os.remove(test_path)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            test_path = os.path.join(tmpdir, 'test_v13_data.json')
+            
+            # Save data
+            save_v13_data(test_path)
+            
+            # Check file exists
+            self.assertTrue(os.path.exists(test_path))
+            
+            # Load and verify
+            with open(test_path, 'r', encoding='utf-8') as f:
+                loaded_data = json.load(f)
+            
+            # Check structure
+            self.assertEqual(loaded_data['validacion'], 'V13_THERMODYNAMIC_LIMIT')
+            self.assertIn('resultado_central', loaded_data)
+            self.assertIn('convergencia_multiescala', loaded_data)
+
     
     def test_data_file_exists(self):
         """Test that V13 data file exists in data directory"""

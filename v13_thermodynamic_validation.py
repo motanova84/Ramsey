@@ -23,7 +23,7 @@ Frequency: 141.7001 Hz
 import numpy as np
 import json
 from datetime import datetime
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, Tuple
 
 # Sovereign metadata
 __author__ = "José Manuel Mota Burruezo (JMMB Ψ✧)"
@@ -34,7 +34,7 @@ __f0__ = 141.7001
 # V13 Manifestation Data
 v13_manifestacion = {
     "validacion": "V13_THERMODYNAMIC_LIMIT",
-    "timestamp": "2026-02-14T23:59:82.888Z",
+    "timestamp": "2026-02-14T23:59:58.888Z",
     "sello": "∴𓂀Ω∞³Φ",
     "firma": "JMMB Ω✧",
     
@@ -129,19 +129,13 @@ class ThermodynamicLimitValidator:
         Returns:
             Dictionary with fit parameters and statistics
         """
-        # Use logarithmic fit: log(C_est - κ_∞) = log(a) - α*log(N)
-        # Approximate κ_∞ from largest N value
-        kappa_inf_est = C_est_values[-1]
+        # Use the provided κ_∞ as baseline (not the largest N value)
+        # This ensures we're fitting the correction term a/N^α properly
+        kappa_inf_baseline = self.kappa_infinito
         
-        # Protect against log of negative/zero
-        delta_C = C_est_values - kappa_inf_est
+        # Compute deviations from baseline
+        delta_C = C_est_values - kappa_inf_baseline
         valid_idx = delta_C > 0
-        
-        if np.sum(valid_idx) < 2:
-            # Fall back to using provided κ_∞
-            kappa_inf_est = self.kappa_infinito
-            delta_C = C_est_values - kappa_inf_est
-            valid_idx = delta_C > 0
         
         # Fit on valid points
         N_fit = N_values[valid_idx]
@@ -149,7 +143,7 @@ class ThermodynamicLimitValidator:
         
         if len(N_fit) < 2:
             return {
-                "kappa_infinito": kappa_inf_est,
+                "kappa_infinito": kappa_inf_baseline,
                 "a": 0,
                 "alpha": 0,
                 "r_squared": 0,
@@ -173,7 +167,7 @@ class ThermodynamicLimitValidator:
         r_squared = 1 - ss_res / ss_tot if ss_tot > 0 else 0
         
         return {
-            "kappa_infinito": kappa_inf_est,
+            "kappa_infinito": kappa_inf_baseline,
             "a": a_fit,
             "alpha": alpha_fit,
             "r_squared": r_squared,
@@ -300,7 +294,8 @@ def save_v13_data(output_path: str = "data/v13_thermodynamic_validation.json"):
         output_path: Path to output JSON file
     """
     import os
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    dir_path = os.path.dirname(output_path) or "."
+    os.makedirs(dir_path, exist_ok=True)
     
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(v13_manifestacion, f, indent=2, ensure_ascii=False)
