@@ -26,6 +26,7 @@ Este índice organiza la documentación del proyecto según el paradigma de **co
 | Documento | Dominio | Conexión |
 |-----------|---------|----------|
 | [QCAL_UNIFIED_FRAMEWORK.md](QCAL_UNIFIED_FRAMEWORK.md) | Multi-dominio | Marco completo QCAL ∞³ |
+| **[NOESIS88_UNIFIED_FRAMEWORK.md](NOESIS88_UNIFIED_FRAMEWORK.md)** 🆕 | Superfluid Substrate | Adelic Bose-Einstein, P=NP fluidity, Dicke superradiance |
 | [UNIFIED_THEORY_CONNECTION.md](UNIFIED_THEORY_CONNECTION.md) | Física + Aritmética | Conexión LIGO + BSD + Ramsey |
 | [P_NP_FRAMEWORK.md](P_NP_FRAMEWORK.md) | Complejidad | Geometría Calabi-Yau, κ_Π = 2.5773 |
 | [VIBRATIONAL_FORMALISM.md](VIBRATIONAL_FORMALISM.md) | Combinatoria | Formalismo matemático R_ψ |
@@ -156,6 +157,7 @@ Este índice organiza la documentación del proyecto según el paradigma de **co
 | Script | Descripción | Uso |
 |--------|-------------|-----|
 | `demo.py` | Demo principal | `python demo.py` |
+| `demo_noesis88.py` 🆕 | NOESIS88: Superfluid framework demo | `python demo_noesis88.py` |
 | `example_coherent_vs_isolated.py` | Coherencia vs aislamiento | `python example_coherent_vs_isolated.py` |
 | `tutorial_methodology.py` | Tutorial interactivo | `python tutorial_methodology.py` |
 | `validate_demonstration.py` | Validar instalación | `python validate_demonstration.py` |
