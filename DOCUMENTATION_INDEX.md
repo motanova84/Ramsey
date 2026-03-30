@@ -55,6 +55,7 @@ Este índice organiza la documentación del proyecto según el paradigma de **co
 | `ai_ramsey_formal.py` | Generación automática de pruebas Lean 4 | Python + Lean |
 | `ramsey_z3_verification.py` | Verificación SAT | Python + Z3 |
 | `example_coherent_vs_isolated.py` | Demo: coherencia vs aislamiento | Python |
+| `v13_thermodynamic_validation.py` | Validación límite termodinámico V13 | Python + NumPy |
 
 ### Documentación Técnica
 
@@ -64,6 +65,7 @@ Este índice organiza la documentación del proyecto según el paradigma de **co
 | [BREAKTHROUGH_SUMMARY.md](BREAKTHROUGH_SUMMARY.md) | Logros | Resumen técnico |
 | [VERIFICATION_COMPLETE.md](VERIFICATION_COMPLETE.md) | Verificación | Triple certificación |
 | [TESTING.md](TESTING.md) | Testing | Cómo ejecutar tests |
+| [V13_README.md](V13_README.md) | V13 | Límite termodinámico κ_∞ → κ_Π |
 
 ---
 
