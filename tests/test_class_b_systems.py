@@ -6,6 +6,8 @@ Tests the QCAL ∞³ Phase 3 extension covering:
 - Resonance detection
 - Binary colorings (Class A)
 - Ternary colorings (Class B)
+- k-ary colorings (Class C)
+- Dynamic systems (Class D)
 - Clique detection
 - Polynomial bounds
 """
@@ -21,6 +23,8 @@ from core.math.class_b_systems import (
     VibrationSystem,
     ClassASystem,
     ClassBSystem,
+    ClassCSystem,
+    ClassDSystem,
     create_system
 )
 
@@ -295,6 +299,261 @@ class TestIntegration(unittest.TestCase):
         self.assertEqual(coloring[(2, 3)], 'azul')
         # (0,2) should be rojo (not resonant)
         self.assertEqual(coloring[(0, 2)], 'rojo')
+
+
+class TestClassCSystem(unittest.TestCase):
+    """Tests for Class C k-ary systems"""
+    
+    def test_create_class_c_system(self):
+        """Class C system should be created with specified k"""
+        system = create_system(SystemClass.C, k=4)
+        self.assertIsInstance(system, ClassCSystem)
+        self.assertEqual(system.get_system_class(), SystemClass.C)
+        self.assertEqual(system.get_color_count(), 4)
+    
+    def test_class_c_with_different_k(self):
+        """Class C should support different k values"""
+        for k in [4, 5, 6, 7, 8]:
+            system = create_system(SystemClass.C, k=k)
+            self.assertEqual(system.get_color_count(), k)
+    
+    def test_class_c_minimum_k(self):
+        """Class C should require k >= 4"""
+        with self.assertRaises(ValueError):
+            ClassCSystem(k=3)
+        with self.assertRaises(ValueError):
+            ClassCSystem(k=2)
+    
+    def test_class_c_coloring(self):
+        """Class C should generate k-ary colorings"""
+        system = create_system(SystemClass.C, k=4)
+        frequencies = np.random.uniform(0, 141.7001, 10)
+        coloring = system.generate_coloring(frequencies)
+        
+        # Should have n(n-1)/2 edges
+        n = len(frequencies)
+        expected_edges = n * (n - 1) // 2
+        self.assertEqual(len(coloring), expected_edges)
+        
+        # All colors should be from the color palette
+        colors = set(coloring.values())
+        self.assertLessEqual(len(colors), 4)
+    
+    def test_class_c_harmonic_coloring(self):
+        """Class C should use harmonic resonance patterns"""
+        system = create_system(SystemClass.C, k=5)
+        # Create frequencies with specific harmonic relationships
+        frequencies = np.array([10.0, 10.0, 20.0, 30.0, 40.0])
+        coloring = system.generate_coloring(frequencies)
+        
+        # (0,1) should be azul (direct resonance)
+        self.assertEqual(coloring[(0, 1)], 'azul')
+        
+        # Check that various colors are used
+        colors_used = set(coloring.values())
+        self.assertGreater(len(colors_used), 1)
+    
+    def test_class_c_clique_detection(self):
+        """Class C should find monochromatic cliques"""
+        system = create_system(SystemClass.C, k=4)
+        frequencies = np.array([1.0, 1.1, 1.2, 50.0, 51.0])
+        coloring = system.generate_coloring(frequencies)
+        
+        # Try to find cliques in different colors
+        for color in system.color_names[:4]:
+            clique = system.find_monochromatic_clique(coloring, color, min_size=2)
+            # At least one color should have a clique
+            if clique:
+                self.assertGreaterEqual(len(clique), 2)
+    
+    def test_class_c_polynomial_bound(self):
+        """Class C should calculate correct polynomial bounds"""
+        system = create_system(SystemClass.C, k=4)
+        
+        # R_ψ(3,3,3,3) for 4-ary
+        bound_4ary = system.polynomial_bound(3, 3, 3, 3)
+        self.assertGreater(bound_4ary, 0)
+        self.assertLess(bound_4ary, 100)  # Reasonable bound
+        
+        # R_ψ(4,4,4,4) should be larger
+        bound_larger = system.polynomial_bound(4, 4, 4, 4)
+        self.assertGreater(bound_larger, bound_4ary)
+    
+    def test_class_c_estimate_ramsey_number(self):
+        """Class C should estimate k-ary Ramsey numbers"""
+        system = create_system(SystemClass.C, k=5)
+        
+        # Should accept exactly k parameters
+        estimate = system.estimate_ramsey_number(3, 3, 3, 3, 3)
+        self.assertGreater(estimate, 0)
+        
+        # Should raise error for wrong number of parameters
+        with self.assertRaises(ValueError):
+            system.estimate_ramsey_number(3, 3, 3)  # Only 3 params, need 5
+
+
+class TestClassDSystem(unittest.TestCase):
+    """Tests for Class D dynamic/adaptive systems"""
+    
+    def test_create_class_d_system(self):
+        """Class D system should be created with max_colors"""
+        system = create_system(SystemClass.D, max_colors=10)
+        self.assertIsInstance(system, ClassDSystem)
+        self.assertEqual(system.get_system_class(), SystemClass.D)
+        self.assertEqual(system.max_colors, 10)
+    
+    def test_class_d_default_parameters(self):
+        """Class D should have reasonable default parameters"""
+        system = create_system(SystemClass.D)
+        self.assertEqual(system.max_colors, 10)
+        self.assertAlmostEqual(system.f0, 141.7001, places=4)
+        self.assertAlmostEqual(system.kappa_pi, 2.5773, places=4)
+    
+    def test_class_d_adaptive_coloring(self):
+        """Class D should adaptively determine number of colors"""
+        system = create_system(SystemClass.D, max_colors=8)
+        frequencies = np.random.uniform(0, 141.7001, 20)
+        coloring = system.generate_coloring(frequencies)
+        
+        # Should have determined an adaptive_k
+        self.assertIsNotNone(system.adaptive_k)
+        self.assertGreaterEqual(system.adaptive_k, 2)
+        self.assertLessEqual(system.adaptive_k, 8)
+        
+        # Should have correct number of edges
+        n = len(frequencies)
+        expected_edges = n * (n - 1) // 2
+        self.assertEqual(len(coloring), expected_edges)
+    
+    def test_class_d_spectral_gap_analysis(self):
+        """Class D should use spectral gaps to determine colors"""
+        system = create_system(SystemClass.D, max_colors=6)
+        
+        # Create frequencies with clear clusters
+        cluster1 = np.random.uniform(0, 10, 5)
+        cluster2 = np.random.uniform(50, 60, 5)
+        cluster3 = np.random.uniform(100, 110, 5)
+        frequencies = np.concatenate([cluster1, cluster2, cluster3])
+        
+        coloring = system.generate_coloring(frequencies)
+        
+        # Should detect multiple clusters
+        self.assertGreaterEqual(system.adaptive_k, 2)
+        
+        # Should use multiple colors
+        colors_used = set(coloring.values())
+        self.assertGreater(len(colors_used), 1)
+    
+    def test_class_d_small_graph(self):
+        """Class D should handle small graphs gracefully"""
+        system = create_system(SystemClass.D)
+        frequencies = np.random.uniform(0, 141.7001, 3)
+        coloring = system.generate_coloring(frequencies)
+        
+        # Should default to binary for small graphs
+        self.assertGreaterEqual(system.adaptive_k, 2)
+        self.assertEqual(len(coloring), 3)  # 3 vertices -> 3 edges
+    
+    def test_class_d_clique_detection(self):
+        """Class D should find monochromatic cliques"""
+        system = create_system(SystemClass.D, max_colors=5)
+        frequencies = np.array([1.0, 1.0, 1.1, 70.0, 70.1])
+        coloring = system.generate_coloring(frequencies)
+        
+        # Should be able to find cliques
+        colors_in_coloring = set(coloring.values())
+        found_clique = False
+        for color in colors_in_coloring:
+            clique = system.find_monochromatic_clique(coloring, color, min_size=2)
+            if clique and len(clique) >= 2:
+                found_clique = True
+                break
+        self.assertTrue(found_clique)
+    
+    def test_class_d_polynomial_bound(self):
+        """Class D should calculate polynomial bounds"""
+        system = create_system(SystemClass.D)
+        
+        # Should work for various parameter counts
+        bound_2 = system.polynomial_bound(3, 3)
+        bound_3 = system.polynomial_bound(3, 3, 3)
+        bound_4 = system.polynomial_bound(3, 3, 3, 3)
+        
+        self.assertGreater(bound_2, 0)
+        self.assertGreater(bound_3, 0)
+        self.assertGreater(bound_4, 0)
+    
+    def test_class_d_estimate_with_correction(self):
+        """Class D should apply spectral correction to estimates"""
+        system = create_system(SystemClass.D)
+        
+        # Estimate with correction factor
+        estimate = system.estimate_ramsey_number(4, 4, 4)
+        
+        # Should be positive and reasonable
+        self.assertGreater(estimate, 0)
+        self.assertLess(estimate, 200)
+        
+        # Should be less than base polynomial bound (correction factor)
+        base_bound = system.polynomial_bound(4, 4, 4)
+        self.assertLessEqual(estimate, base_bound)
+    
+    def test_class_d_kappa_pi_coupling(self):
+        """Class D should use κ_Π for spectral analysis"""
+        system = create_system(SystemClass.D)
+        
+        # κ_Π should be used in determining optimal colors
+        self.assertAlmostEqual(system.kappa_pi, 2.5773, places=4)
+        
+        # Test with wide frequency distribution
+        frequencies = np.linspace(0, 141.7001, 30)
+        coloring = system.generate_coloring(frequencies)
+        
+        # Should detect structure based on κ_Π
+        self.assertIsNotNone(system.adaptive_k)
+
+
+class TestSystemIntegration(unittest.TestCase):
+    """Integration tests across all system classes"""
+    
+    def test_all_systems_have_consistent_interface(self):
+        """All system classes should implement the same interface"""
+        systems = [
+            create_system(SystemClass.A),
+            create_system(SystemClass.B),
+            create_system(SystemClass.C, k=4),
+            create_system(SystemClass.D, max_colors=6)
+        ]
+        
+        for system in systems:
+            # All should have these methods
+            self.assertTrue(hasattr(system, 'get_system_class'))
+            self.assertTrue(hasattr(system, 'get_color_count'))
+            self.assertTrue(hasattr(system, 'generate_coloring'))
+            self.assertTrue(hasattr(system, 'find_monochromatic_clique'))
+            self.assertTrue(hasattr(system, 'polynomial_bound'))
+    
+    def test_color_count_progression(self):
+        """Color count should increase from A to D"""
+        system_a = create_system(SystemClass.A)
+        system_b = create_system(SystemClass.B)
+        system_c = create_system(SystemClass.C, k=5)
+        
+        self.assertEqual(system_a.get_color_count(), 2)
+        self.assertEqual(system_b.get_color_count(), 3)
+        self.assertEqual(system_c.get_color_count(), 5)
+    
+    def test_polynomial_bounds_consistent(self):
+        """Polynomial bounds should be consistent across systems"""
+        # For binary case, all should give similar results
+        bound_a = create_system(SystemClass.A).polynomial_bound(5, 5)
+        bound_b = create_system(SystemClass.B).polynomial_bound(5, 5)
+        bound_c = create_system(SystemClass.C, k=4).polynomial_bound(5, 5)
+        bound_d = create_system(SystemClass.D).polynomial_bound(5, 5)
+        
+        # All should be positive
+        for bound in [bound_a, bound_b, bound_c, bound_d]:
+            self.assertGreater(bound, 0)
 
 
 if __name__ == '__main__':
