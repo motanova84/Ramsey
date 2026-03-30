@@ -172,7 +172,7 @@ La alineación espectral está confirmada con precisión de máquina (< 10⁻¹�
 
 ### Suite de Tests
 
-El kernel incluye 45 pruebas unitarias comprehensivas:
+El kernel incluye 48 pruebas unitarias comprehensivas:
 
 | Categoría | Tests | Resultado |
 |-----------|-------|-----------|
@@ -180,7 +180,8 @@ El kernel incluye 45 pruebas unitarias comprehensivas:
 | Sincronización | 10 | 10/10 OK |
 | Conservación | 10 | 10/10 OK |
 | Coherencia Global | 10 | 10/10 OK |
-| **Total** | **45** | **45/45 OK** |
+| Constantes | 3 | 3/3 OK |
+| **Total** | **48** | **48/48 OK** |
 
 ### Ejecución
 
@@ -188,7 +189,7 @@ El kernel incluye 45 pruebas unitarias comprehensivas:
 python -m unittest tests.test_kernel_navier_stokes_qcal -v
 ```
 
-**Resultado: Todas las pruebas superadas (45/45 OK)**
+**Resultado: Todas las pruebas superadas (48/48 OK)**
 
 ---
 

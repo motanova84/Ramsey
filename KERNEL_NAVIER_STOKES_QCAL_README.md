@@ -290,7 +290,7 @@ assert kernel.brecha_b_sellada()
 
 ## Testing
 
-The kernel includes 45 comprehensive unit tests:
+The kernel includes 48 comprehensive unit tests:
 
 ```bash
 python -m unittest tests.test_kernel_navier_stokes_qcal -v

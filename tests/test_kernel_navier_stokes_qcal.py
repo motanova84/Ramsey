@@ -2,7 +2,7 @@
 """
 Unit tests for Kernel Navier-Stokes QCAL.
 
-45 unit tests covering:
+48 unit tests covering:
 - Unitarity: |det(V)| = 1, V^T·V = I, V^7 = I
 - Synchronization: dt = 1/f₀
 - Conservation: ∇·v = 0, ΔE/E = 0
