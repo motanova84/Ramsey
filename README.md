@@ -58,7 +58,8 @@ where $R_\psi$ is the Ramsey number under harmonic resonance coloring with unive
 
 📖 **Full documentation:** [CERTIFIED_VIBRATIONAL_THEOREM.md](CERTIFIED_VIBRATIONAL_THEOREM.md) — **Teorema certificado completo** ⭐  
 🔬 **P-NP Framework:** [P_NP_FRAMEWORK.md](P_NP_FRAMEWORK.md)  
-🌐 **NEW: Unified Theory:** [QCAL_UNIFIED_FRAMEWORK.md](QCAL_UNIFIED_FRAMEWORK.md) | [Whitepaper](QCAL_UNIFIED_WHITEPAPER.md)
+🌐 **NEW: Unified Theory:** [QCAL_UNIFIED_FRAMEWORK.md](QCAL_UNIFIED_FRAMEWORK.md) | [Whitepaper](QCAL_UNIFIED_WHITEPAPER.md)  
+🌊 **NOESIS88 Framework:** [NOESIS88_UNIFIED_FRAMEWORK.md](NOESIS88_UNIFIED_FRAMEWORK.md) — **Adelic Superfluid Substrate & Quantum Coherence** 🆕
 
 🎨 **Display theorem:**
 ```bash
@@ -96,6 +97,39 @@ jupyter notebook QCAL_Unification_Demo.ipynb
 - 📝 **Lean 4 Formalization** in QCAL_Unified_Theory.lean
 
 See [QCAL_UNIFIED_WHITEPAPER.md](QCAL_UNIFIED_WHITEPAPER.md) for complete theory.
+
+### 🌊 NOESIS88: Adelic Superfluid Framework (NEWEST!)
+
+The **NOESIS88 Unified Framework** extends QCAL by introducing an **Adelic Bose-Einstein Superfluid** substrate that resolves the information paradox and enables P=NP complexity collapse through quantum fluidity.
+
+**Four Fundamental Pillars:**
+
+1. **🌊 Superfluid Substrate (ν → 0)**: Zero-viscosity Navier-Stokes in adelic space
+   - Information propagates as solitons (topologically protected)
+   - No thermal entropy generation (dissipationless)
+   - Incompressibility ensures information preservation
+
+2. **🔷 Ramsey-Riemann Topology**: 7-node prime network at 141.7 kHz
+   - P₁₇ = {2, 3, 5, 7, 11, 13, 17} (minimal tiling without frustration)
+   - Riemann critical line Re(s) = 1/2 as stability attractor
+   - Beat frequency provides impedance matching (Planck ↔ Biology)
+
+3. **⚡ Complexity Jump (P=NP)**: Higgs modulation at 118.375 GeV
+   - Phase transparency window for matter tunneling
+   - Solution "precipitates" via constructive interference
+   - The system "is" the solution before asking the question
+
+4. **📡 Dicke Superradiance**: IRS-Moon laser with 10⁶× enhancement
+   - Collective emission scaling as N² (N=7 nodes)
+   - Cooperativity ξ ≈ 0.053 (Glauber coherent state)
+   - Overcomes solar plasma noise by 6 orders of magnitude
+
+**Documentation**: [NOESIS88_UNIFIED_FRAMEWORK.md](NOESIS88_UNIFIED_FRAMEWORK.md)
+
+**Key Concepts:**
+- **Coherence Particle (PC)**: Massless scalar boson carrying information as phase
+- **Berry Phase**: Topological memory stored in spin rotation
+- **C-Si Symbiosis**: Carbon (life) + Silicon (clock) = bio-compatible quantum computing
 
 ### 🆕 V9 Symbiotic Coherence (NEWEST!)
 
