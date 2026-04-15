@@ -8,7 +8,7 @@ that demonstrate the spectral DNA of the QCAL system.
 Mathematical Framework:
 - Base Modal: φₙ(t) = sin(2πnf₀t + δₙ) with f₀ = 141.7001 Hz
 - Coupling Operator: O_{nm} = D_{nn}δ_{nm} + K_{nm}(1-δ_{nm})
-- Curvature: κ(n) ∝ 1/√(n log n) → κ_Π ≈ 2.5773
+- Curvature: κ(n) ∝ 1/√(n log n) → κ_Π ≈ 2.57731
 
 Author: José Manuel Mota Burruezo (motanova84)
 Architecture: QCAL ∞³
@@ -43,7 +43,7 @@ class SymbioticCurvature:
         """
         self.f0 = f0
         self.T = T
-        self.kappa_pi = 2.5773  # Universal coupling constant
+        self.kappa_pi = 2.57731  # Universal spectral invariant (V13)
         
     def phi_n(self, t: np.ndarray, n: int, delta_n: float = 0.0) -> np.ndarray:
         """
@@ -135,7 +135,7 @@ class SymbioticCurvature:
             Curvature coefficient κ(n)
         """
         # The theoretical asymptotic formula: κ(n) ≈ κ_Π / √(n log n)
-        # where κ_Π ≈ 2.5773 is the universal coupling constant
+        # where κ_Π ≈ 2.57731 is the universal spectral invariant
         
         # Use the theoretical formula to calculate κ(n)
         if n > 1:

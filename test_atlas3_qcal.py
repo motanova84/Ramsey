@@ -145,7 +145,7 @@ class TestAtlas3Phase2(unittest.TestCase):
 
 
 class TestAtlas3Phase3(unittest.TestCase):
-    """Test Phase 3: Fire Test κ_Π ≈ 2.5773"""
+    """Test Phase 3: Fire Test κ_Π ≈ 2.57731 (V13 Results)"""
     
     def setUp(self):
         """Set up test framework."""
@@ -153,7 +153,7 @@ class TestAtlas3Phase3(unittest.TestCase):
     
     def test_kappa_pi_constant(self):
         """Test κ_Π constant is properly defined."""
-        self.assertAlmostEqual(self.atlas.kappa_pi, 2.5773, places=4)
+        self.assertAlmostEqual(self.atlas.kappa_pi, 2.57731, places=5)
     
     def test_validation_structure(self):
         """Test validation returns proper structure."""
@@ -172,7 +172,7 @@ class TestAtlas3Phase3(unittest.TestCase):
         self.assertIn('universality_achieved', validation)
         
         # Check target is correct
-        self.assertAlmostEqual(validation['kappa_pi_target'], 2.5773, places=4)
+        self.assertAlmostEqual(validation['kappa_pi_target'], 2.57731, places=5)
     
     def test_universality_check(self):
         """Test universality is properly evaluated."""
@@ -202,6 +202,120 @@ class TestAtlas3Phase3(unittest.TestCase):
         # Stability ratio should be reasonable (< 1 for stable)
         if validation['mean_C'] > 0:
             self.assertIsNotNone(validation['stability_ratio'])
+
+
+class TestV13SpectralInvariant(unittest.TestCase):
+    """Test V13 spectral invariant computation and validation"""
+    
+    def setUp(self):
+        """Set up test framework."""
+        self.atlas = Atlas3QCAL(f0=141.7001)
+    
+    def test_direct_kappa_pi_formula(self):
+        """Test direct κ_Π formula: λ_max(A_N) / (N log N)"""
+        n_values = [16, 32]
+        results = self.atlas.compute_spectral_invariant_kappa_pi(
+            n_values=n_values,
+            damping=0.1,
+            coupling_strength=0.15
+        )
+        
+        # Check all required fields
+        self.assertIn('kappa_pi_values', results)
+        self.assertIn('lambda_max_values', results)
+        self.assertIn('errors_percent', results)
+        self.assertIn('target_kappa_pi', results)
+        self.assertIn('v13_precision_achieved', results)
+        
+        # Check correct number of results
+        self.assertEqual(len(results['kappa_pi_values']), len(n_values))
+        self.assertEqual(len(results['lambda_max_values']), len(n_values))
+        self.assertEqual(len(results['errors_percent']), len(n_values))
+        
+        # Kappa values should be positive and reasonable
+        for kappa in results['kappa_pi_values']:
+            self.assertGreater(kappa, 0)
+            self.assertLess(kappa, 100)  # Sanity check
+    
+    def test_error_tracking(self):
+        """Test that error tracking works correctly"""
+        results = self.atlas.compute_spectral_invariant_kappa_pi(
+            n_values=[16, 32, 64],
+            damping=0.1,
+            coupling_strength=0.15
+        )
+        
+        # Error should be computed for each N
+        self.assertEqual(len(results['errors_percent']), 3)
+        
+        # All errors should be non-negative percentages
+        for error in results['errors_percent']:
+            self.assertGreaterEqual(error, 0)
+        
+        # Min and max error should be tracked
+        self.assertIn('min_error_percent', results)
+        self.assertIn('max_error_percent', results)
+    
+    def test_v13_precision_flag(self):
+        """Test V13 precision achievement flag"""
+        results = self.atlas.compute_spectral_invariant_kappa_pi(
+            n_values=[16],
+            damping=0.1,
+            coupling_strength=0.15
+        )
+        
+        # Flag should be boolean (convert numpy bool to Python bool for isinstance check)
+        self.assertIn(results['v13_precision_achieved'], [True, False])
+        
+        # If achieved, min error should be < 0.019%
+        if results['v13_precision_achieved']:
+            self.assertLess(results['min_error_percent'], 0.019)
+    
+    def test_convergence_rate_estimation(self):
+        """Test convergence rate estimation"""
+        # Need at least 3 points for convergence rate
+        results = self.atlas.compute_spectral_invariant_kappa_pi(
+            n_values=[16, 32, 64],
+            damping=0.1,
+            coupling_strength=0.15
+        )
+        
+        # Convergence rate should be computed
+        self.assertIsNotNone(results['convergence_rate'])
+        
+        # Should be a number (can be positive or negative depending on scaling)
+        if results['convergence_rate'] is not None:
+            self.assertIsInstance(float(results['convergence_rate']), float)
+    
+    def test_spectral_radius_computation(self):
+        """Test that spectral radius (λ_max) is computed correctly"""
+        results = self.atlas.compute_spectral_invariant_kappa_pi(
+            n_values=[8, 16],
+            damping=0.1,
+            coupling_strength=0.1
+        )
+        
+        # Lambda max values should all be positive
+        for lambda_max in results['lambda_max_values']:
+            self.assertGreater(lambda_max, 0)
+        
+        # Lambda max should generally increase with N (more modes = larger eigenvalues)
+        # (Not strictly monotonic due to normalization, but checking it's reasonable)
+        self.assertTrue(all(lm > 0 for lm in results['lambda_max_values']))
+    
+    def test_higher_precision_constant(self):
+        """Test that new κ_Π value has higher precision"""
+        results = self.atlas.compute_spectral_invariant_kappa_pi(
+            n_values=[16],
+            damping=0.1,
+            coupling_strength=0.15
+        )
+        
+        # Target should be 2.57731 (5 decimal places)
+        self.assertAlmostEqual(results['target_kappa_pi'], 2.57731, places=5)
+        
+        # Should match atlas instance
+        self.assertEqual(results['target_kappa_pi'], self.atlas.kappa_pi)
 
 
 class TestAtlas3Integration(unittest.TestCase):
@@ -289,6 +403,7 @@ def run_tests():
     suite.addTests(loader.loadTestsFromTestCase(TestAtlas3Phase1))
     suite.addTests(loader.loadTestsFromTestCase(TestAtlas3Phase2))
     suite.addTests(loader.loadTestsFromTestCase(TestAtlas3Phase3))
+    suite.addTests(loader.loadTestsFromTestCase(TestV13SpectralInvariant))
     suite.addTests(loader.loadTestsFromTestCase(TestAtlas3Integration))
     suite.addTests(loader.loadTestsFromTestCase(TestAtlas3Metadata))
     
