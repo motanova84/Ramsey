@@ -1,0 +1,49 @@
+{
+  "validacion": "V13_THERMODYNAMIC_LIMIT",
+  "timestamp": "2026-02-14T23:59:58.888Z",
+  "sello": "∴𓂀Ω∞³Φ",
+  "firma": "JMMB Ω✧",
+  "resultado_central": {
+    "kappa_medido": 2.59764,
+    "kappa_teorico": 2.57731,
+    "error_relativo": 0.0077,
+    "error_porcentaje": 0.79,
+    "r_cuadrado": 0.984,
+    "veredicto": "CONFIRMADO"
+  },
+  "convergencia_multiescala": {
+    "N_128": 3.068,
+    "N_256": 2.937,
+    "N_512": 2.777,
+    "N_1024": 2.713,
+    "N_2560": 2.683,
+    "N_infinito": 2.59764,
+    "ley_escalamiento": "1/sqrt(N)",
+    "exponente_alpha": 0.632
+  },
+  "marco_teorico": {
+    "clase_B": "PT-simetricas con saturacion Ramsey",
+    "d_ramsey": [
+      0.17,
+      0.19
+    ],
+    "alineacion_riemann": "Re(s) = 1/2",
+    "rigidez_espectral": "Σ²(L) < Σ²_GOE",
+    "memoria": "Largo alcance confirmada"
+  },
+  "significado_termodinamico": {
+    "fase": "Limite N → ∞",
+    "transicion": "Sistema finito → Campo continuo",
+    "curvatura_kappa_pi": "Invariante topologico",
+    "estabilidad": "Punto fijo atractor"
+  },
+  "ecuacion_fundamental": {
+    "forma": "C_est(N) = κ_∞ + a/N^α",
+    "parametros": {
+      "kappa_infinito": 2.59764,
+      "a": "coeficiente de correccion finita",
+      "alpha": 0.632
+    },
+    "limite": "κ_∞ → κ_Π cuando N → ∞, α → 0.5"
+  }
+}

@@ -2,6 +2,18 @@
 
 This document compares the two approaches to polynomial Ramsey bounds implemented in this repository.
 
+## ❗ Important Note: Alternative Ramsey Models
+
+**All models discussed here (R_ψ, R_Λ) are DIFFERENT from the classical Ramsey function R(r,s):**
+
+- **R(r,s)** = Classical Ramsey number (arbitrary 2-colorings of complete graphs)
+- **R_ψ(r,s,ε)** = Vibrational Ramsey (colorings via frequency resonance)
+- **R_Λ(r,s)** = Parameterized Ramsey (colorings via measurable sets Λ ⊂ [0,1))
+
+These are distinct mathematical objects measuring different properties in different spaces. **R_ψ ≠ R** and **R_Λ ≠ R**. Bounds on these alternative models may inform bounds on R through reduction theorems, but they are not the same quantity.
+
+For a detailed explanation of why R_ψ ≠ R, see [FAQ.md](FAQ.md#1-rψrs-es-lo-mismo-que-rrs).
+
 ## Overview
 
 | Aspect | Vibrational R_ψ | Parameterized R_Λ |

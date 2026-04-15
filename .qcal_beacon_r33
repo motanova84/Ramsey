@@ -1,0 +1,13 @@
+# QCAL ∞³ Beacon File
+# Generated: 2026-01-02T09:41:49.480326
+
+theorem = "R(3,3)=5"
+r = 3
+s = 3
+bound = 5
+f0 = 141.7001
+lambda = 0.001
+coherence = STANDARD
+version = "1.1.0"
+certified = true
+timestamp = "2026-01-02T09:41:49.480333"

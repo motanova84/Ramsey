@@ -1,0 +1,14 @@
+{
+  "framework": "QCAL ∞³",
+  "version": "2.0",
+  "frequency": 141.7001,
+  "author": "José Manuel Mota Burruezo (JMMB Ψ✧)",
+  "pilares": 21,
+  "boveda_verdad_cerrada": true,
+  "ramsey_bsd_logos": {
+    "nodos_critico": 51,
+    "psi_ramsey": 0.999999,
+    "nodo_central": "GACT",
+    "milenio_unificados": 6
+  }
+}

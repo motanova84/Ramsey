@@ -1,6 +1,10 @@
 # Integración con el Repositorio Principal
 
-Este directorio `rpsi-proof/` es un submódulo autónomo del repositorio principal Ramsey que proporciona certificación formal completa para Rψ(5,5) ≤ 16.
+⚠️ **CORRECCIÓN**: Este directorio documentaba la certificación para Rψ(5,5) ≤ 16, 
+pero el resultado SAT muestra que la instancia es SATISFIABLE, por lo tanto Rψ(5,5) > 16.
+
+Este directorio `rpsi-proof/` es un submódulo autónomo del repositorio principal Ramsey 
+que documenta el proceso de verificación SAT para Rψ(5,5).
 
 ## 🔗 Conexión con el Repositorio Principal
 
@@ -14,7 +18,7 @@ Ramsey/
 │   ├── Rpsi_3_3_le_5.lean
 │   └── Rpsi_4_4_le_10.lean
 └── rpsi-proof/                    # ← Este directorio
-    └── ...                        # Certificación formal de Rψ(5,5) ≤ 16
+    └── ...                        # Análisis SAT de Rψ(5,5) [n=16 SATISFIABLE]
 ```
 
 ### Diferencias con Implementación Anterior

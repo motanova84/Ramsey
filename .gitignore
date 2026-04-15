@@ -1,3 +1,15 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+artifacts/
+cache/
+typechain-types/
+coverage/
+coverage.json
+
 # Python
 __pycache__/
 *.py[cod]
@@ -48,6 +60,23 @@ htmlcov/
 *.tmp
 *.log
 
+# Test output files (certificates generated during testing)
+/Rpsi_*.lean
+/Rpsi_*.md
+/Rpsi_*.json
+# Test data
+data/test/
+
+# Large generated SAT instances (generate on demand)
+data/rpsi_5_5_n43.cnf
+# Generated runtime files (should be in certificates/ or data/)
+/Rpsi_*.lean
+/Rpsi_*.md
+/Rpsi_*.json
+/.qcal_beacon_r*
+/r*_unsat.log
+/*.cnf
+
 # Lean 4
 .lake/
 build/
@@ -74,3 +103,39 @@ paper/*.toc
 paper/*.bbl
 paper/*.blg
 paper/*.synctex.gz
+
+# Generated demo scripts
+r1010_demo.py
+ramsey_infinite.py
+
+# Test-generated files
+Rpsi_*_certification.json
+Rpsi_*_explanation.md
+Rpsi_*_le_*.lean
+
+# Node.js / NPM
+node_modules/
+package-lock.json
+
+# Hardhat / Solidity
+cache/
+artifacts/
+typechain-types/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# NFT generated files
+nft/metadata/*_cids.json
+nft/metadata/*_metadata.json
+nft/metadata/deployment.json
+nft/metadata/batch_mint_results.json
+
+# V9 visualization outputs
+v9_*.png
+v9_*.pdf
+v9_*.svg
+
+qcal_ramsey_cert.json

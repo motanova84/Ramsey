@@ -159,6 +159,18 @@ def ejemplo_propiedades_teoricas():
     print(f"  ✓ Verificado: {R_34} = {R_34_alt}")
 
 
+def ejemplo_paradigma_vibracional():
+    """Ejemplo 7: Paradigma Ramsey Vibracional vs Clásico"""
+    print("\n" + "="*70)
+    print("EJEMPLO 7: Paradigma Ramsey Vibracional vs Clásico")
+    print("="*70)
+    
+    from ramsey_vibracional import demostrar_paradigma_vibracional
+    
+    # Mostrar la diferencia fundamental entre ambos paradigmas
+    demostrar_paradigma_vibracional()
+
+
 def main():
     """Ejecutar todos los ejemplos"""
     print("\n" + "☆"*35)
@@ -167,6 +179,7 @@ def main():
     print("☆"*35)
     
     # Ejecutar ejemplos
+    ejemplo_paradigma_vibracional()
     ejemplo_basico()
     ejemplo_coloracion_vibracional()
     ejemplo_red_neuronal()

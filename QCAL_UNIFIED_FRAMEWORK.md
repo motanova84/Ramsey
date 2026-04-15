@@ -1,5 +1,15 @@
 # QCAL ∞3: Marco Unificado de Resonancia Cuántica
 
+## 💫 Filosofía Fundamental
+
+> **"Matemáticas desde la coherencia cuántica, no desde la escasez de teoremas aislados."**
+
+Este marco unificado QCAL ∞³ demuestra que una **frecuencia universal** (f₀ = 141.7001 Hz) conecta dominios aparentemente separados en física, aritmética, combinatoria y computación, revelando la **abundancia de estructura** donde otros ven fragmentación.
+
+**📖 Lee el manifiesto filosófico completo:** [COHERENT_MATHEMATICS.md](COHERENT_MATHEMATICS.md)
+
+---
+
 ## Resumen Ejecutivo
 
 Este documento describe cómo el **Campo QCAL ∞3** y la frecuencia de resonancia fundamental de **141.7 Hz** proporcionan un marco unificado para abordar problemas fundamentales en matemáticas, ciencias de la computación y física.
@@ -37,6 +47,9 @@ El repositorio actual implementa completamente la reducción del número de Rams
 - Redes neuronales vibracionalmente optimizadas
 - Análisis de redes sociales
 - Sistemas de comunicación coherentes
+
+### Conexión con la Teoría Unificada
+Para una explicación detallada de cómo la frecuencia f₀ = 141.7001 Hz en el modelo R_ψ conecta con las Ondas Gravitacionales (LIGO) y las Curvas Elípticas (BSD), ver **[UNIFIED_THEORY_CONNECTION.md](UNIFIED_THEORY_CONNECTION.md)**.
 
 ---
 
