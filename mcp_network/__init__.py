@@ -3,7 +3,6 @@
 from .resonance import (
     F0_REFERENCE,
     NODE_CATALOG,
-    REAL_OBSERVERS,
     register_real_observer,
     clear_real_observers,
     score_psi,
@@ -15,7 +14,6 @@ from .resonance import (
 __all__ = [
     "F0_REFERENCE",
     "NODE_CATALOG",
-    "REAL_OBSERVERS",
     "register_real_observer",
     "clear_real_observers",
     "score_psi",

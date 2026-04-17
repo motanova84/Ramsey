@@ -92,11 +92,17 @@ def _parse_frequency_samples(path: str) -> List[float]:
 def load_real_grid_sample(
     path: Optional[str] = None,
     nominal_latency_ms: float = 20.0,
+    sample_rate_hz: float = 1.0,
 ) -> Tuple[float, float, bool, bool]:
     """
     Load a real/snapshot grid-frequency series and map it to resonance inputs.
 
-    Returns: (latency_ms, phase_offset_rad, heartbeat_ok, schema_ok)
+    Returns: (latency_ms, phase_offset_rad, heartbeat_ok, schema_ok).
+
+    Note:
+        `sample_rate_hz` defaults to 1.0 (one sample per second), which is
+        common for public grid snapshots. Override it for higher/lower-rate
+        acquisition streams.
     """
     source = path or os.getenv(
         "QCAL_GRID_SAMPLE_PATH", "/tmp/grid_frequency_2026-04-15T14_55Z.csv"
@@ -109,7 +115,8 @@ def load_real_grid_sample(
         return 12.4, 0.018, False, False
 
     delta_f = (sum(samples) / len(samples)) - 50.0
-    window_seconds = float(len(samples))  # assumes 1 Hz sampling windows
+    effective_rate = sample_rate_hz if sample_rate_hz > 0 else 1.0
+    window_seconds = float(len(samples)) / effective_rate
     phase_offset = 2.0 * math.pi * delta_f * window_seconds
     return nominal_latency_ms, phase_offset, True, True
 

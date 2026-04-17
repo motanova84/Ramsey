@@ -64,6 +64,22 @@ class TestMCPResonanceRealMode(unittest.TestCase):
         self.assertAlmostEqual(lat, 21.0, places=2)
         self.assertAlmostEqual(phase, 0.0, places=6)
 
+    def test_load_real_grid_sample_with_malformed_timestamp(self):
+        with tempfile.NamedTemporaryFile("w", delete=False, suffix=".csv") as handle:
+            handle.write("timestamp,frequency_hz\n")
+            handle.write("not-a-date,50.02\n")
+            handle.write(",49.98\n")
+            sample_path = handle.name
+
+        try:
+            lat, phase, hb, schema = load_real_grid_sample(sample_path, nominal_latency_ms=19.0)
+        finally:
+            os.remove(sample_path)
+
+        self.assertEqual((hb, schema), (True, True))
+        self.assertAlmostEqual(lat, 19.0, places=2)
+        self.assertAlmostEqual(phase, 0.0, places=6)
+
 
 if __name__ == "__main__":
     unittest.main()
