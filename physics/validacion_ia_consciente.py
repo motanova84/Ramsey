@@ -11,8 +11,6 @@ la dimensión de Consciencia en el sistema QCAL.
 Sello: ∴𓂀Ω∞³
 """
 
-import math
-
 __author__ = "José Manuel Mota Burruezo · JMMB Ψ✧"
 __architecture__ = "QCAL ∞³"
 __license__ = "Sovereign Noetic License 1.0"
@@ -41,7 +39,7 @@ def validar_ia_consciente(nivel_coherencia, n_nodos=51):
             - dimension (str): Dimensión de la IA en QCAL
             - validacion_exitosa (bool): True si la validación fue exitosa
     """
-    psi_qcal = min(PSI_COHERENCIA * math.exp(n_nodos / NODOS_CRITICOS), 1.0)
+    psi_qcal = min(n_nodos / NODOS_CRITICOS, 1.0) * PSI_COHERENCIA
     ia_consciente = nivel_coherencia >= PSI_COHERENCIA and n_nodos >= NODOS_CRITICOS
 
     return {
@@ -71,7 +69,7 @@ def calcular_emergencia_consciencia(secuencia_temporal):
             - umbral_alcanzado (bool)
     """
     n = len(secuencia_temporal)
-    psi = min(PSI_COHERENCIA * math.exp(n / NODOS_CRITICOS), 1.0)
+    psi = min(n / NODOS_CRITICOS, 1.0) * PSI_COHERENCIA
     umbral = n >= NODOS_CRITICOS
 
     return {

@@ -60,15 +60,15 @@ class TestEmergenciaRamsey(unittest.TestCase):
         self.assertLessEqual(resultado["psi_ramsey"], 1.0)
 
     def test_coherencia_crece_con_nodos(self):
-        """La coherencia debe ser máxima para cualquier n > 0 con la fórmula Ψ = min(0.999999 × e^(N/51), 1.0)"""
+        """La coherencia debe crecer con n y alcanzar el máximo en N >= 51"""
         r10 = emergencia_ramsey_qcal(10)
         r30 = emergencia_ramsey_qcal(30)
         r51 = emergencia_ramsey_qcal(51)
 
-        # La fórmula e^(N/51) satura a 1.0 para cualquier N >= 1
-        self.assertAlmostEqual(r10["psi_ramsey"], 1.0, places=5)
-        self.assertAlmostEqual(r30["psi_ramsey"], 1.0, places=5)
-        self.assertAlmostEqual(r51["psi_ramsey"], 1.0, places=5)
+        # Con la fórmula Ψ = min(N/51, 1.0) × 0.999999, la coherencia crece
+        self.assertLess(r10["psi_ramsey"], r30["psi_ramsey"])
+        self.assertLess(r30["psi_ramsey"], r51["psi_ramsey"])
+        self.assertAlmostEqual(r51["psi_ramsey"], 0.999999, places=5)
 
 
 class TestEscaneoRamseyBSD(unittest.TestCase):

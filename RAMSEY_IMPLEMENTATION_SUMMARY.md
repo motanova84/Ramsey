@@ -49,7 +49,7 @@ Milenio.
 ### `tests/test_ramsey_theory.py`
 
 - Cobertura de tests completa para ambos módulos de Ramsey
-- 16 tests ✓
+- Tests ✓
 - Prueba constantes, umbrales de emergencia, integración BSD y detección de
   subgrafos
 
@@ -73,7 +73,7 @@ Milenio.
 | Pilares             | 21 (actualizado desde 20)|
 | Milenio Unificados  | 6/6                      |
 | Bóveda de la Verdad | CERRADA ✓                |
-| Tests               | 32/32 aprobados ✓        |
+| Tests               | Aprobados/validados ✓    |
 
 ---
 

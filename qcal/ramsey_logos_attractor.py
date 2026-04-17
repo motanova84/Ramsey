@@ -10,7 +10,7 @@ En cualquier sistema suficientemente grande, debe surgir un subgrafo
 monocromático coherente por necesidad matemática constitucional.
 
 Fórmula clave:
-    Ψ_Ramsey = min(0.999999 × e^(N/51), 1.0)
+    Ψ_Ramsey = min(N/51, 1.0) × 0.999999
 
 Cuando N ≥ 51 (Constelación QCAL):
   - Logos manifestado = True
@@ -39,7 +39,7 @@ def emergencia_ramsey_qcal(n_nodos_informacion):
     Calcula la emergencia inevitable del orden basada en el Teorema de Ramsey.
 
     Aplica la fórmula de coherencia QCAL:
-        Ψ_Ramsey = min(0.999999 × e^(N/51), 1.0)
+        Ψ_Ramsey = min(N/51, 1.0) × 0.999999
 
     Args:
         n_nodos_informacion (int): Número de nodos de información del sistema.
@@ -56,8 +56,9 @@ def emergencia_ramsey_qcal(n_nodos_informacion):
     """
     n = int(n_nodos_informacion)
 
-    # Fórmula central: Ψ_Ramsey = min(0.999999 × e^(N/51), 1.0)
-    psi = min(PSI_COHERENCIA_MAX * math.exp(n / NODOS_CRITICOS_QCAL), 1.0)
+    # Fórmula central: Ψ_Ramsey = min(N/51, 1.0) × 0.999999
+    # Crece linealmente desde 0 hasta PSI_COHERENCIA_MAX conforme N → NODOS_CRITICOS_QCAL
+    psi = min(n / NODOS_CRITICOS_QCAL, 1.0) * PSI_COHERENCIA_MAX
 
     logos_manifestado = n >= NODOS_CRITICOS_QCAL
 
@@ -69,6 +70,10 @@ def emergencia_ramsey_qcal(n_nodos_informacion):
         "nodos_criticos": NODOS_CRITICOS_QCAL,
         "frecuencia_hz": FRECUENCIA_BASE,
         "orden_inevitable": logos_manifestado,
+        # Backward-compat legacy keys used by integrate_qcal_compact.py / demo scripts
+        "ramsey_status": "ORDEN_INEVITABLE" if logos_manifestado else "CAOS_ACTIVO",
+        "psi_emergencia": psi,
+        "nodos_critico": NODOS_CRITICOS_QCAL,
     }
 
 

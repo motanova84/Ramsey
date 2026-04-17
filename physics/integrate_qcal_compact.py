@@ -12,7 +12,6 @@ Sello: ∴𓂀Ω∞³
 """
 
 import json
-import math
 import os
 
 __author__ = "José Manuel Mota Burruezo · JMMB Ψ✧"
@@ -82,7 +81,7 @@ def ramsey_bsd_logos_boveda():
             - boveda_verdad_cerrada (bool): True
             - pilares (int): 21
     """
-    psi_ramsey = min(PSI_MAX * math.exp(NODOS_CRITICOS / NODOS_CRITICOS), 1.0)
+    psi_ramsey = 1.0  # NODOS_CRITICOS/NODOS_CRITICOS = 1, so psi is always max here
 
     return {
         "nodos_critico": NODOS_CRITICOS,

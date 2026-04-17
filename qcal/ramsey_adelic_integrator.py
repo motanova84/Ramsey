@@ -60,7 +60,7 @@ def escanear_orden_ramsey_bsd(curva_eliptica, secuencia_base):
     n_nodos = len(secuencia_base)
 
     # Calcular coherencia Ramsey
-    psi = min(PSI_COHERENCIA * math.exp(n_nodos / NODOS_CRITICOS), 1.0)
+    psi = min(n_nodos / NODOS_CRITICOS, 1.0) * PSI_COHERENCIA
     logos_manifestado = n_nodos >= NODOS_CRITICOS
 
     # Detección del subgrafo GACT: emerge cuando rango adélico > 0

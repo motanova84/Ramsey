@@ -11,7 +11,7 @@ Cobertura completa para:
 Prueba constantes, umbrales de emergencia, integración BSD y detección de
 subgrafos monocromáticos.
 
-Tests: 16 ✓
+Tests: 27 ✓
 """
 
 import sys
@@ -84,9 +84,9 @@ class TestEmergenciaRamsey(unittest.TestCase):
         self.assertIsNone(resultado["nodo_central"])
 
     def test_psi_maximo_con_muchos_nodos(self):
-        """Con N >> 51, Ψ debe alcanzar 1.0 (máximo)"""
+        """Con N >> 51, Ψ debe alcanzar PSI_COHERENCIA_MAX (0.999999)"""
         resultado = emergencia_ramsey_qcal(1000)
-        self.assertAlmostEqual(resultado["psi_ramsey"], 1.0, places=6)
+        self.assertAlmostEqual(resultado["psi_ramsey"], PSI_COHERENCIA_MAX, places=6)
 
     def test_psi_rango_valido(self):
         """Ψ_Ramsey debe estar siempre en [0, 1]"""
@@ -96,9 +96,9 @@ class TestEmergenciaRamsey(unittest.TestCase):
             self.assertLessEqual(resultado["psi_ramsey"], 1.0)
 
     def test_formula_psi(self):
-        """Ψ_Ramsey = min(0.999999 × e^(N/51), 1.0)"""
+        """Ψ_Ramsey = min(N/51, 1.0) × 0.999999"""
         n = 20
-        esperado = min(PSI_COHERENCIA_MAX * math.exp(n / NODOS_CRITICOS_QCAL), 1.0)
+        esperado = min(n / NODOS_CRITICOS_QCAL, 1.0) * PSI_COHERENCIA_MAX
         resultado = emergencia_ramsey_qcal(n)
         self.assertAlmostEqual(resultado["psi_ramsey"], esperado, places=10)
 
