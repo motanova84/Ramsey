@@ -50,7 +50,7 @@ DENSITY_TARGET = 0.18       # ~18% densidad de grafo
 class PerturbationConfig:
     """Configuración de perturbaciones externas."""
     eta: float = 0.0      # η: amplitud de ruido
-    delta_zeta: float = 0.0  # δζ: desplazamiento frecuencial
+    delta_zeta: float = 0.052463  # δζ: desplazamiento frecuencial (θ ≈ 0.052463 rad, medición epistemológica)
     apply_to_modes: bool = True
     apply_to_spectrum: bool = True
 
