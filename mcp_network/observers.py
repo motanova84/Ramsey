@@ -17,7 +17,7 @@ Environment overrides:
 from __future__ import annotations
 
 import os
-from typing import Tuple
+from typing import Dict, Tuple
 
 from .resonance import (
     REAL_OBSERVERS,
@@ -29,7 +29,7 @@ from .resonance import (
 # Simulation defaults per node (high-coherence values)
 # ---------------------------------------------------------------------------
 
-_SIM_DEFAULTS: dict[str, Tuple[float, float, bool, bool]] = {
+_SIM_DEFAULTS: Dict[str, Tuple[float, float, bool, bool]] = {
     "auron-governor":            (12.4, 0.018, True, True),
     "141-hz":                    (8.7,  0.003, True, True),
     "interferometro-noesico":    (10.1, 0.005, True, True),

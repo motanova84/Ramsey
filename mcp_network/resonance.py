@@ -104,10 +104,8 @@ def load_real_grid_sample(
         common for public grid snapshots. Override it for higher/lower-rate
         acquisition streams.
     """
-    source = path or os.getenv(
-        "QCAL_GRID_SAMPLE_PATH", "/tmp/grid_frequency_2026-04-15T14_55Z.csv"
-    )
-    if not os.path.exists(source):
+    source = path or os.getenv("QCAL_GRID_SAMPLE_PATH", "")
+    if not source or not os.path.exists(source):
         return 12.4, 0.018, True, True
 
     samples = _parse_frequency_samples(source)

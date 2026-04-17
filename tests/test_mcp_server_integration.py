@@ -79,13 +79,27 @@ class TestMCPServerIntegration(unittest.TestCase):
     def test_result_contains_required_fields(self) -> None:
         resp = self._rpc("network.checkResonance", {"node": "auron-governor"})
         result = resp["result"]
-        for field in ("node", "status", "psi", "resonance", "frequency_hz", "latency_ms",
-                      "qcal", "checks"):
+        required = [
+            "node",
+            "status",
+            "psi",
+            "resonance",
+            "frequency_hz",
+            "latency_ms",
+            "qcal",
+            "checks",
+        ]
+        for field in required:
             self.assertIn(field, result, msg=f"Missing field: {field}")
 
     def test_psi_in_valid_range(self) -> None:
-        for node in ("auron-governor", "141-hz", "interferometro-noesico",
-                     "biologia-cuantica-noesica"):
+        nodes = [
+            "auron-governor",
+            "141-hz",
+            "interferometro-noesico",
+            "biologia-cuantica-noesica",
+        ]
+        for node in nodes:
             with self.subTest(node=node):
                 resp = self._rpc("network.checkResonance", {"node": node})
                 psi = resp["result"]["psi"]

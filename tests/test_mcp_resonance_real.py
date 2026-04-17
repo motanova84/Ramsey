@@ -42,7 +42,12 @@ class TestMCPResonanceRealMode(unittest.TestCase):
         self.assertAlmostEqual(result["latency_ms"], 12.4, places=2)
 
     def test_load_real_grid_sample_fallback_when_missing(self):
-        lat, phase, hb, schema = load_real_grid_sample("/tmp/not_existing_grid_sample.csv")
+        # Use a guaranteed-nonexistent path instead of a predictable /tmp name.
+        import uuid
+        missing_path = os.path.join(
+            tempfile.gettempdir(), f"qcal_test_missing_{uuid.uuid4().hex}.csv"
+        )
+        lat, phase, hb, schema = load_real_grid_sample(missing_path)
         self.assertEqual((hb, schema), (True, True))
         self.assertAlmostEqual(lat, 12.4, places=2)
         self.assertAlmostEqual(phase, 0.018, places=6)

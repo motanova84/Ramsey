@@ -19,8 +19,15 @@ from __future__ import annotations
 import os
 from datetime import datetime
 from typing import Optional
+from urllib.parse import urlparse
 
 import streamlit as st
+
+try:
+    import pandas as pd  # type: ignore[import]
+    _PANDAS_AVAILABLE = True
+except ImportError:
+    _PANDAS_AVAILABLE = False
 
 import mcp_network.resonance as qcal_resonance
 
@@ -80,13 +87,37 @@ _NODES = [
 ]
 
 
+_ALLOWED_HOSTS = {"127.0.0.1", "localhost"}
+
+
 def _get_resonance_via_mcp(node: str, url: str) -> Optional[dict]:
-    """Try a JSON-RPC call to the MCP test server."""
+    """Try a JSON-RPC call to the MCP test server (loopback only).
+
+    The URL is validated and reconstructed from its parsed parts so that
+    user-supplied input never flows directly to the HTTP request.
+    """
+    try:
+        parsed = urlparse(url)
+    except Exception:
+        return None
+
+    if parsed.hostname not in _ALLOWED_HOSTS or parsed.scheme not in {"http", "https"}:
+        return None
+
+    # Reconstruct the URL from trusted parsed parts to prevent SSRF.
+    _STANDARD_PORTS = {80, 443}
+    port_part = (
+        f":{parsed.port}"
+        if parsed.port and parsed.port not in _STANDARD_PORTS
+        else ""
+    )
+    safe_url = f"{parsed.scheme}://{parsed.hostname}{port_part}{parsed.path or '/jsonrpc'}"
+
     try:
         import requests  # type: ignore[import]
 
         resp = requests.post(
-            url,
+            safe_url,
             json={
                 "jsonrpc": "2.0",
                 "id": 1,
@@ -158,10 +189,11 @@ for node in _NODES:
     st.session_state["psi_history"][node] = st.session_state["psi_history"][node][-60:]
 
 st.subheader("Evolución temporal de Ψ (últimas 60 lecturas)")
-import pandas as pd  # noqa: E402 — import kept local to avoid hard dep at module level
-
-df = pd.DataFrame(st.session_state["psi_history"])
-st.line_chart(df, use_container_width=True)
+if _PANDAS_AVAILABLE:
+    df = pd.DataFrame(st.session_state["psi_history"])
+    st.line_chart(df, use_container_width=True)
+else:
+    st.info("Instala pandas (`pip install pandas`) para ver el gráfico de evolución de Ψ.")
 
 # ---------------------------------------------------------------------------
 # Footer
