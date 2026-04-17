@@ -59,9 +59,10 @@ class TestAtlas3Field(unittest.TestCase):
         self.assertLess(strength_far, strength_near)
         
     def test_spectrum_stabilization_no_perturbation(self):
-        """Test spectrum remains unchanged without perturbation"""
+        """Test spectrum stabilization with dogmatic baseline (θ=0)"""
         field = Atlas3Field()
         eigenvalues = np.array([1.0, 2.0, 3.0, 4.0])
+        # Dogmatic case: θ=0 (no frequency shift)
         pert = PerturbationConfig(eta=0.0, delta_zeta=0.0)
         
         stabilized = field.stabilize_spectrum(eigenvalues, pert)
@@ -108,10 +109,11 @@ class TestMultiScaleConvergenceAnalyzer(unittest.TestCase):
         self.assertEqual(len(analyzer.convergence_history), 0)
         
     def test_c_est_computation_no_perturbation(self):
-        """Test C_est computation without perturbation"""
+        """Test C_est computation with epistemological baseline (default θ≈0.052463)"""
         analyzer = MultiScaleConvergenceAnalyzer()
         n_modes = 100
         
+        # Uses default PerturbationConfig with θ≈0.052463 rad
         c_est, density = analyzer.compute_c_est(n_modes)
         
         # C_est should be near κ_Π
@@ -169,8 +171,9 @@ class TestMultiScaleConvergenceAnalyzer(unittest.TestCase):
         self.assertGreater(coherent_count, 0)
         
     def test_symbiotic_coherence_baseline(self):
-        """Test symbiotic coherence with baseline (no perturbation)"""
+        """Test symbiotic coherence with dogmatic baseline (θ=0)"""
         analyzer = MultiScaleConvergenceAnalyzer()
+        # Dogmatic case: θ=0
         perturbations = [PerturbationConfig(eta=0.0, delta_zeta=0.0)]
         
         report = analyzer.test_symbiotic_coherence(perturbations, n_modes=100)
@@ -205,10 +208,10 @@ class TestPerturbationConfig(unittest.TestCase):
     """Test perturbation configuration"""
     
     def test_default_config(self):
-        """Test default perturbation config"""
+        """Test default perturbation config (epistemological baseline)"""
         config = PerturbationConfig()
         self.assertEqual(config.eta, 0.0)
-        self.assertEqual(config.delta_zeta, 0.0)
+        self.assertEqual(config.delta_zeta, 0.052463)  # θ ≈ 0.052463 rad (medición epistemológica)
         self.assertTrue(config.apply_to_modes)
         self.assertTrue(config.apply_to_spectrum)
         
