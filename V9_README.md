@@ -59,14 +59,20 @@ Prueba robustez con **η** (ruido) y **δζ** (desplazamiento frecuencial):
 ```python
 from symbiotic_coherence_v9 import PerturbationConfig
 
-# Ruido moderado
-noise = PerturbationConfig(eta=0.05, delta_zeta=0.0)
+# Baseline epistemológico (θ ≈ 0.052463 rad, medición por defecto)
+baseline = PerturbationConfig()  # delta_zeta=0.052463 por defecto
 
-# Desplazamiento frecuencial
-shift = PerturbationConfig(eta=0.0, delta_zeta=0.05)
+# Sin perturbación (caso dogmático θ=0)
+dogmatic = PerturbationConfig(eta=0.0, delta_zeta=0.0)
+
+# Ruido moderado con baseline epistemológico
+noise = PerturbationConfig(eta=0.05)
+
+# Desplazamiento frecuencial adicional
+shift = PerturbationConfig(eta=0.0, delta_zeta=0.10)
 
 # Combinado
-combined = PerturbationConfig(eta=0.05, delta_zeta=0.05)
+combined = PerturbationConfig(eta=0.05, delta_zeta=0.10)
 ```
 
 ### 3️⃣ Convergencia Multiescala

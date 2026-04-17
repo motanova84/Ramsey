@@ -73,17 +73,20 @@ Configures external perturbations for robustness testing.
 ```python
 from symbiotic_coherence_v9 import PerturbationConfig
 
-# No perturbation (baseline)
-baseline = PerturbationConfig(eta=0.0, delta_zeta=0.0)
+# Epistemological baseline (θ ≈ 0.052463 rad, measurement default)
+baseline = PerturbationConfig()  # delta_zeta=0.052463 by default
 
-# Moderate noise
-noise = PerturbationConfig(eta=0.05, delta_zeta=0.0)
+# Dogmatic case (θ=0, no frequency shift)
+dogmatic = PerturbationConfig(eta=0.0, delta_zeta=0.0)
 
-# Frequency shift
-shift = PerturbationConfig(eta=0.0, delta_zeta=0.05)
+# Moderate noise with epistemological baseline
+noise = PerturbationConfig(eta=0.05)
+
+# Additional frequency shift
+shift = PerturbationConfig(eta=0.0, delta_zeta=0.10)
 
 # Combined perturbation
-combined = PerturbationConfig(eta=0.05, delta_zeta=0.05)
+combined = PerturbationConfig(eta=0.05, delta_zeta=0.10)
 ```
 
 ### 3. Multi-Scale Convergence Analyzer (`MultiScaleConvergenceAnalyzer`)
