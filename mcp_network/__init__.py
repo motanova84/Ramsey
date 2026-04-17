@@ -10,6 +10,7 @@ from .resonance import (
     load_real_grid_sample,
     check_node_resonance,
 )
+from . import observers  # noqa: F401 — triggers auto-registration of default observers
 
 __all__ = [
     "F0_REFERENCE",
@@ -20,4 +21,5 @@ __all__ = [
     "classify_resonance",
     "load_real_grid_sample",
     "check_node_resonance",
+    "observers",
 ]
