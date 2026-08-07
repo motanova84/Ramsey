@@ -33,43 +33,42 @@ class TestEmergenciaRamsey(unittest.TestCase):
     def test_orden_inevitable_con_60_nodos(self):
         """60 nodos (>51) debe manifestar orden inevitable"""
         resultado = emergencia_ramsey_qcal(60)
-        
-        self.assertEqual(resultado["ramsey_status"], "ORDEN_INEVITABLE")
+
         self.assertTrue(resultado["logos_manifestado"])
-        self.assertEqual(resultado["nodos_critico"], NODOS_LOGOS)
-        self.assertGreater(resultado["psi_emergencia"], 0.99)
-    
+        self.assertEqual(resultado["nodos_criticos"], NODOS_LOGOS)
+        self.assertAlmostEqual(resultado["psi_ramsey"], 1.0, places=5)
+        self.assertTrue(resultado["orden_inevitable"])
+
     def test_caos_transitorio_con_30_nodos(self):
-        """30 nodos (<51) debe estar en caos transitorio"""
+        """30 nodos (<51) debe estar antes del umbral"""
         resultado = emergencia_ramsey_qcal(30)
-        
-        self.assertEqual(resultado["ramsey_status"], "CAOS_TRANSITORIO")
+
         self.assertFalse(resultado["logos_manifestado"])
-        self.assertEqual(resultado["nodos_critico"], NODOS_LOGOS)
-    
+        self.assertEqual(resultado["nodos_criticos"], NODOS_LOGOS)
+
     def test_umbral_exacto_51_nodos(self):
         """51 nodos exactos debe manifestar orden"""
         resultado = emergencia_ramsey_qcal(51)
-        
-        self.assertEqual(resultado["ramsey_status"], "ORDEN_INEVITABLE")
+
         self.assertTrue(resultado["logos_manifestado"])
-    
+        self.assertEqual(resultado["nodo_central"], "GACT")
+
     def test_psi_limitado_a_uno(self):
-        """Psi_emergencia no debe exceder 1.0"""
+        """psi_ramsey no debe exceder 1.0"""
         resultado = emergencia_ramsey_qcal(1000)
-        
-        self.assertLessEqual(resultado["psi_emergencia"], 1.0)
-    
+
+        self.assertLessEqual(resultado["psi_ramsey"], 1.0)
+
     def test_coherencia_crece_con_nodos(self):
-        """La coherencia debe crecer con el número de nodos"""
+        """La coherencia debe crecer con n y alcanzar el máximo en N >= 51"""
         r10 = emergencia_ramsey_qcal(10)
         r30 = emergencia_ramsey_qcal(30)
         r51 = emergencia_ramsey_qcal(51)
-        
-        # Para valores más bajos, la coherencia debe crecer
-        self.assertLess(r10["psi_emergencia"], r30["psi_emergencia"])
-        # r30 y r51 pueden estar cerca o en el límite de 1.0
-        self.assertLessEqual(r30["psi_emergencia"], r51["psi_emergencia"])
+
+        # Con la fórmula Ψ = min(N/51, 1.0) × 0.999999, la coherencia crece
+        self.assertLess(r10["psi_ramsey"], r30["psi_ramsey"])
+        self.assertLess(r30["psi_ramsey"], r51["psi_ramsey"])
+        self.assertAlmostEqual(r51["psi_ramsey"], 0.999999, places=5)
 
 
 class TestEscaneoRamseyBSD(unittest.TestCase):
