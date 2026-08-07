@@ -9,8 +9,8 @@ noncomputable def alpha : ℝ := 0.1
 noncomputable def beta : ℝ := -1e-6
 noncomputable def gamma : ℝ := 0.05
 
-def k15Nodes : ℕ := 13
-def k15NeighborCount : ℝ := ((k15Nodes - 1 : ℕ) : ℝ)
+def k15ActiveNodes : ℕ := 13
+def k15NeighborCount : ℝ := ((k15ActiveNodes - 1 : ℕ) : ℝ)
 
 inductive K15Node : Type
   | N1  : K15Node  | N2  : K15Node  | N3  : K15Node  | N4  : K15Node
@@ -21,7 +21,7 @@ inductive K15Node : Type
 
 def allNodes : Finset K15Node := Finset.univ
 
-theorem k15Has13Nodes : Finset.card allNodes = k15Nodes := by
+theorem k15Has13Nodes : Finset.card allNodes = k15ActiveNodes := by
   native_decide
 
 structure K15NodeState where
@@ -39,7 +39,7 @@ structure K15Topology where
 
 def k15Coherence (top : K15Topology) : ℝ :=
   let total := ∑ node in allNodes, (top.nodes node).coherence
-  total / (k15Nodes : ℝ)
+  total / (k15ActiveNodes : ℝ)
 
 def k15GlobalCoherence (top : K15Topology) : Prop :=
   k15Coherence top ≥ psiThreshold
@@ -122,10 +122,10 @@ lemma k15InitialCouplingZero (top : K15Topology)
 
 theorem k15InitialCoherence : k15GlobalCoherence k15InitialState := by
   dsimp [k15GlobalCoherence, k15Coherence]
-  have h_sum : (∑ node in allNodes, (k15InitialState.nodes node).coherence) = (k15Nodes : ℝ) := by
-    simp [allNodes, k15InitialState, k15Nodes]
+  have h_sum : (∑ node in allNodes, (k15InitialState.nodes node).coherence) = (k15ActiveNodes : ℝ) := by
+    simp [allNodes, k15InitialState, k15ActiveNodes]
   rw [h_sum]
-  field_simp [k15Nodes]
+  field_simp [k15ActiveNodes]
   norm_num [psiThreshold]
 
 lemma evolveN_initial_nodes_one (dt : ℝ) :
@@ -163,12 +163,12 @@ theorem k15CoherencePreservation (dt : ℝ) (h_dt : 0 ≤ dt) :
     intro node
     have h0 := evolveN_initial_nodes_one dt 1 node
     simpa [evolveN] using h0
-  have h_sum : (∑ node in allNodes, (k15Evolution k15InitialState dt).nodes node |>.coherence) = (k15Nodes : ℝ) := by
+  have h_sum : (∑ node in allNodes, (k15Evolution k15InitialState dt).nodes node |>.coherence) = (k15ActiveNodes : ℝ) := by
     apply Finset.sum_eq_card_nsmul
     intro node hnode
     simpa using h_nodes node
   rw [h_sum]
-  field_simp [k15Nodes]
+  field_simp [k15ActiveNodes]
   norm_num [psiThreshold]
 
 theorem k15PerpetualCoherence (dt : ℝ) (h_dt : 0 ≤ dt) (n : ℕ) :
@@ -176,12 +176,12 @@ theorem k15PerpetualCoherence (dt : ℝ) (h_dt : 0 ≤ dt) (n : ℕ) :
   dsimp [k15GlobalCoherence, k15Coherence]
   have h_nodes : ∀ node, ((evolveN k15InitialState dt n).nodes node).coherence = 1 :=
     evolveN_initial_nodes_one dt n
-  have h_sum : (∑ node in allNodes, ((evolveN k15InitialState dt n).nodes node).coherence) = (k15Nodes : ℝ) := by
+  have h_sum : (∑ node in allNodes, ((evolveN k15InitialState dt n).nodes node).coherence) = (k15ActiveNodes : ℝ) := by
     apply Finset.sum_eq_card_nsmul
     intro node hnode
     simpa using h_nodes node
   rw [h_sum]
-  field_simp [k15Nodes]
+  field_simp [k15ActiveNodes]
   norm_num [psiThreshold]
 
 end NOESIS.K15
