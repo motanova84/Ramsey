@@ -19,6 +19,8 @@ import Ramsey.HamiltonianOperator
 import Ramsey.SATVerification
 import Ramsey.CertifiedVibrationalTheorem
 import Ramsey.Ramsey
+import Ramsey.K15Complete
+import Ramsey.K17Operational
 
 open Ramsey
 
