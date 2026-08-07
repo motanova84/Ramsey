@@ -67,11 +67,20 @@ structure RealVec3 where
 noncomputable def resonanceVector : RealVec3 :=
   ⟨(vTruth.x : ℝ) * f0, (vTruth.y : ℝ) * f0, (vTruth.z : ℝ) * f0⟩
 
-theorem resonanceVector_exact :
-    resonanceVector = ⟨4251.003, 5668.004, 7085.005⟩ := by
+theorem resonanceVector_formula :
+    resonanceVector = ⟨(30 : ℝ) * f0, (40 : ℝ) * f0, (50 : ℝ) * f0⟩ := by
+  simp [resonanceVector, v1_cross_v2]
+
+theorem resonanceVector_exact_x : resonanceVector.x = 4251.003 := by
   norm_num [resonanceVector, v1_cross_v2, f0]
 
-/-- K₁₇ operacional en esta fase: 15 nodos sincronizados activos. -/
+theorem resonanceVector_exact_y : resonanceVector.y = 5668.004 := by
+  norm_num [resonanceVector, v1_cross_v2, f0]
+
+theorem resonanceVector_exact_z : resonanceVector.z = 7085.005 := by
+  norm_num [resonanceVector, v1_cross_v2, f0]
+
+/-- K₁₇ operational phase: 15 synchronized active nodes. -/
 inductive K17Node : Type
   | N1 | N2 | N3 | N4 | N5 | N6 | N7 | N8
   | N9 | N10 | N11 | N12 | N13 | N14 | N15
