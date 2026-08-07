@@ -97,7 +97,7 @@ def k15InitialState : K15Topology :=
       stabilityCount := minStability
       isActive := true }
   { nodes := nodes
-    edges := allNodes.product allNodes
+    edges := (allNodes.product allNodes).filter (fun e => e.1 ≠ e.2)
     edgeWeight := fun _ => 0 }
 
 lemma k15InitialNodeCoherenceOne (node : K15Node) :
